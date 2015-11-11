@@ -1,15 +1,23 @@
 package org.harley.reman.clases;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement (name = "libroEsp" )
-@XmlType(propOrder={"titulo", "intro", "esp"})
+@XmlType(propOrder={
+    "titulo", 
+    "intro", 
+    "especificacion"
+})
+
 public class LibroEspecificacion {
     String titulo;
     String intro;
-    Especificacion esp;
+    List<Especificacion> especificaciones;
     
     public String getTitulo() {
         return titulo;
@@ -28,14 +36,20 @@ public class LibroEspecificacion {
     public void setIntro(String intro) {
         this.intro = intro;
     }
-
-    public Especificacion getEsp() {
-        return esp;
+    
+    public List<Especificacion> getEspecificaciones() {
+        return especificaciones;
     }
-
-    @XmlElement (name = "especificacionReq" )
-    public void setEsp(Especificacion esp) {
-        this.esp = esp;
+    @XmlElementWrapper(name = "especificaciones")
+    @XmlElement(name = "especificacion")
+    public void setEspecificaciones(List<Especificacion> especificaciones) {
+        this.especificaciones = especificaciones;
     }
     
+    public void addEspecificacion(Especificacion esp){
+        if( this.especificaciones == null ){
+            this.especificaciones = new ArrayList<>();
+        }
+        this.especificaciones.add(esp);
+    }
 }
