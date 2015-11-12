@@ -49,7 +49,7 @@
   </fo:block>
 </xsl:template>
 
-<xsl:template match="educcionReq">                     
+<xsl:template match="educciones">                     
     <fo:table table-layout="fixed" width="375pt" border-width="1mm"
                 border-style="ridge">
         <fo:table-column column-number="1"  column-width="80pt" />
@@ -67,31 +67,31 @@
             &#160;
     </fo:block>
 </xsl:template>
-<xsl:template match="requisito">
-   <fo:table-row>
-      <xsl:apply-templates/>
-   </fo:table-row>
+<xsl:template match="educcion">
+    <xsl:apply-templates/>
 </xsl:template>
 <xsl:template match="eduNombre">
+    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
-           <xsl:apply-templates/>
+            <xsl:attribute name="id">
+                EDU 
+                <xsl:value-of select="node()" />
+            </xsl:attribute>
         </fo:block>
         </fo:table-cell>
-</xsl:template>
-<xsl:template match="eduDes">
         <fo:table-cell  border-style="solid"
-                        border-width="0.5mm" 
+                        border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
                         number-columns-spanned="6">
-        <fo:block>
+        <fo:block font-weight="bold">
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
+    </fo:table-row>
 </xsl:template>
-
 <xsl:template match="version">
    <fo:table-row>
         <fo:table-cell  border-style="solid"
@@ -182,14 +182,14 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="especialTipo">
+<xsl:template match="especialEspecial">
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
                         number-columns-spanned="3">
         <fo:block font-weight="bold">
-            Tipo
+            Especialidad
         </fo:block>
         </fo:table-cell>
         <fo:table-cell  border-style="solid"
@@ -202,14 +202,14 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="especialEspecial">
+<xsl:template match="especialTipo">
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
                         number-columns-spanned="3">
         <fo:block font-weight="bold">
-            Especialidad
+            Tipo
         </fo:block>
         </fo:table-cell>
         <fo:table-cell  border-style="solid"
@@ -242,22 +242,16 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-
-<xsl:template match="educcion">
-    <fo:table-row>
-       <fo:table-cell   border-style="solid"
+<xsl:template match="educcionTipo">
+   <fo:table-row>
+        <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
-                        padding-left="2mm" padding-top="10mm"
+                        padding-left="2mm" padding-top="16mm" padding-bottom="1.3mm"
                         number-rows-spanned="4">
         <fo:block font-weight="bold">
             Educción
         </fo:block>
         </fo:table-cell>
-    </fo:table-row>   
-        <xsl:apply-templates/>
-</xsl:template>
-<xsl:template match="educcionTipo">
-   <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
@@ -316,8 +310,8 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="educcionNombre">
-   <fo:table-row>
+<xsl:template match="descripcion">
+    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
@@ -326,9 +320,7 @@
             Educción
         </fo:block>
         </fo:table-cell>
-    </fo:table-row>  
-</xsl:template>
-<xsl:template match="descripcion">
+    </fo:table-row> 
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"

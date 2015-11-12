@@ -10,21 +10,46 @@ import org.harley.reman.conversion.XMLReader;
  */
 public class Reman {
 
-    public static LibroActores iniciar(){
-        LibroActores nuevo = new LibroActores();
-        LibroActores.Actores act = new LibroActores.Actores();
+     public static LibroEduccion crearEduccion() {
+        LibroEduccion nuevo = new LibroEduccion();
+        Educcion edu = new Educcion();
+        Version ver = new Version();
         
-        act.setActor("Gonzalo");
+        edu.setId("0001");
+        edu.setEduccionNombre("Nombre del requisito");
+        edu.setActor("Christian");
+        edu.setCargo("Usuario");
+        edu.setEspecialista("Gonzalo Luna");
+        edu.setEspecialEspecial("Ing Requisitos");
+        edu.setEspecialTipo("Programador");
+        edu.setEspecialExp("Experiencia");
+        edu.setEduccionTipo("Primario");
+        edu.setEduccionObj("Objeto del Requisito");
+        edu.setEduccionFecha("23/09/2015");
+        edu.setDescripcion("Descripcion de requerimiento a educcionar");
+        edu.setObservaciones("Observaciones del requisito");
+        
+        ver.setvMax(1);
+        ver.setvMin(2);
+
+        edu.setVersion(ver);
+        
+        nuevo.setTitulo("Libro de Educcion");
+        nuevo.setIntro("Plantilla de Educción de Requisitos");
+        nuevo.addEduccion(edu);
+        return nuevo;
+    }
+    
+    public static LibroActores crearActor(){
+        LibroActores nuevo = new LibroActores();
+        Actor act = new Actor();
+        act.setNombre("Gonzalo");
         act.setOrg("Harley");
         act.setCargo("Jefe de oficina");
         act.setTipo("Desarrollador");
         act.setCorreo("glunaluza@gmail.com");
         act.setComentarios("Comentarios");
-        
-        nuevo.setTitulo("Libro de Actores");
-        nuevo.setIntro("Plantilla de Actores");
-        nuevo.setActores(act);
-        
+        nuevo.addActor(act);
         return nuevo;
     }
     
@@ -43,7 +68,7 @@ public class Reman {
 
         libro.setTitulo("Esp01");
         libro.setIntro("introduccion");
-        libro.setEsp(esp);
+        libro.addEspecificacion(esp);
 
         pas.setPasoNum(1);
         pas.setPasoDes("el sistema");
@@ -65,11 +90,11 @@ public class Reman {
     }
     
     public static void main(String[] args) {
-        String actores = "actores";
-        XMLReader<LibroActores> reader = new XMLReader(LibroActores.class);
-        reader.writeXML(actores, iniciar());
-        
-        LibroActores abierto = reader.openXML(actores);
+        String educcion = "libroEduccion";
+        XMLReader<LibroEduccion> reader = new XMLReader(LibroEduccion.class);
+        reader.writeXML(educcion, crearEduccion());
+       
+        LibroEduccion abierto = reader.openXML(educcion);
         //String educcion = "libroEduccion";
         //String elicitacion = "libroElicitacion";
         /*String actores = "actores";
@@ -79,7 +104,7 @@ public class Reman {
         XMLConverter factory = new XMLConverter();
         //factory.convert(educcion);
         //factory.convert(elicitacion);
-        factory.convert("actores");
+        factory.convert(educcion);
         //factory.convert(actores);
         //factory.convert(proyecto);
         //factory.convert(historico);

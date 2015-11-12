@@ -7,19 +7,20 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "libroActores")
+@XmlRootElement(name = "libroEduccion")
 @XmlType(propOrder = {
     "titulo",
     "intro",
-    "actores"
+    "educciones"
 })
 
-public class LibroActores {
+public class LibroEduccion {
+
     String titulo;
     String intro;
-    List<Actor> actores;
+    List<Educcion> educciones;
 
-     public String getTitulo() {
+    public String getTitulo() {
         return titulo;
     }
     
@@ -37,19 +38,21 @@ public class LibroActores {
         this.intro = intro;
     }
 
-    public List<Actor> getActores() {
-        return actores;
-    }
-    @XmlElementWrapper(name = "actores")
-    @XmlElement(name = "actor")
-    public void setActores(List<Actor> actores) {
-        this.actores = actores;
+    public List<Educcion> getEducciones() {
+        return educciones;
     }
     
-    public void addActor(Actor act){
-        if( this.actores == null ){
-            this.actores = new ArrayList<>();
-        }
-            this.actores.add(act);
+    @XmlElement
+    public void setEducciones(List<Educcion> educciones) {
+        this.educciones = educciones;
     }
+    
+    public void addEduccion(Educcion edu){
+        if( this.educciones == null ){
+            this.educciones = new ArrayList<>();
+        }
+        this.educciones.add(edu);
+    }
+
 }
+

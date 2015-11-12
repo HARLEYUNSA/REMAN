@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder={
     "titulo", 
     "intro", 
-    "especificacion"
+    "especificaciones"
 })
 
 public class LibroEspecificacion {

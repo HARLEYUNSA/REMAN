@@ -8,8 +8,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder={"requisito", "eliNombre", "version", "autor", "fuente", "dependencias",
-                    "descripcion", "precondicion", "postcondicion", "excepciones", "comentarios" })
+@XmlType(propOrder = {
+    "requisito", 
+    "eliNombre", 
+    "version", 
+    "autor", 
+    "fuente", 
+    "dependencias",
+    "descripcion", 
+    "precondicion", 
+    "postcondicion", 
+    "excepciones",
+    "comentarios" 
+})
+
 public class Especificacion {
         Nombre requisito;
 	String eliNombre;
