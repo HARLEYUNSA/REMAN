@@ -29,7 +29,10 @@
 </xsl:template>
 
 <xsl:template match="titulo">
-	<fo:block font-size="20pt" 
+   <fo:block 
+            color = "white"
+            background-color = "rgb(255, 192, 0)"
+            font-size="20pt"
             font-family="sans-serif" 
             line-height="24pt"
             space-after.optimum="15pt"
@@ -38,9 +41,10 @@
         <xsl:value-of select="."/>
   </fo:block>
 </xsl:template>
-
 <xsl:template match="intro">
-	<fo:block font-size="14pt" 
+	<fo:block color = "white"
+            background-color = "rgb(255,192,0)"
+            font-size="14pt" 
             font-family="sans-serif" 
             line-height="15pt"
             space-after.optimum="5pt"
@@ -56,8 +60,7 @@
     </fo:block>
 </xsl:template>
 <xsl:template match="especificacion">
-    <fo:table keep-together.within-page="always" table-layout="fixed" width="375pt" border-width="1mm"
-                border-style="ridge">
+    <fo:table keep-together.within-page="always" table-layout="fixed" width="375pt" border-width="1mm">
         <fo:table-column column-number="1"  column-width="110pt" />
         <fo:table-column column-number="2" column-width="15pt"/>
         <fo:table-column column-number="3" column-width="25pt"/>
@@ -71,7 +74,7 @@
     </fo:block>
 </xsl:template>
 <xsl:template match="especificacionNombre">
-   <fo:table-row>
+   <fo:table-row color = "white" background-color = "rgb(255,192,0)">
       <xsl:apply-templates/>
    </fo:table-row>
 </xsl:template>
@@ -89,14 +92,16 @@
                         border-width="0.5mm" 
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
                         number-columns-spanned="3">
-        <fo:block>
+        <fo:block font-weight="bold">
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
 </xsl:template>
 <xsl:template match="eliNombre">
     <fo:table-row>
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(196, 188, 150)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
@@ -115,7 +120,9 @@
 </xsl:template>
 <xsl:template match="version">
    <fo:table-row>
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(196, 188, 150)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
@@ -147,7 +154,9 @@
 </xsl:template>
 <xsl:template match="autor">
    <fo:table-row>
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(196, 188, 150)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
@@ -166,7 +175,9 @@
 </xsl:template>
 <xsl:template match="fuentes">
    <fo:table-row>
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(196, 188, 150)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
@@ -185,7 +196,9 @@
 </xsl:template>
 <xsl:template match="dependencias">
    <fo:table-row>
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(196, 188, 150)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
@@ -204,17 +217,21 @@
 </xsl:template>
 <xsl:template match="descripcion">
     <fo:table-row>
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(255,192,0)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
                         number-columns-spanned="4">
-        <fo:block text-align="center" font-weight="bold">
+        <fo:block text-align="center" font-weight="bold" >
             Especificación
         </fo:block>
         </fo:table-cell>
     </fo:table-row>
    <fo:table-row>
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(196, 188, 150)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
@@ -236,7 +253,9 @@
 </xsl:template>
 <xsl:template match="precondicion">
    <fo:table-row>
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(196, 188, 150)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
@@ -258,7 +277,9 @@
 </xsl:template>
 <xsl:template match="postcondicion">
    <fo:table-row>
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(196, 188, 150)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
@@ -277,7 +298,9 @@
 </xsl:template>
 <xsl:template match="excepciones">
    <fo:table-row>
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(196, 188, 150)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
                         number-rows-spanned="2">
@@ -294,7 +317,9 @@
    </fo:table-row>
 </xsl:template>
 <xsl:template match="eleNumero">
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(196, 188, 150)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
                         number-columns-spanned="2">
@@ -314,7 +339,9 @@
 </xsl:template>
 <xsl:template match="comentarios">
    <fo:table-row>
-        <fo:table-cell  border-style="solid"
+        <fo:table-cell  color = "white"
+                        background-color = "rgb(196, 188, 150)"
+                        border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">

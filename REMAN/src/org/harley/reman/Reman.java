@@ -85,7 +85,7 @@ public class Reman {
         ver.setvMin(2);
 
         libro.setTitulo("Libro de Especificación");
-        libro.setIntro("Plantilla de especificación");
+        //libro.setIntro("Plantilla de especificación");
         libro.addEspecificacion(esp);
 
         excep.setEleNumero(1);
