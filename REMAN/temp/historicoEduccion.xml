@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<libroHistorico>
+    <historicos>
+        <historico>
+            <version>1.2</version>
+            <fecha>03/09/2015</fecha>
+            <razon>Cambio 1</razon>
+            <autor>Gonzalo</autor>
+        </historico>
+    </historicos>
+</libroHistorico>

@@ -4,10 +4,10 @@
     xmlns:fo="http://www.w3.org/1999/XSL/Format"
     version="1.0">
 
-<xsl:template match="libroActores">
+<xsl:template match="libroHistorico">
     <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
         <fo:layout-master-set>
-            <fo:simple-page-master master-name="plantillaAct"
+            <fo:simple-page-master master-name="plantillaHist"
                   page-height="29.7cm" 
                   page-width="21cm"
                   margin-top="1cm" 
@@ -20,7 +20,7 @@
             </fo:simple-page-master>
         </fo:layout-master-set>
   
-        <fo:page-sequence master-reference="plantillaAct">
+        <fo:page-sequence master-reference="plantillaHist">
             <fo:flow flow-name="xsl-region-body">
                 <xsl:apply-templates/>
             </fo:flow>
@@ -48,13 +48,44 @@
       <xsl:value-of select="."/> 
   </fo:block>
 </xsl:template>
-
-<xsl:template match="actores">                     
+<xsl:template match="historicos">                     
     <fo:table table-layout="fixed" width="375pt" border-width="1mm"
                 border-style="ridge">
-        <fo:table-column column-number="1"  column-width="140pt" />
-        <fo:table-column column-number="2" column-width="300pt"/>
+        <fo:table-column column-number="1"  column-width="65pt" />
+        <fo:table-column column-number="2" column-width="80pt"/>
+        <fo:table-column column-number="3" column-width="200pt"/>
+        <fo:table-column column-number="4" column-width="120pt"/>
         <fo:table-body>
+            <fo:table-row>
+                <fo:table-cell  border-style="solid"
+                        border-width="0.5mm"
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
+                <fo:block font-weight="bold">
+                   Versión
+                </fo:block>
+                </fo:table-cell>
+                <fo:table-cell  border-style="solid"
+                        border-width="0.5mm"
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
+                <fo:block font-weight="bold">
+                   Fecha
+                </fo:block>
+                </fo:table-cell>
+                <fo:table-cell  border-style="solid"
+                        border-width="0.5mm"
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
+                <fo:block font-weight="bold">
+                   Razón de Cambio
+                </fo:block>
+                </fo:table-cell>
+                <fo:table-cell  border-style="solid"
+                        border-width="0.5mm"
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
+                <fo:block font-weight="bold">
+                   Autor(es)
+                </fo:block>
+                </fo:table-cell> 
+            </fo:table-row>
             <xsl:apply-templates/> 
         </fo:table-body> 
     </fo:table> 
@@ -62,15 +93,12 @@
             &#160;
     </fo:block>
 </xsl:template>
-<xsl:template match="actor">
-   <fo:table-row>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block font-weight="bold">
-            Actor
-        </fo:block>
-        </fo:table-cell>
+<xsl:template match="historico">
+        <fo:table-row>
+        <xsl:apply-templates/> 
+        </fo:table-row>
+</xsl:template> 
+<xsl:template match="version">
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
@@ -78,17 +106,8 @@
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
-   </fo:table-row>
 </xsl:template>
-<xsl:template match="org">
-   <fo:table-row>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block font-weight="bold">
-            Organización
-        </fo:block>
-        </fo:table-cell>
+<xsl:template match="fecha">
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
@@ -96,17 +115,8 @@
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
-   </fo:table-row>
 </xsl:template>
-<xsl:template match="cargo">
-   <fo:table-row>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block font-weight="bold">
-            Cargo
-        </fo:block>
-        </fo:table-cell>
+<xsl:template match="razon">
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
@@ -114,17 +124,8 @@
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
-   </fo:table-row>
 </xsl:template>
-<xsl:template match="tipo">
-   <fo:table-row>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block font-weight="bold">
-            Tipo
-        </fo:block>
-        </fo:table-cell>
+<xsl:template match="autor">
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
@@ -132,42 +133,5 @@
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
-   </fo:table-row>
-</xsl:template>
-<xsl:template match="correo">
-   <fo:table-row>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block font-weight="bold">
-            Correo electrónico
-        </fo:block>
-        </fo:table-cell>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block>
-           <xsl:apply-templates/>
-        </fo:block>
-        </fo:table-cell>
-   </fo:table-row>
-</xsl:template>
-<xsl:template match="comentarios">
-   <fo:table-row>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block font-weight="bold">
-            Comentarios
-        </fo:block>
-        </fo:table-cell>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block>
-           <xsl:apply-templates/>
-        </fo:block>
-        </fo:table-cell>
-   </fo:table-row>
 </xsl:template>
 </xsl:stylesheet>

@@ -1,6 +1,9 @@
 package org.harley.reman.clases;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -8,16 +11,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {
     "titulo",
     "intro",
-    "actores"
+    "historicos"
 })
 
 public class LibroHistorico {
     String titulo;
     String intro;
-    String version;
-    String fecha;
-    String razon;
-    String autor;
+    List<Historico> historicos;
 
     public String getTitulo() {
         return titulo;
@@ -37,41 +37,21 @@ public class LibroHistorico {
         this.intro = intro;
     }
 
-    public String getVersion() {
-        return version;
+    public List<Historico> getHistoricos() {
+        return historicos;
     }
     
-    @XmlElement
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getFecha() {
-        return fecha;
+    @XmlElementWrapper(name = "historicos")
+    @XmlElement(name = "historico")
+    public void setHistoricos(List<Historico> historicos) {
+        this.historicos = historicos;
     }
     
-    @XmlElement
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void addHistorico(Historico hist){
+        if( this.historicos == null ){
+            this.historicos = new ArrayList<>();
+        }
+        this.historicos.add(hist);
     }
-
-    public String getRazon() {
-        return razon;
-    }
-    
-    @XmlElement
-    public void setRazon(String razon) {
-        this.razon = razon;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-    
-    @XmlElement
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
     
 }

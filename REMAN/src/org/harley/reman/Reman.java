@@ -57,6 +57,20 @@ public class Reman {
         return nuevo;
     }
     
+    public static LibroHistorico crearHistorico(){
+        LibroHistorico nuevo = new LibroHistorico();
+        Historico hist = new Historico();
+        hist.setVersion("1.2");
+        hist.setFecha("03/09/2015");
+        hist.setRazon("Cambio 1");
+        hist.setAutor("Gonzalo");
+        nuevo.setTitulo("Libro Histórico");
+        nuevo.setIntro("Plantilla de Libro Histórico");
+        nuevo.addHistorico(hist);
+        nuevo.addHistorico(hist);
+        return nuevo;
+    }
+    
     public static LibroEspecificacion inicialize(){
         LibroEspecificacion libro = new LibroEspecificacion();
         Especificacion esp = new Especificacion();
@@ -111,9 +125,19 @@ public class Reman {
         factory.convert(archivo);
     }
     
+    public static void probarHistorico(){
+        String archivo = "historico";
+        XMLReader<LibroHistorico> reader = new XMLReader(LibroHistorico.class);
+        reader.writeXML(archivo, crearHistorico());
+        LibroHistorico abierto = reader.openXML(archivo);
+        XMLConverter factory = new XMLConverter();
+        factory.convert(archivo);
+    }
+    
     public static void main(String[] args) {
         //probarEduccion();
-        probarActor();
+        //probarActor();
+        probarHistorico();
         //String educcion = "libroEduccion";
         //String elicitacion = "libroElicitacion";
         /*String actores = "actores";
