@@ -4,10 +4,10 @@
     xmlns:fo="http://www.w3.org/1999/XSL/Format"
     version="1.0">
 
-<xsl:template match="libroElicitacion">
+<xsl:template match="libroEsp">
     <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
         <fo:layout-master-set>
-            <fo:simple-page-master master-name="plantillaEli"
+            <fo:simple-page-master master-name="plantillaEsp"
                   page-height="29.7cm" 
                   page-width="21cm"
                   margin-top="1cm" 
@@ -20,7 +20,7 @@
             </fo:simple-page-master>
         </fo:layout-master-set>
   
-        <fo:page-sequence master-reference="plantillaEli">
+        <fo:page-sequence master-reference="plantillaEsp">
             <fo:flow flow-name="xsl-region-body">
                 <xsl:apply-templates/>
             </fo:flow>
@@ -48,28 +48,29 @@
       <xsl:value-of select="."/> 
   </fo:block>
 </xsl:template>
-<xsl:template match="elicitaciones">                     
+
+<xsl:template match="especificaciones">                     
     <xsl:apply-templates/>
     <fo:block>
             &#160;
     </fo:block>
 </xsl:template>
-<xsl:template match="elicitacion">                     
+<xsl:template match="especificacion">
     <fo:table keep-together.within-page="always" table-layout="fixed" width="375pt" border-width="1mm"
                 border-style="ridge">
         <fo:table-column column-number="1"  column-width="110pt" />
         <fo:table-column column-number="2" column-width="15pt"/>
         <fo:table-column column-number="3" column-width="25pt"/>
-        <fo:table-column column-number="4" column-width="290pt"/>        
+        <fo:table-column column-number="4" column-width="290pt"/>     
         <fo:table-body>
             <xsl:apply-templates/> 
         </fo:table-body> 
-    </fo:table> 
+    </fo:table>
     <fo:block>
             &#160;
     </fo:block>
 </xsl:template>
-<xsl:template match="elicitacionNombre">
+<xsl:template match="especificacionNombre">
    <fo:table-row>
       <xsl:apply-templates/>
    </fo:table-row>
@@ -79,7 +80,7 @@
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
-           ELI <xsl:apply-templates/>
+           ESP <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
 </xsl:template>
@@ -93,13 +94,13 @@
         </fo:block>
         </fo:table-cell>
 </xsl:template>
-<xsl:template match="eduNombre">
+<xsl:template match="eliNombre">
     <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
-           Educción Nº
+           Elicitacion Nº
         </fo:block>
         </fo:table-cell>
         <fo:table-cell  border-style="solid"
@@ -202,6 +203,16 @@
    </fo:table-row>
 </xsl:template>
 <xsl:template match="descripcion">
+    <fo:table-row>
+        <fo:table-cell  border-style="solid"
+                        border-width="0.5mm"
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
+                        number-columns-spanned="4">
+        <fo:block text-align="center" font-weight="bold">
+            Especificación
+        </fo:block>
+        </fo:table-cell>
+    </fo:table-row>
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
@@ -219,6 +230,9 @@
         </fo:block>
         </fo:table-cell>
    </fo:table-row>
+</xsl:template>
+<xsl:template match="precondiciones">                     
+    <xsl:apply-templates/>
 </xsl:template>
 <xsl:template match="precondicion">
    <fo:table-row>
@@ -239,38 +253,47 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="secNormal">
+<xsl:template match="postcondiciones">                     
+    <xsl:apply-templates/>
+</xsl:template>
+<xsl:template match="postcondicion">
+   <fo:table-row>
+        <fo:table-cell  border-style="solid"
+                        border-width="0.5mm"
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
+        <fo:block font-weight="bold">
+            Postcondicion
+        </fo:block>
+        </fo:table-cell>
+        <fo:table-cell  border-style="solid"
+                        border-width="0.5mm"
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
+                        number-columns-spanned="3">
+        <fo:block>
+           <xsl:apply-templates/>
+        </fo:block>
+        </fo:table-cell>
+   </fo:table-row>
+</xsl:template>
+<xsl:template match="excepciones">
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
                         number-rows-spanned="3">
             <fo:block font-weight="bold">
-           Secuencia Normal
+           Excepciones
         </fo:block>
         </fo:table-cell>
    </fo:table-row>
    <xsl:apply-templates/>
 </xsl:template>
-<xsl:template match="secExc">
+<xsl:template match="excepcion">
    <fo:table-row>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
-                        number-rows-spanned="3">
-            <fo:block font-weight="bold">
-            Excepciones
-        </fo:block>
-        </fo:table-cell>
-   </fo:table-row>
-   <xsl:apply-templates/>
-</xsl:template>
-<xsl:template match="paso">
-   <fo:table-row>
-      <xsl:apply-templates/>
+        <xsl:apply-templates/>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="pasoNum">
+<xsl:template match="eleNumero">
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
@@ -280,7 +303,7 @@
         </fo:block>
         </fo:table-cell>
 </xsl:template>
-<xsl:template match="pasoDes">
+<xsl:template match="eleDescripcion">
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">

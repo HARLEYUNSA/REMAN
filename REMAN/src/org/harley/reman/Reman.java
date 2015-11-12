@@ -72,26 +72,25 @@ public class Reman {
         return nuevo;
     }
     
-    public static LibroEspecificacion inicialize(){
+    public static LibroEspecificacion crearEspecificacion(){
         LibroEspecificacion libro = new LibroEspecificacion();
         Especificacion esp = new Especificacion();
         Nombre nom = new Nombre();
         Version ver = new Version();
-        Excepcion excep = new Excepcion(); 
-        Paso pas = new Paso();
-        nom.setCodigo("ESP001");
+        Elemento excep = new Elemento(); 
+        nom.setCodigo("001");
         nom.setNombre("especificacion ads");
 
         ver.setvMax(1);
         ver.setvMin(2);
 
-        libro.setTitulo("Esp01");
-        libro.setIntro("introduccion");
+        libro.setTitulo("Libro de Especificación");
+        libro.setIntro("Plantilla de especificación");
         libro.addEspecificacion(esp);
 
-        pas.setPasoNum(1);
-        pas.setPasoDes("el sistema");
-        excep.add(pas);
+        excep.setEleNumero(1);
+        excep.setEleDescripcion("el sistema");
+        esp.addExcepcion(excep);
 
         esp.setEspecificacionNombre(nom);
         esp.setEliNombre("ELI001");
@@ -102,7 +101,6 @@ public class Reman {
         esp.setDescripcion("Descripcion");
         esp.addPrecondicion("precondicion1");
         esp.addPostcondicion("postcondicion1");
-        esp.addExcepcion(excep);
         esp.setComentarios("comentarios dasdsada");
         
         return libro;
@@ -135,11 +133,20 @@ public class Reman {
         factory.convert(archivo);
     }
     
+     public static void probarEspecificacion(){
+        String archivo = "libroEspecificacion";
+        XMLReader<LibroEspecificacion> reader = new XMLReader(LibroEspecificacion.class);
+        reader.writeXML(archivo, crearEspecificacion());
+        LibroEspecificacion abierto = reader.openXML(archivo);
+        XMLConverter factory = new XMLConverter();
+        factory.convert(archivo);
+    }
+    
     public static void main(String[] args) {
-        probarEduccion();
+        //probarEduccion();
         //probarActor();
         //probarHistorico();
-        
+        probarEspecificacion();
         //String educcion = "libroEduccion";
         //String elicitacion = "libroElicitacion";
         /*String actores = "actores";

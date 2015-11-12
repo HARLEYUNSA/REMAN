@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<libroEsp>
+    <titulo>Libro de Especificación</titulo>
+    <intro>Plantilla de especificación</intro>
+    <especificaciones>
+        <especificacion>
+            <especificacionNombre>
+                <codigo>001</codigo>
+                <nombre>especificacion ads</nombre>
+            </especificacionNombre>
+            <eliNombre>ELI001</eliNombre>
+            <version>
+                <vMax>1</vMax>
+                <vMin>2</vMin>
+            </version>
+            <autor>Gonzalo</autor>
+            <fuente>Jose</fuente>
+            <dependencias>dependencia</dependencias>
+            <descripcion>Descripcion</descripcion>
+            <precondiciones>
+                <precondicion>precondicion1</precondicion>
+            </precondiciones>
+            <postcondiciones>
+                <postcondicion>postcondicion1</postcondicion>
+            </postcondiciones>
+            <excepciones>
+                <excepcion>
+                    <eleNumero>1</eleNumero>
+                    <eleDescripcion>el sistema</eleDescripcion>
+                </excepcion>
+                <excepcion>
+                    <eleNumero>1</eleNumero>
+                    <eleDescripcion>el sistema</eleDescripcion>
+                </excepcion>
+            </excepciones>
+            <comentarios>comentarios dasdsada</comentarios>
+        </especificacion>
+    </especificaciones>
+</libroEsp>
