@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder = {
-    "requisito", 
+    "especificacionNombre", 
     "eliNombre", 
     "version", 
     "autor", 
@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 
 public class Especificacion {
-        Nombre requisito;
+        Nombre especificacionNombre;
 	String eliNombre;
         Version version;
         String autor;
@@ -32,16 +32,16 @@ public class Especificacion {
         String descripcion;
         List<String> precondicion;
         List<String> postcondicion;
-        List<Excepcion> excepciones; 
+        List<Elemento> excepciones; 
         String comentarios;
 
-    public Nombre getRequisito() {
-        return requisito;     
+    public Nombre getEspecificacionNombre() {
+        return especificacionNombre;     
     }
 
     @XmlElement
-    public void setRequisito(Nombre requisito) {
-        this.requisito = requisito;
+    public void setEspecificacionNombre(Nombre especificacionNombre) {
+        this.especificacionNombre = especificacionNombre;
     }
 
     public String getEliNombre() {
@@ -125,7 +125,7 @@ public class Especificacion {
         this.postcondicion = postcondicion;
     }
 
-    public List<Excepcion> getExcepciones() {
+    public List<Elemento> getExcepciones() {
         return excepciones;
     }
     
@@ -138,11 +138,11 @@ public class Especificacion {
 
     @XmlElementWrapper(name = "excepciones")
     @XmlElement(name = "excepcion")
-    public void setExcepciones(List<Excepcion> excepciones) {
+    public void setExcepciones(List<Elemento> excepciones) {
         this.excepciones = excepciones;
     }
     
-    public void addExcepcion(Excepcion exc){
+    public void addExcepcion(Elemento exc){
     if( this.excepciones == null ){
         this.excepciones = new ArrayList<>();
     }

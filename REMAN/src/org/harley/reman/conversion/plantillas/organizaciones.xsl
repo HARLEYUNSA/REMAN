@@ -4,10 +4,10 @@
     xmlns:fo="http://www.w3.org/1999/XSL/Format"
     version="1.0">
 
-<xsl:template match="libroProyecto">
+<xsl:template match="libroOrganizaciones">
     <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
         <fo:layout-master-set>
-            <fo:simple-page-master master-name="plantillaPro"
+            <fo:simple-page-master master-name="plantillaOrg"
                   page-height="29.7cm" 
                   page-width="21cm"
                   margin-top="1cm" 
@@ -20,7 +20,7 @@
             </fo:simple-page-master>
         </fo:layout-master-set>
   
-        <fo:page-sequence master-reference="plantillaPro">
+        <fo:page-sequence master-reference="plantillaOrg">
             <fo:flow flow-name="xsl-region-body">
                 <xsl:apply-templates/>
             </fo:flow>
@@ -48,27 +48,55 @@
       <xsl:value-of select="."/> 
   </fo:block>
 </xsl:template>
-
-<xsl:template match="proyectos">                     
-    <fo:table table-layout="fixed" width="375pt" border-width="1mm"
+<xsl:template match="organizaciones">                     
+    <xsl:apply-templates/>
+    <fo:block>
+            &#160;
+    </fo:block>
+</xsl:template>
+<xsl:template match="organizacion">
+    <fo:table keep-together.within-page="always" table-layout="fixed" width="375pt" border-width="1mm"
                 border-style="ridge">
         <fo:table-column column-number="1"  column-width="140pt" />
         <fo:table-column column-number="2" column-width="300pt"/>
         <fo:table-body>
             <xsl:apply-templates/> 
         </fo:table-body> 
-    </fo:table> 
+    </fo:table>
     <fo:block>
             &#160;
     </fo:block>
 </xsl:template>
-<xsl:template match="proyecto">
+<xsl:template match="orgNombre">
+   <fo:table-row>
+      <xsl:apply-templates/>
+   </fo:table-row>
+</xsl:template>
+<xsl:template match="codigo">
+        <fo:table-cell  border-style="solid"
+                        border-width="0.5mm"
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
+        <fo:block font-weight="bold">
+           ORG <xsl:apply-templates/>
+        </fo:block>
+        </fo:table-cell>
+</xsl:template>
+<xsl:template match="nombre">
+        <fo:table-cell  border-style="solid"
+                        border-width="0.5mm" 
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
+        <fo:block>
+           <xsl:apply-templates/>
+        </fo:block>
+        </fo:table-cell>
+</xsl:template>
+<xsl:template match="direccion">
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
-            Proyecto
+            Dirección
         </fo:block>
         </fo:table-cell>
         <fo:table-cell  border-style="solid"
@@ -80,13 +108,13 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="producto">
+<xsl:template match="telefono">
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
-            producto
+            Teléfono
         </fo:block>
         </fo:table-cell>
         <fo:table-cell  border-style="solid"
@@ -98,13 +126,13 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="empDes">
+<xsl:template match="pWeb">
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
-            Empresa desarrolladora
+            Página Web
         </fo:block>
         </fo:table-cell>
         <fo:table-cell  border-style="solid"
@@ -116,13 +144,13 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="empCli">
+<xsl:template match="correo">
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
-            Empresa cliente
+            Correo electrónico
         </fo:block>
         </fo:table-cell>
         <fo:table-cell  border-style="solid"
@@ -134,49 +162,13 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="fecIni">
+<xsl:template match="comentarios">
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
-            Fecha inicial
-        </fo:block>
-        </fo:table-cell>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block>
-           <xsl:apply-templates/>
-        </fo:block>
-        </fo:table-cell>
-   </fo:table-row>
-</xsl:template>
-<xsl:template match="fecFin">
-   <fo:table-row>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block font-weight="bold">
-            Fecha final
-        </fo:block>
-        </fo:table-cell>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block>
-           <xsl:apply-templates/>
-        </fo:block>
-        </fo:table-cell>
-   </fo:table-row>
-</xsl:template>
-<xsl:template match="lider">
-   <fo:table-row>
-        <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block font-weight="bold">
-            Líder del proyecto
+            Comentarios
         </fo:block>
         </fo:table-cell>
         <fo:table-cell  border-style="solid"

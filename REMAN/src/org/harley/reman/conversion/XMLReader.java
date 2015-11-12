@@ -1,7 +1,6 @@
 package org.harley.reman.conversion;
 
 import java.io.File;
-import java.lang.reflect.ParameterizedType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -12,7 +11,7 @@ public class XMLReader<T> {
     File tempDir;
     
     public XMLReader(Class<T> typeParameterClass) {
-        this.tempDir = new File("temp", ".");
+        this.tempDir = new File("temp");
         this.typeParameterClass = typeParameterClass;
         tempDir.mkdirs();
     }
