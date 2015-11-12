@@ -50,7 +50,13 @@
 </xsl:template>
 
 <xsl:template match="educciones">                     
-    <fo:table table-layout="fixed" width="375pt" border-width="1mm"
+    <xsl:apply-templates/>
+    <fo:block>
+            &#160;
+    </fo:block>
+</xsl:template>
+<xsl:template match="educcion">
+    <fo:table keep-together.within-page="always" table-layout="fixed" width="375pt" border-width="1mm"
                 border-style="ridge">
         <fo:table-column column-number="1"  column-width="100pt" />
         <fo:table-column column-number="2" column-width="20pt"/>
@@ -62,13 +68,10 @@
         <fo:table-body>
             <xsl:apply-templates/> 
         </fo:table-body> 
-    </fo:table> 
+    </fo:table>
     <fo:block>
             &#160;
     </fo:block>
-</xsl:template>
-<xsl:template match="educcion">
-    <xsl:apply-templates/>
 </xsl:template>
 <xsl:template match="educcionNombre">
    <fo:table-row>
@@ -335,7 +338,7 @@
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block text-align="center">
+        <fo:block font-weight="bold">
             Descripción
         </fo:block>
         </fo:table-cell> 
@@ -354,7 +357,7 @@
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
-        <fo:block text-align="center">
+        <fo:block font-weight="bold">
             Observaciones
         </fo:block>
         </fo:table-cell> 

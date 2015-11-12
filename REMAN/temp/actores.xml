@@ -12,5 +12,16 @@
             <correo>glunaluza@gmail.com</correo>
             <comentarios>Comentarios</comentarios>
         </actor>
+        <actor>
+            <actorNombre>
+                <codigo>0001</codigo>
+                <nombre>Gonzalo</nombre>
+            </actorNombre>
+            <org>Harley</org>
+            <cargo>Jefe de oficina</cargo>
+            <tipo>Desarrollador</tipo>
+            <correo>glunaluza@gmail.com</correo>
+            <comentarios>Comentarios</comentarios>
+        </actor>
     </actores>
 </libroActores>

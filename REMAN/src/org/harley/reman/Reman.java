@@ -38,6 +38,7 @@ public class Reman {
         nuevo.setTitulo("Libro de Educcion");
         nuevo.setIntro("Plantilla de Educción de Requisitos");
         nuevo.addEduccion(edu);
+        nuevo.addEduccion(edu);
         return nuevo;
     }
     
@@ -53,6 +54,7 @@ public class Reman {
         act.setCorreo("glunaluza@gmail.com");
         act.setComentarios("Comentarios");
         act.setActorNombre(nom);
+        nuevo.setIntro("Libro de Actores");
         nuevo.addActor(act);
         return nuevo;
     }
@@ -66,7 +68,6 @@ public class Reman {
         hist.setAutor("Gonzalo");
         nuevo.setTitulo("Libro Histórico");
         nuevo.setIntro("Plantilla de Libro Histórico");
-        nuevo.addHistorico(hist);
         nuevo.addHistorico(hist);
         return nuevo;
     }
@@ -92,7 +93,7 @@ public class Reman {
         pas.setPasoDes("el sistema");
         excep.add(pas);
 
-        esp.setRequisito(nom);
+        esp.setEspecificacionNombre(nom);
         esp.setEliNombre("ELI001");
         esp.setVersion(ver);
         esp.setAutor("Gonzalo");
@@ -135,9 +136,10 @@ public class Reman {
     }
     
     public static void main(String[] args) {
-        //probarEduccion();
+        probarEduccion();
         //probarActor();
-        probarHistorico();
+        //probarHistorico();
+        
         //String educcion = "libroEduccion";
         //String elicitacion = "libroElicitacion";
         /*String actores = "actores";

@@ -48,22 +48,24 @@
       <xsl:value-of select="."/> 
   </fo:block>
 </xsl:template>
-
 <xsl:template match="actores">                     
-    <fo:table table-layout="fixed" width="375pt" border-width="1mm"
+    <xsl:apply-templates/>
+    <fo:block>
+            &#160;
+    </fo:block>
+</xsl:template>
+<xsl:template match="actor">
+    <fo:table keep-together.within-page="always" table-layout="fixed" width="375pt" border-width="1mm"
                 border-style="ridge">
         <fo:table-column column-number="1"  column-width="140pt" />
         <fo:table-column column-number="2" column-width="300pt"/>
         <fo:table-body>
             <xsl:apply-templates/> 
         </fo:table-body> 
-    </fo:table> 
+    </fo:table>
     <fo:block>
             &#160;
     </fo:block>
-</xsl:template>
-<xsl:template match="actor">
-    <xsl:apply-templates/>
 </xsl:template>
 <xsl:template match="actorNombre">
    <fo:table-row>
