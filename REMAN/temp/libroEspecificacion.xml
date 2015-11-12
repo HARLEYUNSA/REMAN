@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<libroEsp>
+    <titulo>Esp01</titulo>
+    <intro>introduccion</intro>
+    <especificacionReq>
+        <requisito>
+            <espDes>especificacion ads</espDes>
+            <espNombre>ESP001</espNombre>
+        </requisito>
+        <eliNombre>ELI001</eliNombre>
+        <version>
+            <vMax>1</vMax>
+            <vMin>2</vMin>
+        </version>
+        <autor>Gonzalo</autor>
+        <fuente>Jose</fuente>
+        <dependencias>dependencia</dependencias>
+        <descripcion>Descripcion</descripcion>
+        <precondiciones>
+            <precondicion>precondicion1</precondicion>
+        </precondiciones>
+        <postcondiciones>
+            <postcondicion>postcondicion1</postcondicion>
+        </postcondiciones>
+        <excepciones>
+            <excepcion>
+                <paso>
+                    <pasoDes>el sistema</pasoDes>
+                    <pasoNum>1</pasoNum>
+                </paso>
+            </excepcion>
+        </excepciones>
+        <comentarios>comentarios dasdsada</comentarios>
+    </especificacionReq>
+</libroEsp>

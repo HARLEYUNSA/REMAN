@@ -152,14 +152,5 @@ public class XMLConverter {
 
         //Convert from FOP to PDF
         convertFO2PDF(fo, pdf);
-        
-        //Delete temporal directory
-        clean(xml, fo);
-    }
-    
-    public void clean(File xml, File fo){
-        xml.delete();
-        fo.delete();
-        tempDir.delete();
     }
 }
