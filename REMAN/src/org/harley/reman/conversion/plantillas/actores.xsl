@@ -63,9 +63,6 @@
     </fo:block>
 </xsl:template>
 <xsl:template match="actor">
-    <xsl:apply-templates/>
-</xsl:template>
-<xsl:template match="nombre">
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"

@@ -10,16 +10,21 @@ import org.harley.reman.conversion.XMLReader;
  */
 public class Reman {
 
-    public static LibroActores crearActor(){
+    public static LibroActores iniciar(){
         LibroActores nuevo = new LibroActores();
-        Actor act = new Actor();
-        act.setNombre("Gonzalo");
+        LibroActores.Actores act = new LibroActores.Actores();
+        
+        act.setActor("Gonzalo");
         act.setOrg("Harley");
         act.setCargo("Jefe de oficina");
         act.setTipo("Desarrollador");
         act.setCorreo("glunaluza@gmail.com");
         act.setComentarios("Comentarios");
-        nuevo.addActor(act);
+        
+        nuevo.setTitulo("Libro de Actores");
+        nuevo.setIntro("Plantilla de Actores");
+        nuevo.setActores(act);
+        
         return nuevo;
     }
     
@@ -38,7 +43,7 @@ public class Reman {
 
         libro.setTitulo("Esp01");
         libro.setIntro("introduccion");
-        libro.addEspecificacion(esp);
+        libro.setEsp(esp);
 
         pas.setPasoNum(1);
         pas.setPasoDes("el sistema");
@@ -62,8 +67,8 @@ public class Reman {
     public static void main(String[] args) {
         String actores = "actores";
         XMLReader<LibroActores> reader = new XMLReader(LibroActores.class);
-        reader.writeXML(actores, crearActor());
-       
+        reader.writeXML(actores, iniciar());
+        
         LibroActores abierto = reader.openXML(actores);
         //String educcion = "libroEduccion";
         //String elicitacion = "libroElicitacion";
