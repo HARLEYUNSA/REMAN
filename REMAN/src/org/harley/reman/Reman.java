@@ -13,10 +13,12 @@ public class Reman {
      public static LibroEduccion crearEduccion() {
         LibroEduccion nuevo = new LibroEduccion();
         Educcion edu = new Educcion();
+        Nombre nom = new Nombre();
         Version ver = new Version();
         
-        edu.setId("0001");
-        edu.setEduccionNombre("Nombre del requisito");
+        nom.setCodigo("0001");
+        nom.setNombre("Nombre del requisito");
+        
         edu.setActor("Christian");
         edu.setCargo("Usuario");
         edu.setEspecialista("Gonzalo Luna");
@@ -31,9 +33,8 @@ public class Reman {
         
         ver.setvMax(1);
         ver.setvMin(2);
-
+        edu.setEduccionNombre(nom);
         edu.setVersion(ver);
-        
         nuevo.setTitulo("Libro de Educcion");
         nuevo.setIntro("Plantilla de Educción de Requisitos");
         nuevo.addEduccion(edu);
@@ -60,8 +61,8 @@ public class Reman {
         Version ver = new Version();
         Excepcion excep = new Excepcion(); 
         Paso pas = new Paso();
-        nom.setEspNombre("ESP001");
-        nom.setEspDes("especificacion ads");
+        nom.setCodigo("ESP001");
+        nom.setNombre("especificacion ads");
 
         ver.setvMax(1);
         ver.setvMin(2);

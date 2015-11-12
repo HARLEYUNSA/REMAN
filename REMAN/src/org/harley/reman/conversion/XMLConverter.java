@@ -154,7 +154,7 @@ public class XMLConverter {
         convertFO2PDF(fo, pdf);
         
         //Delete temporal directory
-        clean(xml, fo);
+       // clean(xml, fo);
     }
     
     public void clean(File xml, File fo){

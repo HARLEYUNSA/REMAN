@@ -6,24 +6,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Nombre {
 
-    String espNombre;
-    String espDes;
-    
-    public String getEspNombre() {
-        return espNombre;
-    }
-	
-    @XmlElement
-    public void setEspNombre(String espNombre) {
-        this.espNombre = espNombre;
-    }
-	
-    public String getEspDes() {
-        return espDes;
+    String codigo;
+    String nombre;
+
+    public String getCodigo() {
+        return codigo;
     }
     
     @XmlElement
-    public void setEspDes(String espDes) {
-        this.espDes = espDes;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+    
+    @XmlElement
+    public void setNombre(String descripcion) {
+        this.nombre = descripcion;
+    }
+
 }

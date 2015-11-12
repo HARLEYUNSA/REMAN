@@ -52,7 +52,7 @@
 <xsl:template match="educciones">                     
     <fo:table table-layout="fixed" width="375pt" border-width="1mm"
                 border-style="ridge">
-        <fo:table-column column-number="1"  column-width="80pt" />
+        <fo:table-column column-number="1"  column-width="100pt" />
         <fo:table-column column-number="2" column-width="20pt"/>
         <fo:table-column column-number="3" column-width="20pt"/>
         <fo:table-column column-number="4" column-width="50pt"/>
@@ -70,27 +70,29 @@
 <xsl:template match="educcion">
     <xsl:apply-templates/>
 </xsl:template>
-<xsl:template match="eduNombre">
-    <fo:table-row>
+<xsl:template match="educcionNombre">
+   <fo:table-row>
+      <xsl:apply-templates/>
+   </fo:table-row>
+</xsl:template>
+<xsl:template match="codigo">
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
-            <xsl:attribute name="id">
-                EDU 
-                <xsl:value-of select="node()" />
-            </xsl:attribute>
+           EDU <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
+</xsl:template>
+<xsl:template match="nombre">
         <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
+                        border-width="0.5mm" 
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
                         number-columns-spanned="6">
-        <fo:block font-weight="bold">
+        <fo:block>
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
-    </fo:table-row>
 </xsl:template>
 <xsl:template match="version">
    <fo:table-row>
@@ -175,7 +177,15 @@
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
-                        number-columns-spanned="6">
+                        number-columns-spanned="3">
+        <fo:block font-weight="bold">
+            Nombre
+        </fo:block>
+        </fo:table-cell>
+        <fo:table-cell  border-style="solid"
+                        border-width="0.5mm"
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
+                        number-columns-spanned="3">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
@@ -246,8 +256,8 @@
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
-                        padding-left="2mm" padding-top="16mm" padding-bottom="1.3mm"
-                        number-rows-spanned="4">
+                        padding-left="2mm" padding-top="11mm" padding-bottom="1.3mm"
+                        number-rows-spanned="3">
         <fo:block font-weight="bold">
             Educción
         </fo:block>
@@ -324,18 +334,15 @@
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
-                        number-columns-spanned="7">
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block text-align="center">
             Descripción
         </fo:block>
-        </fo:table-cell>
-    </fo:table-row>  
-    <fo:table-row>  
+        </fo:table-cell> 
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
-                        number-columns-spanned="7">
+                        number-columns-spanned="6">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
@@ -346,18 +353,15 @@
    <fo:table-row>
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
-                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
-                        number-columns-spanned="7">
+                        padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block text-align="center">
             Observaciones
         </fo:block>
-        </fo:table-cell>
-    </fo:table-row>  
-    <fo:table-row>  
+        </fo:table-cell> 
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
-                        number-columns-spanned="7">
+                        number-columns-spanned="6">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>

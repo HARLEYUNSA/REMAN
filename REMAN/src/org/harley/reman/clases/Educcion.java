@@ -2,13 +2,13 @@ package org.harley.reman.clases;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
     @XmlType(propOrder = {
-        "id",
         "educcionNombre",
         "version",
         "actor",
@@ -24,8 +24,7 @@ import javax.xml.bind.annotation.XmlType;
         "observaciones"
     })
 public class Educcion {
-        String id;
-        String educcionNombre;
+        Nombre educcionNombre;
         Version version;
         String actor;
         String cargo;
@@ -39,21 +38,12 @@ public class Educcion {
         String descripcion;
         String observaciones;
 
-    public String getId() {
-        return id;
-    }
-    
-    @XmlElement
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getEduccionNombre() {
+    public Nombre getEduccionNombre() {
         return educcionNombre;
     }
     
     @XmlElement
-    public void setEduccionNombre(String educcionNombre) {
+    public void setEduccionNombre(Nombre educcionNombre) {
         this.educcionNombre = educcionNombre;
     }
 
