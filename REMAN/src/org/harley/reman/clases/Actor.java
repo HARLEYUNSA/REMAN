@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder = {
-    "nombre",
+    "actorNombre",
     "org",
     "cargo",
     "tipo",
@@ -15,20 +15,20 @@ import javax.xml.bind.annotation.XmlType;
 })
 
 public class Actor {
-        String nombre;
+        Nombre actorNombre;
         String org;
         String cargo;
         String tipo;
         String correo;
         String comentarios;
 
-    public String getNombre() {
-        return nombre;
+    public Nombre getActorNombre() {
+        return actorNombre;
     }
     
     @XmlElement
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setActorNombre(Nombre actorNombre) {
+        this.actorNombre = actorNombre;
     }
 
     public String getOrg() {

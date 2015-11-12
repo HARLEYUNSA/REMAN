@@ -44,12 +44,15 @@ public class Reman {
     public static LibroActores crearActor(){
         LibroActores nuevo = new LibroActores();
         Actor act = new Actor();
-        act.setNombre("Gonzalo");
+        Nombre nom = new Nombre();
+        nom.setCodigo("0001");
+        nom.setNombre("Gonzalo");
         act.setOrg("Harley");
         act.setCargo("Jefe de oficina");
         act.setTipo("Desarrollador");
         act.setCorreo("glunaluza@gmail.com");
         act.setComentarios("Comentarios");
+        act.setActorNombre(nom);
         nuevo.addActor(act);
         return nuevo;
     }
@@ -90,22 +93,35 @@ public class Reman {
         return libro;
     }
     
-    public static void main(String[] args) {
-        String educcion = "libroEduccion";
+    public static void probarEduccion(){
+        String archivo = "libroEduccion";
         XMLReader<LibroEduccion> reader = new XMLReader(LibroEduccion.class);
-        reader.writeXML(educcion, crearEduccion());
-       
-        LibroEduccion abierto = reader.openXML(educcion);
+        reader.writeXML(archivo, crearEduccion());
+        LibroEduccion abierto = reader.openXML(archivo);
+        XMLConverter factory = new XMLConverter();
+        factory.convert(archivo);
+    }
+    
+    public static void probarActor(){
+        String archivo = "actores";
+        XMLReader<LibroActores> reader = new XMLReader(LibroActores.class);
+        reader.writeXML(archivo, crearActor());
+        LibroActores abierto = reader.openXML(archivo);
+        XMLConverter factory = new XMLConverter();
+        factory.convert(archivo);
+    }
+    
+    public static void main(String[] args) {
+        //probarEduccion();
+        probarActor();
         //String educcion = "libroEduccion";
         //String elicitacion = "libroElicitacion";
         /*String actores = "actores";
         String proyecto = "proyecto";
         String historico = "historico";
         String organizacion = "organizacion";*/
-        XMLConverter factory = new XMLConverter();
         //factory.convert(educcion);
         //factory.convert(elicitacion);
-        factory.convert(educcion);
         //factory.convert(actores);
         //factory.convert(proyecto);
         //factory.convert(historico);

@@ -65,23 +65,28 @@
 <xsl:template match="actor">
     <xsl:apply-templates/>
 </xsl:template>
-<xsl:template match="nombre">
+<xsl:template match="actorNombre">
    <fo:table-row>
+      <xsl:apply-templates/>
+   </fo:table-row>
+</xsl:template>
+<xsl:template match="codigo">
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block font-weight="bold">
-            Actor
+           ACT <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
+</xsl:template>
+<xsl:template match="nombre">
         <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
+                        border-width="0.5mm" 
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
-   </fo:table-row>
 </xsl:template>
 <xsl:template match="org">
    <fo:table-row>

@@ -1,5 +1,6 @@
 package org.harley.reman.conversion;
 
+import java.awt.Desktop;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,8 +42,8 @@ public class XMLConverter {
     File outDir;
         
     public  XMLConverter (){
-        tempDir = new File("temp", ".");
-        outDir = new File("src/org/harley/reman/informes", ".");
+        tempDir = new File("temp");
+        outDir = new File("src/org/harley/reman/informes");
         baseDir = new File("src/org/harley/reman/conversion/plantillas");
     }
     /**
@@ -152,9 +153,14 @@ public class XMLConverter {
 
         //Convert from FOP to PDF
         convertFO2PDF(fo, pdf);
-        
         //Delete temporal directory
-       // clean(xml, fo);
+        // clean(xml, fo);
+        
+        try {
+            Desktop.getDesktop().open(pdf);
+        } catch (IOException ex) {
+            Logger.getLogger(XMLConverter.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void clean(File xml, File fo){
