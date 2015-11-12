@@ -3,7 +3,6 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format"
     version="1.0">
-
 <xsl:template match="libroElicitacion">
     <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
         <fo:layout-master-set>
@@ -27,7 +26,6 @@
         </fo:page-sequence>
     </fo:root>	
 </xsl:template>
-
 <xsl:template match="titulo">
 	<fo:block font-size="20pt" 
             font-family="sans-serif" 
@@ -38,7 +36,6 @@
         <xsl:value-of select="."/>
   </fo:block>
 </xsl:template>
-
 <xsl:template match="intro">
 	<fo:block font-size="14pt" 
             font-family="sans-serif" 
@@ -126,7 +123,7 @@
 </xsl:template>
 <xsl:template match="vMax">
         <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
+                        border-width="0mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block text-align="right">
            <xsl:apply-templates/>
@@ -135,7 +132,7 @@
 </xsl:template>
 <xsl:template match="vMin">
         <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
+                        border-width="0mm"
                         padding-top="2mm" padding-bottom="1.3mm"
                         number-columns-spanned="2">
         <fo:block>

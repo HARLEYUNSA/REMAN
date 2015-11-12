@@ -107,7 +107,7 @@
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
                         number-columns-spanned="3">
-        <fo:block font-weight="bold">
+        <fo:block>
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
@@ -127,7 +127,7 @@
 </xsl:template>
 <xsl:template match="vMax">
         <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
+                        border-width="0mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm">
         <fo:block text-align="right">
            <xsl:apply-templates/>
@@ -136,7 +136,7 @@
 </xsl:template>
 <xsl:template match="vMin">
         <fo:table-cell  border-style="solid"
-                        border-width="0.5mm"
+                        border-width="0mm"
                         padding-top="2mm" padding-bottom="1.3mm"
                         number-columns-spanned="2">
         <fo:block>
@@ -280,7 +280,7 @@
         <fo:table-cell  border-style="solid"
                         border-width="0.5mm"
                         padding-left="2mm" padding-top="2mm" padding-bottom="1.3mm"
-                        number-rows-spanned="3">
+                        number-rows-spanned="2">
             <fo:block font-weight="bold">
            Excepciones
         </fo:block>
