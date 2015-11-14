@@ -8,17 +8,17 @@ import javax.xml.bind.Unmarshaller;
 
 public class XMLReader<T> {
     final Class<T> typeParameterClass;
-    File tempDir;
+    File database;
     
     public XMLReader(Class<T> typeParameterClass) {
-        this.tempDir = new File("temp");
+        this.database = new File("src/org/harley/reman/database");
         this.typeParameterClass = typeParameterClass;
-        tempDir.mkdirs();
+        database.mkdirs();
     }
 
     public void writeXML(String archivo, T result){
         try {
-            File xmlFile = new File(tempDir, archivo +".xml");
+            File xmlFile = new File(database, archivo + ".xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(typeParameterClass);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
@@ -34,7 +34,7 @@ public class XMLReader<T> {
     
     public T openXML(String archivo){
         try {
-            File xmlFile = new File(tempDir, archivo +".xml");
+            File xmlFile = new File(database, archivo + ".xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(typeParameterClass);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();

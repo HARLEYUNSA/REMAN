@@ -37,12 +37,12 @@ public class XMLConverter {
 
     // Configure FopFactory
     private final FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
-    File tempDir;
+    File databaseDir;
     File baseDir;
     File outDir;
         
     public  XMLConverter (){
-        tempDir = new File("temp");
+        databaseDir = new File("src/org/harley/reman/database");
         outDir = new File("src/org/harley/reman/informes");
         baseDir = new File("src/org/harley/reman/conversion/plantillas");
     }
@@ -127,12 +127,12 @@ public class XMLConverter {
         }
     }
 
-    public void convert(String archivo){
+    public void convert(String archivo, String nombre){
         //Setup input and output files
-        File xmlFile = new File(tempDir, archivo +".xml");
+        File xmlFile = new File(databaseDir, nombre +".xml");
         File xslFile = new File(baseDir, archivo +".xsl");
-        File foFile = new File(tempDir, archivo +".fo");
-        File pdfFile = new File(outDir, archivo +".pdf");
+        File foFile = new File(databaseDir, nombre +".fo");
+        File pdfFile = new File(outDir, nombre +".pdf");
 
         //Status
         System.out.println("Input: XML (" + xmlFile + ")");
@@ -154,7 +154,7 @@ public class XMLConverter {
         //Convert from FOP to PDF
         convertFO2PDF(fo, pdf);
         //Delete temporal directory
-        // clean(xml, fo);
+        clean(fo);
         
         try {
             Desktop.getDesktop().open(pdf);
@@ -163,9 +163,7 @@ public class XMLConverter {
         }
     }
     
-    public void clean(File xml, File fo){
-        xml.delete();
+    public void clean(File fo){
         fo.delete();
-        tempDir.delete();
     }
 }

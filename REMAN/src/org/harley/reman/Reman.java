@@ -112,7 +112,7 @@ public class Reman {
         reader.writeXML(archivo, crearEduccion());
         LibroEduccion abierto = reader.openXML(archivo);
         XMLConverter factory = new XMLConverter();
-        factory.convert(archivo);
+        factory.convert(archivo,"Educcion2.3");
     }
     
     public static void probarActor(){
@@ -121,7 +121,7 @@ public class Reman {
         reader.writeXML(archivo, crearActor());
         LibroActores abierto = reader.openXML(archivo);
         XMLConverter factory = new XMLConverter();
-        factory.convert(archivo);
+        factory.convert(archivo,"Actores1.2");
     }
     
     public static void probarHistorico(){
@@ -130,23 +130,32 @@ public class Reman {
         reader.writeXML(archivo, crearHistorico());
         LibroHistorico abierto = reader.openXML(archivo);
         XMLConverter factory = new XMLConverter();
-        factory.convert(archivo);
+        factory.convert(archivo,"Historico1");
     }
     
-     public static void probarEspecificacion(){
-        String archivo = "libroEspecificacion";
+    public static void escribirEspecificacion(String archivo, LibroEspecificacion obj){
         XMLReader<LibroEspecificacion> reader = new XMLReader(LibroEspecificacion.class);
-        reader.writeXML(archivo, crearEspecificacion());
-        LibroEspecificacion abierto = reader.openXML(archivo);
+        reader.writeXML(archivo, obj);
+    }
+    
+    private static LibroEspecificacion cargarEspecificacion(String archivo) {
+        XMLReader<LibroEspecificacion> reader = new XMLReader(LibroEspecificacion.class);
+        LibroEspecificacion esp = reader.openXML(archivo);
+        return esp;
+    }
+
+    private static void exportarEspecificacionPDF(String archivo) {
         XMLConverter factory = new XMLConverter();
-        factory.convert(archivo);
+        factory.convert("libroEspecificacion", archivo);
     }
     
     public static void main(String[] args) {
         //probarEduccion();
         //probarActor();
         //probarHistorico();
-        probarEspecificacion();
+        escribirEspecificacion("Educcion1.2", crearEspecificacion());
+        cargarEspecificacion("Educcion1.2");
+        exportarEspecificacionPDF("Educcion1.2");
         //String educcion = "libroEduccion";
         //String elicitacion = "libroElicitacion";
         /*String actores = "actores";
@@ -160,4 +169,6 @@ public class Reman {
         //factory.convert(historico);
         //factory.convert(organizacion);       
     }
+
+   
 }
