@@ -1,8 +1,7 @@
 package org.harley.reman;
 
 import org.harley.reman.clases.*;
-import org.harley.reman.conversion.XMLConverter;
-import org.harley.reman.conversion.XMLReader;
+import org.harley.reman.conversion.FileManager;
 
 /**
  *
@@ -10,6 +9,18 @@ import org.harley.reman.conversion.XMLReader;
  */
 public class Reman {
 
+    FileManager<LibroEspecificacion> managerEsp;
+    FileManager<LibroActores> managerActores;
+    FileManager<LibroEduccion> managerEduccion;
+    FileManager<LibroHistorico> managerHistorico;
+
+    public Reman() {
+        managerEsp = new FileManager(LibroEspecificacion.class);
+        managerActores = new FileManager(LibroActores.class);
+        managerEduccion = new FileManager(LibroEduccion.class);
+        managerHistorico = new FileManager(LibroHistorico.class);
+    }
+    
      public static LibroEduccion crearEduccion() {
         LibroEduccion nuevo = new LibroEduccion();
         Educcion edu = new Educcion();
@@ -72,7 +83,7 @@ public class Reman {
         return nuevo;
     }
     
-    public static LibroEspecificacion crearEspecificacion(){
+    public static LibroEspecificacion crearEspecificacion(int v1, int v2){
         LibroEspecificacion libro = new LibroEspecificacion();
         Especificacion esp = new Especificacion();
         Nombre nom = new Nombre();
@@ -81,8 +92,8 @@ public class Reman {
         nom.setCodigo("001");
         nom.setNombre("especificacion ads");
 
-        ver.setvMax(1);
-        ver.setvMin(2);
+        ver.setvMax(v1);
+        ver.setvMin(v2);
 
         libro.setTitulo("Libro de Especificación");
         //libro.setIntro("Plantilla de especificación");
@@ -104,71 +115,15 @@ public class Reman {
         esp.setComentarios("comentarios dasdsada");
         
         return libro;
-    }
-    
-    public static void probarEduccion(){
-        String archivo = "libroEduccion";
-        XMLReader<LibroEduccion> reader = new XMLReader(LibroEduccion.class);
-        reader.writeXML(archivo, crearEduccion());
-        LibroEduccion abierto = reader.openXML(archivo);
-        XMLConverter factory = new XMLConverter();
-        factory.convert(archivo,"Educcion2.3");
-    }
-    
-    public static void probarActor(){
-        String archivo = "actores";
-        XMLReader<LibroActores> reader = new XMLReader(LibroActores.class);
-        reader.writeXML(archivo, crearActor());
-        LibroActores abierto = reader.openXML(archivo);
-        XMLConverter factory = new XMLConverter();
-        factory.convert(archivo,"Actores1.2");
-    }
-    
-    public static void probarHistorico(){
-        String archivo = "historico";
-        XMLReader<LibroHistorico> reader = new XMLReader(LibroHistorico.class);
-        reader.writeXML(archivo, crearHistorico());
-        LibroHistorico abierto = reader.openXML(archivo);
-        XMLConverter factory = new XMLConverter();
-        factory.convert(archivo,"Historico1");
-    }
-    
-    public static void escribirEspecificacion(String archivo, LibroEspecificacion obj){
-        XMLReader<LibroEspecificacion> reader = new XMLReader(LibroEspecificacion.class);
-        reader.writeXML(archivo, obj);
-    }
-    
-    private static LibroEspecificacion cargarEspecificacion(String archivo) {
-        XMLReader<LibroEspecificacion> reader = new XMLReader(LibroEspecificacion.class);
-        LibroEspecificacion esp = reader.openXML(archivo);
-        return esp;
-    }
-
-    private static void exportarEspecificacionPDF(String archivo) {
-        XMLConverter factory = new XMLConverter();
-        factory.convert("libroEspecificacion", archivo);
-    }
+    }    
     
     public static void main(String[] args) {
-        //probarEduccion();
-        //probarActor();
-        //probarHistorico();
-        escribirEspecificacion("Educcion1.2", crearEspecificacion());
-        cargarEspecificacion("Educcion1.2");
-        exportarEspecificacionPDF("Educcion1.2");
-        //String educcion = "libroEduccion";
-        //String elicitacion = "libroElicitacion";
-        /*String actores = "actores";
-        String proyecto = "proyecto";
-        String historico = "historico";
-        String organizacion = "organizacion";*/
-        //factory.convert(educcion);
-        //factory.convert(elicitacion);
-        //factory.convert(actores);
-        //factory.convert(proyecto);
-        //factory.convert(historico);
-        //factory.convert(organizacion);       
+        Reman obj = new Reman();
+        LibroEspecificacion ej = crearEspecificacion(1,0);
+        obj.managerEsp.escribirXML("Educcion1.0", ej);
+        ej = crearEspecificacion(1,1);
+        obj.managerEsp.escribirXML("Educcion1.1", ej);
+        obj.managerEsp.exportarPDF("Educcion1.0", "Educcion0");
+        obj.managerEsp.exportarPDF("Educcion1.1", "Educcion1");
     }
-
-   
 }

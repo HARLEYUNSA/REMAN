@@ -130,17 +130,36 @@ public class XMLConverter {
         }
     }
 
-    /**
-     * Convierte el archivo XML en PDF
-     * @param plantilla Archivo XLS para dar formato
-     * @param archivoXML Archivo XML de origen
-     */
     public void convert(String plantilla, String archivoXML){
         //Setup input and output files
         File xmlFile = new File(databaseDir, archivoXML +".xml");
         File xslFile = new File(baseDir, plantilla +".xsl");
         File foFile = new File(databaseDir, archivoXML +".fo");
         File pdfFile = new File(outDir, archivoXML +".pdf");
+
+        //Status
+        System.out.println("Input: XML (" + xmlFile + ")");
+        System.out.println("Output: PDF (" + pdfFile + ")");
+        System.out.println();
+        System.out.println("Transforming...");
+
+        XMLConverter pdfFactory = new XMLConverter();
+        pdfFactory.convertXML2PDF(xmlFile, xslFile, foFile, pdfFile);
+
+        System.out.println("Success!");
+    }
+    
+    /**
+     * Convierte el archivo XML en PDF
+     * @param plantilla Archivo XLS para dar formato
+     * @param archivoXML Archivo XML de origen
+     */
+    public void convert(String plantilla, String archivoXML, String nombre){
+        //Setup input and output files
+        File xmlFile = new File(databaseDir, archivoXML +".xml");
+        File xslFile = new File(baseDir, plantilla +".xsl");
+        File foFile = new File(databaseDir, archivoXML +".fo");
+        File pdfFile = new File(outDir, nombre +".pdf");
 
         //Status
         System.out.println("Input: XML (" + xmlFile + ")");
@@ -192,4 +211,5 @@ public class XMLConverter {
     public void clean(File fo){
         fo.delete();
     }
+    
 }
