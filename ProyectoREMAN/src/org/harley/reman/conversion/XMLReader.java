@@ -19,8 +19,8 @@ public class XMLReader<T> {
      * Constructor de la clase <code>XMLReader</code>
      * @param typeParameterClass 
      */
-    public XMLReader(Class<T> typeParameterClass) {
-        this.database = new File("src/org/harley/reman/database");
+    public XMLReader(Class<T> typeParameterClass, String directory) {
+        this.database = new File(directory);
         this.typeParameterClass = typeParameterClass;
         database.mkdirs();
     }

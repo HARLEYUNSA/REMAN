@@ -6,13 +6,13 @@ public class FileManager<T> {
     XMLConverter factory;
     String clase;
     
-    public FileManager(Class<T> typeParameterClass) {
+    public FileManager(Class<T> typeParameterClass, String directory) {
         this.typeParameterClass = typeParameterClass;
-        this.clase = typeParameterClass.getName().substring(24);
-        this.reader = new XMLReader(typeParameterClass);
-        this.factory = new XMLConverter();
+        this.clase = typeParameterClass.getSimpleName();
+        this.reader = new XMLReader(typeParameterClass, directory);
+        this.factory = new XMLConverter(directory);
     }
-    
+
     public void escribirXML(String archivo, T obj){
         reader.writeXML(archivo, obj);
     }

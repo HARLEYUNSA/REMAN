@@ -9,19 +9,7 @@ import org.harley.reman.conversion.FileManager;
  */
 public class Reman {
 
-    FileManager<LibroEspecificacion> managerEsp;
-    FileManager<LibroActores> managerActores;
-    FileManager<LibroEduccion> managerEduccion;
-    FileManager<LibroHistorico> managerHistorico;
-
-    public Reman() {
-        managerEsp = new FileManager(LibroEspecificacion.class);
-        managerActores = new FileManager(LibroActores.class);
-        managerEduccion = new FileManager(LibroEduccion.class);
-        managerHistorico = new FileManager(LibroHistorico.class);
-    }
-    
-     public static LibroEduccion crearEduccion() {
+    public static LibroEduccion crearEduccion() {
         LibroEduccion nuevo = new LibroEduccion();
         Educcion edu = new Educcion();
         Nombre nom = new Nombre();
@@ -96,7 +84,7 @@ public class Reman {
         ver.setvMin(v2);
 
         libro.setTitulo("Libro de Especificación");
-        //libro.setIntro("Plantilla de especificación");
+        libro.setIntro("Plantilla de especificación");
         libro.addEspecificacion(esp);
 
         excep.setEleNumero(1);
@@ -118,12 +106,26 @@ public class Reman {
     }    
     
     public static void main(String[] args) {
-        Reman obj = new Reman();
+        String project = "Proyecto1";
+        Reman rem = new Reman();
+        Proyecto nuevo = rem.crearProyecto(project);
+
         LibroEspecificacion ej = crearEspecificacion(1,0);
-        obj.managerEsp.escribirXML("Educcion1.0", ej);
-        ej = crearEspecificacion(1,1);
-        obj.managerEsp.escribirXML("Educcion1.1", ej);
-        obj.managerEsp.exportarPDF("Educcion1.0", "Educcion0");
-        obj.managerEsp.exportarPDF("Educcion1.1", "Educcion1");
+        nuevo.createEsp(ej,"libroEspecificacion1");
+        nuevo.exportarEsp("libroEspecificacion1", "LibroEspec");
+        
+        //obj.managerEsp.escribirXML("Educcion1.0", ej);
+        //ej = crearEspecificacion(1,1);
+        //obj.managerEsp.escribirXML("Educcion1.1", ej);
+        //obj.managerEsp.exportarPDF("Educcion1.0", "Educcion0");
+        //obj.managerEsp.exportarPDF("Educcion1.1", "Educcion1");
+    }
+    
+    public Proyecto crearProyecto(String project){
+        Proyecto pro = new Proyecto(project);
+        return pro;
+    }
+    
+    private void abrirProyecto() {
     }
 }

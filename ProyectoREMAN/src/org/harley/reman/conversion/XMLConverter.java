@@ -43,10 +43,11 @@ public class XMLConverter {
     /**
      * Constructor de la clase <code>XMLConverter</code>
      */
-    public  XMLConverter (){
-        databaseDir = new File("src/org/harley/reman/database");
-        outDir = new File("src/org/harley/reman/informes");
+    public  XMLConverter (String directory){
+        databaseDir = new File(directory);
+        outDir = new File(directory,"informe");
         baseDir = new File("src/org/harley/reman/conversion/plantillas");
+        outDir.mkdir();
     }
     
     /**
@@ -143,8 +144,7 @@ public class XMLConverter {
         System.out.println();
         System.out.println("Transforming...");
 
-        XMLConverter pdfFactory = new XMLConverter();
-        pdfFactory.convertXML2PDF(xmlFile, xslFile, foFile, pdfFile);
+        convertXML2PDF(xmlFile, xslFile, foFile, pdfFile);
 
         System.out.println("Success!");
     }
@@ -167,8 +167,7 @@ public class XMLConverter {
         System.out.println();
         System.out.println("Transforming...");
 
-        XMLConverter pdfFactory = new XMLConverter();
-        pdfFactory.convertXML2PDF(xmlFile, xslFile, foFile, pdfFile);
+        convertXML2PDF(xmlFile, xslFile, foFile, pdfFile);
 
         System.out.println("Success!");
     }
