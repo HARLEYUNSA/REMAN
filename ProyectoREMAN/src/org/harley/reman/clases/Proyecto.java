@@ -1,65 +1,76 @@
 package org.harley.reman.clases;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.harley.reman.conversion.FileManager;
 
 public class Proyecto {
     String name;
     Properties properties;
-    String location;
     File directory;
+    File dirPro;
+    File dirEdu;
+    File dirAct;
+    File dirEsp;
 
     FileManager<LibroEspecificacion> managerEsp;
     FileManager<LibroActores> managerActores;
     FileManager<LibroEduccion> managerEduccion;
-    FileManager<LibroHistorico> managerHistorico;
     
     /**
      * Constructor de la clase Proyecto
      * @param name Nombre del proyecto
-     * @param location Ubicación del proyecto
      */
     public Proyecto(String name){
         this.name = name;
-        this.location = name;
-        this.directory = new File(this.location);
-        createDirectory();
+        this.directory = new File(this.name);
+        this.dirPro = new File(directory, "project");
+        this.dirAct = new File(directory, "libroAct");
+        this.dirEsp = new File(directory, "libroEsp");
+        this.dirEdu = new File(directory, "libroEdu");
         this.properties = new Properties();
-        createProperties();
-        managerEsp = new FileManager(LibroEspecificacion.class, this.location + "\\libroEsp");
+        this.managerEsp = new FileManager(LibroEspecificacion.class, this.dirEsp);
+        this.managerActores = new FileManager(LibroEspecificacion.class, this.dirAct);
+        this.managerEduccion = new FileManager(LibroEspecificacion.class, this.dirEdu);
+    }
+    
+    public void createProject(){
+        createDirectory();
+        createProperties();  
+    }
+    
+    public void loadProject(){
+        loadProperties();
+    }
+    
+    public void deleteProject(){
+        
     }
     
     private void createDirectory(){
-        this.directory.mkdir();
-        System.out.println("Se creo el proyecto " + this.name);
+        directory.mkdir();
+        dirPro.mkdir();
+        dirAct.mkdir();
+        dirEsp.mkdir();
+        dirEdu.mkdir();
     }
     
     /**
-     * Crea el archivo properties insertando valores
+     * Crea el archivo properties insertando los valores del proyecto
      */
     private void createProperties(){
         OutputStream salida = null;
 
         try {
-            File output = new File(directory, "configuracion.properties");
+            File output = new File(dirPro, "configuracion.properties");
             salida = new FileOutputStream(output);
 
-            // asignamos los valores a las propiedades
             properties.setProperty("name", name);
-
-            // guardamos el archivo de propiedades en la carpeta de aplicación
             properties.store(salida, null);
 
         } catch (IOException io) {
@@ -82,11 +93,7 @@ public class Proyecto {
             File input = new File(directory, "configuracion.properties");
             entrada = new FileInputStream(input);
 
-            // cargamos el archivo de propiedades
             properties.load(entrada);
-
-            // obtenemos las propiedades y las imprimimos
-            System.out.println(properties.getProperty("name"));
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -101,9 +108,10 @@ public class Proyecto {
         }
     }
 
-    public void exportarEsp(String version, String nombre) {
-        managerEsp.exportarPDF(version, nombre);
+    public void exportarEsp(String origen, String destino, String nombre) {
+        managerEsp.exportarPDF(origen, destino , nombre);
     }
+    
     public void createEsp(LibroEspecificacion obj, String nombre) {
         managerEsp.escribirXML(nombre, obj);
     }

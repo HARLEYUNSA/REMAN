@@ -43,8 +43,8 @@ public class XMLConverter {
     /**
      * Constructor de la clase <code>XMLConverter</code>
      */
-    public  XMLConverter (String directory){
-        databaseDir = new File(directory);
+    public  XMLConverter (File directory){
+        databaseDir = directory;
         outDir = new File(directory,"informe");
         baseDir = new File("src/org/harley/reman/conversion/plantillas");
         outDir.mkdir();
@@ -130,6 +130,7 @@ public class XMLConverter {
             }
         }
     }
+    
 
     public void convert(String plantilla, String archivoXML){
         //Setup input and output files
@@ -153,14 +154,18 @@ public class XMLConverter {
      * Convierte el archivo XML en PDF
      * @param plantilla Archivo XLS para dar formato
      * @param archivoXML Archivo XML de origen
+     * @param destino
+     * @param nombre
      */
-    public void convert(String plantilla, String archivoXML, String nombre){
+
+    public void convert(String plantilla, String archivoXML, String destino, String nombre){
         //Setup input and output files
         File xmlFile = new File(databaseDir, archivoXML +".xml");
         File xslFile = new File(baseDir, plantilla +".xsl");
         File foFile = new File(databaseDir, archivoXML +".fo");
-        File pdfFile = new File(outDir, nombre +".pdf");
-
+        File pdfFile = new File(destino, nombre +".pdf");
+        File pdf = new File(destino);
+        pdf.mkdir();
         //Status
         System.out.println("Input: XML (" + xmlFile + ")");
         System.out.println("Output: PDF (" + pdfFile + ")");

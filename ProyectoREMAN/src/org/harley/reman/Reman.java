@@ -111,18 +111,13 @@ public class Reman {
         Proyecto nuevo = rem.crearProyecto(project);
 
         LibroEspecificacion ej = crearEspecificacion(1,0);
-        nuevo.createEsp(ej,"libroEspecificacion1");
-        nuevo.exportarEsp("libroEspecificacion1", "LibroEspec");
-        
-        //obj.managerEsp.escribirXML("Educcion1.0", ej);
-        //ej = crearEspecificacion(1,1);
-        //obj.managerEsp.escribirXML("Educcion1.1", ej);
-        //obj.managerEsp.exportarPDF("Educcion1.0", "Educcion0");
-        //obj.managerEsp.exportarPDF("Educcion1.1", "Educcion1");
+        nuevo.createEsp(ej,"esp1");
+        nuevo.exportarEsp("esp1", "D:\\Informe", "LibroEspecificacion");
     }
     
     public Proyecto crearProyecto(String project){
         Proyecto pro = new Proyecto(project);
+        pro.createProject();
         return pro;
     }
     
