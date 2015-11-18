@@ -1,7 +1,6 @@
 package org.harley.reman;
 
 import org.harley.reman.clases.*;
-import org.harley.reman.conversion.FileManager;
 
 /**
  *
@@ -71,21 +70,12 @@ public class Reman {
         return nuevo;
     }
     
-    public static LibroEspecificacion crearEspecificacion(int v1, int v2){
-        LibroEspecificacion libro = new LibroEspecificacion();
+    public static Especificacion crearEsp(){
         Especificacion esp = new Especificacion();
         Nombre nom = new Nombre();
-        Version ver = new Version();
         Elemento excep = new Elemento(); 
         nom.setCodigo("001");
         nom.setNombre("especificacion ads");
-
-        ver.setvMax(v1);
-        ver.setvMin(v2);
-
-        libro.setTitulo("Libro de Especificación");
-        libro.setIntro("Plantilla de especificación");
-        libro.addEspecificacion(esp);
 
         excep.setEleNumero(1);
         excep.setEleDescripcion("el sistema");
@@ -93,7 +83,6 @@ public class Reman {
 
         esp.setEspecificacionNombre(nom);
         esp.setEliNombre("ELI001");
-        esp.setVersion(ver);
         esp.setAutor("Gonzalo");
         esp.setFuente("Jose");
         esp.setDependencias("dependencia");
@@ -102,19 +91,22 @@ public class Reman {
         esp.addPostcondicion("postcondicion1");
         esp.setComentarios("comentarios dasdsada");
         
-        return libro;
+        return esp;
     }    
     
     public static void main(String[] args) {
-        String project = "Proyecto1";
         Reman rem = new Reman();
-        Proyecto nuevo = rem.crearProyecto(project);
+        
+        String nombreProyecto = "Proyecto1";
+        
+        Proyecto project = rem.crearProyecto(nombreProyecto);
 
-        LibroEspecificacion ej = crearEspecificacion(1,0);
-        nuevo.createEsp(ej,"esp1");
-        nuevo.exportarEsp("esp1", "D:\\Informe", "LibroEspecificacion");
+        project.addEsp(crearEsp());
+        
+        project.createEsp("esp1");
+        project.exportarLibroEsp("esp1", "D:\\Informe", "LibroEspecificacion");
     }
-    
+   
     public Proyecto crearProyecto(String project){
         Proyecto pro = new Proyecto(project);
         pro.createProject();
@@ -122,5 +114,6 @@ public class Reman {
     }
     
     private void abrirProyecto() {
+        
     }
 }

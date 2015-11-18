@@ -7,8 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,9 +43,8 @@ public class XMLConverter {
      */
     public  XMLConverter (File directory){
         databaseDir = directory;
-        outDir = new File(directory,"informe");
+        outDir = new File("informes");
         baseDir = new File("src/org/harley/reman/conversion/plantillas");
-        outDir.mkdir();
     }
     
     /**

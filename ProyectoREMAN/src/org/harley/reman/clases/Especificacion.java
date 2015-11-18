@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 
 public class Especificacion {
+
+    
         Nombre especificacionNombre;
 	String eliNombre;
         Version version;
@@ -35,6 +37,12 @@ public class Especificacion {
         List<Elemento> excepciones; 
         String comentarios;
 
+    public Especificacion() {
+        this.version = new Version();
+        this.version.setvMax(1);
+        this.version.setvMin(0);
+    }
+        
     public Nombre getEspecificacionNombre() {
         return especificacionNombre;     
     }

@@ -17,11 +17,12 @@ public class Proyecto {
     File dirEdu;
     File dirAct;
     File dirEsp;
-
+    
     FileManager<LibroEspecificacion> managerEsp;
     FileManager<LibroActores> managerActores;
     FileManager<LibroEduccion> managerEduccion;
     
+    LibroEspecificacion libroEsp;
     /**
      * Constructor de la clase Proyecto
      * @param name Nombre del proyecto
@@ -37,6 +38,9 @@ public class Proyecto {
         this.managerEsp = new FileManager(LibroEspecificacion.class, this.dirEsp);
         this.managerActores = new FileManager(LibroEspecificacion.class, this.dirAct);
         this.managerEduccion = new FileManager(LibroEspecificacion.class, this.dirEdu);
+        this.libroEsp = new LibroEspecificacion();
+        this.libroEsp.setTitulo("Libro de Especificación");
+        this.libroEsp.setIntro("Plantilla de especificación");
     }
     
     public void createProject(){
@@ -65,14 +69,11 @@ public class Proyecto {
      */
     private void createProperties(){
         OutputStream salida = null;
-
         try {
             File output = new File(dirPro, "configuracion.properties");
             salida = new FileOutputStream(output);
-
             properties.setProperty("name", name);
             properties.store(salida, null);
-
         } catch (IOException io) {
             io.printStackTrace();
         } finally {
@@ -84,17 +85,14 @@ public class Proyecto {
                 }
             }
         }
-    } 
+    }
    
     public void loadProperties(){
         InputStream entrada = null;
         try {
-
             File input = new File(directory, "configuracion.properties");
             entrada = new FileInputStream(input);
-
             properties.load(entrada);
-
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
@@ -108,11 +106,15 @@ public class Proyecto {
         }
     }
 
-    public void exportarEsp(String origen, String destino, String nombre) {
+    public void exportarLibroEsp(String origen, String destino, String nombre){
         managerEsp.exportarPDF(origen, destino , nombre);
     }
     
-    public void createEsp(LibroEspecificacion obj, String nombre) {
-        managerEsp.escribirXML(nombre, obj);
+    public void createEsp(String nombre){
+        managerEsp.escribirXML(nombre, libroEsp);
+    }
+    
+    public void addEsp(Especificacion esp){
+        libroEsp.addEspecificacion(esp);
     }
 }
