@@ -38,7 +38,7 @@ public class Proyecto {
         this.managerEsp = new FileManager(LibroEspecificacion.class, this.dirEsp);
         this.managerActores = new FileManager(LibroEspecificacion.class, this.dirAct);
         this.managerEduccion = new FileManager(LibroEspecificacion.class, this.dirEdu);
-        this.libroEsp = new LibroEspecificacion();
+        this.libroEsp = new LibroEspecificacion(this.dirEsp);
         this.libroEsp.setTitulo("Libro de Especificación");
         this.libroEsp.setIntro("Plantilla de especificación");
     }
@@ -115,6 +115,13 @@ public class Proyecto {
     }
     
     public void addEsp(Especificacion esp){
-        libroEsp.addEspecificacion(esp);
+        if (libroEsp.isEmpty()){
+            libroEsp.addEspecificacion(esp);
+            createEsp("esp1");
+        }
+        else {
+            libroEsp.addEspecificacion(esp);
+        }
     }
+
 }

@@ -1,11 +1,16 @@
 package org.harley.reman.clases;
 
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import org.harley.reman.conversion.FileManager;
 
 @XmlRootElement (name = "libroEsp" )
 @XmlType(propOrder={
@@ -18,7 +23,17 @@ public class LibroEspecificacion {
     String titulo;
     String intro;
     List<Especificacion> especificaciones;
-    
+    LibroHistorico histEsp;
+    FileManager<LibroHistorico> managerHist;
+
+    public LibroEspecificacion() {
+    }
+
+    public LibroEspecificacion(File directory) {
+        this.managerHist = new FileManager(LibroHistorico.class, directory);
+        this.histEsp = new LibroHistorico();
+    }
+
     public String getTitulo() {
         return titulo;
     }
@@ -46,10 +61,30 @@ public class LibroEspecificacion {
         this.especificaciones = especificaciones;
     }
     
+    public boolean isEmpty(){
+        return (this.especificaciones == null);
+    }
+    
     public void addEspecificacion(Especificacion esp){
-        if( this.especificaciones == null ){
-            this.especificaciones = new ArrayList<>();
+        if (isEmpty()){
+           especificaciones = new ArrayList<>();
         }
-        this.especificaciones.add(esp);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+	Calendar cal = Calendar.getInstance();
+        String nombreEsp = esp.getEspecificacionNombre().getNombre();
+        addHistorico(esp, dateFormat.format(cal.getTime()), 
+                   "Creación de la Especificación " + nombreEsp);
+        especificaciones.add(esp);
+    }
+    
+    public void modEspecificacion(){
+        
+    }
+    
+    public void addHistorico(Especificacion esp, String fecha, String razon){
+        Historico hist = new Historico(esp.getVersion(), fecha, razon, esp.getAutor());
+        histEsp.addHistorico(hist);
+        managerHist.escribirXML("HistoricoEsp", histEsp);
     }
 }
+

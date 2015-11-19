@@ -12,10 +12,21 @@ import javax.xml.bind.annotation.XmlType;
     "autor"
 })
 public class Historico {
+
     String version;
     String fecha;
     String razon;
     String autor;
+
+    public Historico() {
+    }
+
+    public Historico(Version version, String fecha, String razon, String autor) {
+        this.version = version.getvMax() + "." + version.vMin;
+        this.fecha = fecha;
+        this.razon = razon;
+        this.autor = autor;
+    }
 
     public String getVersion() {
         return version;

@@ -57,20 +57,7 @@ public class Reman {
         return nuevo;
     }
     
-    public static LibroHistorico crearHistorico(){
-        LibroHistorico nuevo = new LibroHistorico();
-        Historico hist = new Historico();
-        hist.setVersion("1.2");
-        hist.setFecha("03/09/2015");
-        hist.setRazon("Cambio 1");
-        hist.setAutor("Gonzalo");
-        nuevo.setTitulo("Libro Histórico");
-        nuevo.setIntro("Plantilla de Libro Histórico");
-        nuevo.addHistorico(hist);
-        return nuevo;
-    }
-    
-    public static Especificacion crearEsp(){
+    public static Especificacion nuevoEsp(){
         Especificacion esp = new Especificacion();
         Nombre nom = new Nombre();
         Elemento excep = new Elemento(); 
@@ -101,10 +88,10 @@ public class Reman {
         
         Proyecto project = rem.crearProyecto(nombreProyecto);
 
-        project.addEsp(crearEsp());
+        project.addEsp(nuevoEsp());
         
-        project.createEsp("esp1");
-        project.exportarLibroEsp("esp1", "D:\\Informe", "LibroEspecificacion");
+       // project.exportarLibroEsp("esp1", "D:\\Informe", "LibroEspecificacion");
+        
     }
    
     public Proyecto crearProyecto(String project){

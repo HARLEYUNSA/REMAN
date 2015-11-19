@@ -34,17 +34,17 @@ import org.apache.fop.apps.PageSequenceResults;
 public class XMLConverter {
 
     private final FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
-    File databaseDir;
-    File baseDir;
-    File outDir;
+    File database;
+    File plantillas;
+    File salida;
     
     /**
      * Constructor de la clase <code>XMLConverter</code>
      */
     public  XMLConverter (File directory){
-        databaseDir = directory;
-        outDir = new File("informes");
-        baseDir = new File("src/org/harley/reman/conversion/plantillas");
+        database = directory;
+        salida = new File("informes");      //Salida por defecto
+        plantillas = new File("src/org/harley/reman/conversion/plantillas");
     }
     
     /**
@@ -131,10 +131,10 @@ public class XMLConverter {
 
     public void convert(String plantilla, String archivoXML){
         //Setup input and output files
-        File xmlFile = new File(databaseDir, archivoXML +".xml");
-        File xslFile = new File(baseDir, plantilla +".xsl");
-        File foFile = new File(databaseDir, archivoXML +".fo");
-        File pdfFile = new File(outDir, archivoXML +".pdf");
+        File xmlFile = new File(database, archivoXML +".xml");
+        File xslFile = new File(plantillas, plantilla +".xsl");
+        File foFile = new File(database, archivoXML +".fo");
+        File pdfFile = new File(salida, archivoXML +".pdf");
 
         //Status
         System.out.println("Input: XML (" + xmlFile + ")");
@@ -154,12 +154,11 @@ public class XMLConverter {
      * @param destino
      * @param nombre
      */
-
     public void convert(String plantilla, String archivoXML, String destino, String nombre){
         //Setup input and output files
-        File xmlFile = new File(databaseDir, archivoXML +".xml");
-        File xslFile = new File(baseDir, plantilla +".xsl");
-        File foFile = new File(databaseDir, archivoXML +".fo");
+        File xmlFile = new File(database, archivoXML +".xml");
+        File xslFile = new File(plantillas, plantilla +".xsl");
+        File foFile = new File(database, archivoXML +".fo");
         File pdfFile = new File(destino, nombre +".pdf");
         File pdf = new File(destino);
         pdf.mkdir();
@@ -188,6 +187,7 @@ public class XMLConverter {
 
         //Convert from FOP to PDF
         convertFO2PDF(fo, pdf);
+        
         //Delete temporal directory
         clean(fo);
         abrirPDF(pdf);
