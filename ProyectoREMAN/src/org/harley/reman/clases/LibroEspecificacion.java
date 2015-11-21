@@ -87,4 +87,3 @@ public class LibroEspecificacion {
         managerHist.escribirXML("HistoricoEsp", histEsp);
     }
 }
-

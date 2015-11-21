@@ -8,8 +8,7 @@ import org.harley.reman.clases.*;
  */
 public class Reman {
 
-    public static LibroEduccion crearEduccion() {
-        LibroEduccion nuevo = new LibroEduccion();
+    public static Educcion nuevoEdu() {
         Educcion edu = new Educcion();
         Nombre nom = new Nombre();
         
@@ -30,10 +29,7 @@ public class Reman {
         edu.setObservaciones("Observaciones del requisito");
     
         edu.setEduccionNombre(nom);
-        nuevo.setTitulo("Libro de Educcion");
-        nuevo.setIntro("Plantilla de Educción de Requisitos");
-        nuevo.addEduccion(edu);
-        return nuevo;
+        return edu;
     }
     
     public static LibroActores crearActor(){
@@ -81,13 +77,11 @@ public class Reman {
         Reman rem = new Reman();
         
         String nombreProyecto = "Proyecto1";
+        /*Proyecto project = rem.crearProyecto(nombreProyecto);
+        project.addEdu(nuevoEdu());*/
         
-        Proyecto project = rem.crearProyecto(nombreProyecto);
-
-        project.addEsp(nuevoEsp());
-        
-       // project.exportarLibroEsp("esp1", "D:\\Informe", "LibroEspecificacion");
-        
+        Proyecto project = rem.abrirProyecto();
+        project.exportarLibroEdu("edu", "D:\\Informe", "LibroEduccion");
     }
    
     public Proyecto crearProyecto(String project){
@@ -96,7 +90,10 @@ public class Reman {
         return pro;
     }
     
-    private void abrirProyecto() {
-        
+    private Proyecto abrirProyecto() {
+        String nombreProyecto = "Proyecto1";
+        Proyecto pro = new Proyecto(nombreProyecto);
+        pro.loadProject();
+        return pro;
     }
 }

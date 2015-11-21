@@ -20,9 +20,10 @@ public class Proyecto {
     
     FileManager<LibroEspecificacion> managerEsp;
     FileManager<LibroActores> managerActores;
-    FileManager<LibroEduccion> managerEduccion;
+    FileManager<LibroEduccion> managerEdu;
     
     LibroEspecificacion libroEsp;
+    LibroEduccion libroEdu;
     /**
      * Constructor de la clase Proyecto
      * @param name Nombre del proyecto
@@ -37,10 +38,9 @@ public class Proyecto {
         this.properties = new Properties();
         this.managerEsp = new FileManager(LibroEspecificacion.class, this.dirEsp);
         this.managerActores = new FileManager(LibroEspecificacion.class, this.dirAct);
-        this.managerEduccion = new FileManager(LibroEspecificacion.class, this.dirEdu);
+        this.managerEdu = new FileManager(LibroEduccion.class, this.dirEdu);
         this.libroEsp = new LibroEspecificacion(this.dirEsp);
-        this.libroEsp.setTitulo("Libro de Especificación");
-        this.libroEsp.setIntro("Plantilla de especificación");
+        this.libroEdu = new LibroEduccion(this.dirEdu);
     }
     
     public void createProject(){
@@ -90,7 +90,7 @@ public class Proyecto {
     public void loadProperties(){
         InputStream entrada = null;
         try {
-            File input = new File(directory, "configuracion.properties");
+            File input = new File(dirPro, "configuracion.properties");
             entrada = new FileInputStream(input);
             properties.load(entrada);
         } catch (IOException ex) {
@@ -117,10 +117,28 @@ public class Proyecto {
     public void addEsp(Especificacion esp){
         if (libroEsp.isEmpty()){
             libroEsp.addEspecificacion(esp);
-            createEsp("esp1");
+            createEsp("esp");
         }
         else {
             libroEsp.addEspecificacion(esp);
+        }
+    }
+    
+    public void exportarLibroEdu(String origen, String destino, String nombre){
+        managerEdu.exportarPDF(origen, destino , nombre);
+    }
+    
+    public void createEdu(String nombre){
+        managerEdu.escribirXML(nombre, libroEdu);
+    }
+    
+    public void addEdu(Educcion edu){
+        if (libroEdu.isEmpty()){
+            libroEdu.addEduccion(edu);
+            createEdu("edu");
+        }
+        else {
+            libroEdu.addEduccion(edu);
         }
     }
 

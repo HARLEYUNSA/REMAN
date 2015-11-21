@@ -27,7 +27,7 @@ public class Especificacion {
     
         Nombre especificacionNombre;
 	String eliNombre;
-        Version version;
+        String version;
         String autor;
         String fuente;
         String dependencias;
@@ -38,9 +38,7 @@ public class Especificacion {
         String comentarios;
 
     public Especificacion() {
-        this.version = new Version();
-        this.version.setvMax(1);
-        this.version.setvMin(0);
+        this.version = "0.1";
     }
         
     public Nombre getEspecificacionNombre() {
@@ -61,12 +59,12 @@ public class Especificacion {
         this.eliNombre = eliNombre;
     }
 
-    public Version getVersion() {
+    public String getVersion() {
         return version;
     }
     
     @XmlElement
-    public void setVersion(Version version) {
+    public void setVersion(String version) {
         this.version = version;
     }
 

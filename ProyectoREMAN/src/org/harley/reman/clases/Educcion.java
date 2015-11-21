@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlType;
     @XmlType(propOrder = {
         "educcionNombre",
         "version",
-        "actor",
+        "fuente",
         "cargo",
-        "especialista",
+        "especialNombre",
         "especialEspecial",
         "especialTipo",
         "especialExp",

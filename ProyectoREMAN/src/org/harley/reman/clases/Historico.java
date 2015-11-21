@@ -21,8 +21,8 @@ public class Historico {
     public Historico() {
     }
 
-    public Historico(Version version, String fecha, String razon, String autor) {
-        this.version = version.getvMax() + "." + version.vMin;
+    public Historico(String version, String fecha, String razon, String autor) {
+        this.version = version;
         this.fecha = fecha;
         this.razon = razon;
         this.autor = autor;
