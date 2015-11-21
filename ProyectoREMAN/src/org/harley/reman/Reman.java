@@ -76,12 +76,12 @@ public class Reman {
     public static void main(String[] args) {
         Reman rem = new Reman();
         
-        String nombreProyecto = "Proyecto1";
-        /*Proyecto project = rem.crearProyecto(nombreProyecto);
-        project.addEdu(nuevoEdu());*/
+        String nombreProyecto = "NombreProyecto";
+        Proyecto project = rem.crearProyecto(nombreProyecto);
+        project.addEdu(nuevoEdu());
         
-        Proyecto project = rem.abrirProyecto();
-        project.exportarLibroEdu("edu", "D:\\Informe", "LibroEduccion");
+        /*Proyecto project = rem.abrirProyecto();
+        project.exportarLibroEdu("edu", "D:\\Informe", "LibroEduccion");*/
     }
    
     public Proyecto crearProyecto(String project){

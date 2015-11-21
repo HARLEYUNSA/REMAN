@@ -15,15 +15,16 @@ public class Proyecto {
     File directory;
     File dirPro;
     File dirEdu;
-    File dirAct;
+    File dirEli;
     File dirEsp;
+    File dirOrg;
+    File dirRnf;
     
-    FileManager<LibroEspecificacion> managerEsp;
-    FileManager<LibroActores> managerActores;
     FileManager<LibroEduccion> managerEdu;
+    FileManager<LibroEspecificacion> managerEsp;
     
-    LibroEspecificacion libroEsp;
     LibroEduccion libroEdu;
+    LibroEspecificacion libroEsp;
     /**
      * Constructor de la clase Proyecto
      * @param name Nombre del proyecto
@@ -31,16 +32,17 @@ public class Proyecto {
     public Proyecto(String name){
         this.name = name;
         this.directory = new File(this.name);
-        this.dirPro = new File(directory, "project");
-        this.dirAct = new File(directory, "libroAct");
-        this.dirEsp = new File(directory, "libroEsp");
-        this.dirEdu = new File(directory, "libroEdu");
+        this.dirPro = new File(directory, "remanproject");
+        this.dirEdu = new File(directory, "src//edu");
+        this.dirEli = new File(directory, "src//eli");
+        this.dirEsp = new File(directory, "src//esp");
+        this.dirOrg = new File(directory, "src//org");
+        this.dirRnf = new File(directory, "src//rnf");  
         this.properties = new Properties();
-        this.managerEsp = new FileManager(LibroEspecificacion.class, this.dirEsp);
-        this.managerActores = new FileManager(LibroEspecificacion.class, this.dirAct);
         this.managerEdu = new FileManager(LibroEduccion.class, this.dirEdu);
-        this.libroEsp = new LibroEspecificacion(this.dirEsp);
+        this.managerEsp = new FileManager(LibroEspecificacion.class, this.dirEsp);
         this.libroEdu = new LibroEduccion(this.dirEdu);
+        this.libroEsp = new LibroEspecificacion(this.dirEsp);
     }
     
     public void createProject(){
@@ -58,10 +60,14 @@ public class Proyecto {
     
     private void createDirectory(){
         directory.mkdir();
+        File tmp = new File(directory,"src");
+        tmp.mkdir();
         dirPro.mkdir();
-        dirAct.mkdir();
-        dirEsp.mkdir();
         dirEdu.mkdir();
+        dirEli.mkdir();
+        dirEsp.mkdir();
+        dirOrg.mkdir();
+        dirRnf.mkdir();
     }
     
     /**
