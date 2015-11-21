@@ -12,30 +12,26 @@ public class Reman {
         LibroEduccion nuevo = new LibroEduccion();
         Educcion edu = new Educcion();
         Nombre nom = new Nombre();
-        Version ver = new Version();
         
         nom.setCodigo("0001");
         nom.setNombre("Nombre del requisito");
         
-        edu.setActor("Christian");
+        edu.setFuente("Christiano López");
+        edu.setVersion("0.1");
         edu.setCargo("Usuario");
-        edu.setEspecialista("Gonzalo Luna");
+        edu.setEspecialNombre("Gonzalo Luna");
         edu.setEspecialEspecial("Ing Requisitos");
         edu.setEspecialTipo("Programador");
-        edu.setEspecialExp("Experiencia");
+        edu.setEspecialExp("Alta");
         edu.setEduccionTipo("Primario");
         edu.setEduccionObj("Objeto del Requisito");
-        edu.setEduccionFecha("23/09/2015");
+        edu.setEduccionFecha("01/01/2016");
         edu.setDescripcion("Descripcion de requerimiento a educcionar");
         edu.setObservaciones("Observaciones del requisito");
-        
-        ver.setvMax(1);
-        ver.setvMin(2);
+    
         edu.setEduccionNombre(nom);
-        edu.setVersion(ver);
         nuevo.setTitulo("Libro de Educcion");
         nuevo.setIntro("Plantilla de Educción de Requisitos");
-        nuevo.addEduccion(edu);
         nuevo.addEduccion(edu);
         return nuevo;
     }

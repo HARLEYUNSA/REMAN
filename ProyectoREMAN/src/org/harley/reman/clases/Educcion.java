@@ -22,10 +22,10 @@ import javax.xml.bind.annotation.XmlType;
     })
 public class Educcion {
         Nombre educcionNombre;
-        Version version;
-        String actor;
+        String version;
+        String fuente;
         String cargo;
-        String especialista;
+        String especialNombre;
         String especialEspecial;
         String especialTipo;
         String especialExp;
@@ -44,22 +44,22 @@ public class Educcion {
         this.educcionNombre = educcionNombre;
     }
 
-    public Version getVersion() {
+    public String getVersion() {
         return version;
     }
     
     @XmlElement
-    public void setVersion(Version version) {
+    public void setVersion(String version) {
         this.version = version;
     }
 
-    public String getActor() {
-        return actor;
+    public String getFuente() {
+        return fuente;
     }
     
     @XmlElement
-    public void setActor(String actor) {
-        this.actor = actor;
+    public void setFuente(String fuente) {
+        this.fuente = fuente;
     }
 
     public String getCargo() {
@@ -71,13 +71,13 @@ public class Educcion {
         this.cargo = cargo;
     }
 
-    public String getEspecialista() {
-        return especialista;
+    public String getEspecialNombre() {
+        return especialNombre;
     }
     
     @XmlElement
-    public void setEspecialista(String especialista) {
-        this.especialista = especialista;
+    public void setEspecialNombre(String especialNombre) {
+        this.especialNombre = especialNombre;
     }
 
     public String getEspecialEspecial() {
