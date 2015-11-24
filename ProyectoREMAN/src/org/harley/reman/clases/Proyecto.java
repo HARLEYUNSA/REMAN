@@ -26,7 +26,7 @@ public class Proyecto {
     FileManager<LibroEspecificacion> managerEsp;
     FileManager<Educciones> manEdu;
 
-    List<Educciones> verEdu;
+    List<Educciones> allEdu;
     LibroEduccion libroEdu;
     LibroEspecificacion libroEsp;
     /**
@@ -47,13 +47,13 @@ public class Proyecto {
         this.managerEsp = new FileManager(LibroEspecificacion.class, this.dirEsp);
         this.libroEdu = new LibroEduccion(this.dirEdu);
         this.libroEsp = new LibroEspecificacion(this.dirEsp);
-        this.verEdu = new ArrayList<>();
+        this.allEdu = new ArrayList<>();
         this.manEdu = new FileManager(Educciones.class, dirEdu);
     }
     
-    public void createProject(){
+    public void createProject(String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin) {
         createDirectory();
-        createProperties();  
+        createProperties(empDes, empCli, lidPro, estPro, fecIni, fecFin);
     }
     
     public void loadProject(){
@@ -79,12 +79,18 @@ public class Proyecto {
     /**
      * Crea el archivo properties insertando los valores del proyecto
      */
-    private void createProperties(){
-        OutputStream salida = null;
+    private void createProperties(String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin) {
+OutputStream salida = null;
         try {
             File output = new File(dirPro, "configuracion.properties");
             salida = new FileOutputStream(output);
             properties.setProperty("name", name);
+            properties.setProperty("empDes", empDes);
+            properties.setProperty("empCli", empCli);
+            properties.setProperty("lidPro", lidPro);
+            properties.setProperty("estPro", estPro);
+            properties.setProperty("fecIni", fecIni);
+            properties.setProperty("fecFin", fecFin);
             properties.store(salida, null);
         } catch (IOException io) {
             io.printStackTrace();
@@ -96,7 +102,7 @@ public class Proyecto {
                     e.printStackTrace();
                 }
             }
-        }
+        }    
     }
    
     public void loadProperties(){
@@ -118,7 +124,6 @@ public class Proyecto {
         }
     }
 
-    
     public void createLibEdu(String nombre){
         managerEdu.escribirXML(nombre, libroEdu);
     }
@@ -132,23 +137,23 @@ public class Proyecto {
         managerEdu.exportarPDF("libEdu", destino , nombre);
     }
     
-    public void addVer(Educcion edu){
+    public void addEdu(Educcion edu){
         Educciones ver = new Educciones(dirEdu);
         ver.newEdu(edu);
         String codEdu = edu.getEduccionNombre().getCodigo();
         File tmp = new File(dirEdu, codEdu);
-        verEdu.add(ver);
+        allEdu.add(ver);
         manEdu.escribirXML("edu"+codEdu, ver);
     }
 
     public Educcion getEdu(String name) {
-        Educciones x = new Educciones();
+        Educciones x;
         x = manEdu.leerXML(name);
         return x.getLast();
     }
 
     public void modEdu(Educcion edu, String razon) {
-        Educciones x = new Educciones();
+        Educciones x;
         String cod = edu.getEduccionNombre().getCodigo();
         x = manEdu.leerXML("edu"+cod);
         x.modEdu(edu, razon);
