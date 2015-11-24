@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
         "observaciones"
     })
 public class Educcion {
+        private static int numero = 0;
         Nombre educcionNombre;
         String version;
         String fuenteNombre;
@@ -37,6 +38,14 @@ public class Educcion {
         String descripcion;
         String observaciones;
 
+    public Educcion() {
+    }
+
+    public Educcion(String name) {
+        numero++;
+        educcionNombre = new Nombre("000"+numero, name); 
+    }
+   
     public Nombre getEduccionNombre() {
         return educcionNombre;
     }

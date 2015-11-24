@@ -9,6 +9,14 @@ public class Nombre {
     String codigo;
     String nombre;
 
+    public Nombre() {
+    }
+
+    public Nombre(String codigo, String nombre) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+    }
+
     public String getCodigo() {
         return codigo;
     }

@@ -8,12 +8,8 @@ import org.harley.reman.clases.*;
  */
 public class Reman {
 
-    public static Educcion nuevoEdu(String cod) {
-        Educcion edu = new Educcion();
-        Nombre nom = new Nombre();
-        
-        nom.setCodigo(cod);
-        nom.setNombre("Nombre del requisito");
+    public static Educcion nuevoEdu() {
+        Educcion edu = new Educcion("Nombre del requisito");
         edu.setVersion("0.01");
         edu.setFuenteNombre("Christiano López");
         edu.setFuenteCargo("Usuario");
@@ -27,8 +23,6 @@ public class Reman {
         edu.setEduccionFecha("01/01/2016");
         edu.setDescripcion("Descripcion de requerimiento a educcionar");
         edu.setObservaciones("Observaciones del requisito");
-    
-        edu.setEduccionNombre(nom);
         return edu;
     }
     
@@ -63,12 +57,13 @@ public class Reman {
         //Proyecto project = rem.crearProyecto(nombreProyecto);
         
         Proyecto project = rem.abrirProyecto(nombreProyecto);
-        //project.addVer(nuevoEdu("0001"));
-        //project.addVer(nuevoEdu("0002"));
-        /*Educcion z = project.getEdu("edu0001");
+        //project.addVer(nuevoEdu());
+        //project.addVer(nuevoEdu());
+        
+        Educcion z = project.getEdu("edu0001");
         z.setVersion("0.02");
         String razon = "se cambio la version";
-        project.modEdu(z, razon);*/
+        project.modEdu(z, razon);
         
         project.exportarLibroEdu("D:\\Informe", "LibroEduccion");
     }
