@@ -8,13 +8,13 @@ import org.harley.reman.clases.*;
  */
 public class Reman {
 
-    public static Educcion nuevoEdu() {
+    public static Educcion nuevoEdu(String cod) {
         Educcion edu = new Educcion();
         Nombre nom = new Nombre();
         
-        nom.setCodigo("0001");
+        nom.setCodigo(cod);
         nom.setNombre("Nombre del requisito");
-        edu.setVersion("0.1");
+        edu.setVersion("0.01");
         edu.setFuenteNombre("Christiano López");
         edu.setFuenteCargo("Usuario");
         edu.setFuenteTipo("Interno");
@@ -30,23 +30,6 @@ public class Reman {
     
         edu.setEduccionNombre(nom);
         return edu;
-    }
-    
-    public static LibroActores crearActor(){
-        LibroActores nuevo = new LibroActores();
-        Actor act = new Actor();
-        Nombre nom = new Nombre();
-        nom.setCodigo("0001");
-        nom.setNombre("Gonzalo");
-        act.setOrg("Harley");
-        act.setCargo("Jefe de oficina");
-        act.setTipo("Desarrollador");
-        act.setCorreo("glunaluza@gmail.com");
-        act.setComentarios("Comentarios");
-        act.setActorNombre(nom);
-        nuevo.setIntro("Libro de Actores");
-        nuevo.addActor(act);
-        return nuevo;
     }
     
     public static Especificacion nuevoEsp(){
@@ -80,13 +63,14 @@ public class Reman {
         //Proyecto project = rem.crearProyecto(nombreProyecto);
         
         Proyecto project = rem.abrirProyecto(nombreProyecto);
-        project.addEdu(nuevoEdu());
-        Educcion z = project.getEdu("edu0001");
-        z.setVersion("0.2");
+        //project.addVer(nuevoEdu("0001"));
+        //project.addVer(nuevoEdu("0002"));
+        /*Educcion z = project.getEdu("edu0001");
+        z.setVersion("0.02");
         String razon = "se cambio la version";
-        project.modEdu(z, razon);
+        project.modEdu(z, razon);*/
         
-        //project.exportarLibroEdu("edu", "D:\\Informe", "LibroEduccion");*/
+        project.exportarLibroEdu("D:\\Informe", "LibroEduccion");
     }
    
     public Proyecto crearProyecto(String project){

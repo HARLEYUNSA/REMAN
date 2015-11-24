@@ -25,13 +25,11 @@ public class LibroEduccion {
     String intro;
     List<Educcion> educciones;
     LibroHistorico histEdu;
-    FileManager<LibroHistorico> managerHist;
 
     public LibroEduccion() {
     }
 
     public LibroEduccion(File directory) {
-        this.managerHist = new FileManager(LibroHistorico.class, directory);
         this.histEdu = new LibroHistorico();
         this.titulo = "LIBRO DE EDUCCIÓN";
         this.intro = "Educción de Requerimientos";
@@ -76,20 +74,7 @@ public class LibroEduccion {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	Calendar cal = Calendar.getInstance();
         String nombreEsp = edu.getEduccionNombre().getNombre();
-        addHistorico(edu, dateFormat.format(cal.getTime()), 
-                   "Creación de la Educcion " + nombreEsp);
+        //addHistorico(edu, dateFormat.format(cal.getTime()), "Creación de la Educcion " + nombreEsp);
         educciones.add(edu);
     }
-    
-    public void modEspecificacion(){
-        
-    }
-    
-    public void addHistorico(Educcion edu, String fecha, String razon){
-        Historico hist = new Historico(edu.getVersion(), fecha, razon, edu.getFuenteNombre());
-        histEdu.addHistorico(hist);
-        managerHist.escribirXML("HistoricoEdu", histEdu);
-    }
-
 }
-

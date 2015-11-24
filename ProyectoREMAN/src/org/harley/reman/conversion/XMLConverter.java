@@ -189,7 +189,7 @@ public class XMLConverter {
         convertFO2PDF(fo, pdf);
         
         //Delete temporal directory
-        clean(fo);
+        clean(fo, xml);
         abrirPDF(pdf);
     }
     
@@ -209,7 +209,8 @@ public class XMLConverter {
      * Elimina el archivo FO intermedio
      * @param fo Archivo FO creado
      */
-    public void clean(File fo){
+    public void clean(File fo, File xml){
+        xml.delete();
         fo.delete();
     }
     

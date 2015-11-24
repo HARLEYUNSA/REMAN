@@ -118,33 +118,21 @@ public class Proyecto {
         }
     }
 
-    public void exportarLibroEsp(String origen, String destino, String nombre){
-        managerEsp.exportarPDF(origen, destino , nombre);
-    }
     
-    public void createEsp(String nombre){
-        managerEsp.escribirXML(nombre, libroEsp);
-    }
-    
-    public void addEsp(Especificacion esp){
-        if (libroEsp.isEmpty()){
-            libroEsp.addEspecificacion(esp);
-            createEsp("esp");
-        }
-        else {
-            libroEsp.addEspecificacion(esp);
-        }
-    }
-    
-    public void exportarLibroEdu(String origen, String destino, String nombre){
-        managerEdu.exportarPDF(origen, destino , nombre);
-    }
-    
-    public void createEdu(String nombre){
+    public void createLibEdu(String nombre){
         managerEdu.escribirXML(nombre, libroEdu);
     }
     
-    public void addEdu(Educcion edu){
+    public void exportarLibroEdu(String destino, String nombre){
+         for (final File fileEntry : dirEdu.listFiles()) {
+            String name = fileEntry.getName().split("\\.")[0];
+            libroEdu.addEduccion(getEdu(name));
+        }
+        createLibEdu("libEdu");
+        managerEdu.exportarPDF("libEdu", destino , nombre);
+    }
+    
+    public void addVer(Educcion edu){
         Educciones ver = new Educciones(dirEdu);
         ver.newEdu(edu);
         String codEdu = edu.getEduccionNombre().getCodigo();
