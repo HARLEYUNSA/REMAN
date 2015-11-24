@@ -131,7 +131,7 @@ OutputStream salida = null;
     public void exportarLibroEdu(String destino, String nombre){
          for (final File fileEntry : dirEdu.listFiles()) {
             String name = fileEntry.getName().split("\\.")[0];
-            libroEdu.addEduccion(getEdu(name));
+            libroEdu.addEduccion(getLastEdu(name));
         }
         createLibEdu("libEdu");
         managerEdu.exportarPDF("libEdu", destino , nombre);
@@ -146,17 +146,31 @@ OutputStream salida = null;
         manEdu.escribirXML("edu"+codEdu, ver);
     }
 
-    public Educcion getEdu(String name) {
+    public Educcion getLastEdu(String name) {
         Educciones x;
         x = manEdu.leerXML(name);
         return x.getLast();
     }
+    
+    public Educcion getActEdu(String name) {
+        Educciones x;
+        x = manEdu.leerXML(name);
+        return x.getActual();
+    }
 
-    public void modEdu(Educcion edu, String razon) {
+    public void modEdu(Educcion edu) {
         Educciones x;
         String cod = edu.getEduccionNombre().getCodigo();
         x = manEdu.leerXML("edu"+cod);
-        x.modEdu(edu, razon);
+        x.modEdu(edu);
+        manEdu.escribirXML("edu"+cod, x);
+    }
+    
+    public void verEdu(Educcion edu, String ver, String razon) {
+        Educciones x;
+        String cod = edu.getEduccionNombre().getCodigo();
+        x = manEdu.leerXML("edu"+cod);
+        x.verEdu(ver, razon);
         manEdu.escribirXML("edu"+cod, x);
     }
 }

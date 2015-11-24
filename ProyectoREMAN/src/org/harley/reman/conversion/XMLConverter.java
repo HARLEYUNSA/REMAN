@@ -210,8 +210,8 @@ public class XMLConverter {
      * @param fo Archivo FO creado
      */
     public void clean(File fo, File xml){
-        xml.delete();
         fo.delete();
+        xml.delete();
     }
     
 }

@@ -66,19 +66,22 @@ public class Reman {
         String estPro = "Terminado";
         String fecIni = "01/01/0001";
         String fecFin = "30/12/2015";
-        Proyecto project = rem.crearProyecto(nombreProyecto, empDes, empCli, 
-                lidPro, estPro, fecIni, fecFin);
+        //Proyecto project = rem.crearProyecto(nombreProyecto, empDes, empCli, lidPro, estPro, fecIni, fecFin);
         
-        //Proyecto project = rem.abrirProyecto(nombreProyecto);
-        project.addEdu(eduEjemplo());
-        project.addEdu(eduEjemplo());
+        Proyecto project = rem.abrirProyecto(nombreProyecto);
+        /*project.addEdu(eduEjemplo());
+        project.addEdu(eduEjemplo());*/
         
-        /*Educcion z = project.getEdu("edu0001");
-        z.setVersion("0.02");
-        String razon = "se cambio la version";
-        project.modEdu(z, razon);*/
+        /*Educcion z = project.getActEdu("edu0001");
+        z.setFuenteTipo("externo");
+        project.modEdu(z);*/
         
-        //project.exportarLibroEdu("D:\\Informe", "LibroEduccion");
+       /* Educcion z = project.getActEdu("edu0001");
+        String razon = "se cambio la fuente";
+        String ver = "0.02";
+        project.verEdu(z, ver, fecFin);*/
+        
+        project.exportarLibroEdu("D:\\Informe", "LibroEduccion");
     }
 
     private Proyecto crearProyecto(String nombreProyecto, String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin) {

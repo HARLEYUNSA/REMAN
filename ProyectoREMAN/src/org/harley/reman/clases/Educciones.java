@@ -18,11 +18,13 @@ import org.harley.reman.conversion.FileManager;
  */
 @XmlRootElement(name = "educciones")
 @XmlType(propOrder = {
+    "actual",
     "historicos",
     "versiones"
 })
 
 public class Educciones {
+    Educcion actual;
     List<Educcion> versiones;
     List<Historico> historicos;
     
@@ -32,6 +34,14 @@ public class Educciones {
     public Educciones(File directory) {
         this.versiones = new ArrayList<>();
         this.historicos = new ArrayList<>();
+    }
+
+    public Educcion getActual() {
+        return actual;
+    }
+
+    public void setActual(Educcion actual) {
+        this.actual = actual;
     }
     
     public List<Educcion> getVersiones() {
@@ -65,13 +75,19 @@ public class Educciones {
         addHistorico(edu, dateFormat.format(cal.getTime()), 
                    "Creación de la Educcion " + nomEdu);
         addEduccion(edu);
+        actual = edu;
     }
     
-    public void modEdu(Educcion edu, String razon){
+    public void modEdu(Educcion edu){
+        actual = edu;
+    }
+    
+    public void verEdu(String ver, String razon){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar cal = Calendar.getInstance();
-        addHistorico(edu, dateFormat.format(cal.getTime()), razon);
-        addEduccion(edu);
+        actual.setVersion(ver);
+        addHistorico(actual, dateFormat.format(cal.getTime()), razon);
+        addEduccion(actual);
     }
     
     public void addHistorico(Educcion edu, String fecha, String razon){
