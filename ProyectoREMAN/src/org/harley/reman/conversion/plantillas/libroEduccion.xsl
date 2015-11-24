@@ -115,30 +115,48 @@
       <xsl:apply-templates/>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="fuente">
+<xsl:template match="fuenteNombre">
    <fo:table-row>
-        <fo:table-cell xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="mediumCell"
+                        number-rows-spanned="3">
         <fo:block font-weight="bold">
             Fuente
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell" 
-                        number-columns-spanned="2">
+        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:block font-weight="bold">
+            Nombre
+        </fo:block>
+        </fo:table-cell>
+        <fo:table-cell  xsl:use-attribute-sets="myCell">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="cargo">
+<xsl:template match="fuenteCargo">
    <fo:table-row>
-        <fo:table-cell xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="myCell">
         <fo:block font-weight="bold">
             Cargo
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell xsl:use-attribute-sets="myCell"
-                       number-columns-spanned="2">
+        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:block>
+           <xsl:apply-templates/>
+        </fo:block>
+        </fo:table-cell>
+   </fo:table-row>
+</xsl:template>
+<xsl:template match="fuenteTipo">
+   <fo:table-row>
+        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:block font-weight="bold">
+            Tipo
+        </fo:block>
+        </fo:table-cell>
+        <fo:table-cell  xsl:use-attribute-sets="myCell">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>

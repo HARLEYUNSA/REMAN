@@ -86,7 +86,7 @@ public class LibroEduccion {
     }
     
     public void addHistorico(Educcion edu, String fecha, String razon){
-        Historico hist = new Historico(edu.getVersion(), fecha, razon, edu.getFuente());
+        Historico hist = new Historico(edu.getVersion(), fecha, razon, edu.getFuenteNombre());
         histEdu.addHistorico(hist);
         managerHist.escribirXML("HistoricoEdu", histEdu);
     }

@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import org.harley.reman.conversion.FileManager;
 
@@ -22,7 +24,9 @@ public class Proyecto {
     
     FileManager<LibroEduccion> managerEdu;
     FileManager<LibroEspecificacion> managerEsp;
-    
+    FileManager<Educciones> manEdu;
+
+    List<Educciones> verEdu;
     LibroEduccion libroEdu;
     LibroEspecificacion libroEsp;
     /**
@@ -43,6 +47,8 @@ public class Proyecto {
         this.managerEsp = new FileManager(LibroEspecificacion.class, this.dirEsp);
         this.libroEdu = new LibroEduccion(this.dirEdu);
         this.libroEsp = new LibroEspecificacion(this.dirEsp);
+        this.verEdu = new ArrayList<>();
+        this.manEdu = new FileManager(Educciones.class, dirEdu);
     }
     
     public void createProject(){
@@ -139,13 +145,25 @@ public class Proyecto {
     }
     
     public void addEdu(Educcion edu){
-        if (libroEdu.isEmpty()){
-            libroEdu.addEduccion(edu);
-            createEdu("edu");
-        }
-        else {
-            libroEdu.addEduccion(edu);
-        }
+        Educciones ver = new Educciones(dirEdu);
+        ver.newEdu(edu);
+        String codEdu = edu.getEduccionNombre().getCodigo();
+        File tmp = new File(dirEdu, codEdu);
+        verEdu.add(ver);
+        manEdu.escribirXML("edu"+codEdu, ver);
     }
 
+    public Educcion getEdu(String name) {
+        Educciones x = new Educciones();
+        x = manEdu.leerXML(name);
+        return x.getLast();
+    }
+
+    public void modEdu(Educcion edu, String razon) {
+        Educciones x = new Educciones();
+        String cod = edu.getEduccionNombre().getCodigo();
+        x = manEdu.leerXML("edu"+cod);
+        x.modEdu(edu, razon);
+        manEdu.escribirXML("edu"+cod, x);
+    }
 }

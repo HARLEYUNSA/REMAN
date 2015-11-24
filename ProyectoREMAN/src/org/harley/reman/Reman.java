@@ -14,10 +14,10 @@ public class Reman {
         
         nom.setCodigo("0001");
         nom.setNombre("Nombre del requisito");
-        
-        edu.setFuente("Christiano López");
         edu.setVersion("0.1");
-        edu.setCargo("Usuario");
+        edu.setFuenteNombre("Christiano López");
+        edu.setFuenteCargo("Usuario");
+        edu.setFuenteTipo("Interno");
         edu.setEspecialNombre("Gonzalo Luna");
         edu.setEspecialEspecial("Ing Requisitos");
         edu.setEspecialTipo("Programador");
@@ -77,11 +77,16 @@ public class Reman {
         Reman rem = new Reman();
         
         String nombreProyecto = "NombreProyecto";
-        Proyecto project = rem.crearProyecto(nombreProyecto);
-        project.addEdu(nuevoEdu());
+        //Proyecto project = rem.crearProyecto(nombreProyecto);
         
-        /*Proyecto project = rem.abrirProyecto();
-        project.exportarLibroEdu("edu", "D:\\Informe", "LibroEduccion");*/
+        Proyecto project = rem.abrirProyecto(nombreProyecto);
+        project.addEdu(nuevoEdu());
+        Educcion z = project.getEdu("edu0001");
+        z.setVersion("0.2");
+        String razon = "se cambio la version";
+        project.modEdu(z, razon);
+        
+        //project.exportarLibroEdu("edu", "D:\\Informe", "LibroEduccion");*/
     }
    
     public Proyecto crearProyecto(String project){
@@ -90,9 +95,8 @@ public class Reman {
         return pro;
     }
     
-    private Proyecto abrirProyecto() {
-        String nombreProyecto = "Proyecto1";
-        Proyecto pro = new Proyecto(nombreProyecto);
+    private Proyecto abrirProyecto(String nom) {
+        Proyecto pro = new Proyecto(nom);
         pro.loadProject();
         return pro;
     }

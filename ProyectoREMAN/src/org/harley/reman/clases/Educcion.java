@@ -8,8 +8,9 @@ import javax.xml.bind.annotation.XmlType;
     @XmlType(propOrder = {
         "educcionNombre",
         "version",
-        "fuente",
-        "cargo",
+        "fuenteNombre",
+        "fuenteCargo",
+        "fuenteTipo",
         "especialNombre",
         "especialEspecial",
         "especialTipo",
@@ -23,8 +24,9 @@ import javax.xml.bind.annotation.XmlType;
 public class Educcion {
         Nombre educcionNombre;
         String version;
-        String fuente;
-        String cargo;
+        String fuenteNombre;
+        String fuenteCargo;
+        String fuenteTipo;
         String especialNombre;
         String especialEspecial;
         String especialTipo;
@@ -53,22 +55,31 @@ public class Educcion {
         this.version = version;
     }
 
-    public String getFuente() {
-        return fuente;
+    public String getFuenteNombre() {
+        return fuenteNombre;
     }
     
     @XmlElement
-    public void setFuente(String fuente) {
-        this.fuente = fuente;
+    public void setFuenteNombre(String fuenteNombre) {
+        this.fuenteNombre = fuenteNombre;
     }
 
-    public String getCargo() {
-        return cargo;
+    public String getFuenteCargo() {
+        return fuenteCargo;
     }
     
     @XmlElement
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setFuenteCargo(String fuenteCargo) {
+        this.fuenteCargo = fuenteCargo;
+    }
+
+    public String getFuenteTipo() {
+        return fuenteTipo;
+    }
+    
+    @XmlElement
+    public void setFuenteTipo(String fuenteTipo) {
+        this.fuenteTipo = fuenteTipo;
     }
 
     public String getEspecialNombre() {
