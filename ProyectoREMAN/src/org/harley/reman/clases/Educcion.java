@@ -38,14 +38,30 @@ public class Educcion {
         String descripcion;
         String observaciones;
 
-    public Educcion() {
+    public Educcion() {    }
+    
+    public Educcion(String cod, String name) { 
+        educcionNombre = new Nombre(cod, name);
+    }
+    
+    public Educcion(String name, String version, String fuenteNombre, String fuenteCargo, String fuenteTipo, String especialNombre, String especialEspecial, String especialTipo, String especialExp, String educcionTipo, String educcionObj, String educcionFecha, String descripcion, String observaciones) {
+        numero++;
+        educcionNombre = new Nombre("000"+numero, name);
+        this.version = version;
+        this.fuenteNombre = fuenteNombre;
+        this.fuenteCargo = fuenteCargo;
+        this.fuenteTipo = fuenteTipo;
+        this.especialNombre = especialNombre;
+        this.especialEspecial = especialEspecial;
+        this.especialTipo = especialTipo;
+        this.especialExp = especialExp;
+        this.educcionTipo = educcionTipo;
+        this.educcionObj = educcionObj;
+        this.educcionFecha = educcionFecha;
+        this.descripcion = descripcion;
+        this.observaciones = observaciones;
     }
 
-    public Educcion(String name) {
-        numero++;
-        educcionNombre = new Nombre("000"+numero, name); 
-    }
-   
     public Nombre getEduccionNombre() {
         return educcionNombre;
     }

@@ -7,86 +7,113 @@ import org.harley.reman.clases.*;
  * @author Gonzalo
  */
 public class Reman {
+    Proyecto pro;
 
-    public static Educcion eduEjemplo() {
-        Educcion edu = new Educcion("Nombre del requisito");
-        edu.setVersion("0.01");
-        edu.setFuenteNombre("Christiano López");
-        edu.setFuenteCargo("Usuario");
-        edu.setFuenteTipo("Interno");
-        edu.setEspecialNombre("Gonzalo Luna");
-        edu.setEspecialEspecial("Ing Requisitos");
-        edu.setEspecialTipo("Programador");
-        edu.setEspecialExp("Alta");
-        edu.setEduccionTipo("Primario");
-        edu.setEduccionObj("Objeto del Requisito");
-        edu.setEduccionFecha("01/01/2016");
-        edu.setDescripcion("Descripcion de requerimiento a educcionar");
-        edu.setObservaciones("Observaciones del requisito");
-        return edu;
+    private void crearProyecto(String nombreProyecto, String empDes, 
+            String empCli, String lidPro, String estPro, String fecIni, 
+            String fecFin) 
+    {
+        pro = new Proyecto(nombreProyecto);
+        pro.createProject(empDes, empCli, lidPro, estPro, fecIni, fecFin);
     }
     
-    public static Especificacion nuevoEsp(){
-        Especificacion esp = new Especificacion();
-        Nombre nom = new Nombre();
-        Elemento excep = new Elemento(); 
-        nom.setCodigo("001");
-        nom.setNombre("especificacion ads");
-
-        excep.setEleNumero(1);
-        excep.setEleDescripcion("el sistema");
-        esp.addExcepcion(excep);
-
-        esp.setEspecificacionNombre(nom);
-        esp.setEliNombre("ELI001");
-        esp.setAutor("Gonzalo");
-        esp.setFuente("Jose");
-        esp.setDependencias("dependencia");
-        esp.setDescripcion("Descripcion");
-        esp.addPrecondicion("precondicion1");
-        esp.addPostcondicion("postcondicion1");
-        esp.setComentarios("comentarios dasdsada");
-        
-        return esp;
-    }    
-
-    private Proyecto abrirProyecto(String nom) {
-        Proyecto pro = new Proyecto(nom);
+    private void abrirProyecto(String nom) {
+        pro = new Proyecto(nom);
         pro.loadProject();
-        return pro;
+    }
+    
+    private void crearEdu(String nom, String ver, String fueNom, String fueCar,
+            String fueTip, String espNomb, String espEsp, String espTip, 
+            String espExp, String eduTip, String eduObj, String eduFec,
+            String des, String obs) 
+    {
+        Educcion edu = new Educcion(nom, ver, fueNom, fueCar, fueTip, espNomb,
+                espEsp, espTip, espExp, eduTip, eduObj, eduFec, espTip, obs);
+        pro.addEdu(edu);
+    }
+    
+    private Educcion recuperarEdu(String cod) {
+        return pro.getActEdu(cod);
+    }
+    
+    private void modEdu(String cod, String nom, String ver, String fueNom, 
+            String fueCar,  String fueTip, String espNomb, String espEsp, 
+            String espTip, String espExp, String eduTip, String eduObj,
+            String eduFec, String des, String obs)
+    {
+        Educcion edu = new Educcion(cod, nom);
+        edu.setVersion(ver);
+        edu.setFuenteNombre(fueNom);
+        edu.setFuenteCargo(fueCar);
+        edu.setFuenteTipo(fueTip);
+        edu.setEspecialNombre(espNomb);
+        edu.setEspecialEspecial(espEsp);
+        edu.setEspecialTipo(espTip);
+        edu.setEspecialExp(espExp);
+        edu.setEduccionTipo(eduTip);
+        edu.setEduccionObj(eduObj);
+        edu.setEduccionFecha(eduFec);
+        edu.setDescripcion(des);
+        edu.setObservaciones(obs);
+        pro.modEdu(edu);
+    }
+    
+    private void verEdu(String cod, String nom, String ver, String fueNom, 
+            String fueCar,  String fueTip, String espNomb, String espEsp, 
+            String espTip, String espExp, String eduTip, String eduObj,
+            String eduFec, String des, String obs, String razon, String version)
+    {
+        Educcion edu = new Educcion(cod, nom);
+        edu.setVersion(ver);
+        edu.setFuenteNombre(fueNom);
+        edu.setFuenteCargo(fueCar);
+        edu.setFuenteTipo(fueTip);
+        edu.setEspecialNombre(espNomb);
+        edu.setEspecialEspecial(espEsp);
+        edu.setEspecialTipo(espTip);
+        edu.setEspecialExp(espExp);
+        edu.setEduccionTipo(eduTip);
+        edu.setEduccionObj(eduObj);
+        edu.setEduccionFecha(eduFec);
+        edu.setDescripcion(des);
+        edu.setObservaciones(obs);
+        pro.verEdu(edu, version , razon);
+    }
+    
+    private void exportarPDF(int opc, String ubicacion, String nombre) {
+        switch (opc){
+            case 1:
+                pro.exportarLibroEdu(ubicacion, nombre);
+                break;
+        }
     }
     
     public static void main(String[] args) {
         Reman rem = new Reman();
-        
-        String nombreProyecto = "NombreProyecto";
-        String empDes = "HARLEY";
-        String empCli = "UNSA";
-        String lidPro = "Incalla Nina Christian";
-        String estPro = "Terminado";
-        String fecIni = "01/01/0001";
-        String fecFin = "30/12/2015";
-        //Proyecto project = rem.crearProyecto(nombreProyecto, empDes, empCli, lidPro, estPro, fecIni, fecFin);
-        
-        Proyecto project = rem.abrirProyecto(nombreProyecto);
-        /*project.addEdu(eduEjemplo());
-        project.addEdu(eduEjemplo());*/
-        
-        /*Educcion z = project.getActEdu("edu0001");
-        z.setFuenteTipo("externo");
-        project.modEdu(z);*/
-        
-       /* Educcion z = project.getActEdu("edu0001");
-        String razon = "se cambio la fuente";
-        String ver = "0.02";
-        project.verEdu(z, ver, fecFin);*/
-        
-        project.exportarLibroEdu("D:\\Informe", "LibroEduccion");
-    }
 
-    private Proyecto crearProyecto(String nombreProyecto, String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin) {
-        Proyecto pro = new Proyecto(nombreProyecto);
-        pro.createProject(empDes, empCli, lidPro, estPro, fecIni, fecFin);
-        return pro;    
+        rem.crearProyecto("REMAN", "HARLEY", "UNSA", "Incalla Nina Christian",
+                "Terminado", "01/01/0001", "30/12/2015");*/
+        
+        /*rem.abrirProyecto("REMAN");*/
+        
+        /*rem.crearEdu("Nombre", "0.01", "Primario", "Objectivo acà", "01/01/2016",
+                "Cristiano Lòpez", "Usuario", "Interno", "Luna Luza Gonzalo",
+                "Ing. Requisitos", "Alta", "Programador", "Descripción aquí",
+                "Observaciones y/o comentarios con respecto al requerimiento.");*/
+        
+        /*Educcion modificar = rem.recuperarEdu("edu0001");
+        
+        /*rem.modEdu("edu0001", "Nombre", "0.01", "Primario", "Objectivo acà", "01/01/2016",
+                "Cristiano Lòpez", "Usuario", "Externo", "Luna Luza Gonzalo",
+                "Ing. Requisitos", "Alta", "Programador", "Descripción aquí",
+                "Observaciones y/o comentarios con respecto al requerimiento.");*/
+
+        /*rem.verEdu("edu0001", "Nombre", "0.01", "Primario", "Objectivo acà", "01/01/2016",
+                "Cristiano Lòpez", "Usuario", "Externo", "Luna Luza Gonzalo",
+                "Ing. Requisitos", "Alta", "Programador", "Descripción aquí",
+                "Observaciones y/o comentarios con respecto al requerimiento.",
+                "se cambio la fuente", "0.02");*/
+        
+        //rem.exportarPDF(1,"D:\\Informe", "LibroEduccion");
     }
 }

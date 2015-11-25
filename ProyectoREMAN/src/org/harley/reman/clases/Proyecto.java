@@ -6,8 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import org.harley.reman.conversion.FileManager;
 
@@ -26,7 +24,6 @@ public class Proyecto {
     FileManager<LibroEspecificacion> managerEsp;
     FileManager<Educciones> manEdu;
 
-    List<Educciones> allEdu;
     LibroEduccion libroEdu;
     LibroEspecificacion libroEsp;
     /**
@@ -47,7 +44,6 @@ public class Proyecto {
         this.managerEsp = new FileManager(LibroEspecificacion.class, this.dirEsp);
         this.libroEdu = new LibroEduccion(this.dirEdu);
         this.libroEsp = new LibroEspecificacion(this.dirEsp);
-        this.allEdu = new ArrayList<>();
         this.manEdu = new FileManager(Educciones.class, dirEdu);
     }
     
@@ -142,31 +138,31 @@ OutputStream salida = null;
         ver.newEdu(edu);
         String codEdu = edu.getEduccionNombre().getCodigo();
         File tmp = new File(dirEdu, codEdu);
-        allEdu.add(ver);
         manEdu.escribirXML("edu"+codEdu, ver);
     }
 
     public Educcion getLastEdu(String name) {
-        Educciones x;
-        x = manEdu.leerXML(name);
-        return x.getLast();
+        Educciones edu;
+        edu = manEdu.leerXML(name);
+        return edu.getLast();
     }
     
     public Educcion getActEdu(String name) {
-        Educciones x;
-        x = manEdu.leerXML(name);
-        return x.getActual();
+        Educciones edu;
+        edu = manEdu.leerXML(name);
+        return edu.getActual();
     }
 
     public void modEdu(Educcion edu) {
-        Educciones x;
+        Educciones edus;
         String cod = edu.getEduccionNombre().getCodigo();
-        x = manEdu.leerXML("edu"+cod);
-        x.modEdu(edu);
-        manEdu.escribirXML("edu"+cod, x);
+        edus = manEdu.leerXML("edu"+cod);
+        edus.modEdu(edu);
+        manEdu.escribirXML("edu"+cod, edus);
     }
     
     public void verEdu(Educcion edu, String ver, String razon) {
+        modEdu(edu);
         Educciones x;
         String cod = edu.getEduccionNombre().getCodigo();
         x = manEdu.leerXML("edu"+cod);
