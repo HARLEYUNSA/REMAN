@@ -46,7 +46,7 @@ public class Educcion {
     
     public Educcion(String name, String version, String fuenteNombre, String fuenteCargo, String fuenteTipo, String especialNombre, String especialEspecial, String especialTipo, String especialExp, String educcionTipo, String educcionObj, String educcionFecha, String descripcion, String observaciones) {
         numero++;
-        educcionNombre = new Nombre("000"+numero, name);
+        educcionNombre = new Nombre("edu000"+numero, name);
         this.version = version;
         this.fuenteNombre = fuenteNombre;
         this.fuenteCargo = fuenteCargo;

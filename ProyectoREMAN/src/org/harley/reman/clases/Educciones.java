@@ -99,6 +99,14 @@ public class Educciones {
         versiones.add(edu);
     }
     
+    public Educcion getVer(String ver){
+       for (int i = 0; i < versiones.size(); i++){
+           if(versiones.get(i).getVersion().equals(ver))
+               return versiones.get(i);
+       }
+       return null;
+    }
+    
     public Educcion getLast(){
        Educcion last = versiones.get(versiones.size()-1);
        return last;

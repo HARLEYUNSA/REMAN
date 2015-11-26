@@ -6,7 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.io.FileUtils;
 import org.harley.reman.conversion.FileManager;
 
 public class Proyecto {
@@ -57,7 +61,11 @@ public class Proyecto {
     }
     
     public void deleteProject(){
-        
+        try {
+            FileUtils.deleteDirectory(directory);
+        } catch (IOException ex) {
+            Logger.getLogger(Proyecto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void createDirectory(){
@@ -138,9 +146,22 @@ OutputStream salida = null;
         ver.newEdu(edu);
         String codEdu = edu.getEduccionNombre().getCodigo();
         File tmp = new File(dirEdu, codEdu);
-        manEdu.escribirXML("edu"+codEdu, ver);
+        manEdu.escribirXML(codEdu, ver);
     }
 
+    public List<Historico> getHistEdu(String cod){
+        Educciones edu;
+        edu = manEdu.leerXML(cod);
+        return edu.getHistoricos();
+    }
+    
+    public void restoreEdu(String cod, String version){
+        Educciones edus;
+        edus = manEdu.leerXML(cod);
+        Educcion edu = edus.getVer(version);
+        modEdu(edu);
+    }
+    
     public Educcion getLastEdu(String name) {
         Educciones edu;
         edu = manEdu.leerXML(name);
@@ -156,17 +177,17 @@ OutputStream salida = null;
     public void modEdu(Educcion edu) {
         Educciones edus;
         String cod = edu.getEduccionNombre().getCodigo();
-        edus = manEdu.leerXML("edu"+cod);
+        edus = manEdu.leerXML(cod);
         edus.modEdu(edu);
-        manEdu.escribirXML("edu"+cod, edus);
+        manEdu.escribirXML(cod, edus);
     }
     
     public void verEdu(Educcion edu, String ver, String razon) {
         modEdu(edu);
         Educciones x;
         String cod = edu.getEduccionNombre().getCodigo();
-        x = manEdu.leerXML("edu"+cod);
+        x = manEdu.leerXML(cod);
         x.verEdu(ver, razon);
-        manEdu.escribirXML("edu"+cod, x);
+        manEdu.escribirXML(cod, x);
     }
 }
