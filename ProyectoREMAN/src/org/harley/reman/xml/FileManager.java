@@ -43,6 +43,10 @@ public class FileManager<T> {
         return esp;
     }
 
+    public void borrarDirectorio(){
+        directory.delete();
+    }    
+
     public void exportarPDF(String archivo) {
         factory.convert(clase, archivo);
     }

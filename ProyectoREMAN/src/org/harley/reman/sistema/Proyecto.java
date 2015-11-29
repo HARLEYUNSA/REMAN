@@ -28,7 +28,7 @@ public class Proyecto {
     FileManager<LibroEduccion> managerEdu;
     FileManager<LibroEspecificacion> managerEsp;
     FileManager<Educciones> manEdu;
-
+    FileManager<LibroHistorico> manHisEdu;
     LibroEduccion libroEdu;
     LibroEspecificacion libroEsp;
     /**
@@ -48,6 +48,7 @@ public class Proyecto {
         this.properties = new Properties();
         this.managerEdu = new FileManager(LibroEduccion.class, this.dirEdu);
         this.managerEsp = new FileManager(LibroEspecificacion.class, this.dirEsp);
+        this.manHisEdu = new FileManager(LibroHistorico.class, this.dirVerEdu);
         this.libroEdu = new LibroEduccion(this.dirEdu);
         this.libroEsp = new LibroEspecificacion(this.dirEsp);
         this.manEdu = new FileManager(Educciones.class, dirEdu);
@@ -56,6 +57,12 @@ public class Proyecto {
     public void createProject(String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin) {
         createDirectory();
         createProperties(empDes, empCli, lidPro, estPro, fecIni, fecFin);
+        createHistorics();
+    }
+    
+    public void createHistorics(){
+        LibroHistorico lib = new LibroHistorico();
+        manHisEdu.escribirXML("eduhis", lib);
     }
     
     public void loadProject(){
@@ -235,10 +242,38 @@ public class Proyecto {
         this.manEdu = null;
     }
 
+    public void verLibroEdu(String version, String razon, String autor) {
+        File cp = new File(dirVerEdu, "edu"+version);
+        managerEdu.copiarDirectorios(dirEdu, cp);
+        LibroHistorico libH = manHisEdu.leerXML("eduhis");
+        libH.createHistorico(version, razon, autor);
+        manHisEdu.escribirXML("eduhis", libH);
+        System.out.println("Origen:"+dirEdu);
+        System.out.println("Destino"+cp);
+    }
+    
+    public void resLibroEdu(String version){
+        File cp = new File(dirVerEdu, "edu"+version);
+        try {
+            FileUtils.deleteDirectory(dirEdu);
+        } catch (IOException ex) {
+            Logger.getLogger(Proyecto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        managerEdu.copiarDirectorios(cp, dirEdu);
+        System.out.println("Origen:"+cp);
+        System.out.println("Destino"+dirEdu);
+    }
+
+    public List<Historico> getHistLibEdu() {
+        LibroHistorico libH = manHisEdu.leerXML("eduhis");
+        return libH.getHistoricos();
+    }
+    
     public void verLibroEdu(String version, String razon) {
         File cp = new File(dirVerEdu, "edu"+version);
         managerEdu.copiarDirectorios(dirEdu, cp);
         System.out.println("Origen:"+dirEdu);
         System.out.println("Destino"+cp);
     }
+
 }

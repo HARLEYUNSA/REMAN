@@ -4,6 +4,7 @@ import org.harley.reman.sistema.Proyecto;
 import org.harley.reman.sistema.Educcion;
 import org.harley.reman.sistema.Historico;
 import java.util.List;
+import org.harley.reman.sistema.LibroHistorico;
 
 /**
  *
@@ -115,7 +116,22 @@ public class Reman {
         pro.close();
     }
 
+    private void verLibro(int opc, String version, String razon, String autor){
+        switch (opc){
+            case 0: pro.verLibroEdu(version, razon, autor); break;
+        }
+    }
     
+    private List<Historico> histLibEdu(){
+        return pro.getHistLibEdu();
+    }
+    
+    private void resLibro(int opc, String version){
+        switch (opc){
+            case 0: pro.resLibroEdu(version); break;
+        }
+    }
+
     private void verLibro(int opc, String version, String razon){
         switch (opc){
             case 0: pro.verLibroEdu(version, razon); break;
@@ -130,14 +146,43 @@ public class Reman {
                 "Terminado", "01/01/0001", "30/12/2015");*/
         
         //rem.eliminarProyecto("REMAN");
+               
+        /*rem.agregarEdu("Nombre", "0.01", "Primario", "Objectivo acà", "01/01/2016",
         
         rem.verLibro(0, "0.1", "2 educciones");
         
         rem.agregarEdu("Nombre", "0.01", "Primario", "Objectivo acà", "01/01/2016",
                 "Cristiano Lòpez", "Usuario", "Interno", "Luna Luza Gonzalo",
                 "Ing. Requisitos", "Alta", "Programador", "Descripción aquí",
-                "Observaciones y/o comentarios con respecto al requerimiento.");
+                "Observaciones y/o comentarios con respecto al requerimiento.");*/
         
+        //rem.verLibro(0, "0.1", "1 educcion", "gonzalo");
+
+        /*rem.agregarEdu("Nombre", "0.01", "Primario", "Objectivo acà", "01/01/2016",
+                "Cristiano Lòpez", "Usuario", "Interno", "Luna Luza Gonzalo",
+                "Ing. Requisitos", "Alta", "Programador", "Descripción aquí",
+                "Observaciones y/o comentarios con respecto al requerimiento.");*/
+        
+        //rem.verLibro(0, "0.2", "2 educciones", "luis");
+        
+        /*List<Historico> lista = rem.histLibEdu();
+        for(Historico x : lista){
+            System.out.println(x.getVersion() + " " + x.getRazon());
+        }
+        rem.resLibro(0, "0.1");
+
+        rem.salirProyecto();*/
+        //rem.verLibro(0, "0.3", "Prueba");
+        
+        /*rem.verEdu("edu0001", "Nombre", "0.01", "Primario", "Objectivo acà", "01/01/2016",
+                "Cristiano Lòpez", "Usuario", "Externo", "Luna Luza Gonzalo",
+                "Ing. Requisitos", "Alta", "Programador", "Descripción aquí",
+                "Observaciones y/o comentarios con respecto al requerimiento.",
+                "se cambio la fuente", "0.02");*/
+        //rem.eliminarEdu("edu0002");
+        /*List<Historico> lista = rem.histEdu("edu0001");
+        for(Historico x : lista){
+            System.out.println(x.getVersion() + " " + x.getRazon());
         rem.verLibro(0, "0.2", "3 educciones");
 
         rem.salirProyecto();
