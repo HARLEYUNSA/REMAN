@@ -1,4 +1,4 @@
-package org.harley.reman.clases;
+package org.harley.reman.sistema;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

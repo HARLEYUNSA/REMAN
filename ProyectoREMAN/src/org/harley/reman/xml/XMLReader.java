@@ -1,4 +1,4 @@
-package org.harley.reman.conversion;
+package org.harley.reman.xml;
 
 import java.io.File;
 import javax.xml.bind.JAXBContext;
@@ -53,6 +53,7 @@ public class XMLReader<T> {
     public T openXML(String nombreArchivo){
         try {
             File xmlFile = new File(database, nombreArchivo + ".xml");
+            
             JAXBContext jaxbContext = JAXBContext.newInstance(typeParameterClass);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             
@@ -62,5 +63,10 @@ public class XMLReader<T> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    void deleteXML(String archivo) {
+        File del = new File(database, archivo + ".xml");
+        del.delete();
     }
 }

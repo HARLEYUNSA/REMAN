@@ -1,4 +1,4 @@
-package org.harley.reman.clases;
+package org.harley.reman.sistema;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -37,6 +37,14 @@ public class Educcion {
         String educcionFecha;
         String descripcion;
         String observaciones;
+
+    public static int getNumero() {
+        return numero;
+    }
+
+    public static void setNumero(int numero) {
+        Educcion.numero = numero;
+    }
 
     public Educcion() {    }
     

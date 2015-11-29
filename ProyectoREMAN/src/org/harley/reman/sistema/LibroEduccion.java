@@ -1,4 +1,4 @@
-package org.harley.reman.clases;
+package org.harley.reman.sistema;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import org.harley.reman.conversion.FileManager;
+import org.harley.reman.xml.FileManager;
 
 @XmlRootElement(name = "libroEduccion")
 @XmlType(propOrder = {
