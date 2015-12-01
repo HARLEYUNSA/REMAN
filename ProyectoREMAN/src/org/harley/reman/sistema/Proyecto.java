@@ -35,9 +35,11 @@ public class Proyecto {
      * Constructor de la clase Proyecto
      * @param name Nombre del proyecto
      */
-    public Proyecto(String name){
-        this.name = name;
-        this.directory = new File(this.name);
+    public Proyecto(){
+    }
+    
+    public void iniciar(String nombre){
+        this.directory = new File(nombre);
         this.dirPro = new File(directory, "remanproject");
         this.dirEdu = new File(directory, "src//edu");
         this.dirEli = new File(directory, "src//eli");
@@ -53,28 +55,132 @@ public class Proyecto {
         this.libroEsp = new LibroEspecificacion(this.dirEsp);
         this.manEdu = new FileManager(Educciones.class, dirEdu);
     }
-    
-    public void createProject(String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin) {
-        createDirectory();
-        createProperties(empDes, empCli, lidPro, estPro, fecIni, fecFin);
-        createHistorics();
+
+    //Interfaz
+    public void ingresoPrograma(){
+        
+    }
+    public void salirPrograma(){
+        
     }
     
-    public void createHistorics(){
-        LibroHistorico lib = new LibroHistorico();
-        manHisEdu.escribirXML("eduhis", lib);
-    }
-    
-    public void loadProject(){
+    //Abrir proyecto
+    public void ingresarProyecto(String dir){
+        this.directory = new File(dir);
+        iniciar(dir);
         loadProperties();
     }
     
-    public void deleteProject(){
+    //Cerrar libros
+    public void salirProyecto(){
+        saveProperties();
+        this.name = null;
+        this.directory = null;
+        this.dirPro = null;
+        this.dirEdu = null;
+        this.dirEli = null;
+        this.dirEsp = null;
+        this.dirOrg = null;
+        this.dirRnf = null;
+        this.properties = null;
+        this.managerEdu = null;
+        this.managerEsp = null;
+        this.libroEdu = null;
+        this.libroEsp = null;
+        this.manEdu = null;
+    }
+    
+    public void agregarEduccion(String nom, String fueNom, String fueCar,
+            String fueTip, String espNom, String espEsp, String espTip, 
+            String espExp, String eduTip, String eduObj, String eduFec,
+            String des, String obs) 
+    {
+        Educcion edu = new Educcion(nom, fueNom, fueCar, fueTip, espNom,
+                espEsp, espTip, espExp, eduTip, eduObj, eduFec, espTip, obs);
+        Educciones nueva = new Educciones(dirEdu);
+        nueva.newEdu(edu);
+        String codEdu = edu.getEduccionNombre().getCodigo();
+        manEdu.escribirXML(codEdu, nueva);
+        properties.setProperty("numEdu", Integer.toString(Educcion.getNumero()));
+    }
+    
+    public void modificarEduccion(String cod, String nom, String ver, String fueNom, 
+            String fueCar,  String fueTip, String espNom, String espEsp, 
+            String espTip, String espExp, String eduTip, String eduObj,
+            String eduFec, String des, String obs)
+    {
+        Educcion edu = new Educcion(cod, nom, ver, fueNom, fueCar, fueTip, espNom,
+                espEsp, espTip, espExp, eduTip, eduObj, eduFec, espTip, obs);
+        Educciones versiones;
+        versiones = manEdu.leerXML(cod);
+        versiones.modEdu(edu);
+        manEdu.escribirXML(cod, versiones);
+    }
+    
+    public void modificarEduccion(Educcion edu){
+        Educciones versiones;
+        String cod = edu.getEduccionNombre().getCodigo();
+        versiones = manEdu.leerXML(cod);
+        versiones.modEdu(edu);
+        manEdu.escribirXML(cod, versiones);
+    }
+    
+    public void eliminarEduccion(String cod) {
+        manEdu.borrarXML(cod);
+    }
+    
+    public Educcion mostrarEduccion(String cod) {
+        Educciones edu;
+        edu = manEdu.leerXML(cod);
+        return edu.getActual();
+    }
+    
+    public void verEdu(String cod, String nom, String ver, String fueNom, 
+            String fueCar,  String fueTip, String espNom, String espEsp, 
+            String espTip, String espExp, String eduTip, String eduObj,
+            String eduFec, String des, String obs, String razon, String version){
+        
+        Educcion edu = new Educcion(cod, nom, ver, fueNom, fueCar, fueTip, espNom,
+                espEsp, espTip, espExp, eduTip, eduObj, eduFec, espTip, obs);
+        Educciones versiones;
+        versiones = manEdu.leerXML(cod);
+        versiones.modEdu(edu);
+        versiones.verEdu(ver, razon);
+        manEdu.escribirXML(cod, versiones);
+    }
+    
+    public void restaurarEduccion(String cod, String version){
+        Educciones edus;
+        edus = manEdu.leerXML(cod);
+        Educcion edu = edus.getVer(version);
+        modificarEduccion(edu);
+    }
+    
+    public void verLibroEdu(String version, String razon) {
+        File cp = new File(dirVerEdu, "edu"+version);
+        managerEdu.copiarDirectorios(dirEdu, cp);
+        System.out.println("Origen:"+dirEdu);
+        System.out.println("Destino"+cp);
+    }
+    
+    public void crearProyecto(String nomPro, String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin) {
+        iniciar(nomPro);
+        createDirectory();
+        createProperties(nomPro, empDes, empCli, lidPro, estPro, fecIni, fecFin);
+        createHistorics();
+    }
+    
+    public void eliminarProyecto(){
         try {
             FileUtils.deleteDirectory(directory);
         } catch (IOException ex) {
             Logger.getLogger(Proyecto.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void createHistorics(){
+        LibroHistorico lib = new LibroHistorico();
+        manHisEdu.escribirXML("eduhis", lib);
     }
     
     private void createDirectory(){
@@ -110,18 +216,20 @@ public class Proyecto {
     /**
      * Crea el archivo properties insertando los valores del proyecto
      */
-    private void createProperties(String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin) {
+    private void createProperties(String nomPro, String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin) {
         OutputStream salida = null;
         try {
             File output = new File(dirPro, "configuracion.properties");
             salida = new FileOutputStream(output);
-            properties.setProperty("name", name);
+            name = nomPro;
+            properties.setProperty("name", nomPro);
             properties.setProperty("empDes", empDes);
             properties.setProperty("empCli", empCli);
             properties.setProperty("lidPro", lidPro);
             properties.setProperty("estPro", estPro);
             properties.setProperty("fecIni", fecIni);
             properties.setProperty("fecFin", fecFin);
+            properties.setProperty("numEdu", "0");
             properties.store(salida, null);
         } catch (IOException io) {
             io.printStackTrace();
@@ -142,6 +250,7 @@ public class Proyecto {
             File input = new File(dirPro, "configuracion.properties");
             entrada = new FileInputStream(input);
             properties.load(entrada);
+            this.name = properties.getProperty("name");
             Educcion.setNumero(Integer.parseInt(properties.getProperty("numEdu")));
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -156,6 +265,7 @@ public class Proyecto {
         }
     }
 
+   
     public void createLibEdu(String nombre){
         managerEdu.escribirXML(nombre, libroEdu);
     }
@@ -169,77 +279,16 @@ public class Proyecto {
         managerEdu.exportarPDF("libEdu", destino , nombre);
     }
     
-    public void addEdu(Educcion edu){
-        Educciones ver = new Educciones(dirEdu);
-        ver.newEdu(edu);
-        String codEdu = edu.getEduccionNombre().getCodigo();
-        File tmp = new File(dirEdu, codEdu);
-        manEdu.escribirXML(codEdu, ver);
-        properties.setProperty("numEdu", Integer.toString(Educcion.getNumero()));
-    }
-
     public List<Historico> getHistEdu(String cod){
         Educciones edu;
         edu = manEdu.leerXML(cod);
         return edu.getHistoricos();
     }
-    
-    public void restoreEdu(String cod, String version){
-        Educciones edus;
-        edus = manEdu.leerXML(cod);
-        Educcion edu = edus.getVer(version);
-        modEdu(edu);
-    }
-    
+     
     public Educcion getLastEdu(String name) {
         Educciones edu;
         edu = manEdu.leerXML(name);
         return edu.getLast();
-    }
-    
-    public Educcion getActEdu(String name) {
-        Educciones edu;
-        edu = manEdu.leerXML(name);
-        return edu.getActual();
-    }
-
-    public void modEdu(Educcion edu) {
-        Educciones edus;
-        String cod = edu.getEduccionNombre().getCodigo();
-        edus = manEdu.leerXML(cod);
-        edus.modEdu(edu);
-        manEdu.escribirXML(cod, edus);
-    }
-    
-    public void verEdu(Educcion edu, String ver, String razon) {
-        modEdu(edu);
-        Educciones x;
-        String cod = edu.getEduccionNombre().getCodigo();
-        x = manEdu.leerXML(cod);
-        x.verEdu(ver, razon);
-        manEdu.escribirXML(cod, x);
-    }
-
-    public void delActEdu(String cod) {
-        manEdu.borrarXML(cod);
-    }
-
-    public void close() {
-        saveProperties();
-        this.name = null;
-        this.directory = null;
-        this.dirPro = null;
-        this.dirEdu = null;
-        this.dirEli = null;
-        this.dirEsp = null;
-        this.dirOrg = null;
-        this.dirRnf = null;
-        this.properties = null;
-        this.managerEdu = null;
-        this.managerEsp = null;
-        this.libroEdu = null;
-        this.libroEsp = null;
-        this.manEdu = null;
     }
 
     public void verLibroEdu(String version, String razon, String autor) {
@@ -269,11 +318,6 @@ public class Proyecto {
         return libH.getHistoricos();
     }
     
-    public void verLibroEdu(String version, String razon) {
-        File cp = new File(dirVerEdu, "edu"+version);
-        managerEdu.copiarDirectorios(dirEdu, cp);
-        System.out.println("Origen:"+dirEdu);
-        System.out.println("Destino"+cp);
-    }
+    
 
 }

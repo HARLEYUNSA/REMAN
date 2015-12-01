@@ -44,7 +44,7 @@ public class XMLConverter {
     public  XMLConverter (File directory){
         database = directory;
         salida = new File("informes");      //Salida por defecto
-        plantillas = new File("src/org/harley/reman/conversion/plantillas");
+        plantillas = new File("src/org/harley/reman/xml/plantillas");
     }
     
     /**

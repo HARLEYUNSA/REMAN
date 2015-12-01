@@ -51,11 +51,27 @@ public class Educcion {
     public Educcion(String cod, String name) { 
         educcionNombre = new Nombre(cod, name);
     }
+    public Educcion(String cod, String name, String version, String fuenteNombre, String fuenteCargo, String fuenteTipo, String especialNombre, String especialEspecial, String especialTipo, String especialExp, String educcionTipo, String educcionObj, String educcionFecha, String descripcion, String observaciones) {
+        educcionNombre = new Nombre(cod, name);
+        this.version = version;
+        this.fuenteNombre = fuenteNombre;
+        this.fuenteCargo = fuenteCargo;
+        this.fuenteTipo = fuenteTipo;
+        this.especialNombre = especialNombre;
+        this.especialEspecial = especialEspecial;
+        this.especialTipo = especialTipo;
+        this.especialExp = especialExp;
+        this.educcionTipo = educcionTipo;
+        this.educcionObj = educcionObj;
+        this.educcionFecha = educcionFecha;
+        this.descripcion = descripcion;
+        this.observaciones = observaciones;
+    }
     
-    public Educcion(String name, String version, String fuenteNombre, String fuenteCargo, String fuenteTipo, String especialNombre, String especialEspecial, String especialTipo, String especialExp, String educcionTipo, String educcionObj, String educcionFecha, String descripcion, String observaciones) {
+    public Educcion(String name, String fuenteNombre, String fuenteCargo, String fuenteTipo, String especialNombre, String especialEspecial, String especialTipo, String especialExp, String educcionTipo, String educcionObj, String educcionFecha, String descripcion, String observaciones) {
         numero++;
         educcionNombre = new Nombre("edu000"+numero, name);
-        this.version = version;
+        this.version = "0.01";
         this.fuenteNombre = fuenteNombre;
         this.fuenteCargo = fuenteCargo;
         this.fuenteTipo = fuenteTipo;
