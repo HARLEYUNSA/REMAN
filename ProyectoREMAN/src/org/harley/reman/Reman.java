@@ -15,21 +15,15 @@ public class Reman {
 
     public static void main(String[] args) {
         Proyecto pro = new Proyecto();
-        pro.crearProyecto("REMAN", "HARLEY", "UNSA", "Incalla Nina Christian",
-                "Terminado", "01/01/0001", "30/12/2015");
+        /*pro.crearProyecto("REMAN", "HARLEY", "UNSA", "Incalla Nina Christian",
+                "Terminado", "01/01/0001", "30/12/2015","REMAN");*/
        
-        //pro.ingresarProyecto("REMAN");
+        pro.ingresarProyecto("REMAN");
         
-        //rem.eliminarProyecto("REMAN");
-               
-        /*rem.agregarEdu("Nombre", "0.01", "Primario", "Objectivo acà", "01/01/2016",
-        
-        rem.verLibro(0, "0.1", "2 educciones");*/
-        
-        pro.agregarEduccion("Nombre1", "Primario", "Objectivo acà", "01/01/2016",
+        /*pro.agregarEduccion("Nombre1", "0.01", "Primario", "Objectivo acà", "01/01/2016",
                 "Cristiano Lòpez", "Usuario", "Interno", "Luna Luza Gonzalo",
                 "Ing. Requisitos", "Alta", "Programador", "Descripción aquí",
-                "Observaciones y/o comentarios con respecto al requerimiento.");
+                "Observaciones y/o comentarios con respecto al requerimiento.");*/
         
         pro.exportarLibroEdu("D:\\Informe", "LibroEduccion");
 

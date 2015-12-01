@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlType;
     @XmlType(propOrder = {
         "educcionNombre",
         "version",
+        "educcionTipo",
+        "educcionObj",
+        "educcionFecha",
         "fuenteNombre",
         "fuenteCargo",
         "fuenteTipo",
@@ -15,9 +18,6 @@ import javax.xml.bind.annotation.XmlType;
         "especialEspecial",
         "especialTipo",
         "especialExp",
-        "educcionTipo",
-        "educcionObj",
-        "educcionFecha",
         "descripcion",
         "observaciones"
     })
@@ -25,16 +25,16 @@ public class Educcion {
         private static int numero = 0;
         Nombre educcionNombre;
         String version;
+        String educcionTipo;
+        String educcionObj;
+        String educcionFecha;
         String fuenteNombre;
         String fuenteCargo;
         String fuenteTipo;
         String especialNombre;
         String especialEspecial;
         String especialTipo;
-        String especialExp;
-        String educcionTipo;
-        String educcionObj;
-        String educcionFecha;
+        String especialExp;      
         String descripcion;
         String observaciones;
 
@@ -68,9 +68,9 @@ public class Educcion {
         this.observaciones = observaciones;
     }
     
-    public Educcion(String name, String fuenteNombre, String fuenteCargo, String fuenteTipo, String especialNombre, String especialEspecial, String especialTipo, String especialExp, String educcionTipo, String educcionObj, String educcionFecha, String descripcion, String observaciones) {
+    public Educcion(String name, String version, String fuenteNombre, String fuenteCargo, String fuenteTipo, String especialNombre, String especialEspecial, String especialTipo, String especialExp, String educcionTipo, String educcionObj, String educcionFecha, String descripcion, String observaciones) {
         numero++;
-        educcionNombre = new Nombre("edu000"+numero, name);
+        educcionNombre = new Nombre("EDU000"+numero, name);
         this.version = "0.01";
         this.fuenteNombre = fuenteNombre;
         this.fuenteCargo = fuenteCargo;
@@ -104,6 +104,33 @@ public class Educcion {
         this.version = version;
     }
 
+    public String getEduccionTipo() {
+        return educcionTipo;
+    }
+    
+    @XmlElement
+    public void setEduccionTipo(String educcionTipo) {
+        this.educcionTipo = educcionTipo;
+    }
+
+    public String getEduccionObj() {
+        return educcionObj;
+    }
+    
+    @XmlElement
+    public void setEduccionObj(String educcionObj) {
+        this.educcionObj = educcionObj;
+    }
+
+    public String getEduccionFecha() {
+        return educcionFecha;
+    }
+    
+    @XmlElement
+    public void setEduccionFecha(String educcionFecha) {
+        this.educcionFecha = educcionFecha;
+    }
+    
     public String getFuenteNombre() {
         return fuenteNombre;
     }
@@ -165,33 +192,6 @@ public class Educcion {
     @XmlElement
     public void setEspecialExp(String especialExp) {
         this.especialExp = especialExp;
-    }
-
-    public String getEduccionTipo() {
-        return educcionTipo;
-    }
-    
-    @XmlElement
-    public void setEduccionTipo(String educcionTipo) {
-        this.educcionTipo = educcionTipo;
-    }
-
-    public String getEduccionObj() {
-        return educcionObj;
-    }
-    
-    @XmlElement
-    public void setEduccionObj(String educcionObj) {
-        this.educcionObj = educcionObj;
-    }
-
-    public String getEduccionFecha() {
-        return educcionFecha;
-    }
-    
-    @XmlElement
-    public void setEduccionFecha(String educcionFecha) {
-        this.educcionFecha = educcionFecha;
     }
 
     public String getDescripcion() {

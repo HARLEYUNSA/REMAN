@@ -39,7 +39,6 @@ public class Proyecto {
     }
     
     public void iniciar(String nombre){
-        this.directory = new File(nombre);
         this.dirPro = new File(directory, "remanproject");
         this.dirEdu = new File(directory, "src//edu");
         this.dirEli = new File(directory, "src//eli");
@@ -51,7 +50,7 @@ public class Proyecto {
         this.managerEdu = new FileManager(LibroEduccion.class, this.dirEdu);
         this.managerEsp = new FileManager(LibroEspecificacion.class, this.dirEsp);
         this.manHisEdu = new FileManager(LibroHistorico.class, this.dirVerEdu);
-        this.libroEdu = new LibroEduccion(this.dirEdu);
+        this.libroEdu = new LibroEduccion();
         this.libroEsp = new LibroEspecificacion(this.dirEsp);
         this.manEdu = new FileManager(Educciones.class, dirEdu);
     }
@@ -90,12 +89,12 @@ public class Proyecto {
         this.manEdu = null;
     }
     
-    public void agregarEduccion(String nom, String fueNom, String fueCar,
+    public void agregarEduccion(String nom, String ver, String fueNom, String fueCar,
             String fueTip, String espNom, String espEsp, String espTip, 
             String espExp, String eduTip, String eduObj, String eduFec,
             String des, String obs) 
     {
-        Educcion edu = new Educcion(nom, fueNom, fueCar, fueTip, espNom,
+        Educcion edu = new Educcion(nom, ver, fueNom, fueCar, fueTip, espNom,
                 espEsp, espTip, espExp, eduTip, eduObj, eduFec, espTip, obs);
         Educciones nueva = new Educciones(dirEdu);
         nueva.newEdu(edu);
@@ -163,8 +162,9 @@ public class Proyecto {
         System.out.println("Destino"+cp);
     }
     
-    public void crearProyecto(String nomPro, String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin) {
-        iniciar(nomPro);
+    public void crearProyecto(String nomPro, String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin, String ubi) {
+        this.directory = new File(ubi);
+        iniciar(ubi);
         createDirectory();
         createProperties(nomPro, empDes, empCli, lidPro, estPro, fecIni, fecFin);
         createHistorics();
@@ -265,6 +265,19 @@ public class Proyecto {
         }
     }
 
+    public Caratula crearCaratula(String libro){
+        Caratula car = new Caratula();
+        car.setTitulo(libro);
+        car.setProyecto(properties.getProperty("name"));
+        car.setEmpDes(properties.getProperty("empDes"));
+        car.setEmpCli(properties.getProperty("empCli"));
+        car.setLidPro(properties.getProperty("lidPro"));
+        car.setEstPro(properties.getProperty("estPro"));
+        car.setFecIni(properties.getProperty("fecIni"));
+        car.setFecFin(properties.getProperty("fecFin"));
+        car.setFecAct("09 de noviembre del 2015");
+        return car;
+    }
    
     public void createLibEdu(String nombre){
         managerEdu.escribirXML(nombre, libroEdu);
@@ -274,6 +287,7 @@ public class Proyecto {
          for (final File fileEntry : dirEdu.listFiles()) {
             String name = fileEntry.getName().split("\\.")[0];
             libroEdu.addEduccion(getLastEdu(name));
+            libroEdu.setIntro(crearCaratula("EDUCCIÓN DE REQUERIMIENTOS"));
         }
         createLibEdu("libEdu");
         managerEdu.exportarPDF("libEdu", destino , nombre);

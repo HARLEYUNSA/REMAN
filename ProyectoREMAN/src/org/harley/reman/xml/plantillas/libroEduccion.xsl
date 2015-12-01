@@ -12,7 +12,9 @@
                                     margin-top="1cm" 
                                     margin-bottom="2cm" 
                                     margin-left="2.5cm" 
-                                    margin-right="2.5cm">
+                                    margin-right="2.5cm"
+                        font-family="cambria" 
+                >
                 <fo:region-body margin-top="3cm"/>
                 <fo:region-before extent="3cm"/>
                 <fo:region-after extent="1.5cm"/>
@@ -25,24 +27,6 @@
         </fo:page-sequence>
     </fo:root>	
 </xsl:template>
-<xsl:template match="titulo">
-	<fo:block font-size="18pt" 
-            font-family="candara" 
-            text-align="center"
-            padding-top="3pt"
-            padding-bottom="10pt"
-            font-weight="bold">
-        <xsl:value-of select="."/>
-  </fo:block>
-</xsl:template>
-<xsl:template match="intro">
-	<fo:block font-size="18pt" 
-            font-family="candara" 
-            text-align="center"
-            padding-bottom="10pt">
-      <xsl:value-of select="."/> 
-  </fo:block>
-</xsl:template>
 <xsl:attribute-set name="bigCell">
   <xsl:attribute name="border">solid 1mm black</xsl:attribute>
   <xsl:attribute name="padding-left">2mm</xsl:attribute>
@@ -53,16 +37,94 @@
   <xsl:attribute name="padding-left">2mm</xsl:attribute>
   <xsl:attribute name="padding-top">11mm</xsl:attribute>
 </xsl:attribute-set>
-<xsl:attribute-set name="myCell">
+<xsl:attribute-set name="oneCell">
   <xsl:attribute name="border">solid 1mm black</xsl:attribute>
   <xsl:attribute name="padding-left">2mm</xsl:attribute>
   <xsl:attribute name="padding-top">2mm</xsl:attribute>
   <xsl:attribute name="padding-bottom">1.3mm</xsl:attribute>
 </xsl:attribute-set>
+<xsl:attribute-set name="twoCells">
+  <xsl:attribute name="border">solid 1mm black</xsl:attribute>
+  <xsl:attribute name="padding-left">2mm</xsl:attribute>
+  <xsl:attribute name="padding-top">2mm</xsl:attribute>
+  <xsl:attribute name="padding-bottom">1.3mm</xsl:attribute>
+  <xsl:attribute name="number-columns-spanned">2</xsl:attribute>                      
+</xsl:attribute-set>
 <xsl:attribute-set name="myColor">
   <xsl:attribute name="color">white</xsl:attribute>
   <xsl:attribute name="background-color">rgb(255, 0, 0)</xsl:attribute>
 </xsl:attribute-set>
+<xsl:template match="intro">                       
+    <xsl:apply-templates/>
+</xsl:template>
+<xsl:template match="titulo"> 
+    <fo:block text-align="center" padding-left="1.8cm" margin="0cm">
+        <fo:external-graphic src="img/primero.png" content-height="scale-to-fit" height="2.1cm"  content-width="3.93cm" scaling="non-uniform"/>                 
+    </fo:block>  
+    <fo:block border-bottom-width="1pt" border-bottom-style="solid" padding-top="4mm" border-bottom-color="rgb(140,180,225)"></fo:block>
+    <fo:block font-family="cambria"  font-size="27pt" 
+            padding-top="4mm"
+            text-align="center"
+            font-weight="bold">
+            <xsl:apply-templates/>
+    </fo:block>
+    <fo:block border-bottom-width="1pt" border-bottom-style="solid" padding-top="3mm" border-bottom-color="rgb(140,180,225)"></fo:block>
+</xsl:template>
+<xsl:template match="proyecto"> 
+        <fo:block padding-top="1cm" padding-left="0.9cm" margin="0cm">
+            <fo:inline font-weight="bold">Proyecto: </fo:inline>
+            <xsl:apply-templates/>
+        </fo:block>                     
+</xsl:template>
+<xsl:template match="empDes">                       
+        <fo:block padding-left="0.9cm" margin="0cm">
+            <fo:inline font-weight="bold">Empresa desarrolladora: </fo:inline>
+            <xsl:apply-templates/>
+        </fo:block> </xsl:template>
+<xsl:template match="empCli">                       
+        <fo:block padding-left="0.9cm" margin="0cm">
+            <fo:inline font-weight="bold">Empresa cliente: </fo:inline>
+            <xsl:apply-templates/>
+        </fo:block> 
+</xsl:template>
+<xsl:template match="lidPro">                       
+        <fo:block padding-left="0.9cm" margin="0cm">
+            <fo:inline font-weight="bold">Líder del proyecto: </fo:inline>
+            <xsl:apply-templates/>
+        </fo:block> 
+</xsl:template>
+<xsl:template match="estPro">                       
+        <fo:block padding-left="0.9cm" margin="0cm">
+            <fo:inline font-weight="bold">Estado del proyecto: </fo:inline>
+            <xsl:apply-templates/>
+        </fo:block> 
+</xsl:template>
+<xsl:template match="fecIni">                       
+        <fo:block padding-left="0.9cm" margin="0cm">
+            <fo:inline font-weight="bold">Fecha inicial: </fo:inline>
+            <xsl:apply-templates/>
+        </fo:block>
+</xsl:template>
+<xsl:template match="fecFin">                       
+        <fo:block padding-left="0.9cm" margin="0cm">
+            <fo:inline font-weight="bold">Fecha final: </fo:inline>
+            <xsl:apply-templates/>
+        </fo:block>
+</xsl:template>
+<xsl:template match="fecAct">    
+        <fo:block text-align="center" padding-top="45pt" padding-left="1.8cm" margin="0cm">
+            <fo:external-graphic src="img/segunda.png" content-height="scale-to-fit" height="1.33cm"  content-width="2.1cm" scaling="non-uniform"/>                 
+        </fo:block>                       
+        <fo:block font-weight="bold" text-align="center" padding-top="300pt">
+           <xsl:apply-templates/>
+        </fo:block>
+</xsl:template>
+<xsl:template match="lugar">                       
+        <fo:block font-weight="bold" text-align="center">
+           <xsl:apply-templates/>
+        </fo:block>
+</xsl:template>
+
 <xsl:template match="educciones">                       
     <xsl:apply-templates/>
 </xsl:template>
@@ -85,15 +147,14 @@
    </fo:table-row>
 </xsl:template>
 <xsl:template match="codigo">
-        <fo:table-cell xsl:use-attribute-sets="myCell">
+        <fo:table-cell xsl:use-attribute-sets="oneCell">
         <fo:block>
-           EDU <xsl:apply-templates/>
+            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
 </xsl:template>
 <xsl:template match="nombre">
-        <fo:table-cell  xsl:use-attribute-sets="myCell"
-                        number-columns-spanned="2">
+        <fo:table-cell  xsl:use-attribute-sets="twoCells">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
@@ -101,18 +162,59 @@
 </xsl:template>
 <xsl:template match="version">
    <fo:table-row>
-        <fo:table-cell xsl:use-attribute-sets="myCell">
+        <fo:table-cell xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
            Version
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell"
-                        number-columns-spanned="2">
+        <fo:table-cell  xsl:use-attribute-sets="twoCells">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
       <xsl:apply-templates/>
+   </fo:table-row>
+</xsl:template>
+<xsl:template match="educcionTipo">
+   <fo:table-row>
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
+        <fo:block font-weight="bold">
+            Tipo
+        </fo:block>
+        </fo:table-cell>
+        <fo:table-cell  xsl:use-attribute-sets="twoCells">
+        <fo:block>
+           <xsl:apply-templates/>
+        </fo:block>
+        </fo:table-cell>
+   </fo:table-row>
+</xsl:template>
+<xsl:template match="educcionObj">
+   <fo:table-row>
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
+        <fo:block font-weight="bold">
+            Objetivo
+        </fo:block>
+        </fo:table-cell>
+        <fo:table-cell xsl:use-attribute-sets="twoCells">
+        <fo:block>
+           <xsl:apply-templates/>
+        </fo:block>
+        </fo:table-cell>
+   </fo:table-row>
+</xsl:template>
+<xsl:template match="educcionFecha">
+   <fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="oneCell">
+        <fo:block font-weight="bold">
+            Fecha
+        </fo:block>
+        </fo:table-cell>
+        <fo:table-cell  xsl:use-attribute-sets="twoCells">
+        <fo:block>
+           <xsl:apply-templates/>
+        </fo:block>
+        </fo:table-cell>
    </fo:table-row>
 </xsl:template>
 <xsl:template match="fuenteNombre">
@@ -123,12 +225,12 @@
             Fuente
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
             Nombre
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
@@ -137,12 +239,12 @@
 </xsl:template>
 <xsl:template match="fuenteCargo">
    <fo:table-row>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
             Cargo
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
@@ -151,12 +253,12 @@
 </xsl:template>
 <xsl:template match="fuenteTipo">
    <fo:table-row>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
             Tipo
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
@@ -171,12 +273,12 @@
             Especialista
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
             Nombre
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
@@ -185,12 +287,12 @@
 </xsl:template>
 <xsl:template match="especialEspecial">
    <fo:table-row>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
             Especialidad
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
@@ -199,12 +301,12 @@
 </xsl:template>
 <xsl:template match="especialTipo">
    <fo:table-row>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
             Tipo
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
@@ -213,60 +315,12 @@
 </xsl:template>
 <xsl:template match="especialExp">
    <fo:table-row>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
             Experiencia
         </fo:block>
         </fo:table-cell>
-        <fo:table-cell xsl:use-attribute-sets="myCell">
-        <fo:block>
-           <xsl:apply-templates/>
-        </fo:block>
-        </fo:table-cell>
-   </fo:table-row>
-</xsl:template>
-<xsl:template match="educcionTipo">
-   <fo:table-row>
-        <fo:table-cell  xsl:use-attribute-sets="mediumCell"
-                        number-rows-spanned="3">
-        <fo:block font-weight="bold">
-            Educción
-        </fo:block>
-        </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
-        <fo:block font-weight="bold">
-            Tipo
-        </fo:block>
-        </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
-        <fo:block>
-           <xsl:apply-templates/>
-        </fo:block>
-        </fo:table-cell>
-   </fo:table-row>
-</xsl:template>
-<xsl:template match="educcionObj">
-   <fo:table-row>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
-        <fo:block font-weight="bold">
-            Objetivo
-        </fo:block>
-        </fo:table-cell>
-        <fo:table-cell xsl:use-attribute-sets="myCell">
-        <fo:block>
-           <xsl:apply-templates/>
-        </fo:block>
-        </fo:table-cell>
-   </fo:table-row>
-</xsl:template>
-<xsl:template match="educcionFecha">
-   <fo:table-row>
-        <fo:table-cell xsl:use-attribute-sets="myCell">
-        <fo:block font-weight="bold">
-            Fecha
-        </fo:block>
-        </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell xsl:use-attribute-sets="oneCell">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
@@ -274,21 +328,13 @@
    </fo:table-row>
 </xsl:template>
 <xsl:template match="descripcion">
-    <fo:table-row>
-        <fo:table-cell  xsl:use-attribute-sets="myCell myColor"
-                        number-columns-spanned="3">
-        <fo:block text-align="center" font-weight="bold">
-            Educción
-        </fo:block>
-        </fo:table-cell>
-    </fo:table-row> 
    <fo:table-row>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
             Descripción
         </fo:block>
         </fo:table-cell> 
-        <fo:table-cell  xsl:use-attribute-sets="myCell" 
+        <fo:table-cell  xsl:use-attribute-sets="oneCell" 
                         number-columns-spanned="2">
         <fo:block>
            <xsl:apply-templates/>
@@ -298,12 +344,12 @@
 </xsl:template>
 <xsl:template match="observaciones">
    <fo:table-row>
-        <fo:table-cell  xsl:use-attribute-sets="myCell">
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
             Observaciones
         </fo:block>
         </fo:table-cell> 
-        <fo:table-cell  xsl:use-attribute-sets="myCell"
+        <fo:table-cell  xsl:use-attribute-sets="oneCell"
                         number-columns-spanned="2">
         <fo:block>
            <xsl:apply-templates/>
