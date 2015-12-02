@@ -1,10 +1,6 @@
 package org.harley.reman;
 
-import org.harley.reman.sistema.Proyecto;
-import org.harley.reman.sistema.Educcion;
-import org.harley.reman.sistema.Historico;
-import java.util.List;
-import org.harley.reman.sistema.LibroHistorico;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
@@ -14,18 +10,17 @@ public class Reman {
     
 
     public static void main(String[] args) {
-        Proyecto pro = new Proyecto();
-        /*pro.crearProyecto("REMAN", "HARLEY", "UNSA", "Incalla Nina Christian",
-                "Terminado", "01/01/0001", "30/12/2015","REMAN");*/
+        Sistema sis = new Sistema();
+        //sis.crearProyecto("REMAN", "HARLEY", "UNSA", "Incalla Nina Christian", "Terminado", "01/01/0001", "30/12/2015","REMAN");
        
-        pro.ingresarProyecto("REMAN");
+        sis.ingresarProyecto("REMAN");
         
-        /*pro.agregarEduccion("Nombre1", "0.01", "Primario", "Objectivo acà", "01/01/2016",
+        sis.agregarEduccion("Nombre3", "0.01", "Primario", "Objectivo acà", "01/01/2016",
                 "Cristiano Lòpez", "Usuario", "Interno", "Luna Luza Gonzalo",
                 "Ing. Requisitos", "Alta", "Programador", "Descripción aquí",
-                "Observaciones y/o comentarios con respecto al requerimiento.");*/
+                "Observaciones y/o comentarios con respecto al requerimiento.");
         
-        pro.exportarLibroEdu("D:\\Informe", "LibroEduccion");
+        sis.exportarLibroEdu("D:\\Informe", "LibroEduccion");
 
         //rem.verLibro(0, "0.1", "1 educcion", "gonzalo");
 

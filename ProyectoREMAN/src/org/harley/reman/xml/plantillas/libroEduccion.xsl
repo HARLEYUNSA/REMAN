@@ -13,7 +13,6 @@
                                     margin-bottom="2cm" 
                                     margin-left="2.5cm" 
                                     margin-right="2.5cm"
-                        font-family="cambria" 
                 >
                 <fo:region-body margin-top="3cm"/>
                 <fo:region-before extent="3cm"/>
@@ -68,13 +67,18 @@
             font-weight="bold">
             <xsl:apply-templates/>
     </fo:block>
-    <fo:block border-bottom-width="1pt" border-bottom-style="solid" padding-top="3mm" border-bottom-color="rgb(140,180,225)"></fo:block>
+    <fo:block border-bottom-width="1pt" border-bottom-style="solid" margin-top="1mm" margin-bottom="1cm" border-bottom-color="rgb(140,180,225)"></fo:block>
 </xsl:template>
-<xsl:template match="proyecto"> 
-        <fo:block padding-top="1cm" padding-left="0.9cm" margin="0cm">
+<xsl:template match="pro">  
+        <fo:block-container border="1pt rgb(140,180,225)" border-style="dashed" border-width="medium">
+            <xsl:apply-templates/>
+        </fo:block-container> 
+</xsl:template>
+<xsl:template match="proNom">  
+        <fo:block padding-top="5mm" padding-left="0.9cm" margin="0cm">
             <fo:inline font-weight="bold">Proyecto: </fo:inline>
             <xsl:apply-templates/>
-        </fo:block>                     
+        </fo:block> 
 </xsl:template>
 <xsl:template match="empDes">                       
         <fo:block padding-left="0.9cm" margin="0cm">
@@ -106,16 +110,16 @@
         </fo:block>
 </xsl:template>
 <xsl:template match="fecFin">                       
-        <fo:block padding-left="0.9cm" margin="0cm">
+        <fo:block margin-bottom="5mm" padding-left="0.9cm" margin="0cm">
             <fo:inline font-weight="bold">Fecha final: </fo:inline>
             <xsl:apply-templates/>
         </fo:block>
 </xsl:template>
 <xsl:template match="fecAct">    
-        <fo:block text-align="center" padding-top="45pt" padding-left="1.8cm" margin="0cm">
+        <fo:block text-align="center" padding-top="20pt" padding-left="1.8cm" margin="0cm">
             <fo:external-graphic src="img/segunda.png" content-height="scale-to-fit" height="1.33cm"  content-width="2.1cm" scaling="non-uniform"/>                 
         </fo:block>                       
-        <fo:block font-weight="bold" text-align="center" padding-top="300pt">
+        <fo:block font-weight="bold" text-align="center" padding-top="290pt">
            <xsl:apply-templates/>
         </fo:block>
 </xsl:template>
@@ -124,7 +128,6 @@
            <xsl:apply-templates/>
         </fo:block>
 </xsl:template>
-
 <xsl:template match="educciones">                       
     <xsl:apply-templates/>
 </xsl:template>

@@ -7,25 +7,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
     @XmlType(propOrder = {
         "titulo",
-        "proyecto",
-        "empDes",
-        "empCli",
-        "lidPro",
-        "estPro",
-        "fecIni",
-        "fecFin",
+        "pro",
         "fecAct",
         "lugar"
     })
 public class Caratula {
     String titulo;
-    String proyecto;
-    String empDes;
-    String empCli;
-    String lidPro;
-    String estPro;
-    String fecIni;
-    String fecFin;
+    Proyecto pro;
     String fecAct;
     String lugar;
 
@@ -42,67 +30,13 @@ public class Caratula {
         this.titulo = titulo;
     }
 
-    public String getProyecto() {
-        return proyecto;
+    public Proyecto getPro() {
+        return pro;
     }
     
     @XmlElement
-    public void setProyecto(String proyecto) {
-        this.proyecto = proyecto;
-    }
-
-    public String getEmpDes() {
-        return empDes;
-    }
-    
-    @XmlElement
-    public void setEmpDes(String empDes) {
-        this.empDes = empDes;
-    }
-
-    public String getEmpCli() {
-        return empCli;
-    }
-    
-    @XmlElement
-    public void setEmpCli(String empCli) {
-        this.empCli = empCli;
-    }
-
-    public String getLidPro() {
-        return lidPro;
-    }
-    
-    @XmlElement
-    public void setLidPro(String lidPro) {
-        this.lidPro = lidPro;
-    }
-
-    public String getEstPro() {
-        return estPro;
-    }
-    
-    @XmlElement
-    public void setEstPro(String estPro) {
-        this.estPro = estPro;
-    }
-
-    public String getFecIni() {
-        return fecIni;
-    }
-    
-    @XmlElement
-    public void setFecIni(String fecIni) {
-        this.fecIni = fecIni;
-    }
-
-    public String getFecFin() {
-        return fecFin;
-    }
-    
-    @XmlElement
-    public void setFecFin(String fecFin) {
-        this.fecFin = fecFin;
+    public void setPro(Proyecto pro) {
+        this.pro = pro;
     }
 
     public String getFecAct() {
