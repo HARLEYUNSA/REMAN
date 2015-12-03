@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
     })
 public class Educcion {
         private static int numero = 0;
+        private static String codigo = "EDU0000";
         Nombre educcionNombre;
         String version;
         String educcionTipo;
@@ -70,8 +71,9 @@ public class Educcion {
     
     public Educcion(String name, String version, String fuenteNombre, String fuenteCargo, String fuenteTipo, String especialNombre, String especialEspecial, String especialTipo, String especialExp, String educcionTipo, String educcionObj, String educcionFecha, String descripcion, String observaciones) {
         numero++;
-        educcionNombre = new Nombre("EDU000"+numero, name);
-        this.version = "0.01";
+        codigo = Utils.Incrementa(codigo);
+        educcionNombre = new Nombre(codigo, name);
+        this.version = version;
         this.fuenteNombre = fuenteNombre;
         this.fuenteCargo = fuenteCargo;
         this.fuenteTipo = fuenteTipo;

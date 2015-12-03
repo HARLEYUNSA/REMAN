@@ -56,8 +56,10 @@ public class Sistema {
 
     }
 
-    public void salirPrograma() {
-
+    public void salirPrograma(boolean estado) {
+        if (estado){
+            guardarProyecto();
+        }
     }
 
     //Abrir proyecto
@@ -127,18 +129,22 @@ public class Sistema {
         return edu.getActual();
     }
 
-    public void verEdu(String cod, String nom, String ver, String fueNom,
+    public boolean versionarEduccion(String cod, String nom, String ver, String fueNom,
             String fueCar, String fueTip, String espNom, String espEsp,
             String espTip, String espExp, String eduTip, String eduObj,
             String eduFec, String des, String obs, String razon, String version) {
-
-        Educcion edu = new Educcion(cod, nom, ver, fueNom, fueCar, fueTip, espNom,
-                espEsp, espTip, espExp, eduTip, eduObj, eduFec, espTip, obs);
-        Educciones versiones;
-        versiones = manEdu.leerXML(cod);
-        versiones.modEdu(edu);
-        versiones.verEdu(ver, razon);
-        manEdu.escribirXML(cod, versiones);
+        
+        if (Utils.Compara(ver, version)){
+            Educcion edu = new Educcion(cod, nom, version, fueNom, fueCar, fueTip, espNom,
+                    espEsp, espTip, espExp, eduTip, eduObj, eduFec, espTip, obs);
+            Educciones versiones;
+            versiones = manEdu.leerXML(cod);
+            versiones.modEdu(edu);
+            versiones.verEdu(version, razon);
+            manEdu.escribirXML(cod, versiones);
+            return true;
+        }
+        return false;
     }
 
     public void restaurarEduccion(String cod, String version) {
@@ -148,19 +154,33 @@ public class Sistema {
         modificarEduccion(edu);
     }
 
-    public void verLibroEdu(String version, String razon) {
-        File cp = new File(dirVerEdu, "edu" + version);
-        managerEdu.copiarDirectorios(dirEdu, cp);
-        System.out.println("Origen:" + dirEdu);
-        System.out.println("Destino" + cp);
-    }
-
-    public void crearProyecto(String nomPro, String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin, String ubi) {
-        this.pro = new Proyecto(nomPro, empDes, empCli, lidPro, estPro, fecIni, fecFin);
-        iniciarDirectorios(ubi);
-        createDirectory();
-        pro.createProperties();
-        createHistorics();
+    /**
+     * CU-035. CREAR UN PROYECTO
+     * Crear un nuevo proyecto REMAN
+     * @param nomPro Nombre del Proyecto
+     * @param empDes Empresa desarrolladora
+     * @param empCli Empresa cliente
+     * @param lidPro Líder del proyecto
+     * @param estPro Estado del proyecto
+     * @param fecIni Fecha inicial
+     * @param fecFin Fecha final
+     * @param ubiPro Ubicación del proyecto
+     * @return Un valor booleano que indica si la función se realizó correctamente
+     */
+    public boolean crearProyecto(String nomPro, String empDes, String empCli, String lidPro, String estPro, String fecIni, String fecFin, String ubiPro) {
+        try {
+            this.pro = new Proyecto(nomPro, empDes, empCli, lidPro, estPro, fecIni, fecFin);
+            createDirectory(ubiPro);
+            pro.createProperties();
+            createHistorics();
+            agregarOrganizacion(empDes);    //Falta implementar
+            agregarOrganizacion(empCli);    //Falta implementar
+            agregarActor(lidPro);           //Falta implementar
+            return true;
+        }
+        catch(Exception ex){
+            return false;
+        }
     }
 
     public void eliminarProyecto() {
@@ -176,7 +196,8 @@ public class Sistema {
         manHisEdu.escribirXML("eduhis", lib);
     }
 
-    private void createDirectory() {
+    private void createDirectory(String ubiPro) {
+        iniciarDirectorios(ubiPro);
         dirVerEdu.mkdirs();
         dirPro.mkdir();
         dirEdu.mkdirs();
@@ -247,4 +268,23 @@ public class Sistema {
         return libH.getHistoricos();
     }
 
+    public void agregarOrganizacion(String nom) {
+        /*Organizacion org = new Organizacion(nom);
+        String codOrg = org.getOrganizacionNombre().getCodigo();
+        manOrg.escribirXML(codOrg, org);
+        pro.setProperty("numOrg", Integer.toString(Organizacion.getNumero()));
+        pro.saveProperties();*/
+    }
+    
+    public void agregarActor(String nom) {
+        /*Actor act = new Actor(nom);
+        String codAct = org.getActorNombre().getCodigo();
+        manAct.escribirXML(codAct, act);
+        pro.setProperty("numOrg", Integer.toString(Actor.getNumero()));
+        pro.saveProperties();*/
+    }
+
+    private void guardarProyecto() {
+        pro.saveProperties();
+    }
 }
