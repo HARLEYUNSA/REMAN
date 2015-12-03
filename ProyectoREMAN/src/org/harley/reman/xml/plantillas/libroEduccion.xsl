@@ -58,7 +58,7 @@
 </xsl:template>
 <xsl:template match="titulo"> 
     <fo:block text-align="center" padding-left="1.8cm" margin="0cm">
-        <fo:external-graphic src="img/primero.png" content-height="scale-to-fit" height="2.1cm"  content-width="3.93cm" scaling="non-uniform"/>                 
+        <fo:external-graphic src="src/org/harley/reman/img/img_1red.png" content-height="scale-to-fit" height="2.1cm"  content-width="3.93cm" scaling="non-uniform"/>                 
     </fo:block>  
     <fo:block border-bottom-width="1pt" border-bottom-style="solid" padding-top="4mm" border-bottom-color="rgb(140,180,225)"></fo:block>
     <fo:block font-family="cambria"  font-size="27pt" 
@@ -117,7 +117,7 @@
 </xsl:template>
 <xsl:template match="fecAct">    
         <fo:block text-align="center" padding-top="20pt" padding-left="1.8cm" margin="0cm">
-            <fo:external-graphic src="img/segunda.png" content-height="scale-to-fit" height="1.33cm"  content-width="2.1cm" scaling="non-uniform"/>                 
+            <fo:external-graphic src="src/org/harley/reman/img/img_2red.png" content-height="scale-to-fit" height="1.33cm"  content-width="2.1cm" scaling="non-uniform"/>                 
         </fo:block>                       
         <fo:block font-weight="bold" text-align="center" padding-top="290pt">
            <xsl:apply-templates/>
@@ -149,21 +149,21 @@
         <xsl:apply-templates/>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="codigo">
+<xsl:template match="eduCod">
         <fo:table-cell xsl:use-attribute-sets="oneCell">
         <fo:block>
             <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
 </xsl:template>
-<xsl:template match="nombre">
+<xsl:template match="eduNom">
         <fo:table-cell  xsl:use-attribute-sets="twoCells">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>
         </fo:table-cell>
 </xsl:template>
-<xsl:template match="version">
+<xsl:template match="eduVer">
    <fo:table-row>
         <fo:table-cell xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
@@ -178,7 +178,7 @@
       <xsl:apply-templates/>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="educcionTipo">
+<xsl:template match="eduTip">
    <fo:table-row>
         <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
@@ -192,7 +192,7 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="educcionObj">
+<xsl:template match="eduObj">
    <fo:table-row>
         <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
@@ -206,7 +206,7 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="educcionFecha">
+<xsl:template match="eduFec">
    <fo:table-row>
         <fo:table-cell xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
@@ -220,7 +220,7 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="fuenteNombre">
+<xsl:template match="eduFueNom">
    <fo:table-row>
         <fo:table-cell  xsl:use-attribute-sets="mediumCell"
                         number-rows-spanned="3">
@@ -240,7 +240,7 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="fuenteCargo">
+<xsl:template match="eduFueCar">
    <fo:table-row>
         <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
@@ -254,7 +254,7 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="fuenteTipo">
+<xsl:template match="eduFueTip">
    <fo:table-row>
         <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
@@ -268,7 +268,7 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="especialNombre">
+<xsl:template match="eduEspNom">
    <fo:table-row>
         <fo:table-cell  xsl:use-attribute-sets="bigCell"
                         number-rows-spanned="4">
@@ -288,7 +288,7 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="especialEspecial">
+<xsl:template match="eduEspEsp">
    <fo:table-row>
         <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
@@ -302,21 +302,7 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="especialTipo">
-   <fo:table-row>
-        <fo:table-cell  xsl:use-attribute-sets="oneCell">
-        <fo:block font-weight="bold">
-            Tipo
-        </fo:block>
-        </fo:table-cell>
-        <fo:table-cell  xsl:use-attribute-sets="oneCell">
-        <fo:block>
-           <xsl:apply-templates/>
-        </fo:block>
-        </fo:table-cell>
-   </fo:table-row>
-</xsl:template>
-<xsl:template match="especialExp">
+<xsl:template match="eduEspExp">
    <fo:table-row>
         <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
@@ -330,7 +316,21 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="descripcion">
+<xsl:template match="eduEspCar">
+   <fo:table-row>
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
+        <fo:block font-weight="bold">
+            Cargo
+        </fo:block>
+        </fo:table-cell>
+        <fo:table-cell  xsl:use-attribute-sets="oneCell">
+        <fo:block>
+           <xsl:apply-templates/>
+        </fo:block>
+        </fo:table-cell>
+   </fo:table-row>
+</xsl:template>
+<xsl:template match="eduDes">
    <fo:table-row>
         <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">
@@ -345,7 +345,7 @@
         </fo:table-cell>
    </fo:table-row>
 </xsl:template>
-<xsl:template match="observaciones">
+<xsl:template match="eduObs">
    <fo:table-row>
         <fo:table-cell  xsl:use-attribute-sets="oneCell">
         <fo:block font-weight="bold">

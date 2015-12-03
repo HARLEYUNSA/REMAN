@@ -15,19 +15,19 @@ import javax.xml.bind.annotation.XmlType;
 })
 
 public class Actor {
-        Nombre actorNombre;
+        EduNombre actorNombre;
         String org;
         String cargo;
         String tipo;
         String correo;
         String comentarios;
 
-    public Nombre getActorNombre() {
+    public EduNombre getActorNombre() {
         return actorNombre;
     }
     
     @XmlElement
-    public void setActorNombre(Nombre actorNombre) {
+    public void setActorNombre(EduNombre actorNombre) {
         this.actorNombre = actorNombre;
     }
 

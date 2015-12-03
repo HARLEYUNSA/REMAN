@@ -1,43 +1,44 @@
 package org.harley.reman.sistema;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
     @XmlRootElement
     @XmlType(propOrder = {
         "educcionNombre",
-        "version",
-        "educcionTipo",
-        "educcionObj",
-        "educcionFecha",
-        "fuenteNombre",
-        "fuenteCargo",
-        "fuenteTipo",
-        "especialNombre",
-        "especialEspecial",
-        "especialTipo",
-        "especialExp",
-        "descripcion",
-        "observaciones"
+        "eduVer",
+        "eduTip",
+        "eduObj",
+        "eduFec",
+        "eduFueNom",
+        "eduFueCar",
+        "eduFueTip",
+        "eduEspNom",
+        "eduEspEsp",
+        "eduEspExp",
+        "eduEspCar",
+        "eduDes",
+        "eduObs"
     })
 public class Educcion {
-        private static int numero = 0;
-        private static String codigo = "EDU0000";
-        Nombre educcionNombre;
-        String version;
-        String educcionTipo;
-        String educcionObj;
-        String educcionFecha;
-        String fuenteNombre;
-        String fuenteCargo;
-        String fuenteTipo;
-        String especialNombre;
-        String especialEspecial;
-        String especialTipo;
-        String especialExp;      
-        String descripcion;
-        String observaciones;
+    private static int numero = 0;
+    private static String codigo = "EDU0000";
+    EduNombre educcionNombre;
+    String eduVer;
+    String eduTip;
+    String eduObj;
+    String eduFec;
+    String eduFueNom;
+    String eduFueCar;
+    String eduFueTip;
+    String eduEspNom;
+    String eduEspEsp;
+    String eduEspExp;      
+    String eduEspCar;
+    String eduDes;
+    String eduObs;
+    
+    public Educcion() {    }
 
     public static int getNumero() {
         return numero;
@@ -45,173 +46,177 @@ public class Educcion {
 
     public static void setNumero(int numero) {
         Educcion.numero = numero;
+        for (int i = 0; i < numero; i++){
+            codigo = Tools.IncrementarCodigo(codigo);
+        }
     }
 
-    public Educcion() {    }
-    
-    public Educcion(String cod, String name) { 
-        educcionNombre = new Nombre(cod, name);
+    public Educcion(String eduCod, String eduNom) { 
+        educcionNombre = new EduNombre(eduCod, eduNom);
     }
-    public Educcion(String cod, String name, String version, String fuenteNombre, String fuenteCargo, String fuenteTipo, String especialNombre, String especialEspecial, String especialTipo, String especialExp, String educcionTipo, String educcionObj, String educcionFecha, String descripcion, String observaciones) {
-        educcionNombre = new Nombre(cod, name);
-        this.version = version;
-        this.fuenteNombre = fuenteNombre;
-        this.fuenteCargo = fuenteCargo;
-        this.fuenteTipo = fuenteTipo;
-        this.especialNombre = especialNombre;
-        this.especialEspecial = especialEspecial;
-        this.especialTipo = especialTipo;
-        this.especialExp = especialExp;
-        this.educcionTipo = educcionTipo;
-        this.educcionObj = educcionObj;
-        this.educcionFecha = educcionFecha;
-        this.descripcion = descripcion;
-        this.observaciones = observaciones;
+
+    public Educcion(String eduCod, String eduNom, String eduVer, String eduTip, 
+            String eduObj, String eduFec, String eduFueNom, String eduFueCar, 
+            String eduFueTip, String eduEspNom, String eduEspEsp,
+            String eduEspExp, String eduEspCar, String eduDes, String eduObs){
+        educcionNombre = new EduNombre(eduCod, eduNom);
+        this.eduVer = eduVer;
+        this.eduTip = eduTip;
+        this.eduObj = eduObj;
+        this.eduFec = eduFec;
+        this.eduFueNom = eduFueNom;
+        this.eduFueCar = eduFueCar;
+        this.eduFueTip = eduFueTip;
+        this.eduEspNom = eduEspNom;
+        this.eduEspEsp = eduEspEsp;
+        this.eduEspCar = eduEspCar;
+        this.eduEspExp = eduEspExp;
+        this.eduDes = eduDes;
+        this.eduObs = eduObs;
     }
     
-    public Educcion(String name, String version, String fuenteNombre, String fuenteCargo, String fuenteTipo, String especialNombre, String especialEspecial, String especialTipo, String especialExp, String educcionTipo, String educcionObj, String educcionFecha, String descripcion, String observaciones) {
+    public Educcion(String eduNom, String eduVer, String eduTip, 
+            String eduObj, String eduFec, String eduFueNom, String eduFueCar, 
+            String eduFueTip, String eduEspNom, String eduEspEsp,
+            String eduEspExp, String eduEspCar, String eduDes, String eduObs){
         numero++;
-        codigo = Utils.Incrementa(codigo);
-        educcionNombre = new Nombre(codigo, name);
-        this.version = version;
-        this.fuenteNombre = fuenteNombre;
-        this.fuenteCargo = fuenteCargo;
-        this.fuenteTipo = fuenteTipo;
-        this.especialNombre = especialNombre;
-        this.especialEspecial = especialEspecial;
-        this.especialTipo = especialTipo;
-        this.especialExp = especialExp;
-        this.educcionTipo = educcionTipo;
-        this.educcionObj = educcionObj;
-        this.educcionFecha = educcionFecha;
-        this.descripcion = descripcion;
-        this.observaciones = observaciones;
+        codigo = Tools.IncrementarCodigo(codigo);
+        educcionNombre = new EduNombre(codigo, eduNom);
+        this.eduVer = eduVer;
+        this.eduFueNom = eduFueNom;
+        this.eduFueCar = eduFueCar;
+        this.eduFueTip = eduFueTip;
+        this.eduEspNom = eduEspNom;
+        this.eduEspEsp = eduEspEsp;
+        this.eduEspCar = eduEspCar;
+        this.eduEspExp = eduEspExp;
+        this.eduTip = eduTip;
+        this.eduObj = eduObj;
+        this.eduFec = eduFec;
+        this.eduDes = eduDes;
+        this.eduObs = eduObs;
     }
 
-    public Nombre getEduccionNombre() {
+    public static String getCodigo() {
+        return codigo;
+    }
+
+    public static void setCodigo(String codigo) {
+        Educcion.codigo = codigo;
+    }
+
+    public EduNombre getEduccionNombre() {
         return educcionNombre;
     }
-    
-    @XmlElement
-    public void setEduccionNombre(Nombre educcionNombre) {
+
+    public void setEduccionNombre(EduNombre educcionNombre) {
         this.educcionNombre = educcionNombre;
     }
 
-    public String getVersion() {
-        return version;
-    }
-    
-    @XmlElement
-    public void setVersion(String version) {
-        this.version = version;
+    public String getEduVer() {
+        return eduVer;
     }
 
-    public String getEduccionTipo() {
-        return educcionTipo;
-    }
-    
-    @XmlElement
-    public void setEduccionTipo(String educcionTipo) {
-        this.educcionTipo = educcionTipo;
+    public void setEduVer(String eduVer) {
+        this.eduVer = eduVer;
     }
 
-    public String getEduccionObj() {
-        return educcionObj;
-    }
-    
-    @XmlElement
-    public void setEduccionObj(String educcionObj) {
-        this.educcionObj = educcionObj;
+    public String getEduTip() {
+        return eduTip;
     }
 
-    public String getEduccionFecha() {
-        return educcionFecha;
-    }
-    
-    @XmlElement
-    public void setEduccionFecha(String educcionFecha) {
-        this.educcionFecha = educcionFecha;
-    }
-    
-    public String getFuenteNombre() {
-        return fuenteNombre;
-    }
-    
-    @XmlElement
-    public void setFuenteNombre(String fuenteNombre) {
-        this.fuenteNombre = fuenteNombre;
+    public void setEduTip(String eduTip) {
+        this.eduTip = eduTip;
     }
 
-    public String getFuenteCargo() {
-        return fuenteCargo;
-    }
-    
-    @XmlElement
-    public void setFuenteCargo(String fuenteCargo) {
-        this.fuenteCargo = fuenteCargo;
+    public String getEduObj() {
+        return eduObj;
     }
 
-    public String getFuenteTipo() {
-        return fuenteTipo;
-    }
-    
-    @XmlElement
-    public void setFuenteTipo(String fuenteTipo) {
-        this.fuenteTipo = fuenteTipo;
+    public void setEduObj(String eduObj) {
+        this.eduObj = eduObj;
     }
 
-    public String getEspecialNombre() {
-        return especialNombre;
-    }
-    
-    @XmlElement
-    public void setEspecialNombre(String especialNombre) {
-        this.especialNombre = especialNombre;
+    public String getEduFec() {
+        return eduFec;
     }
 
-    public String getEspecialEspecial() {
-        return especialEspecial;
-    }
-    
-    @XmlElement
-    public void setEspecialEspecial(String especialEspecial) {
-        this.especialEspecial = especialEspecial;
+    public void setEduFec(String eduFec) {
+        this.eduFec = eduFec;
     }
 
-    public String getEspecialTipo() {
-        return especialTipo;
-    }
-    
-    @XmlElement
-    public void setEspecialTipo(String especialTipo) {
-        this.especialTipo = especialTipo;
+    public String getEduFueNom() {
+        return eduFueNom;
     }
 
-    public String getEspecialExp() {
-        return especialExp;
-    }
-    
-    @XmlElement
-    public void setEspecialExp(String especialExp) {
-        this.especialExp = especialExp;
+    public void setEduFueNom(String eduFueNom) {
+        this.eduFueNom = eduFueNom;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-    
-    @XmlElement
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public String getEduFueCar() {
+        return eduFueCar;
     }
 
-    public String getObservaciones() {
-        return observaciones;
+    public void setEduFueCar(String eduFueCar) {
+        this.eduFueCar = eduFueCar;
+    }
+
+    public String getEduFueTip() {
+        return eduFueTip;
+    }
+
+    public void setEduFueTip(String eduFueTip) {
+        this.eduFueTip = eduFueTip;
+    }
+
+    public String getEduEspNom() {
+        return eduEspNom;
+    }
+
+    public void setEduEspNom(String eduEspNom) {
+        this.eduEspNom = eduEspNom;
+    }
+
+    public String getEduEspEsp() {
+        return eduEspEsp;
+    }
+
+    public void setEduEspEsp(String eduEspEsp) {
+        this.eduEspEsp = eduEspEsp;
+    }
+
+    public String getEduEspExp() {
+        return eduEspExp;
+    }
+
+    public void setEduEspExp(String eduEspExp) {
+        this.eduEspExp = eduEspExp;
+    }
+
+    public String getEduEspCar() {
+        return eduEspCar;
+    }
+
+    public void setEduEspCar(String eduEspCar) {
+        this.eduEspCar = eduEspCar;
+    }
+
+    public String getEduDes() {
+        return eduDes;
+    }
+
+    public void setEduDes(String eduDes) {
+        this.eduDes = eduDes;
+    }
+
+    public String getEduObs() {
+        return eduObs;
+    }
+
+    public void setEduObs(String eduObs) {
+        this.eduObs = eduObs;
     }
     
-    @XmlElement
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
+    
     
 }

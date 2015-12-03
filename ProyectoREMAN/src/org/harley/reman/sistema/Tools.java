@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.harley.reman.sistema;
 
-/**
- *
- * @author Gonzalo
- */
-public class Utils {
+public class Tools {
     
-    public static boolean Compara(String A, String B){
+    public static boolean CompararVersiones(String A, String B){
         String[] SeparadoA = A.split("\\.");
         String[] SeparadoB = B.split("\\.");
         int length = Math.max(SeparadoA.length, SeparadoB.length);
@@ -56,7 +47,7 @@ public class Utils {
         return false;
     }
     
-    public static String Incrementa(String A){
+    public static String IncrementarCodigo(String A){
         int []convertido = new int[A.length()];
         int cont = 0;
         String B="";

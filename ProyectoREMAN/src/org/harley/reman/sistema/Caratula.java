@@ -1,6 +1,5 @@
 package org.harley.reman.sistema;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -16,16 +15,23 @@ public class Caratula {
     Proyecto pro;
     String fecAct;
     String lugar;
-
-    public Caratula() {
-        this.lugar = "Arequipa, Peru";
+        
+    public Caratula(){
+        
     }
- 
+    public Caratula(String titulo, String proNom, String empDes, String empCli, 
+            String proLid, String proEst, String fecIni, String fecFin, String fecAct, String lugar) {
+        this.titulo = titulo;
+        this.pro = new Proyecto(proNom, empDes, empCli, proLid, proEst, fecIni,
+        fecFin);
+        this.fecAct = fecAct;
+        this.lugar = lugar;
+    }
+
     public String getTitulo() {
         return titulo;
     }
-    
-    @XmlElement
+
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
@@ -33,8 +39,7 @@ public class Caratula {
     public Proyecto getPro() {
         return pro;
     }
-    
-    @XmlElement
+
     public void setPro(Proyecto pro) {
         this.pro = pro;
     }
@@ -42,8 +47,7 @@ public class Caratula {
     public String getFecAct() {
         return fecAct;
     }
-    
-    @XmlElement
+
     public void setFecAct(String fecAct) {
         this.fecAct = fecAct;
     }
@@ -51,11 +55,8 @@ public class Caratula {
     public String getLugar() {
         return lugar;
     }
-    
-    @XmlElement
+
     public void setLugar(String lugar) {
         this.lugar = lugar;
-    }
-    
-    
+    }    
 }

@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType(propOrder = {
     "especificacionNombre", 
-    "eliNombre", 
+    "eliNumero", 
     "version", 
     "autor", 
     "fuente", 
@@ -23,74 +23,107 @@ import javax.xml.bind.annotation.XmlType;
 })
 
 public class Especificacion {
-
-    
-        Nombre especificacionNombre;
-	String eliNombre;
+        EduNombre especificacionNombre;
+	String eliNumero;
+        String espFecha;
         String version;
-        String autor;
-        String fuente;
+        String fuenteNombre;
+        String fuenteCargo;
+        String fuenteTipo;
+        String especialistaNombre;
+        String especialistaExp;
+        String especialistaCargo;
         String dependencias;
         String descripcion;
-        List<String> precondicion;
-        List<String> postcondicion;
+        List<String> precondiciones;
+        List<String> postcondiciones;
         List<Elemento> excepciones; 
-        String comentarios;
+        String observaciones;
 
-    public Especificacion() {
-        this.version = "0.1";
-    }
-        
-    public Nombre getEspecificacionNombre() {
-        return especificacionNombre;     
+    public EduNombre getEspecificacionNombre() {
+        return especificacionNombre;
     }
 
-    @XmlElement
-    public void setEspecificacionNombre(Nombre especificacionNombre) {
+    public void setEspecificacionNombre(EduNombre especificacionNombre) {
         this.especificacionNombre = especificacionNombre;
     }
 
-    public String getEliNombre() {
-        return eliNombre;
+    public String getEliNumero() {
+        return eliNumero;
     }
-    
-    @XmlElement
-    public void setEliNombre(String eliNombre) {
-        this.eliNombre = eliNombre;
+
+    public void setEliNumero(String eliNumero) {
+        this.eliNumero = eliNumero;
+    }
+
+    public String getEspFecha() {
+        return espFecha;
+    }
+
+    public void setEspFecha(String espFecha) {
+        this.espFecha = espFecha;
     }
 
     public String getVersion() {
         return version;
     }
-    
-    @XmlElement
+
     public void setVersion(String version) {
         this.version = version;
     }
 
-    public String getAutor() {
-        return autor;
+    public String getFuenteNombre() {
+        return fuenteNombre;
     }
 
-    @XmlElement
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setFuenteNombre(String fuenteNombre) {
+        this.fuenteNombre = fuenteNombre;
     }
 
-    public String getFuente() {
-        return fuente;
+    public String getFuenteCargo() {
+        return fuenteCargo;
     }
 
-    @XmlElement
-    public void setFuente(String fuente) {
-        this.fuente = fuente;
+    public void setFuenteCargo(String fuenteCargo) {
+        this.fuenteCargo = fuenteCargo;
+    }
+
+    public String getFuenteTipo() {
+        return fuenteTipo;
+    }
+
+    public void setFuenteTipo(String fuenteTipo) {
+        this.fuenteTipo = fuenteTipo;
+    }
+
+    public String getEspecialistaNombre() {
+        return especialistaNombre;
+    }
+
+    public void setEspecialistaNombre(String especialistaNombre) {
+        this.especialistaNombre = especialistaNombre;
+    }
+
+    public String getEspecialistaExp() {
+        return especialistaExp;
+    }
+
+    public void setEspecialistaExp(String especialistaExp) {
+        this.especialistaExp = especialistaExp;
+    }
+
+    public String getEspecialistaCargo() {
+        return especialistaCargo;
+    }
+
+    public void setEspecialistaCargo(String especialistaCargo) {
+        this.especialistaCargo = especialistaCargo;
     }
 
     public String getDependencias() {
         return dependencias;
     }
 
-    @XmlElement
     public void setDependencias(String dependencias) {
         this.dependencias = dependencias;
     }
@@ -99,49 +132,48 @@ public class Especificacion {
         return descripcion;
     }
 
-    @XmlElement
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    public List<String> getPrecondicion() {
-        return precondicion;
+    public List<String> getPrecondiciones() {
+        return precondiciones;
     }
-
+    
     @XmlElementWrapper(name = "precondiciones")
     @XmlElement(name = "precondicion")
-    public void setPrecondicion(List<String> precondicion) {
-        this.precondicion = precondicion;
-    }
-
-    public List<String> getPostcondicion() {
-        return postcondicion;
+    public void setPrecondiciones(List<String> precondiciones) {
+        this.precondiciones = precondiciones;
     }
 
     public void addPrecondicion(String pre){
-    if( this.precondicion == null ){
-        this.precondicion = new ArrayList<>();
+        if (this.precondiciones == null ){
+            this.precondiciones = new ArrayList<>();
+        }
+        this.precondiciones.add(pre);
     }
-        this.precondicion.add(pre);
+    
+    public List<String> getPostcondiciones() {
+        return postcondiciones;
     }
     
     @XmlElementWrapper(name = "postcondiciones")
     @XmlElement(name = "postcondicion")
-    public void setPostcondicion(List<String> postcondicion) {
-        this.postcondicion = postcondicion;
+    public void setPostcondiciones(List<String> postcondiciones) {
+        this.postcondiciones = postcondiciones;
+    }
+
+    public void addPostcondicion(String post){
+        if (this.postcondiciones == null ){
+            this.postcondiciones = new ArrayList<>();
+        }
+        this.postcondiciones.add(post);
     }
 
     public List<Elemento> getExcepciones() {
         return excepciones;
     }
     
-    public void addPostcondicion(String post){
-    if( this.postcondicion == null ){
-        this.postcondicion = new ArrayList<>();
-    }
-        this.postcondicion.add(post);
-    }
-
     @XmlElementWrapper(name = "excepciones")
     @XmlElement(name = "excepcion")
     public void setExcepciones(List<Elemento> excepciones) {
@@ -149,18 +181,17 @@ public class Especificacion {
     }
     
     public void addExcepcion(Elemento exc){
-    if( this.excepciones == null ){
-        this.excepciones = new ArrayList<>();
-    }
+        if (this.excepciones == null ){
+            this.excepciones = new ArrayList<>();
+        }
         this.excepciones.add(exc);
     }
-
-    public String getComentarios() {
-        return comentarios;
+    
+    public String getObservaciones() {
+        return observaciones;
     }
 
-    @XmlElement
-    public void setComentarios(String comentarios) {
-        this.comentarios = comentarios;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 }

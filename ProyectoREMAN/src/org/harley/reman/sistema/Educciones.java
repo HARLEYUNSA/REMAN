@@ -1,6 +1,5 @@
 package org.harley.reman.sistema;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import org.harley.reman.xml.FileManager;
 
 /**
  *
@@ -27,11 +25,8 @@ public class Educciones {
     Educcion actual;
     List<Educcion> versiones;
     List<Historico> historicos;
-    
-    public Educciones() {
-    }
 
-    public Educciones(File directory) {
+    public Educciones() {
         this.versiones = new ArrayList<>();
         this.historicos = new ArrayList<>();
     }
@@ -71,9 +66,9 @@ public class Educciones {
     public void newEdu(Educcion edu){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar cal = Calendar.getInstance();
-        String nomEdu = edu.getEduccionNombre().getNombre();    
+        String nomEdu = edu.getEduccionNombre().getEduNom();    
         addHistorico(edu, dateFormat.format(cal.getTime()), 
-                   "Creación de la Educcion " + nomEdu);
+                   "Creación de la Educcion " + nomEdu, "Gonzalo");
         addEduccion(edu);
         actual = edu;
     }
@@ -82,16 +77,15 @@ public class Educciones {
         actual = edu;
     }
     
-    public void verEdu(String ver, String razon){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Calendar cal = Calendar.getInstance();
-        actual.setVersion(ver);
-        addHistorico(actual, dateFormat.format(cal.getTime()), razon);
+    public void verEdu(String verVer, String verFec, String verEsp, 
+            String verRazCam){
+        actual.setEduVer(verVer);
+        addHistorico(actual, verFec, verEsp, verRazCam);
         addEduccion(actual);
     }
     
-    public void addHistorico(Educcion edu, String fecha, String razon){
-        Historico hist = new Historico(edu.getVersion(), fecha, razon, edu.getFuenteNombre());
+    public void addHistorico(Educcion edu, String fecha, String actor, String razon){
+        Historico hist = new Historico(edu.getEduVer(), fecha, razon, actor);
         historicos.add(hist);
     }
     
@@ -101,7 +95,7 @@ public class Educciones {
     
     public Educcion getVer(String ver){
        for (int i = 0; i < versiones.size(); i++){
-           if(versiones.get(i).getVersion().equals(ver))
+           if(versiones.get(i).getEduVer().equals(ver))
                return versiones.get(i);
        }
        return null;
