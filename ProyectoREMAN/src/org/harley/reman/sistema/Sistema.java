@@ -19,6 +19,7 @@ public class Sistema {
     FileManager<LibroEduccion> manLibEdu;
     FileManager<LibroElicitacion> manLibEli;
     FileManager<LibroEspecificacion> manLibEsp;
+    FileManager<LibroActores> manLibAct;
     FileManager<LibroHistorico> manHisEdu;
     FileManager<Educciones> manVerEdu;
     FileManager<Elicitaciones> manVerEli;
@@ -47,7 +48,8 @@ public class Sistema {
             String proUbi) {
         OutputStream salida = null;
         try {
-            salida = new FileOutputStream(proUbi+"//remanproject//configuracion.properties");
+            salida = new FileOutputStream(proUbi +
+                    "//remanproject//configuracion.properties");
             propiedades.setProperty("proNom", proNom);
             propiedades.setProperty("prdNom", prdNom);
             propiedades.setProperty("empDes", empDes);
@@ -110,12 +112,18 @@ public class Sistema {
      * @param proUbi 
      */
     public void iniciarManagers(String proUbi){
-        manVerEdu = new FileManager<>(Educciones.class, new File(proUbi+"//src//edu"));
-        manLibEdu = new FileManager<>(LibroEduccion.class, new File(proUbi+"//src//edu"));
-        manVerEli = new FileManager<>(Elicitaciones.class, new File(proUbi+"//src//eli"));
-        manLibEli = new FileManager<>(LibroElicitacion.class, new File(proUbi+"//src//eli"));
-        manVerEsp = new FileManager<>(Especificaciones.class, new File(proUbi+"//src//esp"));
-        manLibEsp = new FileManager<>(LibroEspecificacion.class, new File(proUbi+"//src//esp"));
+        manVerEdu = new FileManager<>(Educciones.class, 
+                new File(proUbi + "//src//edu"));
+        manLibEdu = new FileManager<>(LibroEduccion.class, 
+                new File(proUbi + "//src//edu"));
+        manVerEli = new FileManager<>(Elicitaciones.class, 
+                new File(proUbi + "//src//eli"));
+        manLibEli = new FileManager<>(LibroElicitacion.class, 
+                new File(proUbi + "//src//eli"));
+        manVerEsp = new FileManager<>(Especificaciones.class, 
+                new File(proUbi + "//src//esp"));
+        manLibEsp = new FileManager<>(LibroEspecificacion.class, 
+                new File(proUbi + "//src//esp"));
     }
 
     /**
@@ -129,17 +137,20 @@ public class Sistema {
      * @param fecIni Fecha inicial
      * @param fecFin Fecha final
      * @param proUbi Ubicación del proyecto
-     * @return Un valor booleano que indica si la función se realizó correctamente
+     * @return Un booleano que indica si la función se realizó correctamente
      */
-    public boolean crearProyecto(String proNom,String prdNom, String empDes, String empCli, String proLid, String fecIni, String fecFin, String proUbi){
+    public boolean crearProyecto(String proNom,String prdNom, String empDes, 
+            String empCli, String proLid, String fecIni, String fecFin, 
+            String proUbi){
         try {
             crearDirectorios(proUbi);
-            crearPropiedades(proNom, prdNom, empDes, empCli, proLid, fecIni, fecFin, proUbi);
+            crearPropiedades(proNom, prdNom, empDes, empCli, 
+                    proLid, fecIni, fecFin, proUbi);
             iniciarHistoricos(proUbi);
             iniciarManagers(proUbi);
             //crearOrganizacion(empDes);    
             //crearOrganizacion(empCli);    
-            //crearActor(proLid, empDes);           
+            agregarActor(proLid, empDes);           
             return true;
         }
         catch(Exception ex){
@@ -164,7 +175,7 @@ public class Sistema {
      * @param eduEspCar Cargo del especialista
      * @param eduDes Descripción de la educción
      * @param eduObs Observaciones de la educción
-     * @return Un valor booleano que indica si la función se realizó correctamente
+     * @return Un booleano que indica si la función se realizó correctamente
      */
     public boolean crearEduccion(String eduNom, String eduVer, String eduTip, 
             String eduObj, String eduFec, String eduFueNom, String eduFueCar, 
@@ -177,7 +188,8 @@ public class Sistema {
             Educciones verEdu = new Educciones();
             verEdu.newEdu(edu);
             manVerEdu.escribirXML(edu.getEduccionNombre().getEduCod(), verEdu);
-            propiedades.setProperty("numEdu", Integer.toString(Educcion.getNumero()));
+            propiedades.setProperty("numEdu", 
+                    Integer.toString(Educcion.getNumero()));
             guardarPropiedades(dirPrincipal);
             return true;
         }
@@ -237,17 +249,17 @@ public class Sistema {
      * @param eduEspCar Cargo del especialista
      * @param eduDes Descripción de la educción
      * @param eduObs Observaciones de la educción
-     * @return Un valor booleano que indica si la función se realizó correctamente
+     * @return Un booleano que indica si la función se realizó correctamente
      */
-    public boolean modificarEduccion(String eduCod, String eduNom, String eduVer, 
-            String eduTip, String eduObj, String eduFec, String eduFueNom, 
-            String eduFueCar, String eduFueTip, String eduEspNom, 
-            String eduEspEsp, String eduEspExp, String eduEspCar, String eduDes,
-            String eduObs) {
+    public boolean modificarEduccion(String eduCod, String eduNom, 
+            String eduVer, String eduTip, String eduObj, String eduFec, 
+            String eduFueNom, String eduFueCar, String eduFueTip, 
+            String eduEspNom, String eduEspEsp, String eduEspExp, 
+            String eduEspCar, String eduDes, String eduObs) {
         try {
             Educcion edu = new Educcion(eduCod, eduNom, eduVer, eduTip, eduObj,
-                    eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, 
-                    eduEspExp, eduEspCar, eduDes, eduObs);
+                    eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, 
+                    eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs);
             Educciones verEdu;
             verEdu = manVerEdu.leerXML(eduCod);
             verEdu.modEdu(edu);
@@ -280,7 +292,7 @@ public class Sistema {
      * @param eduEspCar Cargo del especialista
      * @param eduDes Descripción de la educción
      * @param eduObs Observaciones de la educción
-     * @return Un valor booleano que indica si la función se realizó correctamente
+     * @return Un booleano que indica si la función se realizó correctamente
      */
     public boolean versionarEduccion(String verVer, String verFec, 
             String verEsp, String verRazCam, String eduCod, String eduNom, 
@@ -292,9 +304,10 @@ public class Sistema {
         //ultver = Educcion.getLastVersion();
         try{
             if (Tools.CompararVersiones(ultVer, verVer)){
-                Educcion edu = new Educcion(eduCod, eduNom, eduVer, eduTip, eduObj,
-                    eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, 
-                    eduEspExp, eduEspCar, eduDes, eduObs);
+                Educcion edu = new Educcion(eduCod, eduNom, eduVer, eduTip, 
+                        eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, 
+                        eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, 
+                        eduObs);
                 Educciones verEdu;
                 verEdu = manVerEdu.leerXML(eduCod);
                 verEdu.modEdu(edu);
@@ -313,7 +326,7 @@ public class Sistema {
      * 
      * Elimina una educción de un proyecto
      * @param eduCod
-     * @return Un valor booleano que indica si la función se realizó correctamente
+     * @return Un booleano que indica si la función se realizó correctamente
      */
     public boolean eliminarEduccion(String eduCod) {
         try {
@@ -349,7 +362,7 @@ public class Sistema {
      * Restaurar una versión al estado actual
      * @param verCod Código de la versión
      * @param eduCod Código de la educción
-     * @return Un valor booleano que indica si la función se realizó correctamente
+     * @return Un booleano que indica si la función se realizó correctamente
      */
     public boolean restaurarVersionEduccion(String verCod, String eduCod) {
         try {
@@ -367,13 +380,14 @@ public class Sistema {
     /**
      * Abre un proyecto
      * @param proUbi Ubicación del proyecto
-     * @return Un valor booleano que indica si la función se realizó correctamente
+     * @return Un booleano que indica si la función se realizó correctamente
      */
     public boolean ingresarProyecto(String proUbi) {
         try {
             dirPrincipal = proUbi;
             cargarPropiedades(proUbi);
-            Educcion.setNumero(Integer.parseInt(propiedades.getProperty("numEdu")));
+            Educcion.setNumero(
+                    Integer.parseInt(propiedades.getProperty("numEdu")));
             iniciarManagers(proUbi);
             return true;
         }
@@ -384,12 +398,13 @@ public class Sistema {
 
     /**
      * Carga el archivo de propiedades
-     * @param proUbi 
+     * @param proUbi Ubicación del proyecto
      */
     public void cargarPropiedades(String proUbi){
         InputStream entrada = null;
         try {
-            File input = new File(proUbi+"//remanproject//configuracion.properties");
+            File input = new File(proUbi + 
+                    "//remanproject//configuracion.properties");
             entrada = new FileInputStream(input);
             propiedades.load(entrada);
         } catch (IOException ex) {
@@ -407,12 +422,13 @@ public class Sistema {
     
     /**
      * Guarda el archivo de propiedades
-     * @param proUbi 
+     * @param proUbi Ubicación del proyecto
      */
     public void guardarPropiedades(String proUbi){
         OutputStream salida = null;
         try {    
-            File output = new File(proUbi+"//remanproject//configuracion.properties");
+            File output = new File(proUbi +
+                    "//remanproject//configuracion.properties");
             salida = new FileOutputStream(output);
             propiedades.store(salida, null);
         } catch (IOException io) {
@@ -460,11 +476,9 @@ public class Sistema {
 
     public void exportarLibroEdu(String destino, String nombre) {
         LibroEduccion lib = new LibroEduccion();
-        File dirEdu = new File(dirPrincipal+"//src//edu");
-        File[] ficheros = dirEdu.listFiles();
+        File[] ficheros = new File(dirPrincipal+"//src//edu").listFiles();
         for (File fichero : ficheros) {
-            String name = fichero.getName().split("\\.")[0];
-            lib.addEduccion(getLastEdu(name));
+            lib.addEduccion(getLastEdu(fichero.getName().split("\\.")[0]));
             lib.setIntro(crearCaratula("EDUCCIÓN DE REQUERIMIENTOS"));
         }
         createLibEdu("libEdu", lib);
@@ -478,28 +492,22 @@ public class Sistema {
     }
 
     public void verLibroEdu(String version, String razon, String autor) {
-        File dirVerEdu = new File(dirPrincipal+"//verlib//edu");
-        File dirEdu = new File(dirPrincipal+"//src//edu");
-        File cp = new File(dirVerEdu, "edu" + version);
-        manLibEdu.copiarDirectorios(dirEdu, cp);
+        manLibEdu.copiarDirectorios(new File(dirPrincipal + "//src//edu"), 
+                new File(dirPrincipal + "//verlib//edu//edu" + version));
         LibroHistorico libH = manHisEdu.leerXML("eduhis");
         libH.createHistorico(version, razon, autor);
         manHisEdu.escribirXML("eduhis", libH);
-        System.out.println("Origen:" + dirEdu);
-        System.out.println("Destino" + cp);
     }
 
     public void resLibroEdu(String version) {
-        File dirVerEdu = new File(dirPrincipal+"//verlib//edu");
-        File dirEdu = new File(dirPrincipal+"//src//edu");
-        File cp = new File(dirVerEdu, "edu" + version);
         try {
-            FileUtils.deleteDirectory(dirEdu);
+            FileUtils.deleteDirectory(new File(dirPrincipal + "//src//edu"));
         } catch (IOException ex) {
         }
-        manLibEdu.copiarDirectorios(cp, dirEdu);
-        System.out.println("Origen:" + cp);
-        System.out.println("Destino" + dirEdu);
+        manLibEdu.copiarDirectorios(
+                new File(dirPrincipal + "//verlib//edu//edu" + version), 
+                new File(dirPrincipal + "//src//edu")
+        );
     }
 
     public List<Historico> getHistLibEdu() {
@@ -515,20 +523,25 @@ public class Sistema {
         pro.saveProperties();*/
     }
     
-    public void agregarActor(String nom) {
-        /*Actor act = new Actor(nom);
-        String codAct = org.getActorNombre().getCodigo();
-        manAct.escribirXML(codAct, act);
-        pro.setProperty("numOrg", Integer.toString(Actor.getNumero()));
-        pro.saveProperties();*/
+    public void agregarActor(String tpyNom, String tpyOrg) {
+        TeamProyect tpy = new TeamProyect(tpyNom, tpyOrg);
+        LibroActores libAct = new LibroActores();
+        //libAct.addActor(tpy);
+        manLibAct.escribirXML("libAct", libAct);
+        propiedades.setProperty("numStk", 
+                Integer.toString(TeamProyect.getNumero()));
+        guardarPropiedades(dirPrincipal);    
     }
     
     public Caratula crearCaratula(String libro) {
         Caratula car = new Caratula(libro, propiedades.getProperty("proNom"),
-                propiedades.getProperty("empDes"), propiedades.getProperty("empCli"),
-                propiedades.getProperty("proLid"), propiedades.getProperty("proEst"),
-                propiedades.getProperty("fecIni"), propiedades.getProperty("fecFin"),
-                "09 de noviembre del 2015","Arequipa, Peru");
+                propiedades.getProperty("empDes"), 
+                propiedades.getProperty("empCli"),
+                propiedades.getProperty("proLid"), 
+                propiedades.getProperty("proEst"),
+                propiedades.getProperty("fecIni"), 
+                propiedades.getProperty("fecFin"),
+                "09 de noviembre del 2015", "Arequipa, Peru");
         return car;
     }
     

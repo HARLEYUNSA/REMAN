@@ -2,18 +2,18 @@
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format"
-    version="1.0">
+    version="1.0"
+>
 <xsl:template match="libroEduccion">
     <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
         <fo:layout-master-set>
-            <fo:simple-page-master master-name="plantillaEdu"
+            <fo:simple-page-master  master-name="plantillaEdu"
                                     page-height="29.7cm" 
                                     page-width="21cm"
                                     margin-top="1cm" 
                                     margin-bottom="2cm" 
                                     margin-left="2.5cm" 
-                                    margin-right="2.5cm"
-                >
+                                    margin-right="2.5cm">
                 <fo:region-body margin-top="3cm"/>
                 <fo:region-before extent="3cm"/>
                 <fo:region-after extent="1.5cm"/>
@@ -49,7 +49,7 @@
   <xsl:attribute name="padding-bottom">1.3mm</xsl:attribute>
   <xsl:attribute name="number-columns-spanned">2</xsl:attribute>                      
 </xsl:attribute-set>
-<xsl:attribute-set name="myColor">
+<xsl:attribute-set name="colorWhite">
   <xsl:attribute name="color">white</xsl:attribute>
   <xsl:attribute name="background-color">rgb(255, 0, 0)</xsl:attribute>
 </xsl:attribute-set>
@@ -128,7 +128,7 @@
            <xsl:apply-templates/>
         </fo:block>
 </xsl:template>
-<xsl:template match="educciones">                       
+<xsl:template match="educciones" >
     <xsl:apply-templates/>
 </xsl:template>
 <xsl:template match="educcion">
@@ -145,7 +145,7 @@
     </fo:block>
 </xsl:template>
 <xsl:template match="educcionNombre">
-   <fo:table-row xsl:use-attribute-sets="myColor" font-weight="bold">
+   <fo:table-row xsl:use-attribute-sets="colorWhite" font-weight="bold">
         <xsl:apply-templates/>
    </fo:table-row>
 </xsl:template>
@@ -223,7 +223,7 @@
 <xsl:template match="eduFueNom">
    <fo:table-row>
         <fo:table-cell  xsl:use-attribute-sets="mediumCell"
-                        number-rows-spanned="3">
+                        number-rows-spanned = "3">
         <fo:block font-weight="bold">
             Fuente
         </fo:block>
@@ -352,8 +352,7 @@
             Observaciones
         </fo:block>
         </fo:table-cell> 
-        <fo:table-cell  xsl:use-attribute-sets="oneCell"
-                        number-columns-spanned="2">
+        <fo:table-cell  xsl:use-attribute-sets="twoCells">
         <fo:block>
            <xsl:apply-templates/>
         </fo:block>

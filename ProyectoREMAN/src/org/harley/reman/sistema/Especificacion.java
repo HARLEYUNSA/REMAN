@@ -37,7 +37,7 @@ public class Especificacion {
         String descripcion;
         List<String> precondiciones;
         List<String> postcondiciones;
-        List<Elemento> excepciones; 
+        List<Paso> excepciones; 
         String observaciones;
 
     public EduNombre getEspecificacionNombre() {
@@ -170,17 +170,17 @@ public class Especificacion {
         this.postcondiciones.add(post);
     }
 
-    public List<Elemento> getExcepciones() {
+    public List<Paso> getExcepciones() {
         return excepciones;
     }
     
     @XmlElementWrapper(name = "excepciones")
     @XmlElement(name = "excepcion")
-    public void setExcepciones(List<Elemento> excepciones) {
+    public void setExcepciones(List<Paso> excepciones) {
         this.excepciones = excepciones;
     }
     
-    public void addExcepcion(Elemento exc){
+    public void addExcepcion(Paso exc){
         if (this.excepciones == null ){
             this.excepciones = new ArrayList<>();
         }

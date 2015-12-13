@@ -189,7 +189,7 @@ public class XMLConverter {
         convertFO2PDF(fo, pdf);
         
         //Delete temporal directory
-        clean(fo, xml);
+        //clean(fo, xml);
         abrirPDF(pdf);
     }
     

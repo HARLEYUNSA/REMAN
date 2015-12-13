@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlType;
         "eduDes",
         "eduObs"
     })
+    
 public class Educcion {
     private static int numero = 0;
     private static String codigo = "EDU0000";
@@ -49,10 +50,6 @@ public class Educcion {
         for (int i = 0; i < numero; i++){
             codigo = Tools.IncrementarCodigo(codigo);
         }
-    }
-
-    public Educcion(String eduCod, String eduNom) { 
-        educcionNombre = new EduNombre(eduCod, eduNom);
     }
 
     public Educcion(String eduCod, String eduNom, String eduVer, String eduTip, 
@@ -216,7 +213,4 @@ public class Educcion {
     public void setEduObs(String eduObs) {
         this.eduObs = eduObs;
     }
-    
-    
-    
 }

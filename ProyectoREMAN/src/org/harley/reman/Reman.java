@@ -7,16 +7,16 @@ public class Reman {
     public static void main(String[] args) {
         
         Sistema sis = new Sistema();
-        sis.crearProyecto("REMAN", "REMAN", "HARLEY", "UNSA", 
+        /*sis.crearProyecto("REMAN", "REMAN", "HARLEY", "UNSA", 
         "Incalla Nina Christian", "01/01/0001", 
-        "30/12/2015","REMAN");
+        "30/12/2015","REMAN");*/
        
-        //sis.ingresarProyecto("REMAN");
+        sis.ingresarProyecto("REMAN");
         
-        sis.crearEduccion("Nombre3", "0.01", "Primario", "Objectivo acà", 
+        /*sis.crearEduccion("Nombre3", "0.01", "Primario", "Objectivo acà", 
                 "01/01/2016", "Cristiano Lòpez", "Usuario", "Interno", 
                 "Luna Luza Gonzalo", "Ing. Requisitos", "Alta", "Programador",
-                "Descripción aquí", "Observaciones y/o comentarios.");
+                "Descripción aquí", "Observaciones y/o comentarios.");*/
                
         sis.exportarLibroEdu("D:\\Informe", "LibroEduccion");
          

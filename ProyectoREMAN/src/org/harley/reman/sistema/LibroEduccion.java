@@ -17,7 +17,7 @@ public class LibroEduccion {
 
     Caratula intro;
     List<Educcion> educciones;
-
+    
     public LibroEduccion() {
     }
 
@@ -50,4 +50,6 @@ public class LibroEduccion {
         }
         educciones.add(edu);
     }
+   
+    
 }
