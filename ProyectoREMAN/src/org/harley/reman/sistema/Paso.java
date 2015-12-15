@@ -9,16 +9,25 @@ import javax.xml.bind.annotation.XmlType;
         "pasNum",
         "pasDes"
     })
+
 public class Paso {
-    int pasNum;
+    String pasNum;
     String pasDes;
 
-    public int getPasNum() {
+    public Paso() {
+    }
+
+    public Paso(String pasNum, String pasDes) {
+        this.pasNum = pasNum;
+        this.pasDes = pasDes;
+    }
+    
+    public String getPasNum() {
         return pasNum;
     }
     
     @XmlElement
-    public void setPasNum(int pasNum) {
+    public void setPasNum(String pasNum) {
         this.pasNum = pasNum;
     }
 

@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlType;
 
     @XmlRootElement
     @XmlType(propOrder = {
-        "educcionNombre",
+        "eduNom",
         "eduVer",
         "eduTip",
         "eduObj",
@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Educcion {
     private static int numero = 0;
     private static String codigo = "EDU0000";
-    EduNombre educcionNombre;
+    EduNombre eduNom;
     String eduVer;
     String eduTip;
     String eduObj;
@@ -56,7 +56,7 @@ public class Educcion {
             String eduObj, String eduFec, String eduFueNom, String eduFueCar, 
             String eduFueTip, String eduEspNom, String eduEspEsp,
             String eduEspExp, String eduEspCar, String eduDes, String eduObs){
-        educcionNombre = new EduNombre(eduCod, eduNom);
+        this.eduNom = new EduNombre(eduCod, eduNom);
         this.eduVer = eduVer;
         this.eduTip = eduTip;
         this.eduObj = eduObj;
@@ -78,7 +78,7 @@ public class Educcion {
             String eduEspExp, String eduEspCar, String eduDes, String eduObs){
         numero++;
         codigo = Tools.IncrementarCodigo(codigo);
-        educcionNombre = new EduNombre(codigo, eduNom);
+        this.eduNom = new EduNombre(codigo, eduNom);
         this.eduVer = eduVer;
         this.eduFueNom = eduFueNom;
         this.eduFueCar = eduFueCar;
@@ -102,12 +102,12 @@ public class Educcion {
         Educcion.codigo = codigo;
     }
 
-    public EduNombre getEduccionNombre() {
-        return educcionNombre;
+    public EduNombre getEduNom() {
+        return eduNom;
     }
 
-    public void setEduccionNombre(EduNombre educcionNombre) {
-        this.educcionNombre = educcionNombre;
+    public void setEduNom(EduNombre eduNom) {
+        this.eduNom = eduNom;
     }
 
     public String getEduVer() {

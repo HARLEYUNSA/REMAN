@@ -1,5 +1,6 @@
 package org.harley.reman;
 
+import java.util.ArrayList;
 import org.harley.reman.sistema.*;
 
 public class Reman {
@@ -18,8 +19,17 @@ public class Reman {
                 "Luna Luza Gonzalo", "Ing. Requisitos", "Alta", "Programador",
                 "Descripción aquí", "Observaciones y/o comentarios.");*/
                
-        sis.exportarLibroEdu("D:\\Informe", "LibroEduccion");
+        //sis.exportarLibroEdu("D:\\Informe", "LibroEduccion");
          
+        Paso x = new Paso("1", "el sistema ....");
+        ArrayList<Paso> pas = new ArrayList<>();
+        pas.add(x);
+        
+        sis.crearElicitacion("Nombre", "EDU0001","0.02", "01/01/2016", "Cristiano López", 
+                "Usuario", "interno", "Luna Luza Gonzalo", "Ing. Requisitos", 
+                "Alta", "Programador", "Área relacionada", "Dscripción", 
+                "Precondicion", pas, "postcondicion", pas, "observaciones");
+        
         //Versionar restaurar Libro
         /*sis.verLibroEdu("0.3", "Prueba", "Gonzalo");
         List<Historico> lista = sis.getHistLibEdu();

@@ -21,6 +21,7 @@ public class Sistema {
     FileManager<LibroEspecificacion> manLibEsp;
     FileManager<LibroActores> manLibAct;
     FileManager<LibroHistorico> manHisEdu;
+    FileManager<LibroHistorico> manHisEli;
     FileManager<Educciones> manVerEdu;
     FileManager<Elicitaciones> manVerEli;
     FileManager<Especificaciones> manVerEsp;
@@ -187,7 +188,7 @@ public class Sistema {
                     eduEspExp, eduEspCar, eduDes, eduObs);
             Educciones verEdu = new Educciones();
             verEdu.newEdu(edu);
-            manVerEdu.escribirXML(edu.getEduccionNombre().getEduCod(), verEdu);
+            manVerEdu.escribirXML(edu.getEduNom().getEduCod(), verEdu);
             propiedades.setProperty("numEdu", 
                     Integer.toString(Educcion.getNumero()));
             guardarPropiedades(dirPrincipal);
@@ -453,7 +454,7 @@ public class Sistema {
 
     public void modificarEduccion(Educcion edu) {
         Educciones versiones;
-        String cod = edu.getEduccionNombre().getEduCod();
+        String cod = edu.getEduNom().getEduCod();
         versiones = manVerEdu.leerXML(cod);
         versiones.modEdu(edu);
         manVerEdu.escribirXML(cod, versiones);
@@ -547,5 +548,92 @@ public class Sistema {
     
     public void guardarProyecto() {
         guardarPropiedades(dirPrincipal);
+    }
+    
+     
+    public void createLibEli(String nombre, LibroElicitacion lib) {
+        manLibEli.escribirXML(nombre, lib);
+    }
+
+    public void exportarLibroEli(String destino, String nombre) {
+        LibroElicitacion lib = new LibroElicitacion();
+        File dirEli = new File(dirPrincipal+"//src//eli");
+        File[] ficheros = dirEli.listFiles();
+        for (File fichero : ficheros) {
+            String name = fichero.getName().split("\\.")[0];
+            lib.addElicitacion(getLastEli(name));
+            lib.setIntro(crearCaratula("ELICITACION DE REQUERIMIENTOS"));
+        }
+        createLibEli("libEli", lib);
+        manLibEli.exportarPDF("libEli", destino, nombre);
+    }  
+
+    public Elicitacion getLastEli(String name) {
+        Elicitaciones eli;
+        eli = manVerEli.leerXML(name);
+        return eli.getLast();
+    }
+
+    public void verLibroEli(String version, String razon, String autor) {
+        File dirVerEli = new File(dirPrincipal+"//verlib//eli");
+        File dirEli = new File(dirPrincipal+"//src//eli");
+        File cp = new File(dirVerEli, "eli" + version);
+        manLibEli.copiarDirectorios(dirEli, cp);
+        LibroHistorico libH = manHisEli.leerXML("elihis");
+        libH.createHistorico(version, razon, autor);
+        manHisEli.escribirXML("elihis", libH);
+        System.out.println("Origen:" + dirEli);
+        System.out.println("Destino" + cp);
+    }
+
+    public void resLibroEli(String version) {
+        File dirVerEli = new File(dirPrincipal + "//verlib//eli");
+        File dirEli = new File(dirPrincipal + "//src//eli");
+        File cp = new File(dirVerEli, "eli" + version);
+        try {
+            FileUtils.deleteDirectory(dirEli);
+        } catch (IOException ex) {
+        }
+        manLibEli.copiarDirectorios(cp, dirEli);
+        System.out.println("Origen:" + cp);
+        System.out.println("Destino" + dirEli);
+    }
+
+    public List<Historico> getHistLibEli() {
+        LibroHistorico libH = manHisEli.leerXML("elihis");
+        return libH.getHistoricos();
+    }
+    
+    public void modificarElicitacion(Elicitacion eli) {
+        Elicitaciones versiones;
+        String cod = eli.getEliNom().getEliCod();
+        versiones = manVerEli.leerXML(cod);
+        versiones.modEli(eli);
+        manVerEli.escribirXML(cod, versiones);
+    }
+
+    public boolean crearElicitacion(String eliNom, String eliEduCod, 
+            String eliVer, String eliFec, String eliFueNom, String eliFueCar,
+            String eliFueTip, String eliEspNom, String eliEspEsp,
+            String eliEspExp, String eliEspCar, String eliDep, String eliDes, 
+            String eliPre, ArrayList<Paso> eliSec, String eliPos, 
+            ArrayList<Paso> eliExc, 
+            String eliObs) { 
+        try {
+            Elicitacion eli = new Elicitacion(eliNom, eliEduCod, eliVer, eliFec, 
+                    eliFueNom, eliFueCar, eliFueTip, eliEspNom, eliEspEsp,
+                    eliEspExp, eliEspCar, eliDep, eliDes, eliPre, eliSec, 
+                    eliPos, eliExc, eliObs);
+            Elicitaciones verEli = new Elicitaciones();
+            verEli.newEli(eli);
+            manVerEli.escribirXML(eli.getEliNom().getEliCod(), verEli);
+            propiedades.setProperty("numEdu", 
+                    Integer.toString(Elicitacion.getNumero()));
+            guardarPropiedades(dirPrincipal);
+            return true;
+        }
+        catch(Exception ex){
+            return false;
+        }
     }
 }

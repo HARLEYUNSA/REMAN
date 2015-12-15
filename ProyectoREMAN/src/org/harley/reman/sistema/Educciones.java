@@ -66,7 +66,7 @@ public class Educciones {
     public void newEdu(Educcion edu){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar cal = Calendar.getInstance();
-        String nomEdu = edu.getEduccionNombre().getEduNom();    
+        String nomEdu = edu.getEduNom().getEduNom();    
         addHistorico(edu, dateFormat.format(cal.getTime()), 
                    "Creación de la Educcion " + nomEdu, "Gonzalo");
         addEduccion(edu);
