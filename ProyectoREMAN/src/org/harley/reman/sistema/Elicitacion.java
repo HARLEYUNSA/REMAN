@@ -1,12 +1,15 @@
 package org.harley.reman.sistema;
 
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
     @XmlRootElement
     @XmlType(propOrder = {
-        "eliNom",
+        "eliNombre",
         "eliEduCod",
         "eliVer",
         "eliFec",
@@ -30,7 +33,7 @@ public class Elicitacion {
 
     private static int numero = 0;
     private static String codigo = "ELI0001";
-    EliNombre eliNom;
+    EliNombre eliNombre;
     String eliEduCod;
     String eliVer;
     String eliFec;
@@ -44,9 +47,9 @@ public class Elicitacion {
     String eliDep;
     String eliDes;
     String eliPre;
-    ArrayList<Paso> eliSec;
+    Secuencia eliSec;
     String eliPos;
-    ArrayList<Paso> eliExc;
+    Secuencia eliExc;
     String eliObs;
 
     public Elicitacion() {
@@ -58,7 +61,7 @@ public class Elicitacion {
             String eliEspExp, String eliEspCar, String eliDep, String eliDes, 
             String eliPre, ArrayList<Paso> eliSec, String eliPos, 
             ArrayList<Paso> eliExc, String eliObs) {
-        this.eliNom = new EliNombre(eliCod, eliNom);
+        this.eliNombre = new EliNombre(eliCod, eliNom);
         this.eliEduCod = eliEduCod;
         this.eliVer = eliVer;
         this.eliFec = eliFec;
@@ -72,9 +75,9 @@ public class Elicitacion {
         this.eliDep = eliDep;
         this.eliDes = eliDes;
         this.eliPre = eliPre;
-        this.eliSec = eliSec;
+        this.eliSec = new Secuencia(eliSec.size() + 1, eliSec);
         this.eliPos = eliPos;
-        this.eliExc = eliExc;
+        this.eliExc = new Secuencia(eliExc.size() + 1, eliExc);
         this.eliObs = eliObs;
     }
     
@@ -86,7 +89,7 @@ public class Elicitacion {
             String eliObs) {
         numero++;
         codigo = Tools.IncrementarCodigo(codigo);
-        this.eliNom = new EliNombre(codigo, eliNom);
+        this.eliNombre = new EliNombre(codigo, eliNom);
         this.eliEduCod = eliEduCod;
         this.eliVer = eliVer;
         this.eliFec = eliFec;
@@ -100,9 +103,9 @@ public class Elicitacion {
         this.eliDep = eliDep;
         this.eliDes = eliDes;
         this.eliPre = eliPre;
-        this.eliSec = eliSec;
+        this.eliSec = new Secuencia(eliSec.size(), eliSec);
         this.eliPos = eliPos;
-        this.eliExc = eliExc;
+        this.eliExc = new Secuencia(eliExc.size(), eliExc);
         this.eliObs = eliObs;
     }
 
@@ -124,12 +127,12 @@ public class Elicitacion {
         Elicitacion.codigo = codigo;
     }
 
-    public EliNombre getEliNom() {
-        return eliNom;
+    public EliNombre getEliNombre() {
+        return eliNombre;
     }
 
-    public void setEliNom(EliNombre eliNom) {
-        this.eliNom = eliNom;
+    public void setEliNombre(EliNombre eliNombre) {
+        this.eliNombre = eliNombre;
     }
 
     public String getEliEduCod() {
@@ -236,11 +239,12 @@ public class Elicitacion {
         this.eliPre = eliPre;
     }
 
-    public ArrayList<Paso> getEliSec() {
+    public Secuencia getEliSec() {
         return eliSec;
     }
 
-    public void setEliSec(ArrayList<Paso> eliSec) {
+    @XmlElement(name = "eliSec")
+    public void setEliSec(Secuencia eliSec) {
         this.eliSec = eliSec;
     }
 
@@ -252,11 +256,11 @@ public class Elicitacion {
         this.eliPos = eliPos;
     }
 
-    public ArrayList<Paso> getEliExc() {
+    public Secuencia getEliExc() {
         return eliExc;
     }
-
-    public void setEliExc(ArrayList<Paso> eliExc) {
+    @XmlElement(name = "eliExc")
+    public void setEliExc(Secuencia eliExc) {
         this.eliExc = eliExc;
     }
 
@@ -267,7 +271,5 @@ public class Elicitacion {
     public void setEliObs(String eliObs) {
         this.eliObs = eliObs;
     }
-
-    
-        
+   
 }

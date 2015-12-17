@@ -129,10 +129,10 @@ public class XMLConverter {
     }
     
 
-    public void convert(String plantilla, String archivoXML){
+    public void convert(String archivoXML){
         //Setup input and output files
         File xmlFile = new File(database, archivoXML +".xml");
-        File xslFile = new File(plantillas, plantilla +".xsl");
+        File xslFile = new File(plantillas, "plantilla.xsl");
         File foFile = new File(database, archivoXML +".fo");
         File pdfFile = new File(salida, archivoXML +".pdf");
 
@@ -154,10 +154,10 @@ public class XMLConverter {
      * @param destino
      * @param nombre
      */
-    public void convert(String plantilla, String archivoXML, String destino, String nombre){
+    public void convert(String archivoXML, String destino, String nombre){
         //Setup input and output files
         File xmlFile = new File(database, archivoXML +".xml");
-        File xslFile = new File(plantillas, plantilla +".xsl");
+        File xslFile = new File(plantillas, "plantilla.xsl");
         File foFile = new File(database, archivoXML +".fo");
         File pdfFile = new File(destino, nombre +".pdf");
         File pdf = new File(destino);

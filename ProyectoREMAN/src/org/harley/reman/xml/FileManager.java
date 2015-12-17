@@ -48,11 +48,11 @@ public class FileManager<T> {
     }    
 
     public void exportarPDF(String archivo) {
-        factory.convert(clase, archivo);
+        factory.convert(archivo);
     }
     
     public void exportarPDF(String xml, String destino, String nombre) {
-        factory.convert(clase, xml, destino, nombre);
+        factory.convert(xml, destino, nombre);
     }
     
     public void copiarFicheros(File f1, File f2){
