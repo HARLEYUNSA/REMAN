@@ -62,7 +62,7 @@ public class Elicitaciones {
     public void newEli(Elicitacion eli){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar cal = Calendar.getInstance();
-        String nomEli = eli.getEliNom().getEliNom();    
+        String nomEli = eli.getEliNombre().getEliNom();    
         addHistorico(eli, dateFormat.format(cal.getTime()), 
                    "Creación de la Elicitacion " + nomEli, "Gonzalo");
         addElicitacion(eli);

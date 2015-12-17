@@ -188,7 +188,7 @@ public class Sistema {
                     eduEspExp, eduEspCar, eduDes, eduObs);
             Educciones verEdu = new Educciones();
             verEdu.newEdu(edu);
-            manVerEdu.escribirXML(edu.getEduNom().getEduCod(), verEdu);
+            manVerEdu.escribirXML(edu.getEduNombre().getEduCod(), verEdu);
             propiedades.setProperty("numEdu", 
                     Integer.toString(Educcion.getNumero()));
             guardarPropiedades(dirPrincipal);
@@ -389,6 +389,8 @@ public class Sistema {
             cargarPropiedades(proUbi);
             Educcion.setNumero(
                     Integer.parseInt(propiedades.getProperty("numEdu")));
+            Elicitacion.setNumero(
+                    Integer.parseInt(propiedades.getProperty("numEli")));
             iniciarManagers(proUbi);
             return true;
         }
@@ -454,7 +456,7 @@ public class Sistema {
 
     public void modificarEduccion(Educcion edu) {
         Educciones versiones;
-        String cod = edu.getEduNom().getEduCod();
+        String cod = edu.getEduNombre().getEduCod();
         versiones = manVerEdu.leerXML(cod);
         versiones.modEdu(edu);
         manVerEdu.escribirXML(cod, versiones);
@@ -477,7 +479,7 @@ public class Sistema {
 
     public void exportarLibroEdu(String destino, String nombre) {
         LibroEduccion lib = new LibroEduccion();
-        File[] ficheros = new File(dirPrincipal+"//src//edu").listFiles();
+        File[] ficheros = new File(dirPrincipal + "//src//edu").listFiles();
         for (File fichero : ficheros) {
             lib.addEduccion(getLastEdu(fichero.getName().split("\\.")[0]));
             lib.setIntro(crearCaratula("EDUCCIÓN DE REQUERIMIENTOS"));
@@ -550,15 +552,13 @@ public class Sistema {
         guardarPropiedades(dirPrincipal);
     }
     
-     
     public void createLibEli(String nombre, LibroElicitacion lib) {
         manLibEli.escribirXML(nombre, lib);
     }
 
     public void exportarLibroEli(String destino, String nombre) {
         LibroElicitacion lib = new LibroElicitacion();
-        File dirEli = new File(dirPrincipal+"//src//eli");
-        File[] ficheros = dirEli.listFiles();
+        File[] ficheros = new File(dirPrincipal + "//src//eli").listFiles();
         for (File fichero : ficheros) {
             String name = fichero.getName().split("\\.")[0];
             lib.addElicitacion(getLastEli(name));
@@ -573,30 +573,25 @@ public class Sistema {
         eli = manVerEli.leerXML(name);
         return eli.getLast();
     }
-
+    
     public void verLibroEli(String version, String razon, String autor) {
-        File dirVerEli = new File(dirPrincipal+"//verlib//eli");
-        File dirEli = new File(dirPrincipal+"//src//eli");
-        File cp = new File(dirVerEli, "eli" + version);
-        manLibEli.copiarDirectorios(dirEli, cp);
+        manLibEli.copiarDirectorios(new File(dirPrincipal+"//src//eli"), 
+                new File(dirPrincipal+"//verlib//eli//eli" + version));
         LibroHistorico libH = manHisEli.leerXML("elihis");
         libH.createHistorico(version, razon, autor);
         manHisEli.escribirXML("elihis", libH);
-        System.out.println("Origen:" + dirEli);
-        System.out.println("Destino" + cp);
     }
 
+    
     public void resLibroEli(String version) {
-        File dirVerEli = new File(dirPrincipal + "//verlib//eli");
-        File dirEli = new File(dirPrincipal + "//src//eli");
-        File cp = new File(dirVerEli, "eli" + version);
         try {
-            FileUtils.deleteDirectory(dirEli);
+            FileUtils.deleteDirectory(new File(dirPrincipal + "//src//eli"));
         } catch (IOException ex) {
         }
-        manLibEli.copiarDirectorios(cp, dirEli);
-        System.out.println("Origen:" + cp);
-        System.out.println("Destino" + dirEli);
+        manLibEli.copiarDirectorios(
+                new File(dirPrincipal + "//verlib//eli//eli" + version),
+                new File(dirPrincipal + "//src//eli")
+        );
     }
 
     public List<Historico> getHistLibEli() {
@@ -606,7 +601,7 @@ public class Sistema {
     
     public void modificarElicitacion(Elicitacion eli) {
         Elicitaciones versiones;
-        String cod = eli.getEliNom().getEliCod();
+        String cod = eli.getEliNombre().getEliCod();
         versiones = manVerEli.leerXML(cod);
         versiones.modEli(eli);
         manVerEli.escribirXML(cod, versiones);
@@ -626,7 +621,7 @@ public class Sistema {
                     eliPos, eliExc, eliObs);
             Elicitaciones verEli = new Elicitaciones();
             verEli.newEli(eli);
-            manVerEli.escribirXML(eli.getEliNom().getEliCod(), verEli);
+            manVerEli.escribirXML(eli.getEliNombre().getEliCod(), verEli);
             propiedades.setProperty("numEdu", 
                     Integer.toString(Elicitacion.getNumero()));
             guardarPropiedades(dirPrincipal);
