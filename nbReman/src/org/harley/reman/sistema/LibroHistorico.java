@@ -57,10 +57,8 @@ public class LibroHistorico {
         this.historicos.add(hist);
     }
     
-    public void createHistorico(String version, String razon, String autor) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Calendar cal = Calendar.getInstance();
-        String fecha = dateFormat.format(cal.getTime());
+    public void createHistorico(String version, String fecha, String razon, 
+            String autor) {
         Historico his = new Historico(version, fecha, razon, autor);
         addHistorico(his);
     }
