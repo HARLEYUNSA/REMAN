@@ -4,28 +4,28 @@ package org.harley.reman.sistema;
  *
  * @author Gonzalo
  */
-class pytNombre {
+class PytNombre {
 
     String pytCod;
     String pytNom;
 
-    public pytNombre() {
+    public PytNombre() {
     }
 
-    public pytNombre(String pytCod, String pytNom) {
+    public PytNombre(String pytCod, String pytNom) {
         this.pytCod = pytCod;
         this.pytNom = pytNom;
     }
 
-    public String getpytCod() {
+    public String getPytCod() {
         return pytCod;
     }
 
-    public void setpytCod(String pytCod) {
+    public void setPytCod(String pytCod) {
         this.pytCod = pytCod;
     }
 
-    public String getpytNom() {
+    public String getPytNom() {
         return pytNom;
     }
 

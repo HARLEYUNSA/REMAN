@@ -7,6 +7,7 @@ package org.harley.reman.interfaz.interfaces;
 
 import java.awt.event.*;
 import javax.swing.JOptionPane;
+import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 
 /**
@@ -15,33 +16,42 @@ import javax.swing.tree.TreePath;
  */
 public class VTEduccion extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form VTEduccion
-     */
-    public VTEduccion() {
-        initComponents();
-        trEduccion.addMouseListener(ml);
-    }
-    MouseListener ml = new MouseAdapter(){
+    MouseListener ml = new MouseAdapter() {
+        @Override
         public void mouseClicked(MouseEvent e) {
-         // Se obtiene el path para esa fila. Con el path podemos obtener
-         // los nodos.
-            if (e.getButton()==3){
-                TreePath selPath = trEduccion.getPathForLocation(e.getX(), e.getY());
-                trEduccion.setSelectionPath(selPath);
-                if(selPath !=null){
-                    if(selPath.getLastPathComponent().toString().equals("Documento de la Educción")){
-                    }
-                    else if(selPath.getLastPathComponent().toString().equals("Educción")){
-                       menu1.show(e.getComponent(), e.getX(),e.getY()+10);
-                    }
-                    else{
-                       menu2.show(e.getComponent(), e.getX(),e.getY()+10);
+            // Se obtiene el path para esa fila. Con el path podemos obtener
+            // los nodos.
+            if (e.getButton() == MouseEvent.BUTTON3) {
+                TreePath selPath = treeEdu.getPathForLocation(e.getX(), e.getY());
+                treeEdu.setSelectionPath(selPath);
+                if (selPath != null) {
+                    switch (selPath.getLastPathComponent().toString()) {
+                        case "Documento de Educción":
+                            menuDocEdu.show(e.getComponent(), e.getX(), e.getY() + 10);
+                            break;
+                        case "Educción":
+                            break;
+                        default:
+                            menuEdu.show(e.getComponent(), e.getX(), e.getY() + 10);
+                            break;
                     }
                 }
             }
         }
     };
+
+    /**
+     * Creates new form VTEduccion
+     *
+     * @param tree arbol que se muestra en la educcion
+     */
+    public VTEduccion(JTree tree) {
+        initComponents();
+        treeEdu.setModel(tree.getModel());
+        treeEdu.addMouseListener(ml);
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,104 +61,104 @@ public class VTEduccion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menu1 = new javax.swing.JPopupMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        menu2 = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        trEduccion = new javax.swing.JTree();
+        menuDocEdu = new javax.swing.JPopupMenu();
+        menuDocEduItem1 = new javax.swing.JMenuItem();
+        menuEdu = new javax.swing.JPopupMenu();
+        menuEduItem1 = new javax.swing.JMenuItem();
+        menuEduItem2 = new javax.swing.JMenuItem();
+        menuEduItem3 = new javax.swing.JMenuItem();
+        scrollTree = new javax.swing.JScrollPane();
+        treeEdu = new javax.swing.JTree();
 
-        jMenuItem4.setText("Crear Educción");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        menuDocEduItem1.setText("Crear Educción");
+        menuDocEduItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menuDocEduItem1ActionPerformed(evt);
             }
         });
-        menu1.add(jMenuItem4);
+        menuDocEdu.add(menuDocEduItem1);
 
-        jMenuItem1.setText("Modificar");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuEduItem1.setText("Modificar");
+        menuEduItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuEduItem1ActionPerformed(evt);
             }
         });
-        menu2.add(jMenuItem1);
+        menuEdu.add(menuEduItem1);
 
-        jMenuItem2.setText("Eliminar");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuEduItem2.setText("Eliminar");
+        menuEduItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuEduItem2ActionPerformed(evt);
             }
         });
-        menu2.add(jMenuItem2);
+        menuEdu.add(menuEduItem2);
 
-        jMenuItem3.setText("Restaurar");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuEduItem3.setText("Restaurar");
+        menuEduItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menuEduItem3ActionPerformed(evt);
             }
         });
-        menu2.add(jMenuItem3);
+        menuEdu.add(menuEduItem3);
 
         setMaximizable(true);
         setResizable(true);
         setPreferredSize(new java.awt.Dimension(250, 322));
 
-        trEduccion.setBackground(new java.awt.Color(217, 221, 255));
+        treeEdu.setBackground(new java.awt.Color(217, 221, 255));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Documento de la Educción");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Educción");
         javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("EDU 0001");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        trEduccion.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane1.setViewportView(trEduccion);
+        treeEdu.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        scrollTree.setViewportView(treeEdu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+            .addComponent(scrollTree, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+            .addComponent(scrollTree, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void menuDocEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEduItem1ActionPerformed
         //NUEVA EDUCCION
         VEduccion veduccion = new VEduccion();
         veduccion.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_menuDocEduItem1ActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void menuEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem1ActionPerformed
         //MODIFICAR EDUCCION
         VMEduccion vmeduccion = new VMEduccion();
         vmeduccion.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_menuEduItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void menuEduItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem2ActionPerformed
         //ELIMINAR
         int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_menuEduItem2ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void menuEduItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem3ActionPerformed
         //RESTAURAR
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_menuEduItem3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPopupMenu menu1;
-    private javax.swing.JPopupMenu menu2;
-    private javax.swing.JTree trEduccion;
+    private javax.swing.JPopupMenu menuDocEdu;
+    private javax.swing.JMenuItem menuDocEduItem1;
+    private javax.swing.JPopupMenu menuEdu;
+    private javax.swing.JMenuItem menuEduItem1;
+    private javax.swing.JMenuItem menuEduItem2;
+    private javax.swing.JMenuItem menuEduItem3;
+    private javax.swing.JScrollPane scrollTree;
+    private javax.swing.JTree treeEdu;
     // End of variables declaration//GEN-END:variables
 }

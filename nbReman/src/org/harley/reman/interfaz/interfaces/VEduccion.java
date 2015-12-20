@@ -1,6 +1,6 @@
 package org.harley.reman.interfaz.interfaces;
 import java.util.ArrayList;
-import org.harley.reman.interfaz.utilitario.Utilitario;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
 /**
  *
  * @author Joel Mendoza
@@ -8,7 +8,7 @@ import org.harley.reman.interfaz.utilitario.Utilitario;
 public class VEduccion extends javax.swing.JFrame {
 
     //ArrayList<String>p = new ArrayList<String>();
-    Utilitario u = new Utilitario();
+    ToolsInterface u = new ToolsInterface();
     public VEduccion() {
 //        u.llenaCombo(cmbEDEspecialista,p); //
         initComponents();

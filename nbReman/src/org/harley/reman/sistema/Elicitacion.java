@@ -88,7 +88,7 @@ public class Elicitacion {
             ArrayList<Paso> eliSec, String eliPos, ArrayList<Paso> eliExc, 
             String eliObs) {
         numero++;
-        codigo = Tools.IncrementarCodigo(codigo);
+        codigo = ToolsSystem.IncrementarCodigo(codigo);
         this.eliNombre = new EliNombre(codigo, eliNom);
         this.eliEduCod = eliEduCod;
         this.eliVer = eliVer;
@@ -116,7 +116,7 @@ public class Elicitacion {
     public static void setNumero(int numero) {
         Elicitacion.numero = numero;
         for (int i = 0; i < numero; i++){
-            codigo = Tools.IncrementarCodigo(codigo);
+            codigo = ToolsSystem.IncrementarCodigo(codigo);
         }    }
 
     public static String getCodigo() {
