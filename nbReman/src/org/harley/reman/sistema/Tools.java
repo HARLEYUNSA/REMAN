@@ -1,6 +1,6 @@
 package org.harley.reman.sistema;
 
-public class ToolsSystem {
+public class Tools {
     
     public static boolean CompararVersiones(String A, String B){
         String[] SeparadoA = A.split("\\.");

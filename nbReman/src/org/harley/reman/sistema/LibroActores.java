@@ -9,14 +9,24 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "libroActores")
 @XmlType(propOrder = {
+    "titulo",
     "intro",
-    "stakes",
-    "teams"
+    "actores"
 })
+
 public class LibroActores {
+    String titulo;
     String intro;
-    List<Stakeholder> stakes;
-    List<ProyectTeam> teams;
+    List<Actor> actores;
+
+     public String getTitulo() {
+        return titulo;
+    }
+    
+    @XmlElement
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
     public String getIntro() {
         return intro;
@@ -27,57 +37,19 @@ public class LibroActores {
         this.intro = intro;
     }
 
-    public List<Stakeholder> getStakes() {
-        return stakes;
+    public List<Actor> getActores() {
+        return actores;
+    }
+    @XmlElementWrapper(name = "actores")
+    @XmlElement(name = "actor")
+    public void setActores(List<Actor> actores) {
+        this.actores = actores;
     }
     
-    @XmlElementWrapper(name = "stakes")
-    @XmlElement(name = "stake")
-    public void setStakes(List<Stakeholder> stakes) {
-        this.stakes = stakes;
-    }
-
-    public void addStake(Stakeholder sth){
-        if( this.stakes == null ){
-            this.stakes = new ArrayList<>();
+    public void addActor(Actor act){
+        if( this.actores == null ){
+            this.actores = new ArrayList<>();
         }
-            this.stakes.add(sth);
+            this.actores.add(act);
     }
-    
-    public List<ProyectTeam> getTeams() {
-        return teams;
-    }
-    
-    @XmlElementWrapper(name = "proyectTeams")
-    @XmlElement(name = "proyectTeam")
-    public void setTeams(List<ProyectTeam> teams) {
-        this.teams = teams;
-    }
-    
-    public void addTeam(ProyectTeam pyt){
-        if( this.teams == null ){
-            this.teams = new ArrayList<>();
-        }
-        this.teams.add(pyt);
-    }
-    
-    public List<String> getFueCod(){
-        List<String> fueNom = new ArrayList<>();
-        for (Stakeholder stake : stakes) {
-            fueNom.add(stake.getSthNom().getSthCod());
-        }
-        return fueNom;
-    }
-    
-    public List<String> getFueNom(){
-        List<String> fueNom = new ArrayList<>();
-        for (Stakeholder stake : stakes) {
-            fueNom.add(stake.getSthNom().getSthNom());
-        }
-        return fueNom;
-    }
-
-    /*public Stakeholder getSth(String sthCod){
-        
-    }*/
 }

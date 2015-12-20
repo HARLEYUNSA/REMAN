@@ -182,21 +182,15 @@ public class XMLConverter {
      */
     public void convertXML2PDF(File xml, File xsl, File fo, File pdf){
         
-        try{
-            //Convert from XML and XLS to FOP
-            convertXML2FO(xsl, xml, fo);
+        //Convert from XML and XLS to FOP
+        convertXML2FO(xsl, xml, fo);
 
-            //Convert from FOP to PDF
-            convertFO2PDF(fo, pdf);
-
-            abrirPDF(pdf);
-        }
-        catch (Exception ex) {
-        }
-        finally {
-            //Delete temporal directory
-            clean(fo, xml);
-        }
+        //Convert from FOP to PDF
+        convertFO2PDF(fo, pdf);
+        
+        //Delete temporal directory
+        //clean(fo, xml);
+        abrirPDF(pdf);
     }
     
     /**
@@ -216,10 +210,8 @@ public class XMLConverter {
      * @param fo Archivo FO creado
      */
     public void clean(File fo, File xml){
-        if (fo.exists())
-            fo.delete();
-        if (xml.exists())
-            xml.delete();
+        fo.delete();
+        xml.delete();
     }
     
 }

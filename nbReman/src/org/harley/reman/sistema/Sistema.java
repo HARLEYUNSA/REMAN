@@ -19,26 +19,18 @@ public class Sistema {
     FileManager<LibroEduccion> manLibEdu;
     FileManager<LibroElicitacion> manLibEli;
     FileManager<LibroEspecificacion> manLibEsp;
-    FileManager<LibroRequisitoNF> manLibRnf;
-    FileManager<LibroStakeholder> manLibSth;
-    FileManager<LibroProyectTeam> manLibPyt;
-    FileManager<LibroOrganizacion> manLibOrg;
+    FileManager<LibroActores> manLibAct;
     FileManager<LibroHistorico> manHisEdu;
     FileManager<LibroHistorico> manHisEli;
-    FileManager<LibroHistorico> manHisEsp;
-    FileManager<LibroHistorico> manHisRnf;
     FileManager<Educciones> manVerEdu;
     FileManager<Elicitaciones> manVerEli;
     FileManager<Especificaciones> manVerEsp;
-    FileManager<ReqNoFuncionales> manVerRnf;
-    FileManager<Organizaciones> manVerOrg;
-    FileManager<Stakeholders> manVerSth;
-    FileManager<ProyectTeams> manVerPyt;
+    
     /**
      * Constructor de la clase Sistema
      */
     public Sistema() {
-        propiedades = new Properties();
+           propiedades = new Properties();
     }
 
     /**
@@ -57,7 +49,7 @@ public class Sistema {
             String proUbi) {
         OutputStream salida = null;
         try {
-            salida = new FileOutputStream(proUbi + 
+            salida = new FileOutputStream(proUbi +
                     "//remanproject//configuracion.properties");
             propiedades.setProperty("proNom", proNom);
             propiedades.setProperty("prdNom", prdNom);
@@ -73,7 +65,7 @@ public class Sistema {
             propiedades.setProperty("numRnf", "0");
             propiedades.setProperty("numOrg", "0");
             propiedades.setProperty("numSth", "0");
-            propiedades.setProperty("numPyt", "0");
+            propiedades.setProperty("numPry", "0");
             propiedades.store(salida, null);
         } catch (IOException io) {
         } finally {
@@ -93,18 +85,16 @@ public class Sistema {
     public void crearDirectorios(String dirPrincipal){
         this.dirPrincipal = dirPrincipal;
         new File(dirPrincipal).mkdir();
-        new File(dirPrincipal, "remanproject").mkdir();
-        new File(dirPrincipal, "src//edu").mkdirs();
-        new File(dirPrincipal, "src//eli").mkdir();
-        new File(dirPrincipal, "src//esp").mkdir();
-        new File(dirPrincipal, "src//rnf").mkdir();
-        new File(dirPrincipal, "src//org//org").mkdirs();
-        new File(dirPrincipal, "src//org//sth").mkdir();
-        new File(dirPrincipal, "src//org//pyt").mkdir();
-        new File(dirPrincipal, "verlib//edu").mkdirs();
-        new File(dirPrincipal, "verlib//eli").mkdir();
-        new File(dirPrincipal, "verlib//esp").mkdir();
-        new File(dirPrincipal, "verlib//rnf").mkdir();
+        new File(dirPrincipal,"remanproject").mkdir();
+        new File(dirPrincipal,"src//edu").mkdirs();
+        new File(dirPrincipal,"src//eli").mkdir();
+        new File(dirPrincipal,"src//esp").mkdir();
+        new File(dirPrincipal,"src//org").mkdir();
+        new File(dirPrincipal,"src//rnf").mkdir();
+        new File(dirPrincipal,"verlib//edu").mkdirs();
+        new File(dirPrincipal,"verlib//eli").mkdir();
+        new File(dirPrincipal,"verlib//esp").mkdir();
+        new File(dirPrincipal,"verlib//rnf").mkdir();
     }
     
     /**
@@ -113,10 +103,9 @@ public class Sistema {
      * @throws IOException 
      */
     public void iniciarHistoricos(String proUbi) throws IOException{
-        new File(proUbi + "//verlib//edu//eduhis.xml").createNewFile();
-        new File(proUbi + "//verlib//eli//elihis.xml").createNewFile();
-        new File(proUbi + "//verlib//eli//esphis.xml").createNewFile();
-        new File(proUbi + "//verlib//rnf//rnfhis.xml").createNewFile();
+        new File(proUbi+"//verlib//edu//eduhis.xml").createNewFile();
+        new File(proUbi+"//verlib//eli//elihis.xml").createNewFile();
+        new File(proUbi+"//verlib//eli//esphis.xml").createNewFile();
     }
 
     /**
@@ -136,22 +125,6 @@ public class Sistema {
                 new File(proUbi + "//src//esp"));
         manLibEsp = new FileManager<>(LibroEspecificacion.class, 
                 new File(proUbi + "//src//esp"));
-        manVerRnf = new FileManager<>(ReqNoFuncionales.class, 
-                new File(proUbi + "//src//rnf"));
-        manLibRnf = new FileManager<>(LibroRequisitoNF.class, 
-                new File(proUbi + "//src//rnf"));
-        manVerOrg = new FileManager<>(Organizaciones.class, 
-                new File(proUbi + "//src//org//org"));
-        manLibOrg = new FileManager<>(LibroOrganizacion.class, 
-                new File(proUbi + "//src//org//org"));
-        manVerSth = new FileManager<>(Stakeholders.class, 
-                new File(proUbi + "//src//org//sth"));
-        manLibSth = new FileManager<>(LibroStakeholder.class, 
-                new File(proUbi + "//src//org//sth"));
-        manVerPyt = new FileManager<>(ProyectTeams.class, 
-                new File(proUbi + "//src//org//pyt"));
-        manLibPyt = new FileManager<>(LibroProyectTeam.class, 
-                new File(proUbi + "//src//org//pyt")); 
     }
 
     /**
@@ -176,9 +149,9 @@ public class Sistema {
                     proLid, fecIni, fecFin, proUbi);
             iniciarHistoricos(proUbi);
             iniciarManagers(proUbi);
-            crearOrganizacion(empDes, "", "", "", "", "");    
-            crearOrganizacion(empCli, "", "", "", "", "");    
-            crearProyectTeam(proLid, empDes, "", "", "", "", "");           
+            //crearOrganizacion(empDes);    
+            //crearOrganizacion(empCli);    
+            agregarActor(proLid, empDes);           
             return true;
         }
         catch(Exception ex){
@@ -228,12 +201,34 @@ public class Sistema {
     
     /**
      * 
+     * Devolver el conjunto de nombres de todas las fuentes del proyecto
+     * @return 
+     */
+    /*public ArrayList<String> getFuenteNombres(){
+        LibroStakeholder stkh;
+        stkh = manStk.leerXML("libStk");
+        return stkh.getNombres();
+    }*/
+    
+    /**
+     * 
+     * @return 
+     */
+    /*public ArrayList<String> getFuenteCodigo(){
+        LibroStakeholder stkh;
+        stkh = manStk.leerXML("libStk");
+        return stkh.getCodigo();
+    }*/
+    
+    /**
+     * 
      * Recuperar los datos de una educción
      * @param eduCod Cógio de la educción
      * @return Un objeto Educcion que contiene métodos accesores y mutadores 
      */
     public Educcion recuperarEduccion(String eduCod) {
-        Educciones verEdu = manVerEdu.leerXML(eduCod);
+        Educciones verEdu;
+        verEdu = manVerEdu.leerXML(eduCod);
         return verEdu.getActual();
     }
     
@@ -266,7 +261,8 @@ public class Sistema {
             Educcion edu = new Educcion(eduCod, eduNom, eduVer, eduTip, eduObj,
                     eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, 
                     eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs);
-            Educciones verEdu = manVerEdu.leerXML(eduCod);
+            Educciones verEdu;
+            verEdu = manVerEdu.leerXML(eduCod);
             verEdu.modEdu(edu);
             manVerEdu.escribirXML(eduCod, verEdu);
             return true;
@@ -305,14 +301,16 @@ public class Sistema {
             String eduFueNom, String eduFueCar, String eduFueTip, 
             String eduEspNom, String eduEspEsp, String eduEspExp,
             String eduEspCar, String eduDes, String eduObs) {
+        String ultVer = "edu0000";
+        //ultver = Educcion.getLastVersion();
         try{
-            Educciones verEdu = manVerEdu.leerXML(eduCod);
-            String ultVer = verEdu.getLast().eduNombre.eduCod;
-            if (ToolsSystem.CompararVersiones(ultVer, verVer)){
+            if (Tools.CompararVersiones(ultVer, verVer)){
                 Educcion edu = new Educcion(eduCod, eduNom, eduVer, eduTip, 
                         eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, 
                         eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, 
                         eduObs);
+                Educciones verEdu;
+                verEdu = manVerEdu.leerXML(eduCod);
                 verEdu.modEdu(edu);
                 verEdu.verEdu(verVer, verFec, verEsp, verRazCam);
                 manVerEdu.escribirXML(eduCod, verEdu);
@@ -346,24 +344,16 @@ public class Sistema {
      * 
      * Devolver el conjunto de históricos del elemento del libro seleccionado
      * @param libTip Tipo de libro
-     * @param codigo Código del libro
+     * @param eduCod Código de la educción
      * @return Un ArrayList que contiene un conjunto de objetos Historico con 
      *         métodos accesores y mutadores
      */
-    public List<Historico> getHist(int libTip, String codigo) {
+    public List<Historico> getHistEdu(int libTip, String eduCod) {
         switch(libTip){
             case 0:
-                Educciones edu = manVerEdu.leerXML(codigo);
-                return edu.getHistoricos();
-            case 1:
-                Elicitaciones eli = manVerEli.leerXML(codigo);
-                return eli.getHistoricos();
-            case 2:
-                Especificaciones esp = manVerEsp.leerXML(codigo);
-                return esp.getHistoricos();
-            case 3:
-                ReqNoFuncionales rnq = manVerRnf.leerXML(codigo);
-                return rnq.getHistoricos();
+                Educciones edu;
+                edu = manVerEdu.leerXML(eduCod);
+                return edu.getHistoricos();    
         }
         return null;
     }
@@ -377,7 +367,8 @@ public class Sistema {
      */
     public boolean restaurarVersionEduccion(String verCod, String eduCod) {
         try {
-            Educciones verEdu = manVerEdu.leerXML(eduCod);
+            Educciones verEdu;
+            verEdu = manVerEdu.leerXML(eduCod);
             Educcion edu = verEdu.getVer(verCod);
             modificarEduccion(edu);
             return true;
@@ -389,26 +380,18 @@ public class Sistema {
     
     /**
      * Abre un proyecto
+     * @param proUbi Ubicación del proyecto
      * @return Un booleano que indica si la función se realizó correctamente
      */
-    public boolean ingresarProyecto() {
+    public boolean ingresarProyecto(String proUbi) {
         try {
-            cargarPropiedades(dirPrincipal);
+            dirPrincipal = proUbi;
+            cargarPropiedades(proUbi);
             Educcion.setNumero(
                     Integer.parseInt(propiedades.getProperty("numEdu")));
             Elicitacion.setNumero(
                     Integer.parseInt(propiedades.getProperty("numEli")));
-            Especificacion.setNumero(
-                    Integer.parseInt(propiedades.getProperty("numEsp")));
-            ReqNoFuncional.setNumero(
-                    Integer.parseInt(propiedades.getProperty("numRnf")));
-            Organizacion.setNumero(
-                    Integer.parseInt(propiedades.getProperty("numOrg")));
-            Stakeholder.setNumero(
-                    Integer.parseInt(propiedades.getProperty("numSth")));
-            ProyectTeam.setNumero(
-                    Integer.parseInt(propiedades.getProperty("numPyt")));
-            iniciarManagers(dirPrincipal);
+            iniciarManagers(proUbi);
             return true;
         }
         catch(Exception ex){
@@ -489,6 +472,7 @@ public class Sistema {
         }
     }
 
+    
     public void createLibEdu(String nombre, LibroEduccion lib) {
         manLibEdu.escribirXML(nombre, lib);
     }
@@ -510,12 +494,11 @@ public class Sistema {
         return edu.getLast();
     }
 
-    public void verLibroEdu(String version, String fecha, String razon, 
-            String autor) {
+    public void verLibroEdu(String version, String razon, String autor) {
         manLibEdu.copiarDirectorios(new File(dirPrincipal + "//src//edu"), 
                 new File(dirPrincipal + "//verlib//edu//edu" + version));
         LibroHistorico libH = manHisEdu.leerXML("eduhis");
-        libH.createHistorico(version, fecha, razon, autor);
+        libH.createHistorico(version, razon, autor);
         manHisEdu.escribirXML("eduhis", libH);
     }
 
@@ -535,6 +518,24 @@ public class Sistema {
         return libH.getHistoricos();
     }
 
+    public void agregarOrganizacion(String nom) {
+        /*Organizacion org = new Organizacion(nom);
+        String codOrg = org.getOrganizacionNombre().getCodigo();
+        manOrg.escribirXML(codOrg, org);
+        pro.setProperty("numOrg", Integer.toString(Organizacion.getNumero()));
+        pro.saveProperties();*/
+    }
+    
+    public void agregarActor(String tpyNom, String tpyOrg) {
+        TeamProyect tpy = new TeamProyect(tpyNom, tpyOrg);
+        LibroActores libAct = new LibroActores();
+        //libAct.addActor(tpy);
+        manLibAct.escribirXML("libAct", libAct);
+        propiedades.setProperty("numStk", 
+                Integer.toString(TeamProyect.getNumero()));
+        guardarPropiedades(dirPrincipal);    
+    }
+    
     public Caratula crearCaratula(String libro) {
         Caratula car = new Caratula(libro, propiedades.getProperty("proNom"),
                 propiedades.getProperty("empDes"), 
@@ -555,25 +556,6 @@ public class Sistema {
         manLibEli.escribirXML(nombre, lib);
     }
 
-    public void exportarLibro(int libTip, String destino, String nombre){
-        switch (libTip){
-            case 0: exportarLibroEdu(destino, nombre);
-                break;
-            case 1: exportarLibroEli(destino, nombre);
-                break;
-            case 2: exportarLibroEsp(destino, nombre);
-                break;
-            case 3: exportarLibroRnf(destino, nombre);
-                break;
-            case 4: exportarLibroOrg(destino, nombre);
-                break;
-    //        case 5: exportarLibroSth(destino, nombre);
-    //            break;
-            case 6: exportarLibroPyt(destino, nombre);
-                break;
-        }
-    }
-    
     public void exportarLibroEli(String destino, String nombre) {
         LibroElicitacion lib = new LibroElicitacion();
         File[] ficheros = new File(dirPrincipal + "//src//eli").listFiles();
@@ -586,16 +568,17 @@ public class Sistema {
         manLibEli.exportarPDF("libEli", destino, nombre);
     }  
 
-    public Elicitacion getLastEli(String codEli) {
-        Elicitaciones eli = manVerEli.leerXML(codEli);
+    public Elicitacion getLastEli(String name) {
+        Elicitaciones eli;
+        eli = manVerEli.leerXML(name);
         return eli.getLast();
     }
     
-    public void verLibroEli(String version, String fecha, String razon, String autor) {
+    public void verLibroEli(String version, String razon, String autor) {
         manLibEli.copiarDirectorios(new File(dirPrincipal+"//src//eli"), 
                 new File(dirPrincipal+"//verlib//eli//eli" + version));
         LibroHistorico libH = manHisEli.leerXML("elihis");
-        libH.createHistorico(version, fecha, razon, autor);
+        libH.createHistorico(version, razon, autor);
         manHisEli.escribirXML("elihis", libH);
     }
 
@@ -648,427 +631,4 @@ public class Sistema {
             return false;
         }
     }
-    
-    public Elicitacion recuperarElicitacion(String eliCod) {
-        Elicitaciones verEli;
-        verEli = manVerEli.leerXML(eliCod);
-        return verEli.getActual();
-    }
-    
-    public boolean modificarElicitacion(String eliCod, String eliNom, 
-            String eliEduCod, String eliVer, String eliFec, String eliFueNom, 
-            String eliFueCar, String eliFueTip, String eliEspNom,
-            String eliEspEsp, String eliEspExp, String eliEspCar, String eliDep,
-            String eliDes, String eliPre, ArrayList<Paso> eliSec, String eliPos, 
-            ArrayList<Paso> eliExc, 
-            String eliObs) { 
-        try {
-            Elicitacion eli = new Elicitacion(eliCod, eliNom, eliEduCod, eliVer,
-                    eliFec, eliFueNom, eliFueCar, eliFueTip, eliEspNom, 
-                    eliEspEsp,eliEspExp, eliEspCar, eliDep, eliDes, eliPre, 
-                    eliSec, eliPos, eliExc, eliObs);
-            Elicitaciones verEli = manVerEli.leerXML(eliCod);
-            verEli.modEli(eli);
-            manVerEli.escribirXML(eliCod, verEli);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }
-    }
-    
-    public boolean versionarElicitacion(String verVer, String verFec, 
-            String verEsp, String verRazCam, String eliCod, String eliNom, 
-            String eliEduCod, String eliVer, String eliFec, String eliFueNom, 
-            String eliFueCar, String eliFueTip, String eliEspNom,
-            String eliEspEsp, String eliEspExp, String eliEspCar, String eliDep,
-            String eliDes, String eliPre, ArrayList<Paso> eliSec, String eliPos, 
-            ArrayList<Paso> eliExc, 
-            String eliObs) { 
-        try {
-            String ultVer = "eli0000";
-        //ultver = Educcion.getLastVersion();
-            if (ToolsSystem.CompararVersiones(ultVer, verVer)){
-                Elicitacion eli = new Elicitacion(eliCod, eliNom, eliEduCod, eliVer,
-                        eliFec, eliFueNom, eliFueCar, eliFueTip, eliEspNom, 
-                        eliEspEsp,eliEspExp, eliEspCar, eliDep, eliDes, eliPre, 
-                        eliSec, eliPos, eliExc, eliObs);
-                Elicitaciones verEli = manVerEli.leerXML(eliCod);
-                verEli.modEli(eli);
-                verEli.verEli(verVer, verFec, verEsp, verRazCam);
-                manVerEli.escribirXML(eliCod, verEli);
-                return true;
-            }
-            return false;
-        }
-        catch(Exception ex){
-            return false;
-        }
-    }
-    
-    public boolean restaurarVersionElicitacion(String verCod, String eliCod) {
-        try {
-            Elicitaciones verEli = manVerEli.leerXML(eliCod);
-            Elicitacion eli = verEli.getVer(verCod);
-            modificarElicitacion(eli);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }  
-    }
-    
-    public boolean crearEspecificacion(String espNom, String espEliCod, 
-            String espVer, String espFec, String espFueNom, String espFueCar, 
-            String espFueTip, String espEspNom, String espEspEsp, 
-            String espEspExp, String espEspCar, String espDep, String espDes,
-            String espPre, String espPos, ArrayList<Paso> espExc, 
-            String espObs) { 
-        try {
-            Especificacion esp = new Especificacion(espNom, espEliCod, espVer,
-            espFec, espFueNom, espFueCar, espFueTip, espEspNom,
-            espEspEsp, espEspExp, espEspCar, espDep, espDes,
-            espPre, espPos, espExc, espObs);
-            Especificaciones verEsp = new Especificaciones();
-            verEsp.newEsp(esp);
-            manVerEsp.escribirXML(esp.getEspNombre().getEspCod(), verEsp);
-            propiedades.setProperty("numEsp", 
-                    Integer.toString(Especificacion.getNumero()));
-            guardarPropiedades(dirPrincipal);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }
-    }
-    
-    public Especificacion recuperarEspecificacion(String espCod) {
-        Especificaciones verEsp;
-        verEsp = manVerEsp.leerXML(espCod);
-        return verEsp.getActual();
-    }
-    
-    public boolean modificarEspecificacion(String espCod, String espNom, String espEliCod, 
-            String espVer, String espFec, String espFueNom, String espFueCar, 
-            String espFueTip, String espEspNom, String espEspEsp, 
-            String espEspExp, String espEspCar, String espDep, String espDes,
-            String espPre, String espPos, ArrayList<Paso> espExc, 
-            String espObs) { 
-        try {
-            Especificacion esp = new Especificacion(espCod, espNom, espEliCod, 
-                    espVer, espFec, espFueNom, espFueCar, espFueTip, espEspNom,
-                    espEspEsp, espEspExp, espEspCar, espDep, espDes,
-                    espPre, espPos, espExc, espObs);
-            Especificaciones verEsp = manVerEsp.leerXML(espCod);
-            verEsp.modEsp(esp);
-            manVerEsp.escribirXML(espCod, verEsp);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }
-    }
-    
-    public boolean versionarEspecificacion(String verVer, String verFec, 
-            String verEsp, String verRazCam, String espCod, String espNom,
-            String espEliCod, String espVer, String espFec, String espFueNom, 
-            String espFueCar, String espFueTip, String espEspNom, 
-            String espEspEsp, String espEspExp, String espEspCar, String espDep, 
-            String espDes, String espPre, String espPos, ArrayList<Paso> espExc, 
-            String espObs) { 
-        try {
-            String ultVer = "ESP0000";
-        //ultver = Educcion.getLastVersion();
-            if (ToolsSystem.CompararVersiones(ultVer, verVer)){
-                Especificacion esp = new Especificacion(espCod, espNom, espEliCod, 
-                    espVer, espFec, espFueNom, espFueCar, espFueTip, espEspNom,
-                    espEspEsp, espEspExp, espEspCar, espDep, espDes,
-                    espPre, espPos, espExc, espObs);
-                Especificaciones verEsps = manVerEsp.leerXML(espCod);
-                verEsps.modEsp(esp);
-                verEsps.verEsp(verVer, verFec, verEsp, verRazCam);
-                manVerEsp.escribirXML(espCod, verEsps);
-                return true;
-            }
-            return false;
-        }
-        catch(Exception ex){
-            return false;
-        }
-    }
-    
-    public boolean restaurarVersionEspecificacion(String verCod, String espCod) {
-        try {
-            Especificaciones verEsp = manVerEsp.leerXML(espCod);
-            Especificacion esp = verEsp.getVer(verCod);
-            modificarEspecificacion(esp);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }  
-    }
-        
-    public void exportarLibroEsp(String destino, String nombre) {
-        LibroEspecificacion lib = new LibroEspecificacion();
-        File[] ficheros = new File(dirPrincipal + "//src//esp").listFiles();
-        for (File fichero : ficheros) {
-            String name = fichero.getName().split("\\.")[0];
-            lib.addEspecificacion(getLastEsp(name));
-            lib.setIntro(crearCaratula("ESPECIFICACIÓN DE REQUERIMIENTOS"));
-        }
-        createLibEsp("libEsp", lib);
-        manLibEsp.exportarPDF("libEsp", destino, nombre);
-    }  
-
-    public void createLibEsp(String nombre, LibroEspecificacion lib) {
-        manLibEsp.escribirXML(nombre, lib);
-    }
-    
-    public Especificacion getLastEsp(String name) {
-        Especificaciones esp = manVerEsp.leerXML(name);
-        return esp.getLast();
-    }
-    
-    public void verLibroEsp(String version, String fecha, String razon, 
-            String autor) {
-        manLibEsp.copiarDirectorios(new File(dirPrincipal+"//src//esp"), 
-                new File(dirPrincipal+"//verlib//esp//esp" + version));
-        LibroHistorico libH = manHisEsp.leerXML("esphis");
-        libH.createHistorico(version, fecha, razon, autor);
-        manHisEsp.escribirXML("esphis", libH);
-    }
-    
-    public void resLibroEsp(String version) {
-        try {
-            FileUtils.deleteDirectory(new File(dirPrincipal + "//src//esp"));
-        } catch (IOException ex) {
-        }
-        manLibEli.copiarDirectorios(
-                new File(dirPrincipal + "//verlib//esp//esp" + version),
-                new File(dirPrincipal + "//src//esp")
-        );
-    }
-
-    public List<Historico> getHistLibEsp() {
-        LibroHistorico libH = manHisEsp.leerXML("elihis");
-        return libH.getHistoricos();
-    }
-    
-    public void exportarLibroRnf(String destino, String nombre) {
-        LibroRequisitoNF lib = new LibroRequisitoNF();
-        File[] ficheros = new File(dirPrincipal + "//src//rnf").listFiles();
-        for (File fichero : ficheros) {
-            String name = fichero.getName().split("\\.")[0];
-            lib.addReqNoFuncional(getLastRnf(name));
-            lib.setIntro(crearCaratula("REQUISITOS NO FUNCIONALES"));
-        }
-        createLibRnf("libRnf", lib);
-        manLibRnf.exportarPDF("libRnf", destino, nombre);
-    }  
-
-    public void createLibRnf(String nombre, LibroRequisitoNF lib) {
-        manLibRnf.escribirXML(nombre, lib);
-    }
-    
-    public ReqNoFuncional getLastRnf(String name) {
-        ReqNoFuncionales rnf = manVerRnf.leerXML(name);
-        return rnf.getLast();
-    }
-    
-    public void verLibroRnf(String version, String fecha, String razon, 
-            String autor) {
-        manLibEsp.copiarDirectorios(new File(dirPrincipal+"//src//rnf"), 
-                new File(dirPrincipal+"//verlib//rnf//rnf" + version));
-        LibroHistorico libH = manHisRnf.leerXML("rnfhis");
-        libH.createHistorico(version, fecha, razon, autor);
-        manHisRnf.escribirXML("rnfhis", libH);
-    }
-    
-    public void resLibroRnf(String version) {
-        try {
-            FileUtils.deleteDirectory(new File(dirPrincipal + "//src//rnf"));
-        } catch (IOException ex) {
-        }
-        manLibRnf.copiarDirectorios(
-                new File(dirPrincipal + "//verlib//rnf//rnf" + version),
-                new File(dirPrincipal + "//src//rnf")
-        );
-    }
-
-    public List<Historico> getHistLibRnf() {
-        LibroHistorico libH = manHisRnf.leerXML("rnfhis");
-        return libH.getHistoricos();
-    }
-    
-    public void modificarEspecificacion(Especificacion esp) {
-        Especificaciones versiones;
-        String espCod = esp.getEspNombre().getEspCod();
-        versiones = manVerEsp.leerXML(espCod);
-        versiones.modEsp(esp);
-        manVerEsp.escribirXML(espCod, versiones);
-    }
-    
-    public void modificarRequisitoNF(ReqNoFuncional rnf) {
-        ReqNoFuncionales versiones;
-        String rnfCod = rnf.getRnfNombre().getRnfCod();
-        versiones = manVerRnf.leerXML(rnfCod);
-        versiones.modRnf(rnf);
-        manVerRnf.escribirXML(rnfCod, versiones);
-    }
-    
-    public boolean crearReqNoFuncional(String rnfNom, String rnfVer, 
-            String rnfTip, String rnfObj, String rnfFec, String rnfFueNom,
-            String rnfFueCar, String rnfFueTip, String rnfEspNom, 
-            String rnfEspEsp, String rnfEspExp, String rnfEspCar, String rnfDep,
-            String rnfDes, String rnfObs) { 
-        try {
-            ReqNoFuncional rnf = new ReqNoFuncional(rnfNom, rnfVer, rnfTip, 
-                    rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
-                    rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs);
-            
-            ReqNoFuncionales verRnf = new ReqNoFuncionales();
-            verRnf.newRnf(rnf);
-            manVerRnf.escribirXML(rnf.getRnfNombre().getRnfCod(), verRnf);
-            propiedades.setProperty("numRnf", 
-                    Integer.toString(ReqNoFuncional.getNumero()));
-            guardarPropiedades(dirPrincipal);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }
-    }
-    
-    public boolean modificarReqNoFuncional(String rnfCod, String rnfNom, String rnfVer, 
-            String rnfTip, String rnfObj, String rnfFec, String rnfFueNom,
-            String rnfFueCar, String rnfFueTip, String rnfEspNom, 
-            String rnfEspEsp, String rnfEspExp, String rnfEspCar, String rnfDep,
-            String rnfDes, String rnfObs) { 
-        try {
-            ReqNoFuncional rnf = new ReqNoFuncional(rnfCod, rnfNom, rnfVer, 
-            rnfTip, rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom, 
-            rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs);
-            ReqNoFuncionales verRnf = manVerRnf.leerXML(rnfCod);
-            verRnf.modRnf(rnf);
-            manVerRnf.escribirXML(rnfCod, verRnf);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }
-    }
-    
-    public boolean crearOrganizacion(String orgNom, String orgDir, 
-            String orgTel, String orgPagWeb, String orgCorEle, String orgCom) { 
-        try {
-            Organizacion org = new Organizacion(orgNom, orgDir, orgTel, 
-                    orgPagWeb, orgCorEle, orgCom);
-            Organizaciones verOrg = new Organizaciones();
-            verOrg.setActual(org);
-            manVerOrg.escribirXML(org.getOrgNom().getOrgCod(), verOrg);
-            propiedades.setProperty("numRnf", 
-                    Integer.toString(ReqNoFuncional.getNumero()));
-            guardarPropiedades(dirPrincipal);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }
-    }
-    
-    public boolean modificarOrganizacion(String orgCod, String orgNom, 
-            String orgDir, String orgTel, String orgPagWeb, String orgCorEle, 
-            String orgCom) { 
-        try {
-            Organizacion org = new Organizacion(orgCod, orgNom, orgDir, orgTel, 
-                    orgPagWeb, orgCorEle, orgCom);
-            Organizaciones verOrg = manVerOrg.leerXML(orgCod);
-            verOrg.setActual(org);
-            manVerOrg.escribirXML(orgCod, verOrg);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }
-    }
-    
-    public void exportarLibroOrg(String destino, String nombre) {
-        LibroOrganizacion lib = new LibroOrganizacion();
-        File[] ficheros = new File(dirPrincipal + "//src//org//org").listFiles();
-        for (File fichero : ficheros) {
-            String name = fichero.getName().split("\\.")[0];
-            lib.addOrg(getLastOrg(name));
-            lib.setIntro(crearCaratula("ORGANIZACIONES"));
-        }
-        createLibOrg("libOrg", lib);
-        manLibEli.exportarPDF("libOrg", destino, nombre);
-    }
-    
-    public Organizacion getLastOrg(String codOrg) {
-        Organizaciones org = manVerOrg.leerXML(codOrg);
-        return org.getActual();
-    }
-    
-    public void createLibOrg(String nombre, LibroOrganizacion lib) {
-        manLibOrg.escribirXML(nombre, lib);
-    }
-    
-    public boolean crearProyectTeam(String pytNom, String pytOrg, String pytEsp, 
-            String pytExp, String pytCar, String pytCor, String pytCom) { 
-        try {
-            ProyectTeam pyt = new ProyectTeam(pytNom, pytOrg, pytEsp, pytExp,
-                    pytCar, pytCor, pytCom);
-            ProyectTeams verPyt = new ProyectTeams();
-            verPyt.setActual(pyt);
-            manVerPyt.escribirXML(pyt.getTeamNombre().getPytCod(), verPyt);
-            propiedades.setProperty("numPyt", 
-                    Integer.toString(ProyectTeam.getNumero()));
-            guardarPropiedades(dirPrincipal);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }
-    }
-    
-    public void exportarLibroPyt(String destino, String nombre) {
-        LibroProyectTeam lib = new LibroProyectTeam();
-        File[] ficheros = new File(dirPrincipal + "//src//org//pyt").listFiles();
-        for (File fichero : ficheros) {
-            String name = fichero.getName().split("\\.")[0];
-            lib.addPyt(getLastPyt(name));
-            lib.setIntro(crearCaratula("PROYECTTEAM"));
-        }
-        createLibPyt("libPyt", lib);
-        manLibEli.exportarPDF("libPyt", destino, nombre);
-    }
-    
-    public ProyectTeam getLastPyt(String codOrg) {
-        ProyectTeams pyt = manVerPyt.leerXML(codOrg);
-        return pyt.getActual();
-    }
-    
-    public void createLibPyt(String nombre, LibroProyectTeam lib) {
-        manLibPyt.escribirXML(nombre, lib);
-    }
-    
-    /**
-     * 
-     * Devolver el conjunto de nombres de todas las fuentes del proyecto
-     * @return 
-     */
-    /*public List<String> getFuenteNombres(){
-        LibroStakeholder libStk = manLibAct.leerXML("libAct");
-        return libStk.getFueNom();
-    }*/
-    
-    /**
-     * 
-     * @return 
-     */
-    /*public List<String> getFuenteCodigo(){
-        LibroStakeholder libStk = manLibAct.leerXML("libAct");
-        return libStk();
-    }*/
 }

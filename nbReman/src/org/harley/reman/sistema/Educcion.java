@@ -48,7 +48,7 @@ public class Educcion {
     public static void setNumero(int numero) {
         Educcion.numero = numero;
         for (int i = 0; i < numero; i++){
-            codigo = ToolsSystem.IncrementarCodigo(codigo);
+            codigo = Tools.IncrementarCodigo(codigo);
         }
     }
 
@@ -77,7 +77,7 @@ public class Educcion {
             String eduFueTip, String eduEspNom, String eduEspEsp,
             String eduEspExp, String eduEspCar, String eduDes, String eduObs){
         numero++;
-        codigo = ToolsSystem.IncrementarCodigo(codigo);
+        codigo = Tools.IncrementarCodigo(codigo);
         this.eduNombre = new EduNombre(codigo, eduNom);
         this.eduVer = eduVer;
         this.eduFueNom = eduFueNom;

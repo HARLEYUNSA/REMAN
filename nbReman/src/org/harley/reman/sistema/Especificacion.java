@@ -7,256 +7,191 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-    @XmlRootElement
-    @XmlType(propOrder = {
-        "espNombre",
-        "espEliCod",
-        "espVer",
-        "espFec",
-        "espFueNom",
-        "espFueCar",
-        "espFueTip",
-        "espEspNom",
-        "espEspEsp",
-        "espEspExp",
-        "espEspCar",
-        "espDep",
-        "espDes",
-        "espPre",
-        "espPos",
-        "espExc",
-        "espObs"
-    })
-    
+@XmlRootElement
+@XmlType(propOrder = {
+    "especificacionNombre", 
+    "eliNumero", 
+    "version", 
+    "autor", 
+    "fuente", 
+    "dependencias",
+    "descripcion", 
+    "precondicion", 
+    "postcondicion", 
+    "excepciones",
+    "comentarios" 
+})
 
 public class Especificacion {
+        EduNombre especificacionNombre;
+	String eliNumero;
+        String espFecha;
+        String version;
+        String fuenteNombre;
+        String fuenteCargo;
+        String fuenteTipo;
+        String especialistaNombre;
+        String especialistaExp;
+        String especialistaCargo;
+        String dependencias;
+        String descripcion;
+        List<String> precondiciones;
+        List<String> postcondiciones;
+        List<Paso> excepciones; 
+        String observaciones;
 
-    private static int numero = 0;
-    private static String codigo = "ESP0001";
-    EspNombre espNombre;
-    String espEliCod;
-    String espVer;
-    String espFec;
-    String espFueNom;
-    String espFueCar;
-    String espFueTip;
-    String espEspNom;
-    String espEspEsp;
-    String espEspExp;
-    String espEspCar;
-    String espDep;
-    String espDes;
-    String espPre;
-    String espPos;
-    Secuencia espExc;
-    String espObs;
-    
-    public Especificacion() {
+    public EduNombre getEspecificacionNombre() {
+        return especificacionNombre;
     }
 
-    public Especificacion(String espCod, String espNom, String espEliCod, String espVer,
-            String espFec, String espFueNom, String espFueCar, String espFueTip, String espEspNom,
-            String espEspEsp, String espEspExp, String espEspCar, String espDep, String espDes,
-            String espPre, String espPos, ArrayList<Paso> espExc, String espObs) {
-        
-        this.espNombre = new EspNombre(espCod, espNom);
-        this.espEliCod = espEliCod;
-        this.espVer = espVer;
-        this.espFec = espFec;
-        this.espFueNom = espFueNom;
-        this.espFueCar = espFueCar;
-        this.espFueTip = espFueTip;
-        this.espEspNom = espEspNom;
-        this.espEspEsp = espEspEsp;
-        this.espEspExp = espEspExp;
-        this.espEspCar = espEspCar;
-        this.espDep = espDep;
-        this.espDes = espDes;
-        this.espPre = espPre;
-        this.espPos = espPos;
-        this.espExc = new Secuencia(espExc.size() + 1, espExc);
-        this.espObs = espObs;
-    }
-    
-    public Especificacion(String espNom, String espEliCod, String espVer,
-            String espFec, String espFueNom, String espFueCar, String espFueTip, String espEspNom,
-            String espEspEsp, String espEspExp, String espEspCar, String espDep, String espDes,
-            String espPre, String espPos, ArrayList<Paso> espExc, String espObs) {
-        
-        numero++;
-        codigo = ToolsSystem.IncrementarCodigo(codigo);
-        this.espNombre = new EspNombre(codigo, espNom);
-        this.espEliCod = espEliCod;
-        this.espVer = espVer;
-        this.espFec = espFec;
-        this.espFueNom = espFueNom;
-        this.espFueCar = espFueCar;
-        this.espFueTip = espFueTip;
-        this.espEspNom = espEspNom;
-        this.espEspEsp = espEspEsp;
-        this.espEspExp = espEspExp;
-        this.espEspCar = espEspCar;
-        this.espDep = espDep;
-        this.espDes = espDes;
-        this.espPre = espPre;
-        this.espPos = espPos;
-        this.espExc = new Secuencia(espExc.size() + 1, espExc);
-        this.espObs = espObs;
-    }
-    
-    public static int getNumero() {
-        return numero;
+    public void setEspecificacionNombre(EduNombre especificacionNombre) {
+        this.especificacionNombre = especificacionNombre;
     }
 
-    public static void setNumero(int numero) {
-        Especificacion.numero = numero;
-        for (int i = 0; i < numero; i++){
-            codigo = ToolsSystem.IncrementarCodigo(codigo);
-        }   
+    public String getEliNumero() {
+        return eliNumero;
     }
 
-    public static String getCodigo() {
-        return codigo;
+    public void setEliNumero(String eliNumero) {
+        this.eliNumero = eliNumero;
     }
 
-    public static void setCodigo(String codigo) {
-        Especificacion.codigo = codigo;
+    public String getEspFecha() {
+        return espFecha;
     }
 
-    public EspNombre getEspNombre() {
-        return espNombre;
+    public void setEspFecha(String espFecha) {
+        this.espFecha = espFecha;
     }
 
-    public void setEspNombre(EspNombre espNombre) {
-        this.espNombre = espNombre;
+    public String getVersion() {
+        return version;
     }
 
-    public String getEspEliCod() {
-        return espEliCod;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
-    public void setEspEliCod(String espEliCod) {
-        this.espEliCod = espEliCod;
+    public String getFuenteNombre() {
+        return fuenteNombre;
     }
 
-    public String getEspVer() {
-        return espVer;
+    public void setFuenteNombre(String fuenteNombre) {
+        this.fuenteNombre = fuenteNombre;
     }
 
-    public void setEspVer(String espVer) {
-        this.espVer = espVer;
+    public String getFuenteCargo() {
+        return fuenteCargo;
     }
 
-    public String getEspFec() {
-        return espFec;
+    public void setFuenteCargo(String fuenteCargo) {
+        this.fuenteCargo = fuenteCargo;
     }
 
-    public void setEspFec(String espFec) {
-        this.espFec = espFec;
+    public String getFuenteTipo() {
+        return fuenteTipo;
     }
 
-    public String getEspFueNom() {
-        return espFueNom;
+    public void setFuenteTipo(String fuenteTipo) {
+        this.fuenteTipo = fuenteTipo;
     }
 
-    public void setEspFueNom(String espFueNom) {
-        this.espFueNom = espFueNom;
+    public String getEspecialistaNombre() {
+        return especialistaNombre;
     }
 
-    public String getEspFueCar() {
-        return espFueCar;
+    public void setEspecialistaNombre(String especialistaNombre) {
+        this.especialistaNombre = especialistaNombre;
     }
 
-    public void setEspFueCar(String espFueCar) {
-        this.espFueCar = espFueCar;
+    public String getEspecialistaExp() {
+        return especialistaExp;
     }
 
-    public String getEspFueTip() {
-        return espFueTip;
+    public void setEspecialistaExp(String especialistaExp) {
+        this.especialistaExp = especialistaExp;
     }
 
-    public void setEspFueTip(String espFueTip) {
-        this.espFueTip = espFueTip;
+    public String getEspecialistaCargo() {
+        return especialistaCargo;
     }
 
-    public String getEspEspNom() {
-        return espEspNom;
+    public void setEspecialistaCargo(String especialistaCargo) {
+        this.especialistaCargo = especialistaCargo;
     }
 
-    public void setEspEspNom(String espEspNom) {
-        this.espEspNom = espEspNom;
+    public String getDependencias() {
+        return dependencias;
     }
 
-    public String getEspEspEsp() {
-        return espEspEsp;
+    public void setDependencias(String dependencias) {
+        this.dependencias = dependencias;
     }
 
-    public void setEspEspEsp(String espEspEsp) {
-        this.espEspEsp = espEspEsp;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public String getEspEspExp() {
-        return espEspExp;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public void setEspEspExp(String espEspExp) {
-        this.espEspExp = espEspExp;
-    }
-
-    public String getEspEspCar() {
-        return espEspCar;
-    }
-
-    public void setEspEspCar(String espEspCar) {
-        this.espEspCar = espEspCar;
-    }
-
-    public String getEspDep() {
-        return espDep;
-    }
-
-    public void setEspDep(String espDep) {
-        this.espDep = espDep;
-    }
-
-    public String getEspDes() {
-        return espDes;
-    }
-
-    public void setEspDes(String espDes) {
-        this.espDes = espDes;
-    }
-
-    public String getEspPre() {
-        return espPre;
-    }
-
-    public void setEspPre(String espPre) {
-        this.espPre = espPre;
-    }
-
-    public String getEspPos() {
-        return espPos;
-    }
-
-    public void setEspPos(String espPos) {
-        this.espPos = espPos;
-    }
-
-    public Secuencia getEspExc() {
-        return espExc;
+    public List<String> getPrecondiciones() {
+        return precondiciones;
     }
     
-    @XmlElement(name = "espExc")
-    public void setEspExc(Secuencia espExc) {
-        this.espExc = espExc;
+    @XmlElementWrapper(name = "precondiciones")
+    @XmlElement(name = "precondicion")
+    public void setPrecondiciones(List<String> precondiciones) {
+        this.precondiciones = precondiciones;
     }
 
-    public String getEspObs() {
-        return espObs;
+    public void addPrecondicion(String pre){
+        if (this.precondiciones == null ){
+            this.precondiciones = new ArrayList<>();
+        }
+        this.precondiciones.add(pre);
+    }
+    
+    public List<String> getPostcondiciones() {
+        return postcondiciones;
+    }
+    
+    @XmlElementWrapper(name = "postcondiciones")
+    @XmlElement(name = "postcondicion")
+    public void setPostcondiciones(List<String> postcondiciones) {
+        this.postcondiciones = postcondiciones;
     }
 
-    public void setEspObs(String espObs) {
-        this.espObs = espObs;
+    public void addPostcondicion(String post){
+        if (this.postcondiciones == null ){
+            this.postcondiciones = new ArrayList<>();
+        }
+        this.postcondiciones.add(post);
+    }
+
+    public List<Paso> getExcepciones() {
+        return excepciones;
+    }
+    
+    @XmlElementWrapper(name = "excepciones")
+    @XmlElement(name = "excepcion")
+    public void setExcepciones(List<Paso> excepciones) {
+        this.excepciones = excepciones;
+    }
+    
+    public void addExcepcion(Paso exc){
+        if (this.excepciones == null ){
+            this.excepciones = new ArrayList<>();
+        }
+        this.excepciones.add(exc);
+    }
+    
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 }

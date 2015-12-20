@@ -1,36 +1,43 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.harley.reman.sistema;
 
 /**
  *
  * @author Gonzalo
  */
-class pytNombre {
+class TpyNombre {
 
-    String pytCod;
-    String pytNom;
+    String tpyCod;
+    String tpyNom;
 
-    public pytNombre() {
+    public TpyNombre() {
     }
 
-    public pytNombre(String pytCod, String pytNom) {
-        this.pytCod = pytCod;
-        this.pytNom = pytNom;
+    
+    public TpyNombre(String tpyCod, String tpyNom) {
+        this.tpyCod = tpyCod;
+        this.tpyNom = tpyNom;
     }
 
-    public String getpytCod() {
-        return pytCod;
+    public String getTpyCod() {
+        return tpyCod;
     }
 
-    public void setpytCod(String pytCod) {
-        this.pytCod = pytCod;
+    public void setTpyCod(String tpyCod) {
+        this.tpyCod = tpyCod;
     }
 
-    public String getpytNom() {
-        return pytNom;
+    public String getTpyNom() {
+        return tpyNom;
     }
 
-    public void setpytNom(String pytNom) {
-        this.pytNom = pytNom;
+    public void setTpyNom(String tpyNom) {
+        this.tpyNom = tpyNom;
     }
-
+    
+    
 }

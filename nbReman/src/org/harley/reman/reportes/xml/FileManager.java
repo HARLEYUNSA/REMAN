@@ -56,6 +56,7 @@ public class FileManager<T> {
     }
     
     public void copiarFicheros(File f1, File f2){
+
         try {
             InputStream in = new FileInputStream(f1);
             OutputStream out = new FileOutputStream(f2);
