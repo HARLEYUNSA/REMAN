@@ -5,7 +5,10 @@
  */
 package org.harley.reman.interfaz.interfaces;
 
+import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
@@ -13,11 +16,12 @@ import javax.swing.JFileChooser;
  */
 public class VProyecto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VProyecto
-     */
-    public VProyecto() {
+    Sistema sysReman;
+
+    public VProyecto(Sistema sysReman) {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.sysReman = sysReman;
     }
 
     /**
@@ -311,29 +315,48 @@ public class VProyecto extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_btnPCancelarActionPerformed
-       
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //+++++++++++++++++++++++++++++++AVERIGUAR ACTUALIZR TEXT BOX AL MISMO TIEMPO !!!! +++++++++++++++++++++++++++++++++++++++++
         EscogeUbicacion.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int a = EscogeUbicacion.showOpenDialog(VProyecto.this);
-        if(a==JFileChooser.APPROVE_OPTION){
+        if (a == JFileChooser.APPROVE_OPTION) {
             String nombre = txtPNombre.getText();
             String direccion = EscogeUbicacion.getSelectedFile().getAbsolutePath();
-            txtPUbicacion.setText(direccion + "\\" + nombre);
+            txtPUbicacion.setText(direccion);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnPGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPGuardarActionPerformed
-        // TODO add your handling code here:
-        String empCli = txtEmpresaC.getText();
-        String empDes = txtEmpresaD.getText();
-        String proNom =txtPNombre.getText();
-        String prdNom = txtPProducto.getText();
-        String proUbi = txtPUbicacion.getText();
-        String proLid = txtPLider.getText();
+        boolean error = false;
+        String empCli = txtEmpresaC.getText().trim();
+        String empDes = txtEmpresaD.getText().trim();
+        String proNom = txtPNombre.getText().trim();
+        String prdNom = txtPProducto.getText().trim();
+        String proUbi = txtPUbicacion.getText().trim();
+        String proLid = txtPLider.getText().trim();
         String fecIni = dateChooserCombo1.getText();
         String fecFin = dateChooserCombo2.getText();
+
         
+        File url = new File(proUbi);
+        if( !url.exists()){
+            error = true;
+        }
+        proUbi += "\\" +proNom;
+        
+        if (empCli.equals("") || empDes.equals("") || proNom.equals("")
+                || prdNom.equals("") || proUbi.equals("") || proLid.equals("") || fecIni.equals("") || fecFin.equals("")) {
+            error = true;
+        }
+
+        if (error) {
+            JOptionPane.showMessageDialog(null, "Error, llenar todos los campos");
+        } else {
+            sysReman.crearProyecto(proNom, prdNom, empDes, empCli, proLid, fecIni, fecFin, proUbi);
+            
+            this.dispose();
+        }
     }//GEN-LAST:event_btnPGuardarActionPerformed
 
 

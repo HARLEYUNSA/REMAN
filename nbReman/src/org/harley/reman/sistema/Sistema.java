@@ -15,7 +15,7 @@ import org.harley.reman.xml.FileManager;
 public class Sistema {
     
     Properties propiedades;
-	Properties stateReman;
+    Properties stateReman;
     String dirPrincipal;
     FileManager<LibroEduccion> manLibEdu;
     FileManager<LibroElicitacion> manLibEli;

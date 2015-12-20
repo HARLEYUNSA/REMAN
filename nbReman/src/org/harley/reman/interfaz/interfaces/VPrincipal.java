@@ -1,9 +1,11 @@
 package org.harley.reman.interfaz.interfaces;
+
 import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
+import org.harley.reman.sistema.Sistema;
+
 /**
  *
  * @author Joel Mendoza
@@ -13,23 +15,35 @@ public class VPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VPincipal
      */
-    VTElicitacion velicita = new VTElicitacion();
-    VTEduccion veduccion = new VTEduccion();
-    VTOrganizacion vorganiza = new VTOrganizacion();
-    VTEspecificacion vespecifica = new VTEspecificacion();
-    VTNoFuncional vnofuncional = new VTNoFuncional();
-    VTInicio vinicio = new VTInicio();
-    
-    
-    public VPrincipal() throws PropertyVetoException {
+    VTElicitacion velicita;
+    VTEduccion veduccion;
+    VTOrganizacion vorganiza;
+    VTEspecificacion vespecifica;
+    VTNoFuncional vnofuncional;
+    VTInicio vinicio;
+    Sistema sysReman;
 
-        getContentPane().setBackground(new java.awt.Color(119,148,171));
+    public VPrincipal(Sistema sysReman) {
+        getContentPane().setBackground(new java.awt.Color(119, 148, 171));
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.sysReman = sysReman;
+        sysReman.cargarStateReman();
+        
         VDocumento nuevo = new VDocumento();
         jDesktopPane1.add(nuevo);
-        nuevo.setMaximum(true);
+        try {
+            nuevo.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+
+        }
         nuevo.show();
-        
+        veduccion = new VTEduccion(ToolsInterface.generateJTreeBook("Documento de Educción","Educción",sysReman.getDirPrincipal() + "\\src\\edu"));
+        velicita = new VTElicitacion(ToolsInterface.generateJTreeBook("Documento de Elicitación","Elicitación",sysReman.getDirPrincipal() + "\\src\\eli"));
+        vespecifica = new VTEspecificacion(ToolsInterface.generateJTreeBook("Documento de Espesificación","Espesificación",sysReman.getDirPrincipal() + "\\src\\esp"));
+        vnofuncional = new VTNoFuncional(ToolsInterface.generateJTreeBook("Documento de Req no Funcional","Req no Funcional",sysReman.getDirPrincipal() + "\\src\\rnf"));
+        vorganiza = new VTOrganizacion(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+        vinicio = new VTInicio();
         jDesktopPane2.add(vinicio);
         vinicio.show();
         jDesktopPane2.add(velicita);
@@ -37,7 +51,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jDesktopPane2.add(vorganiza);
         jDesktopPane2.add(vespecifica);
         jDesktopPane2.add(vnofuncional);
-        
+
         btnVPAbrir.setToolTipText("Abrir");
         btnVPAyuda.setToolTipText("Ayuda");
         btnVPEduccion.setToolTipText("Agregar Educcion");
@@ -488,12 +502,12 @@ public class VPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVPNuevoActionPerformed(java.awt.event.ActionEvent evt) {
-        VProyecto ventanaProyecto = new VProyecto();
+        VProyecto ventanaProyecto = new VProyecto(sysReman);
         ventanaProyecto.setVisible(true);
     }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
-        VProyecto ventanaProyecto = new VProyecto();
+        VProyecto ventanaProyecto = new VProyecto(sysReman);
         ventanaProyecto.setVisible(true);
     }
 
@@ -565,12 +579,16 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPAbrirActionPerformed(java.awt.event.ActionEvent evt) {
-        FileNameExtensionFilter filtro=new FileNameExtensionFilter("Archivos Reman","rem");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos Reman", "rem");
         ExportarFile.setFileFilter(filtro);
         int opt = ExportarFile.showOpenDialog(this);
-        if(opt==JFileChooser.APPROVE_OPTION){
-            String direccion = ExportarFile.getSelectedFile().getAbsolutePath();
+        String direccion = "";
+        if (opt == JFileChooser.APPROVE_OPTION) {
+
+            System.out.println(direccion = ExportarFile.getSelectedFile().getParent());
         }
+        sysReman.setDirPrincipal(direccion);
+
     }
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -609,43 +627,10 @@ public class VPrincipal extends javax.swing.JFrame {
         vexporta.setVisible(true);
     }
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void actualizarJTrees() {
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new VPrincipal().setVisible(true);
-                } catch (PropertyVetoException ex) {
-                    Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
-        });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser ExportarFile;
