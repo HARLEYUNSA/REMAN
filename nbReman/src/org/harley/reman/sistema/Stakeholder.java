@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Stakeholder {
     private static int numero = 0;
     private static String codigo = "STH0000";
-    SthNombre sthNom;
+    SthNombre sthNombre;
     String sthOrg;
     String sthCar;
     String sthTip;
@@ -30,14 +30,14 @@ public class Stakeholder {
     public Stakeholder(String sthNom) {
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
-        this.sthNom = new SthNombre(codigo, sthNom);
+        this.sthNombre = new SthNombre(codigo, sthNom);
     }
 
     public Stakeholder(String sthNom, String sthOrg, String sthCar, 
             String sthTip, String sthCorEle, String sthCom) {
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
-        this.sthNom = new SthNombre(codigo, sthNom);
+        this.sthNombre = new SthNombre(codigo, sthNom);
         this.sthOrg = sthOrg;
         this.sthCar = sthCar;
         this.sthTip = sthTip;
@@ -45,6 +45,18 @@ public class Stakeholder {
         this.sthCom = sthCom;
     }
 
+    public Stakeholder(String sthCod, String sthNom, String sthOrg, 
+            String sthCar, String sthTip, String sthCorEle, String sthCom) {
+        this.sthNombre = new SthNombre(sthCod, sthNom);
+        this.sthOrg = sthOrg;
+        this.sthCar = sthCar;
+        this.sthTip = sthTip;
+        this.sthCorEle = sthCorEle;
+        this.sthCom = sthCom;
+    }
+
+    
+    
     public static int getNumero() {
         return numero;
     }
@@ -56,12 +68,12 @@ public class Stakeholder {
         }
     }
     
-    public SthNombre getSthNom() {
-        return sthNom;
+    public SthNombre getSthNombre() {
+        return sthNombre;
     }
 
-    public void setSthNom(SthNombre sthNom) {
-        this.sthNom = sthNom;
+    public void setSthNombre(SthNombre sthNombre) {
+        this.sthNombre = sthNombre;
     }
 
     public String getSthOrg() {

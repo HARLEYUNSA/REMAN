@@ -2,8 +2,13 @@
 package org.harley.reman.sistema;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlType(propOrder = {
+    "rnfCod",
+    "rnfNom"
+})
 public class RnfNombre {
     String rnfCod;
     String rnfNom;

@@ -1,12 +1,13 @@
 package org.harley.reman.sistema;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author Gonzalo
- */
 @XmlRootElement
+@XmlType(propOrder = {
+    "sthCod",
+    "sthNom"
+})
 class SthNombre {
     String sthCod;
     String sthNom;

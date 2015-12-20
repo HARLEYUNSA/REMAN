@@ -1,13 +1,13 @@
 package org.harley.reman.sistema;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
-/**
- *
- * @author Gonzalo
- */
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlType(propOrder = {
+    "orgCod",
+    "orgNom"
+})
 public class OrgNombre {
     String orgCod;
     String orgNom;

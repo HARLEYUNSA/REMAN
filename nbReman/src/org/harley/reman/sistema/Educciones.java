@@ -1,26 +1,18 @@
 package org.harley.reman.sistema;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author Gonzalo
- */
 @XmlRootElement(name = "educciones")
 @XmlType(propOrder = {
     "actual",
     "historicos",
     "versiones"
 })
-
 public class Educciones {
     Educcion actual;
     List<Educcion> versiones;
@@ -43,8 +35,8 @@ public class Educciones {
         return versiones;
     }
     
-@XmlElementWrapper(name = "versiones")
-@XmlElement(name = "version")
+    @XmlElementWrapper(name = "versiones")
+    @XmlElement(name = "version")
     public void setVersiones(List<Educcion> versiones) {
         this.versiones = versiones;
     }
@@ -53,8 +45,8 @@ public class Educciones {
         return historicos;
     }
     
-@XmlElementWrapper(name = "historicos")
-@XmlElement(name = "historico")
+    @XmlElementWrapper(name = "historicos")
+    @XmlElement(name = "historico")
     public void setHistoricos(List<Historico> historicos) {
         this.historicos = historicos;
     }
@@ -64,11 +56,9 @@ public class Educciones {
     }
     
     public void newEdu(Educcion edu){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Calendar cal = Calendar.getInstance();
-        String nomEdu = edu.getEduNombre().getEduNom();    
-        addHistorico(edu, dateFormat.format(cal.getTime()), 
-                   "Creación de la Educcion " + nomEdu, "Gonzalo");
+        String nomEdu = edu.eduNombre.getEduNom();    
+        addHistorico(edu, edu.eduFec, 
+                   "Creación de la Educción " + nomEdu, edu.eduEspNom);
         addEduccion(edu);
         actual = edu;
     }
@@ -77,14 +67,15 @@ public class Educciones {
         actual = edu;
     }
     
-    public void verEdu(String verVer, String verFec, String verEsp, 
-            String verRazCam){
+    public void verEdu(String verVer, String verFec, String verRazCam, 
+            String verEsp){
         actual.setEduVer(verVer);
-        addHistorico(actual, verFec, verEsp, verRazCam);
+        addHistorico(actual, verFec, verRazCam, verEsp);
         addEduccion(actual);
     }
     
-    public void addHistorico(Educcion edu, String fecha, String actor, String razon){
+    public void addHistorico(Educcion edu, String fecha, String razon, 
+            String actor){
         Historico hist = new Historico(edu.getEduVer(), fecha, razon, actor);
         historicos.add(hist);
     }
@@ -94,11 +85,12 @@ public class Educciones {
     }
     
     public Educcion getVer(String ver){
-       for (int i = 0; i < versiones.size(); i++){
-           if(versiones.get(i).getEduVer().equals(ver))
-               return versiones.get(i);
-       }
-       return null;
+        for (Educcion version : versiones) {
+            if (version.eduVer.equals(ver)) {
+                return version;
+            }
+        }
+        return null;
     }
     
     public Educcion getLast(){

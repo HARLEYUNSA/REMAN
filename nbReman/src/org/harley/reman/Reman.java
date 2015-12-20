@@ -20,11 +20,14 @@ public class Reman {
         //</editor-fold>
         //</editor-fold>
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new VPrincipal(new Sistema()).setVisible(true);
             }
-        });
+        });*/
+        
+        Sistema x = new Sistema();
+        x.crearProyecto("reman", "reman", "harley", "epis", "cr", "03/05/2015", "04/05/2015", "reman");
     }
 }

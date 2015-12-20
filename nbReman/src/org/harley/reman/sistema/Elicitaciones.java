@@ -1,9 +1,6 @@
 package org.harley.reman.sistema;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -16,7 +13,6 @@ import javax.xml.bind.annotation.XmlType;
     "historicos",
     "versiones"
 })
-
 public class Elicitaciones {
     Elicitacion actual;
     List<Elicitacion> versiones;
@@ -60,11 +56,9 @@ public class Elicitaciones {
     }
     
     public void newEli(Elicitacion eli){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Calendar cal = Calendar.getInstance();
-        String nomEli = eli.getEliNombre().getEliNom();    
-        addHistorico(eli, dateFormat.format(cal.getTime()), 
-                   "Creación de la Elicitacion " + nomEli, "Gonzalo");
+        String nomEli = eli.eliNombre.getEliNom();    
+        addHistorico(eli, eli.eliFec, 
+                   "Creación de la Elicitación " + nomEli, eli.eliEspNom);
         addElicitacion(eli);
         actual = eli;
     }
@@ -73,14 +67,15 @@ public class Elicitaciones {
         actual = eli;
     }
     
-    public void verEli(String verVer, String verFec, String verEsp, 
-            String verRazCam){
+    public void verEli(String verVer, String verFec, String verRazCam, 
+            String verEsp){
         actual.setEliVer(verVer);
-        addHistorico(actual, verFec, verEsp, verRazCam);
+        addHistorico(actual, verFec, verRazCam, verEsp);
         addElicitacion(actual);
     }
     
-    public void addHistorico(Elicitacion eli, String fecha, String actor, String razon){
+    public void addHistorico(Elicitacion eli, String fecha, String razon, 
+            String actor){
         Historico hist = new Historico(eli.getEliVer(), fecha, razon, actor);
         historicos.add(hist);
     }
@@ -90,10 +85,11 @@ public class Elicitaciones {
     }
     
     public Elicitacion getVer(String ver){
-       for (int i = 0; i < versiones.size(); i++){
-           if(versiones.get(i).getEliVer().equals(ver))
-               return versiones.get(i);
-       }
+        for (Elicitacion version : versiones) {
+            if (version.getEliVer().equals(ver)) {
+                return version;
+            }
+        }
        return null;
     }
     

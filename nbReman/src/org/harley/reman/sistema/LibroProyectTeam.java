@@ -19,22 +19,22 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class LibroProyectTeam {
     
-    Caratula intro;
+    String intro;
     List<ProyectTeam> pyts;
 
     public LibroProyectTeam() {
     }
     
-    public LibroProyectTeam(Caratula intro, List<ProyectTeam> pyts) {
+    public LibroProyectTeam(String intro, List<ProyectTeam> pyts) {
         this.intro = intro;
         this.pyts = pyts;
     }
 
-    public Caratula getIntro() {
+    public String getIntro() {
         return intro;
     }
 
-    public void setIntro(Caratula intro) {
+    public void setIntro(String intro) {
         this.intro = intro;
     }
 

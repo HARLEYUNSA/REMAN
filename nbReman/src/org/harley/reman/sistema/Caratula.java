@@ -4,59 +4,61 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-    @XmlType(propOrder = {
-        "titulo",
-        "pro",
-        "fecAct",
-        "lugar"
-    })
+@XmlType(propOrder = {
+        "carTit",
+        "carPro",
+        "carFec",
+        "carLug"
+})
 public class Caratula {
-    String titulo;
-    Proyecto pro;
-    String fecAct;
-    String lugar;
+    String carTit;
+    Proyecto carPro;
+    String carFec;
+    String carLug;
         
     public Caratula(){
         
     }
-    public Caratula(String titulo, String proNom, String empDes, String empCli, 
-            String proLid, String proEst, String fecIni, String fecFin, String fecAct, String lugar) {
-        this.titulo = titulo;
-        this.pro = new Proyecto(proNom, empDes, empCli, proLid, proEst, fecIni,
+    
+    public Caratula(String carTit, String proNom, String empDes, String empCli, 
+            String proLid, String proEst, String fecIni, String fecFin,
+            String carFec, String carLug) {
+        this.carTit = carTit;
+        this.carPro = new Proyecto(proNom, empDes, empCli, proLid, proEst, fecIni,
         fecFin);
-        this.fecAct = fecAct;
-        this.lugar = lugar;
+        this.carFec = carFec;
+        this.carLug = carLug;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getCarTit() {
+        return carTit;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setCarTit(String carTit) {
+        this.carTit = carTit;
     }
 
-    public Proyecto getPro() {
-        return pro;
+    public Proyecto getCarPro() {
+        return carPro;
     }
 
-    public void setPro(Proyecto pro) {
-        this.pro = pro;
+    public void setCarPro(Proyecto carPro) {
+        this.carPro = carPro;
     }
 
-    public String getFecAct() {
-        return fecAct;
+    public String getCarFec() {
+        return carFec;
     }
 
-    public void setFecAct(String fecAct) {
-        this.fecAct = fecAct;
+    public void setCarFec(String carFec) {
+        this.carFec = carFec;
     }
 
-    public String getLugar() {
-        return lugar;
+    public String getCarLug() {
+        return carLug;
     }
 
-    public void setLugar(String lugar) {
-        this.lugar = lugar;
+    public void setCarLug(String carLug) {
+        this.carLug = carLug;
     }    
 }

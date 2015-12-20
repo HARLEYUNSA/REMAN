@@ -14,16 +14,16 @@ import javax.xml.bind.annotation.XmlType;
     "teams"
 })
 public class LibroActor {
-    String intro;
+    Caratula intro;
     List<Stakeholder> stakes;
     List<ProyectTeam> teams;
 
-    public String getIntro() {
+    public Caratula getIntro() {
         return intro;
     }
     
     @XmlElement
-    public void setIntro(String intro) {
+    public void setIntro(Caratula intro) {
         this.intro = intro;
     }
 
@@ -64,7 +64,7 @@ public class LibroActor {
     public List<String> getFueCod(){
         List<String> fueNom = new ArrayList<>();
         for (Stakeholder stake : stakes) {
-            fueNom.add(stake.getSthNom().getSthCod());
+            fueNom.add(stake.getSthNombre().getSthCod());
         }
         return fueNom;
     }
@@ -72,7 +72,7 @@ public class LibroActor {
     public List<String> getFueNom(){
         List<String> fueNom = new ArrayList<>();
         for (Stakeholder stake : stakes) {
-            fueNom.add(stake.getSthNom().getSthNom());
+            fueNom.add(stake.getSthNombre().getSthNom());
         }
         return fueNom;
     }

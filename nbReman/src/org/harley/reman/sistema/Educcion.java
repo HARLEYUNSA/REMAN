@@ -3,24 +3,23 @@ package org.harley.reman.sistema;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-    @XmlRootElement
-    @XmlType(propOrder = {
-        "eduNombre",
-        "eduVer",
-        "eduTip",
-        "eduObj",
-        "eduFec",
-        "eduFueNom",
-        "eduFueCar",
-        "eduFueTip",
-        "eduEspNom",
-        "eduEspEsp",
-        "eduEspExp",
-        "eduEspCar",
-        "eduDes",
-        "eduObs"
-    })
-    
+@XmlRootElement
+@XmlType(propOrder = {
+    "eduNombre",
+    "eduVer",
+    "eduTip",
+    "eduObj",
+    "eduFec",
+    "eduFueNom",
+    "eduFueCar",
+    "eduFueTip",
+    "eduEspNom",
+    "eduEspEsp",
+    "eduEspExp",
+    "eduEspCar",
+    "eduDes",
+    "eduObs"
+})  
 public class Educcion {
     private static int numero = 0;
     private static String codigo = "EDU0000";
@@ -40,17 +39,6 @@ public class Educcion {
     String eduObs;
     
     public Educcion() {    }
-
-    public static int getNumero() {
-        return numero;
-    }
-
-    public static void setNumero(int numero) {
-        Educcion.numero = numero;
-        for (int i = 0; i < numero; i++){
-            codigo = ToolsSystem.IncrementarCodigo(codigo);
-        }
-    }
 
     public Educcion(String eduCod, String eduNom, String eduVer, String eduTip, 
             String eduObj, String eduFec, String eduFueNom, String eduFueCar, 
@@ -92,6 +80,17 @@ public class Educcion {
         this.eduFec = eduFec;
         this.eduDes = eduDes;
         this.eduObs = eduObs;
+    }
+    
+    public static int getNumero() {
+        return numero;
+    }
+
+    public static void setNumero(int numero) {
+        Educcion.numero = numero;
+        for (int i = 0; i < numero; i++){
+            codigo = ToolsSystem.IncrementarCodigo(codigo);
+        }
     }
 
     public static String getCodigo() {

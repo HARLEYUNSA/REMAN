@@ -1,10 +1,14 @@
 package org.harley.reman.sistema;
 
-/**
- *
- * @author Gonzalo
- */
-class PytNombre {
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement
+@XmlType(propOrder = {
+    "pytCod",
+    "pytNom"
+})
+public class PytNombre {
 
     String pytCod;
     String pytNom;

@@ -1,8 +1,13 @@
 package org.harley.reman.sistema;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlType(propOrder = {
+    "eliCod",
+    "eliNom"
+})
 public class EliNombre {
 
     String eliCod;
@@ -31,5 +36,4 @@ public class EliNombre {
     public void setEliNom(String descripcion) {
         this.eliNom = descripcion;
     }
-
 }

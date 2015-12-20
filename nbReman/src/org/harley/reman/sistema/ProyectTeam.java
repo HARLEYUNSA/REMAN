@@ -13,10 +13,9 @@ import javax.xml.bind.annotation.XmlType;
     "pytCor",
     "pytCom"
 })
-
-public class ProyectTeam extends Actor{
+public class ProyectTeam{
     private static int numero = 0;
-    private static String codigo = "pyt0000";
+    private static String codigo = "PYT0000";
     PytNombre teamNombre;
     String pytOrg;
     String pytEsp;
@@ -57,6 +56,18 @@ public class ProyectTeam extends Actor{
         this.pytCom = pytCom;
     }
 
+    public ProyectTeam(String pytCod, String pytNom, String pytOrg, 
+            String pytEsp, String pytExp, String pytCar, String pytCor, 
+            String pytCom) {
+        this.teamNombre = new PytNombre(pytCod, pytNom);
+        this.pytOrg = pytOrg;
+        this.pytEsp = pytEsp;
+        this.pytExp = pytExp;
+        this.pytCar = pytCar;
+        this.pytCor = pytCor;
+        this.pytCom = pytCom;
+    }
+    
     public static String getCodigo() {
         return codigo;
     }

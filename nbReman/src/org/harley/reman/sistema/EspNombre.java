@@ -1,8 +1,13 @@
 package org.harley.reman.sistema;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlType(propOrder = {
+    "espCod",
+    "espNom"
+})
 public class EspNombre {
 
     String espCod;
