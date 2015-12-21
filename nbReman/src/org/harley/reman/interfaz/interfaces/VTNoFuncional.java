@@ -22,17 +22,17 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
             // Se obtiene el path para esa fila. Con el path podemos obtener
             // los nodos.
             if (e.getButton() == MouseEvent.BUTTON3) {
-                TreePath selPath = treeEdu.getPathForLocation(e.getX(), e.getY());
-                treeEdu.setSelectionPath(selPath);
+                TreePath selPath = treeRnf.getPathForLocation(e.getX(), e.getY());
+                treeRnf.setSelectionPath(selPath);
                 if (selPath != null) {
                     switch (selPath.getLastPathComponent().toString()) {
-                        case "Documento de Educción":
-                            menuDocEdu.show(e.getComponent(), e.getX(), e.getY() + 10);
+                        case "Documento de Req no Funcional":
                             break;
-                        case "Educción":
+                        case "Req no Funcional":
+                            menuDocRnf.show(e.getComponent(), e.getX(), e.getY() + 10);
                             break;
                         default:
-                            menuEdu.show(e.getComponent(), e.getX(), e.getY() + 10);
+                            menuRnf.show(e.getComponent(), e.getX(), e.getY() + 10);
                             break;
                     }
                 }
@@ -40,18 +40,17 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
         }
     };
 
-    /**
-     * Creates new form VTEduccion
-     *
-     * @param tree arbol que se muestra en la educcion
-     */
     public VTNoFuncional(JTree tree) {
         initComponents();
-        treeEdu.setModel(tree.getModel());
-        treeEdu.addMouseListener(ml);
-
+        treeRnf.setModel(tree.getModel());
+        treeRnf.addMouseListener(ml);
     }
 
+    public VTNoFuncional() {
+        initComponents();
+        treeRnf.addMouseListener(ml);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,59 +60,59 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menuDocEdu = new javax.swing.JPopupMenu();
-        menuDocEduItem1 = new javax.swing.JMenuItem();
-        menuEdu = new javax.swing.JPopupMenu();
-        menuEduItem1 = new javax.swing.JMenuItem();
-        menuEduItem2 = new javax.swing.JMenuItem();
-        menuEduItem3 = new javax.swing.JMenuItem();
+        menuDocRnf = new javax.swing.JPopupMenu();
+        menuDocRnfItem1 = new javax.swing.JMenuItem();
+        menuRnf = new javax.swing.JPopupMenu();
+        menuRnfItem1 = new javax.swing.JMenuItem();
+        menuRnfItem2 = new javax.swing.JMenuItem();
+        menuRnfItem3 = new javax.swing.JMenuItem();
         scrollTree = new javax.swing.JScrollPane();
-        treeEdu = new javax.swing.JTree();
+        treeRnf = new javax.swing.JTree();
 
-        menuDocEduItem1.setText("Crear Educción");
-        menuDocEduItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuDocRnfItem1.setText("Crear Req no Funcional");
+        menuDocRnfItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuDocEduItem1ActionPerformed(evt);
+                menuDocRnfItem1ActionPerformed(evt);
             }
         });
-        menuDocEdu.add(menuDocEduItem1);
+        menuDocRnf.add(menuDocRnfItem1);
 
-        menuEduItem1.setText("Modificar");
-        menuEduItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuRnfItem1.setText("Modificar");
+        menuRnfItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuEduItem1ActionPerformed(evt);
+                menuRnfItem1ActionPerformed(evt);
             }
         });
-        menuEdu.add(menuEduItem1);
+        menuRnf.add(menuRnfItem1);
 
-        menuEduItem2.setText("Eliminar");
-        menuEduItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuRnfItem2.setText("Eliminar");
+        menuRnfItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuEduItem2ActionPerformed(evt);
+                menuRnfItem2ActionPerformed(evt);
             }
         });
-        menuEdu.add(menuEduItem2);
+        menuRnf.add(menuRnfItem2);
 
-        menuEduItem3.setText("Restaurar");
-        menuEduItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuRnfItem3.setText("Restaurar");
+        menuRnfItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuEduItem3ActionPerformed(evt);
+                menuRnfItem3ActionPerformed(evt);
             }
         });
-        menuEdu.add(menuEduItem3);
+        menuRnf.add(menuRnfItem3);
 
         setMaximizable(true);
         setResizable(true);
         setPreferredSize(new java.awt.Dimension(250, 322));
 
-        treeEdu.setBackground(new java.awt.Color(217, 221, 255));
+        treeRnf.setBackground(new java.awt.Color(217, 221, 255));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Documento de la Educción");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Educción");
         javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("EDU 0001");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        treeEdu.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        scrollTree.setViewportView(treeEdu);
+        treeRnf.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        scrollTree.setViewportView(treeRnf);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,36 +128,39 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuDocEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEduItem1ActionPerformed
+    private void menuDocRnfItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocRnfItem1ActionPerformed
         //NUEVA EDUCCION
         VEduccion veduccion = new VEduccion();
         veduccion.setVisible(true);
-    }//GEN-LAST:event_menuDocEduItem1ActionPerformed
+    }//GEN-LAST:event_menuDocRnfItem1ActionPerformed
 
-    private void menuEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem1ActionPerformed
+    private void menuRnfItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRnfItem1ActionPerformed
         //MODIFICAR EDUCCION
         VMEduccion vmeduccion = new VMEduccion();
         vmeduccion.setVisible(true);
-    }//GEN-LAST:event_menuEduItem1ActionPerformed
+    }//GEN-LAST:event_menuRnfItem1ActionPerformed
 
-    private void menuEduItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem2ActionPerformed
+    private void menuRnfItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRnfItem2ActionPerformed
         //ELIMINAR
         int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
-    }//GEN-LAST:event_menuEduItem2ActionPerformed
+    }//GEN-LAST:event_menuRnfItem2ActionPerformed
 
-    private void menuEduItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem3ActionPerformed
+    private void menuRnfItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRnfItem3ActionPerformed
         //RESTAURAR
-    }//GEN-LAST:event_menuEduItem3ActionPerformed
+    }//GEN-LAST:event_menuRnfItem3ActionPerformed
 
+    public void actualizar(JTree tree){
+        treeRnf.setModel(tree.getModel());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPopupMenu menuDocEdu;
-    private javax.swing.JMenuItem menuDocEduItem1;
-    private javax.swing.JPopupMenu menuEdu;
-    private javax.swing.JMenuItem menuEduItem1;
-    private javax.swing.JMenuItem menuEduItem2;
-    private javax.swing.JMenuItem menuEduItem3;
+    private javax.swing.JPopupMenu menuDocRnf;
+    private javax.swing.JMenuItem menuDocRnfItem1;
+    private javax.swing.JPopupMenu menuRnf;
+    private javax.swing.JMenuItem menuRnfItem1;
+    private javax.swing.JMenuItem menuRnfItem2;
+    private javax.swing.JMenuItem menuRnfItem3;
     private javax.swing.JScrollPane scrollTree;
-    private javax.swing.JTree treeEdu;
+    private javax.swing.JTree treeRnf;
     // End of variables declaration//GEN-END:variables
 }

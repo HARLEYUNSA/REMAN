@@ -15,12 +15,12 @@ public class VPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VPincipal
      */
-    VTElicitacion velicita;
-    VTEduccion veduccion;
-    VTOrganizacion vorganiza;
-    VTEspecificacion vespecifica;
-    VTNoFuncional vnofuncional;
-    VTInicio vinicio;
+    VTElicitacion venEli;
+    VTEduccion venEdu;
+    VTOrganizacion venOrg;
+    VTEspecificacion venEsp;
+    VTNoFuncional venNoFun;
+    VTInicio venIni;
     Sistema sysReman;
 
     public VPrincipal(Sistema sysReman) {
@@ -29,29 +29,33 @@ public class VPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
         sysReman.cargarStateReman();
-        
+
+        //agrega pantalla de inicio
         VDocumento nuevo = new VDocumento();
-        jDesktopPane1.add(nuevo);
+        DeskPanel1.add(nuevo);
         try {
             nuevo.setMaximum(true);
         } catch (PropertyVetoException ex) {
-
         }
         nuevo.show();
-        veduccion = new VTEduccion(ToolsInterface.generateJTreeBook("Documento de Educción","Educción",sysReman.getDirPrincipal() + "\\src\\edu"));
-        velicita = new VTElicitacion(ToolsInterface.generateJTreeBook("Documento de Elicitación","Elicitación",sysReman.getDirPrincipal() + "\\src\\eli"));
-        vespecifica = new VTEspecificacion(ToolsInterface.generateJTreeBook("Documento de Espesificación","Espesificación",sysReman.getDirPrincipal() + "\\src\\esp"));
-        vnofuncional = new VTNoFuncional(ToolsInterface.generateJTreeBook("Documento de Req no Funcional","Req no Funcional",sysReman.getDirPrincipal() + "\\src\\rnf"));
-        vorganiza = new VTOrganizacion(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
-        vinicio = new VTInicio();
-        jDesktopPane2.add(vinicio);
-        vinicio.show();
-        jDesktopPane2.add(velicita);
-        jDesktopPane2.add(veduccion);
-        jDesktopPane2.add(vorganiza);
-        jDesktopPane2.add(vespecifica);
-        jDesktopPane2.add(vnofuncional);
+        
+        venEdu = new VTEduccion();
+        venEli = new VTElicitacion();
+        venEsp = new VTEspecificacion();
+        venNoFun = new VTNoFuncional();
+        venOrg = new VTOrganizacion();
+        actualizarJTrees();
+        
+        venIni = new VTInicio();
+        DeskPanel2.add(venIni);
+        venIni.show();
+        DeskPanel2.add(venEli);
+        DeskPanel2.add(venEdu);
+        DeskPanel2.add(venOrg);
+        DeskPanel2.add(venEsp);
+        DeskPanel2.add(venNoFun);
 
+        //ayudas graficas
         btnVPAbrir.setToolTipText("Abrir");
         btnVPAyuda.setToolTipText("Ayuda");
         btnVPEduccion.setToolTipText("Agregar Educcion");
@@ -79,7 +83,7 @@ public class VPrincipal extends javax.swing.JFrame {
         ExportarFile = new javax.swing.JFileChooser();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
-        jToolBar1 = new javax.swing.JToolBar();
+        herramientasReman = new javax.swing.JToolBar();
         btnVPNuevo = new javax.swing.JButton();
         btnVPAbrir = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -98,15 +102,15 @@ public class VPrincipal extends javax.swing.JFrame {
         btnVPExportar = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
         btnVPAyuda = new javax.swing.JButton();
-        jToolBar5 = new javax.swing.JToolBar();
+        LibrosReman = new javax.swing.JToolBar();
         btnOrganizacion = new javax.swing.JButton();
         btnEduccion = new javax.swing.JButton();
         btnElicitacion = new javax.swing.JButton();
         btnEspecificacion = new javax.swing.JButton();
         btnNoFuncional = new javax.swing.JButton();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
-        jDesktopPane2 = new javax.swing.JDesktopPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        DeskPanel1 = new javax.swing.JDesktopPane();
+        DeskPanel2 = new javax.swing.JDesktopPane();
+        menuReman = new javax.swing.JMenuBar();
         mnVPArchivo = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -128,11 +132,11 @@ public class VPrincipal extends javax.swing.JFrame {
         setTitle("REMAN 1.3.0 - Gestor de Requerimientos");
         setBackground(new java.awt.Color(119, 148, 171));
 
-        jToolBar1.setBackground(new java.awt.Color(203, 210, 228));
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
-        jToolBar1.setMaximumSize(new java.awt.Dimension(300, 37));
-        jToolBar1.setPreferredSize(new java.awt.Dimension(210, 35));
+        herramientasReman.setBackground(new java.awt.Color(203, 210, 228));
+        herramientasReman.setFloatable(false);
+        herramientasReman.setRollover(true);
+        herramientasReman.setMaximumSize(new java.awt.Dimension(300, 37));
+        herramientasReman.setPreferredSize(new java.awt.Dimension(210, 35));
 
         btnVPNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/1. iconoNuevo.png"))); // NOI18N
         btnVPNuevo.setFocusable(false);
@@ -146,7 +150,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPNuevoActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPNuevo);
+        herramientasReman.add(btnVPNuevo);
 
         btnVPAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/2. iconoAbrir.png"))); // NOI18N
         btnVPAbrir.setFocusable(false);
@@ -159,8 +163,8 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPAbrirActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPAbrir);
-        jToolBar1.add(jSeparator1);
+        herramientasReman.add(btnVPAbrir);
+        herramientasReman.add(jSeparator1);
 
         btnVPVersionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/4. iconoVersionar.png"))); // NOI18N
         btnVPVersionar.setFocusable(false);
@@ -174,7 +178,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPVersionarActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPVersionar);
+        herramientasReman.add(btnVPVersionar);
 
         btnVPImportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/iconoImportarLibro.png"))); // NOI18N
         btnVPImportar.setToolTipText("");
@@ -189,8 +193,8 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPImportarActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPImportar);
-        jToolBar1.add(jSeparator3);
+        herramientasReman.add(btnVPImportar);
+        herramientasReman.add(jSeparator3);
 
         btnVPFuente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/6. iconoAgregarFuente.png"))); // NOI18N
         btnVPFuente.setFocusable(false);
@@ -204,7 +208,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPFuenteActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPFuente);
+        herramientasReman.add(btnVPFuente);
 
         btnVPEspecialista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/5. iconoAgregarEspecialista.png"))); // NOI18N
         btnVPEspecialista.setFocusable(false);
@@ -218,8 +222,8 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPEspecialistaActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPEspecialista);
-        jToolBar1.add(jSeparator4);
+        herramientasReman.add(btnVPEspecialista);
+        herramientasReman.add(jSeparator4);
 
         btnVPOrganizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/7. iconoAgregarOrganizacion.png"))); // NOI18N
         btnVPOrganizacion.setFocusable(false);
@@ -233,7 +237,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPOrganizacionActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPOrganizacion);
+        herramientasReman.add(btnVPOrganizacion);
 
         btnVPEduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/8. iconoAgregarEduccion.png"))); // NOI18N
         btnVPEduccion.setFocusable(false);
@@ -247,7 +251,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPEduccionActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPEduccion);
+        herramientasReman.add(btnVPEduccion);
 
         btnVPElicitacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/9. iconoAgregarElicitacion.png"))); // NOI18N
         btnVPElicitacion.setFocusable(false);
@@ -261,7 +265,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPElicitacionActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPElicitacion);
+        herramientasReman.add(btnVPElicitacion);
 
         btnVPEspecificiacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/10. iconoAgregarEspecificacion.png"))); // NOI18N
         btnVPEspecificiacion.setFocusable(false);
@@ -275,7 +279,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPEspecificiacionActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPEspecificiacion);
+        herramientasReman.add(btnVPEspecificiacion);
 
         btnVPNoFuncional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/iconoAgregarRequisitoNoFuncional.png"))); // NOI18N
         btnVPNoFuncional.setFocusable(false);
@@ -289,8 +293,8 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPNoFuncionalActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPNoFuncional);
-        jToolBar1.add(jSeparator7);
+        herramientasReman.add(btnVPNoFuncional);
+        herramientasReman.add(jSeparator7);
 
         btnVPExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/11. iconoExportarDocumento.png"))); // NOI18N
         btnVPExportar.setFocusable(false);
@@ -301,21 +305,21 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnVPExportarActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnVPExportar);
-        jToolBar1.add(jSeparator5);
+        herramientasReman.add(btnVPExportar);
+        herramientasReman.add(jSeparator5);
 
         btnVPAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/13. iconoAyuda.png"))); // NOI18N
         btnVPAyuda.setFocusable(false);
         btnVPAyuda.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnVPAyuda.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnVPAyuda);
+        herramientasReman.add(btnVPAyuda);
 
-        jToolBar5.setBackground(new java.awt.Color(203, 210, 228));
-        jToolBar5.setFloatable(false);
-        jToolBar5.setRollover(true);
-        jToolBar5.setMaximumSize(new java.awt.Dimension(210, 53));
-        jToolBar5.setMinimumSize(new java.awt.Dimension(210, 53));
-        jToolBar5.setPreferredSize(new java.awt.Dimension(210, 53));
+        LibrosReman.setBackground(new java.awt.Color(203, 210, 228));
+        LibrosReman.setFloatable(false);
+        LibrosReman.setRollover(true);
+        LibrosReman.setMaximumSize(new java.awt.Dimension(210, 53));
+        LibrosReman.setMinimumSize(new java.awt.Dimension(210, 53));
+        LibrosReman.setPreferredSize(new java.awt.Dimension(210, 53));
 
         btnOrganizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/libroOrganizacion.png"))); // NOI18N
         btnOrganizacion.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -326,7 +330,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnOrganizacionActionPerformed(evt);
             }
         });
-        jToolBar5.add(btnOrganizacion);
+        LibrosReman.add(btnOrganizacion);
 
         btnEduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/libroEduccion.png"))); // NOI18N
         btnEduccion.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -337,7 +341,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnEduccionActionPerformed(evt);
             }
         });
-        jToolBar5.add(btnEduccion);
+        LibrosReman.add(btnEduccion);
 
         btnElicitacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/libroElicitacion.png"))); // NOI18N
         btnElicitacion.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -348,7 +352,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnElicitacionActionPerformed(evt);
             }
         });
-        jToolBar5.add(btnElicitacion);
+        LibrosReman.add(btnElicitacion);
 
         btnEspecificacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/libroEspecificacion.png"))); // NOI18N
         btnEspecificacion.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -359,7 +363,7 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnEspecificacionActionPerformed(evt);
             }
         });
-        jToolBar5.add(btnEspecificacion);
+        LibrosReman.add(btnEspecificacion);
 
         btnNoFuncional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/harley/reman/interfaz/iconos/libroRequisitosNoFuncionales.png"))); // NOI18N
         btnNoFuncional.setFocusable(false);
@@ -373,31 +377,31 @@ public class VPrincipal extends javax.swing.JFrame {
                 btnNoFuncionalActionPerformed(evt);
             }
         });
-        jToolBar5.add(btnNoFuncional);
+        LibrosReman.add(btnNoFuncional);
 
-        jDesktopPane1.setBackground(new java.awt.Color(119, 148, 171));
+        DeskPanel1.setBackground(new java.awt.Color(119, 148, 171));
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout DeskPanel1Layout = new javax.swing.GroupLayout(DeskPanel1);
+        DeskPanel1.setLayout(DeskPanel1Layout);
+        DeskPanel1Layout.setHorizontalGroup(
+            DeskPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 493, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        DeskPanel1Layout.setVerticalGroup(
+            DeskPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jDesktopPane2.setBackground(new java.awt.Color(119, 148, 171));
+        DeskPanel2.setBackground(new java.awt.Color(119, 148, 171));
 
-        javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
-        jDesktopPane2.setLayout(jDesktopPane2Layout);
-        jDesktopPane2Layout.setHorizontalGroup(
-            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout DeskPanel2Layout = new javax.swing.GroupLayout(DeskPanel2);
+        DeskPanel2.setLayout(DeskPanel2Layout);
+        DeskPanel2Layout.setHorizontalGroup(
+            DeskPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 254, Short.MAX_VALUE)
         );
-        jDesktopPane2Layout.setVerticalGroup(
-            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        DeskPanel2Layout.setVerticalGroup(
+            DeskPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 436, Short.MAX_VALUE)
         );
 
@@ -434,13 +438,13 @@ public class VPrincipal extends javax.swing.JFrame {
         });
         mnVPArchivo.add(jMenuItem4);
 
-        jMenuBar1.add(mnVPArchivo);
+        menuReman.add(mnVPArchivo);
 
         mnVPEditar.setText("Editar");
-        jMenuBar1.add(mnVPEditar);
+        menuReman.add(mnVPEditar);
 
         mnVPVer.setText("Ver");
-        jMenuBar1.add(mnVPVer);
+        menuReman.add(mnVPVer);
 
         mnVPHerramienta.setText("Herramientas");
 
@@ -452,10 +456,10 @@ public class VPrincipal extends javax.swing.JFrame {
         });
         mnVPHerramienta.add(jMenuItem7);
 
-        jMenuBar1.add(mnVPHerramienta);
+        menuReman.add(mnVPHerramienta);
 
         mnVPVentana.setText("Ventana");
-        jMenuBar1.add(mnVPVentana);
+        menuReman.add(mnVPVentana);
 
         mnVPAyuda.setText("Ayuda");
 
@@ -465,9 +469,9 @@ public class VPrincipal extends javax.swing.JFrame {
         jMenuItem6.setText("Acerca de ...");
         mnVPAyuda.add(jMenuItem6);
 
-        jMenuBar1.add(mnVPAyuda);
+        menuReman.add(mnVPAyuda);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuReman);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -475,26 +479,26 @@ public class VPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(herramientasReman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDesktopPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(DeskPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LibrosReman, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDesktopPane1)))
+                        .addComponent(DeskPanel1)))
                 .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(herramientasReman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(LibrosReman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDesktopPane2))
-                    .addComponent(jDesktopPane1))
+                        .addComponent(DeskPanel2))
+                    .addComponent(DeskPanel1))
                 .addContainerGap())
         );
 
@@ -547,35 +551,35 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {
-        vorganiza.show();
-        veduccion.hide();
-        vespecifica.hide();
-        velicita.hide();
-        vnofuncional.hide();
+        venOrg.show();
+        venEdu.hide();
+        venEsp.hide();
+        venEli.hide();
+        venNoFun.hide();
     }
 
     private void btnEduccionActionPerformed(java.awt.event.ActionEvent evt) {
-        veduccion.show();
-        vorganiza.hide();
-        vespecifica.hide();
-        velicita.hide();
-        vnofuncional.hide();
+        venEdu.show();
+        venOrg.hide();
+        venEsp.hide();
+        venEli.hide();
+        venNoFun.hide();
     }
 
     private void btnElicitacionActionPerformed(java.awt.event.ActionEvent evt) {
-        velicita.show();
-        vorganiza.hide();
-        veduccion.hide();
-        vespecifica.hide();
-        vnofuncional.hide();
+        venEli.show();
+        venOrg.hide();
+        venEdu.hide();
+        venEsp.hide();
+        venNoFun.hide();
     }
 
     private void btnEspecificacionActionPerformed(java.awt.event.ActionEvent evt) {
-        vnofuncional.hide();
-        vespecifica.show();
-        vorganiza.hide();
-        veduccion.hide();
-        velicita.hide();
+        venNoFun.hide();
+        venEsp.show();
+        venOrg.hide();
+        venEdu.hide();
+        venEli.hide();
     }
 
     private void btnVPAbrirActionPerformed(java.awt.event.ActionEvent evt) {
@@ -584,11 +588,10 @@ public class VPrincipal extends javax.swing.JFrame {
         int opt = ExportarFile.showOpenDialog(this);
         String direccion = "";
         if (opt == JFileChooser.APPROVE_OPTION) {
-
-            System.out.println(direccion = ExportarFile.getSelectedFile().getParent());
+            direccion = ExportarFile.getSelectedFile().getParent();
+            sysReman.setDirPrincipal(direccion);
+            actualizarJTrees();
         }
-        sysReman.setDirPrincipal(direccion);
-
     }
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -604,12 +607,12 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnNoFuncionalActionPerformed(java.awt.event.ActionEvent evt) {
-        vnofuncional.show();
-        velicita.hide();
-        vorganiza.hide();
-        veduccion.hide();
-        vespecifica.hide();
-        vinicio.hide();
+        venNoFun.show();
+        venEli.hide();
+        venOrg.hide();
+        venEdu.hide();
+        venEsp.hide();
+        venIni.hide();
     }
 
     private void btnVPNoFuncionalActionPerformed(java.awt.event.ActionEvent evt) {
@@ -628,12 +631,19 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void actualizarJTrees() {
-
+        venEdu.actualizar(ToolsInterface.generateJTreeBook("Documento de Educción", "Educción", sysReman.getDirPrincipal() + "\\src\\edu"));
+        venEli.actualizar(ToolsInterface.generateJTreeBook("Documento de Elicitación", "Elicitación", sysReman.getDirPrincipal() + "\\src\\eli"));
+        venEsp.actualizar(ToolsInterface.generateJTreeBook("Documento de Espesificación", "Espesificación", sysReman.getDirPrincipal() + "\\src\\esp"));
+        venNoFun.actualizar(ToolsInterface.generateJTreeBook("Documento de Req no Funcional", "Req no Funcional", sysReman.getDirPrincipal() + "\\src\\rnf"));
+        venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane DeskPanel1;
+    private javax.swing.JDesktopPane DeskPanel2;
     private javax.swing.JFileChooser ExportarFile;
+    private javax.swing.JToolBar LibrosReman;
     private javax.swing.JButton btnEduccion;
     private javax.swing.JButton btnElicitacion;
     private javax.swing.JButton btnEspecificacion;
@@ -652,9 +662,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnVPNuevo;
     private javax.swing.JButton btnVPOrganizacion;
     private javax.swing.JButton btnVPVersionar;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JDesktopPane jDesktopPane2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JToolBar herramientasReman;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
@@ -669,8 +677,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JToolBar.Separator jSeparator7;
-    private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JToolBar jToolBar5;
+    private javax.swing.JMenuBar menuReman;
     private javax.swing.JMenu mnVPArchivo;
     private javax.swing.JMenu mnVPAyuda;
     private javax.swing.JMenu mnVPEditar;
