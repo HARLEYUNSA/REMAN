@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
 
 /**
  *
@@ -22,34 +23,47 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             // Se obtiene el path para esa fila. Con el path podemos obtener
             // los nodos.
             if (e.getButton() == MouseEvent.BUTTON3) {
-                TreePath selPath = treeEdu.getPathForLocation(e.getX(), e.getY());
-                treeEdu.setSelectionPath(selPath);
+                TreePath selPath = treeOrgMain.getPathForLocation(e.getX(), e.getY());
+                treeOrgMain.setSelectionPath(selPath);
                 if (selPath != null) {
                     switch (selPath.getLastPathComponent().toString()) {
-                        case "Documento de Educción":
-                            menuDocEdu.show(e.getComponent(), e.getX(), e.getY() + 10);
+                        case "Documentos de la Organización":
                             break;
-                        case "Educción":
+                        case "Organización":
+                            menuDocOrg.show(e.getComponent(), e.getX(), e.getY() + 10);
                             break;
-                        default:
-                            menuEdu.show(e.getComponent(), e.getX(), e.getY() + 10);
+                        case "Actores":
                             break;
+                        case "Especialista":
+                            menuDocPyt.show(e.getComponent(), e.getX(), e.getY() + 10);
+                            break;
+                        case "Fuente":
+                            menuDocSth.show(e.getComponent(), e.getX(), e.getY() + 10);
+                            break;
+                    }
+                    if (ToolsInterface.checkExpReg("ORG[0-9][0-9][0-9][0-9]", selPath.getLastPathComponent().toString())) {
+                        menuOrg.show(e.getComponent(), e.getX(), e.getY() + 10);
+                    }
+                    if (ToolsInterface.checkExpReg("PYT[0-9][0-9][0-9][0-9]", selPath.getLastPathComponent().toString())) {
+                        menuPyt.show(e.getComponent(), e.getX(), e.getY() + 10);
+                    }
+                    if (ToolsInterface.checkExpReg("STH[0-9][0-9][0-9][0-9]", selPath.getLastPathComponent().toString())) {
+                        menuSth.show(e.getComponent(), e.getX(), e.getY() + 10);
                     }
                 }
             }
         }
     };
 
-    /**
-     * Creates new form VTEduccion
-     *
-     * @param tree arbol que se muestra en la educcion
-     */
     public VTOrganizacion(JTree tree) {
         initComponents();
-        treeEdu.setModel(tree.getModel());
-        treeEdu.addMouseListener(ml);
-
+        treeOrgMain.setModel(tree.getModel());
+        treeOrgMain.addMouseListener(ml);
+    }
+    
+    public VTOrganizacion() {
+        initComponents();
+        treeOrgMain.addMouseListener(ml);
     }
 
     /**
@@ -61,59 +75,95 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menuDocEdu = new javax.swing.JPopupMenu();
-        menuDocEduItem1 = new javax.swing.JMenuItem();
-        menuEdu = new javax.swing.JPopupMenu();
-        menuEduItem1 = new javax.swing.JMenuItem();
-        menuEduItem2 = new javax.swing.JMenuItem();
-        menuEduItem3 = new javax.swing.JMenuItem();
+        menuDocOrg = new javax.swing.JPopupMenu();
+        menuDocOrgItem1 = new javax.swing.JMenuItem();
+        menuOrg = new javax.swing.JPopupMenu();
+        menuOrgItem1 = new javax.swing.JMenuItem();
+        menuOrgItem2 = new javax.swing.JMenuItem();
+        menuOrgItem3 = new javax.swing.JMenuItem();
+        menuDocPyt = new javax.swing.JPopupMenu();
+        menuDocPytItem1 = new javax.swing.JMenuItem();
+        menuDocSth = new javax.swing.JPopupMenu();
+        menuDocSthItem1 = new javax.swing.JMenuItem();
+        menuPyt = new javax.swing.JPopupMenu();
+        menuPytItem1 = new javax.swing.JMenuItem();
+        menuPytItem2 = new javax.swing.JMenuItem();
+        menuPytItem3 = new javax.swing.JMenuItem();
+        menuSth = new javax.swing.JPopupMenu();
+        menuSthItem1 = new javax.swing.JMenuItem();
+        menuSthItem2 = new javax.swing.JMenuItem();
+        menuSthItem3 = new javax.swing.JMenuItem();
         scrollTree = new javax.swing.JScrollPane();
-        treeEdu = new javax.swing.JTree();
+        treeOrgMain = new javax.swing.JTree();
 
-        menuDocEduItem1.setText("Crear Educción");
-        menuDocEduItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuDocOrgItem1.setText("Crear Organizacion");
+        menuDocOrgItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuDocEduItem1ActionPerformed(evt);
+                menuDocOrgItem1ActionPerformed(evt);
             }
         });
-        menuDocEdu.add(menuDocEduItem1);
+        menuDocOrg.add(menuDocOrgItem1);
 
-        menuEduItem1.setText("Modificar");
-        menuEduItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuOrgItem1.setText("Modificar");
+        menuOrgItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuEduItem1ActionPerformed(evt);
+                menuOrgItem1ActionPerformed(evt);
             }
         });
-        menuEdu.add(menuEduItem1);
+        menuOrg.add(menuOrgItem1);
 
-        menuEduItem2.setText("Eliminar");
-        menuEduItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuOrgItem2.setText("Eliminar");
+        menuOrgItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuEduItem2ActionPerformed(evt);
+                menuOrgItem2ActionPerformed(evt);
             }
         });
-        menuEdu.add(menuEduItem2);
+        menuOrg.add(menuOrgItem2);
 
-        menuEduItem3.setText("Restaurar");
-        menuEduItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuOrgItem3.setText("Restaurar");
+        menuOrgItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuEduItem3ActionPerformed(evt);
+                menuOrgItem3ActionPerformed(evt);
             }
         });
-        menuEdu.add(menuEduItem3);
+        menuOrg.add(menuOrgItem3);
+
+        menuDocPytItem1.setText("Crear Especialista");
+        menuDocPyt.add(menuDocPytItem1);
+
+        menuDocSthItem1.setText("Crear Fuente");
+        menuDocSth.add(menuDocSthItem1);
+
+        menuPytItem1.setText("Modificar");
+        menuPyt.add(menuPytItem1);
+
+        menuPytItem2.setText("Eliminar");
+        menuPyt.add(menuPytItem2);
+
+        menuPytItem3.setText("Restaura");
+        menuPyt.add(menuPytItem3);
+
+        menuSthItem1.setText("Modificar");
+        menuSth.add(menuSthItem1);
+
+        menuSthItem2.setText("Eliminar");
+        menuSth.add(menuSthItem2);
+
+        menuSthItem3.setText("Restaurar");
+        menuSth.add(menuSthItem3);
 
         setMaximizable(true);
         setResizable(true);
         setPreferredSize(new java.awt.Dimension(250, 322));
 
-        treeEdu.setBackground(new java.awt.Color(217, 221, 255));
+        treeOrgMain.setBackground(new java.awt.Color(217, 221, 255));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Documento de la Educción");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Educción");
         javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("EDU 0001");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        treeEdu.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        scrollTree.setViewportView(treeEdu);
+        treeOrgMain.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        scrollTree.setViewportView(treeOrgMain);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,36 +179,51 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuDocEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEduItem1ActionPerformed
+    private void menuDocOrgItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocOrgItem1ActionPerformed
         //NUEVA EDUCCION
         VEduccion veduccion = new VEduccion();
         veduccion.setVisible(true);
-    }//GEN-LAST:event_menuDocEduItem1ActionPerformed
+    }//GEN-LAST:event_menuDocOrgItem1ActionPerformed
 
-    private void menuEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem1ActionPerformed
+    private void menuOrgItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem1ActionPerformed
         //MODIFICAR EDUCCION
         VMEduccion vmeduccion = new VMEduccion();
         vmeduccion.setVisible(true);
-    }//GEN-LAST:event_menuEduItem1ActionPerformed
+    }//GEN-LAST:event_menuOrgItem1ActionPerformed
 
-    private void menuEduItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem2ActionPerformed
+    private void menuOrgItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem2ActionPerformed
         //ELIMINAR
         int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
-    }//GEN-LAST:event_menuEduItem2ActionPerformed
+    }//GEN-LAST:event_menuOrgItem2ActionPerformed
 
-    private void menuEduItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem3ActionPerformed
+    private void menuOrgItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem3ActionPerformed
         //RESTAURAR
-    }//GEN-LAST:event_menuEduItem3ActionPerformed
+    }//GEN-LAST:event_menuOrgItem3ActionPerformed
 
+    public void actualizar(JTree tree){
+        treeOrgMain.setModel(tree.getModel());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPopupMenu menuDocEdu;
-    private javax.swing.JMenuItem menuDocEduItem1;
-    private javax.swing.JPopupMenu menuEdu;
-    private javax.swing.JMenuItem menuEduItem1;
-    private javax.swing.JMenuItem menuEduItem2;
-    private javax.swing.JMenuItem menuEduItem3;
+    private javax.swing.JPopupMenu menuDocOrg;
+    private javax.swing.JMenuItem menuDocOrgItem1;
+    private javax.swing.JPopupMenu menuDocPyt;
+    private javax.swing.JMenuItem menuDocPytItem1;
+    private javax.swing.JPopupMenu menuDocSth;
+    private javax.swing.JMenuItem menuDocSthItem1;
+    private javax.swing.JPopupMenu menuOrg;
+    private javax.swing.JMenuItem menuOrgItem1;
+    private javax.swing.JMenuItem menuOrgItem2;
+    private javax.swing.JMenuItem menuOrgItem3;
+    private javax.swing.JPopupMenu menuPyt;
+    private javax.swing.JMenuItem menuPytItem1;
+    private javax.swing.JMenuItem menuPytItem2;
+    private javax.swing.JMenuItem menuPytItem3;
+    private javax.swing.JPopupMenu menuSth;
+    private javax.swing.JMenuItem menuSthItem1;
+    private javax.swing.JMenuItem menuSthItem2;
+    private javax.swing.JMenuItem menuSthItem3;
     private javax.swing.JScrollPane scrollTree;
-    private javax.swing.JTree treeEdu;
+    private javax.swing.JTree treeOrgMain;
     // End of variables declaration//GEN-END:variables
 }

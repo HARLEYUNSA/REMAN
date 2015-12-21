@@ -5,6 +5,10 @@
  */
 package org.harley.reman.interfaz.interfaces;
 
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
 /**
  *
  * @author User
@@ -16,6 +20,7 @@ public class VTInicio extends javax.swing.JInternalFrame {
      */
     public VTInicio() {
         initComponents();
+        setModelJTree();
     }
 
     /**
@@ -27,13 +32,13 @@ public class VTInicio extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        trInicio = new javax.swing.JTree();
+        treeHelp = new javax.swing.JTree();
 
         setMaximizable(true);
         setResizable(true);
 
-        trInicio.setBackground(new java.awt.Color(217, 221, 255));
-        trInicio.setForeground(new java.awt.Color(217, 221, 255));
+        treeHelp.setBackground(new java.awt.Color(217, 221, 255));
+        treeHelp.setForeground(new java.awt.Color(217, 221, 255));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("MANUAL DE USO");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Como Empezar");
         treeNode1.add(treeNode2);
@@ -41,24 +46,35 @@ public class VTInicio extends javax.swing.JInternalFrame {
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Ejemplos");
         treeNode1.add(treeNode2);
-        trInicio.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        treeHelp.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(trInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+            .addComponent(treeHelp, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(trInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+            .addComponent(treeHelp, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    public void setModelJTree(){
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Ayuda del Sistema");
+        DefaultTreeModel modelo = new DefaultTreeModel(root);
+        DefaultMutableTreeNode tip1 = new DefaultMutableTreeNode("Manual de Usuario");
+        DefaultMutableTreeNode tip2 = new DefaultMutableTreeNode("Herramientas");
+        DefaultMutableTreeNode tip3 = new DefaultMutableTreeNode("Ejemplos");
+        modelo.insertNodeInto(tip1, root, 0);
+        modelo.insertNodeInto(tip2, root, 1);
+        modelo.insertNodeInto(tip3, root, 2);
+        treeHelp.setModel(modelo);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTree trInicio;
+    private javax.swing.JTree treeHelp;
     // End of variables declaration//GEN-END:variables
 }

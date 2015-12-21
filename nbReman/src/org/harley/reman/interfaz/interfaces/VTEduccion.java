@@ -27,9 +27,9 @@ public class VTEduccion extends javax.swing.JInternalFrame {
                 if (selPath != null) {
                     switch (selPath.getLastPathComponent().toString()) {
                         case "Documento de Educción":
-                            menuDocEdu.show(e.getComponent(), e.getX(), e.getY() + 10);
                             break;
                         case "Educción":
+                            menuDocEdu.show(e.getComponent(), e.getX(), e.getY() + 10);
                             break;
                         default:
                             menuEdu.show(e.getComponent(), e.getX(), e.getY() + 10);
@@ -40,16 +40,15 @@ public class VTEduccion extends javax.swing.JInternalFrame {
         }
     };
 
-    /**
-     * Creates new form VTEduccion
-     *
-     * @param tree arbol que se muestra en la educcion
-     */
     public VTEduccion(JTree tree) {
         initComponents();
         treeEdu.setModel(tree.getModel());
         treeEdu.addMouseListener(ml);
-
+    }
+    
+    public VTEduccion() {
+        initComponents();
+        treeEdu.addMouseListener(ml);
     }
 
     /**
@@ -150,6 +149,9 @@ public class VTEduccion extends javax.swing.JInternalFrame {
         //RESTAURAR
     }//GEN-LAST:event_menuEduItem3ActionPerformed
 
+    public void actualizar(JTree tree){
+        treeEdu.setModel(tree.getModel());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu menuDocEdu;

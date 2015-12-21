@@ -2,6 +2,8 @@ package org.harley.reman.interfaz.utilitario;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -119,7 +121,7 @@ public class ToolsInterface {
                 for (File fichero : ficheros) {
                     temp = fichero.getName();
                     if ((temp.length() > lengthExt) && (temp.substring(temp.length() - lengthExt, temp.length()).equals(extension))) {
-                        
+
                         rpt.add(fichero.getName());
                     }
                 }
@@ -127,7 +129,7 @@ public class ToolsInterface {
                 for (File fichero : ficheros) {
                     temp = fichero.getName();
                     if ((temp.length() > lengthExt) && (temp.substring(temp.length() - lengthExt, temp.length()).equals(extension))) {
-                        
+
                         rpt.add(temp.substring(0, temp.length() - lengthExt - 1));
                     }
                 }
@@ -137,4 +139,15 @@ public class ToolsInterface {
         return rpt;
     }
 
+    /**
+     * Devuelve si encuentra la expresion regular en el texto indicado
+     * @param expReg    expresion regular
+     * @param text      texto en donde se busca
+     * @return          true: encontro la exp Regular false: no encontro la exp Regular
+     */
+    public static boolean checkExpReg(String expReg, String text) {
+        Pattern pat = Pattern.compile(expReg);
+        Matcher mat = pat.matcher(text);
+        return mat.find();
+    }
 }

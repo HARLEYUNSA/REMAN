@@ -312,16 +312,13 @@ public class VProyecto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPCancelarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnPCancelarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //+++++++++++++++++++++++++++++++AVERIGUAR ACTUALIZR TEXT BOX AL MISMO TIEMPO !!!! +++++++++++++++++++++++++++++++++++++++++
         EscogeUbicacion.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int a = EscogeUbicacion.showOpenDialog(VProyecto.this);
         if (a == JFileChooser.APPROVE_OPTION) {
-            String nombre = txtPNombre.getText();
             String direccion = EscogeUbicacion.getSelectedFile().getAbsolutePath();
             txtPUbicacion.setText(direccion);
         }
@@ -354,7 +351,7 @@ public class VProyecto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error, llenar todos los campos");
         } else {
             sysReman.crearProyecto(proNom, prdNom, empDes, empCli, proLid, fecIni, fecFin, proUbi);
-            
+            sysReman.setStateRemanDir(proUbi);
             this.dispose();
         }
     }//GEN-LAST:event_btnPGuardarActionPerformed
