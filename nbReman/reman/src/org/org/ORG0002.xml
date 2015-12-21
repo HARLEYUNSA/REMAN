@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<organizacion>
+    <orgNom>
+        <orgCod>ORG0002</orgCod>
+        <orgNom>epis</orgNom>
+    </orgNom>
+    <orgDir></orgDir>
+    <orgTel></orgTel>
+    <orgPagWeb></orgPagWeb>
+    <orgCorEle></orgCorEle>
+    <orgCom></orgCom>
+</organizacion>
