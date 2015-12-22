@@ -1,4 +1,4 @@
-package org.harley.reman.xml;
+package org.harley.reman.reportes.xml;
 
 import java.io.File;
 import java.io.FileInputStream;

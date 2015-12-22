@@ -164,9 +164,6 @@ public class VVersionalElem extends javax.swing.JFrame {
 
     private void btnVEGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEGuardarActionPerformed
         // TODO add your handling code here:
-        VMEduccion vm = new VMEduccion();
-        vm.setVisible(false);
-        
     }//GEN-LAST:event_btnVEGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

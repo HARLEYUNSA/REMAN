@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import org.apache.commons.io.FileUtils;
-import org.harley.reman.xml.FileManager;
+import org.harley.reman.reportes.xml.FileManager;
 
 public class Sistema {
     
@@ -273,7 +273,7 @@ public class Sistema {
             iniciarManagers(proUbi);
             crearOrganizacion(empDes, "", "", "", "", "");    
             crearOrganizacion(empCli, "", "", "", "", "");    
-            crearProyectTeam(proLid, empDes, "", "", "", "", "");           
+            crearProyectTeam(proLid, empDes, "Desconocida", "Desconocida", "Lider", "a", "Autogenerado");           
             return true;
         }
         catch(Exception ex){
@@ -1258,27 +1258,47 @@ public class Sistema {
      * Devolver el conjunto de nombres de todas las fuentes del proyecto
      * @return 
      */
-    public List<String> getFuenteNombres(){
-        List<String> fueCod = new ArrayList<>();
+    public ArrayList<String> getFuenteNombres(){
+        ArrayList<String> fueNom = new ArrayList<>();
         File[] fuentes = new File(dirPrincipal + "//src//org//sth").listFiles();
         for (File fichero : fuentes) {
             String name = fichero.getName().split("\\.")[0];
-            fueCod.add(getStakeholder(name).getSthNombre().getSthNom());
+            fueNom.add(getStakeholder(name).getSthNombre().getSthNom());
         }
-        return fueCod;
+        return fueNom;
     }
     
     /**
      * 
      * @return 
      */
-    public List<String> getFuenteCodigo(){
+    public List<String> getFuenteCodigos(){
         List<String> fueCod = new ArrayList<>();
         File[] fuentes = new File(dirPrincipal + "//src//org//sth").listFiles();
         for (File fichero : fuentes) {
-            String name = fichero.getName().split("\\.")[0];
-            fueCod.add(getStakeholder(name).getSthNombre().getSthCod());
+            String cod = fichero.getName().split("\\.")[0];
+            fueCod.add(getStakeholder(cod).getSthNombre().getSthCod());
         }
         return fueCod;
+    }
+    
+    public ArrayList<String> getEspecialistaNombres(){
+        ArrayList<String> espNom = new ArrayList<>();
+        File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
+        for (File fichero : especialistas) {
+            String name = fichero.getName().split("\\.")[0];
+            espNom.add(getProyectTeam(name).getTeamNombre().getPytNom());
+        }
+        return espNom;
+    }
+    
+        public ArrayList<String> getEspecialistaCodigos(){
+        ArrayList<String> espCod = new ArrayList<>();
+        File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
+        for (File fichero : especialistas) {
+            String cod = fichero.getName().split("\\.")[0];
+            espCod.add(getProyectTeam(cod).getTeamNombre().getPytCod());
+        }
+        return espCod;
     }
 }

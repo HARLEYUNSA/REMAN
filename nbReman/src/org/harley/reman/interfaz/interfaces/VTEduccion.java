@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
@@ -16,16 +17,18 @@ import javax.swing.tree.TreePath;
  */
 public class VTEduccion extends javax.swing.JInternalFrame {
 
+    Sistema sysReman;
+    TreePath dirTree;
     MouseListener ml = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             // Se obtiene el path para esa fila. Con el path podemos obtener
             // los nodos.
             if (e.getButton() == MouseEvent.BUTTON3) {
-                TreePath selPath = treeEdu.getPathForLocation(e.getX(), e.getY());
-                treeEdu.setSelectionPath(selPath);
-                if (selPath != null) {
-                    switch (selPath.getLastPathComponent().toString()) {
+                dirTree = treeEdu.getPathForLocation(e.getX(), e.getY());
+                treeEdu.setSelectionPath(dirTree);
+                if (dirTree != null) {
+                    switch (dirTree.getLastPathComponent().toString()) {
                         case "Documento de Educción":
                             break;
                         case "Educción":
@@ -40,14 +43,16 @@ public class VTEduccion extends javax.swing.JInternalFrame {
         }
     };
 
-    public VTEduccion(JTree tree) {
+    public VTEduccion(Sistema sysReman, JTree tree) {
         initComponents();
+        this.sysReman = sysReman;
         treeEdu.setModel(tree.getModel());
         treeEdu.addMouseListener(ml);
     }
-    
-    public VTEduccion() {
+
+    public VTEduccion(Sistema sysReman) {
         initComponents();
+        this.sysReman = sysReman;
         treeEdu.addMouseListener(ml);
     }
 
@@ -130,26 +135,32 @@ public class VTEduccion extends javax.swing.JInternalFrame {
 
     private void menuDocEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEduItem1ActionPerformed
         //NUEVA EDUCCION
-        VEduccion veduccion = new VEduccion();
-        veduccion.setVisible(true);
+        new VEduccion(sysReman);
     }//GEN-LAST:event_menuDocEduItem1ActionPerformed
 
     private void menuEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem1ActionPerformed
         //MODIFICAR EDUCCION
-        VMEduccion vmeduccion = new VMEduccion();
-        vmeduccion.setVisible(true);
+        String nameXML = dirTree.getLastPathComponent().toString();
+        //System.out.println(dirTree.getLastPathComponent().toString());
+        new VMEduccion(sysReman,nameXML).setVisible(true);
+
     }//GEN-LAST:event_menuEduItem1ActionPerformed
 
     private void menuEduItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem2ActionPerformed
         //ELIMINAR
         int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
+        if (resp == 1) {
+            String nameXML = dirTree.getLastPathComponent().toString();
+            sysReman.eliminarEduccion(nameXML);
+        }
+
     }//GEN-LAST:event_menuEduItem2ActionPerformed
 
     private void menuEduItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem3ActionPerformed
         //RESTAURAR
     }//GEN-LAST:event_menuEduItem3ActionPerformed
 
-    public void actualizar(JTree tree){
+    public void actualizar(JTree tree) {
         treeEdu.setModel(tree.getModel());
     }
 

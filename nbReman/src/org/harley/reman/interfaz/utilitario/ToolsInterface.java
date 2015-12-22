@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -15,7 +16,8 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public class ToolsInterface {
 
-    public static void llenaCombo(JComboBox ComboBox, ArrayList<String> arr) {
+    public static void llenarJComboBox(JComboBox ComboBox, ArrayList<String> arr) {
+        ComboBox.removeAllItems();
         for (String arr1 : arr) {
             ComboBox.addItem(arr1);
         }
@@ -23,6 +25,10 @@ public class ToolsInterface {
 
     public static void vaciaCombo(JComboBox ComboBox, ArrayList<String> arr) {
         ComboBox.removeAllItems();
+    }
+
+    public static void msjError(String msj) {
+        JOptionPane.showMessageDialog(null, msj);
     }
 
     /**
@@ -141,9 +147,10 @@ public class ToolsInterface {
 
     /**
      * Devuelve si encuentra la expresion regular en el texto indicado
-     * @param expReg    expresion regular
-     * @param text      texto en donde se busca
-     * @return          true: encontro la exp Regular false: no encontro la exp Regular
+     *
+     * @param expReg expresion regular
+     * @param text texto en donde se busca
+     * @return true: encontro la exp Regular false: no encontro la exp Regular
      */
     public static boolean checkExpReg(String expReg, String text) {
         Pattern pat = Pattern.compile(expReg);

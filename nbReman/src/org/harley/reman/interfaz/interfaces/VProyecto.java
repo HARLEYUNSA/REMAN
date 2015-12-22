@@ -7,7 +7,7 @@ package org.harley.reman.interfaz.interfaces;
 
 import java.io.File;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
 
 /**
@@ -17,10 +17,10 @@ import org.harley.reman.sistema.Sistema;
 public class VProyecto extends javax.swing.JFrame {
 
     Sistema sysReman;
-
     public VProyecto(Sistema sysReman) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setVisible(true);
         this.sysReman = sysReman;
     }
 
@@ -317,8 +317,8 @@ public class VProyecto extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         EscogeUbicacion.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int a = EscogeUbicacion.showOpenDialog(VProyecto.this);
-        if (a == JFileChooser.APPROVE_OPTION) {
+        int path = EscogeUbicacion.showOpenDialog(VProyecto.this);
+        if (path == JFileChooser.APPROVE_OPTION) {
             String direccion = EscogeUbicacion.getSelectedFile().getAbsolutePath();
             txtPUbicacion.setText(direccion);
         }
@@ -335,7 +335,6 @@ public class VProyecto extends javax.swing.JFrame {
         String fecIni = dateChooserCombo1.getText();
         String fecFin = dateChooserCombo2.getText();
 
-        
         File url = new File(proUbi);
         if( !url.exists()){
             error = true;
@@ -348,10 +347,11 @@ public class VProyecto extends javax.swing.JFrame {
         }
 
         if (error) {
-            JOptionPane.showMessageDialog(null, "Error, llenar todos los campos");
+            ToolsInterface.msjError("Error, llenar todos los campos");
         } else {
             sysReman.crearProyecto(proNom, prdNom, empDes, empCli, proLid, fecIni, fecFin, proUbi);
-            sysReman.setStateRemanDir(proUbi);
+            sysReman.crearStateReman(proUbi);
+            sysReman.setDirPrincipal(proUbi);
             this.dispose();
         }
     }//GEN-LAST:event_btnPGuardarActionPerformed
