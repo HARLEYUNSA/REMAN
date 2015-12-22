@@ -86,51 +86,51 @@ public class ProyectTeam {
         this.teamNombre = teamNombre;
     }
 
-    public String getpytOrg() {
+    public String getPytOrg() {
         return pytOrg;
     }
 
-    public void setpytOrg(String pytOrg) {
+    public void setPytOrg(String pytOrg) {
         this.pytOrg = pytOrg;
     }
 
-    public String getpytEsp() {
+    public String getPytEsp() {
         return pytEsp;
     }
 
-    public void setpytEsp(String pytEsp) {
+    public void setPytEsp(String pytEsp) {
         this.pytEsp = pytEsp;
     }
 
-    public String getpytExp() {
+    public String getPytExp() {
         return pytExp;
     }
 
-    public void setpytExp(String pytExp) {
+    public void setPytExp(String pytExp) {
         this.pytExp = pytExp;
     }
 
-    public String getpytCar() {
+    public String getPytCar() {
         return pytCar;
     }
 
-    public void setpytCar(String pytCar) {
+    public void setPytCar(String pytCar) {
         this.pytCar = pytCar;
     }
 
-    public String getpytCor() {
+    public String getPytCor() {
         return pytCor;
     }
 
-    public void setpytCor(String pytCor) {
+    public void setPytCor(String pytCor) {
         this.pytCor = pytCor;
     }
 
-    public String getpytCom() {
+    public String getPytCom() {
         return pytCom;
     }
 
-    public void setpytCom(String pytCom) {
+    public void setPytCom(String pytCom) {
         this.pytCom = pytCom;
     }
 

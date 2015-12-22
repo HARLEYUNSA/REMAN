@@ -55,8 +55,6 @@ public class Stakeholder {
         this.sthCom = sthCom;
     }
 
-    
-    
     public static int getNumero() {
         return numero;
     }
@@ -115,6 +113,5 @@ public class Stakeholder {
     public void setSthCom(String sthCom) {
         this.sthCom = sthCom;
     }
-    
-    
+     
 }

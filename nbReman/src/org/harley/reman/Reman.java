@@ -19,6 +19,7 @@ public class Reman {
         //escribir aqui
         //</editor-fold>
         //</editor-fold>
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
