@@ -131,14 +131,10 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
 
     private void menuDocEspItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEspItem1ActionPerformed
         //NUEVA EDUCCION
-        VEduccion veduccion = new VEduccion();
-        veduccion.setVisible(true);
     }//GEN-LAST:event_menuDocEspItem1ActionPerformed
 
     private void menuEspItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEspItem1ActionPerformed
         //MODIFICAR EDUCCION
-        VMEduccion vmeduccion = new VMEduccion();
-        vmeduccion.setVisible(true);
     }//GEN-LAST:event_menuEspItem1ActionPerformed
 
     private void menuEspItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEspItem2ActionPerformed

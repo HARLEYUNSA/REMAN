@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlType;
     "pytCor",
     "pytCom"
 })
-public class ProyectTeam{
+public class ProyectTeam {
+
     private static int numero = 0;
     private static String codigo = "PYT0000";
     PytNombre teamNombre;
@@ -23,8 +24,9 @@ public class ProyectTeam{
     String pytCar;
     String pytCor;
     String pytCom;
-    
-    public ProyectTeam() {    }
+
+    public ProyectTeam() {
+    }
 
     public static int getNumero() {
         return numero;
@@ -32,7 +34,7 @@ public class ProyectTeam{
 
     public static void setNumero(int numero) {
         ProyectTeam.numero = numero;
-        for (int i = 0; i < numero; i++){
+        for (int i = 0; i < numero; i++) {
             codigo = ToolsSystem.IncrementarCodigo(codigo);
         }
     }
@@ -43,7 +45,7 @@ public class ProyectTeam{
         this.teamNombre = new PytNombre(codigo, pytNom);
     }
 
-    public ProyectTeam(String pytNom, String pytOrg, String pytEsp, 
+    public ProyectTeam(String pytNom, String pytOrg, String pytEsp,
             String pytExp, String pytCar, String pytCor, String pytCom) {
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
@@ -56,8 +58,8 @@ public class ProyectTeam{
         this.pytCom = pytCom;
     }
 
-    public ProyectTeam(String pytCod, String pytNom, String pytOrg, 
-            String pytEsp, String pytExp, String pytCar, String pytCor, 
+    public ProyectTeam(String pytCod, String pytNom, String pytOrg,
+            String pytEsp, String pytExp, String pytCar, String pytCor,
             String pytCom) {
         this.teamNombre = new PytNombre(pytCod, pytNom);
         this.pytOrg = pytOrg;
@@ -67,7 +69,7 @@ public class ProyectTeam{
         this.pytCor = pytCor;
         this.pytCom = pytCom;
     }
-    
+
     public static String getCodigo() {
         return codigo;
     }
@@ -131,6 +133,5 @@ public class ProyectTeam{
     public void setpytCom(String pytCom) {
         this.pytCom = pytCom;
     }
-    
-    
+
 }

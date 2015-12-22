@@ -6,6 +6,8 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.util.ArrayList;
+import org.harley.reman.sistema.Educcion;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
@@ -13,11 +15,18 @@ import java.util.ArrayList;
  */
 public class VMEduccion extends javax.swing.JFrame {
 
-    ArrayList<String> fuentes = new ArrayList<String>();
-    ArrayList<String> especialistas = new ArrayList<String>();
+    ArrayList<String> fuentes;
+    ArrayList<String> especialistas;
     VVersionalElem verElemento;
-    public VMEduccion() {
+    Sistema sysReman;
+    Educcion myEdu;
+
+    public VMEduccion(Sistema sysReman, String nameXML) {
         initComponents();
+        fuentes = new ArrayList<>();
+        especialistas = new ArrayList<>();
+        this.sysReman = sysReman;
+        myEdu = sysReman.recuperarEduccion(nameXML);
     }
 
     /**
@@ -557,7 +566,6 @@ public class VMEduccion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVEDCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDCancelarActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_btnVEDCancelarActionPerformed
 
@@ -565,25 +573,10 @@ public class VMEduccion extends javax.swing.JFrame {
         // TODO add your handling code here:
         verElemento = new VVersionalElem();
         verElemento.setVisible(true);
-        
+
     }//GEN-LAST:event_btnVEDVersionarActionPerformed
 
     private void btnVEDGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDGuardarActionPerformed
-        // TODO add your handling code here:
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
         String eduEspCar = txtMEDCargoE3.getText();
         String eduFueCar = txtMEDCargoF3.getText();
         String eduCod = txtMEDCodigo.getText();
@@ -597,41 +590,37 @@ public class VMEduccion extends javax.swing.JFrame {
         String eduObs = txtMEDObservaciones.getText();
         String eduTip = txtMEDTipo.getText();
         String eduFec = txtMEDFecha.getText();
-        String eduEspNom = (String)cmbMEDEspecialista.getSelectedItem();
-        String eduFueNom = (String)cmbMEDFuente.getSelectedItem();
-        
+        String eduEspNom = (String) cmbMEDEspecialista.getSelectedItem();
+        String eduFueNom = (String) cmbMEDFuente.getSelectedItem();
+
         /*/modificarEduccion(eduCod,eduNom,eduVer,eduTip,eduObj,eduFec,eduFueNom,
-                      eduFueCar,eduFueTip,eduEspNom,eduEspEsp,eduEspExp
-                            eduEspCar,eduDes,eduObs);*/
+         eduFueCar,eduFueTip,eduEspNom,eduEspEsp,eduEspExp
+         eduEspCar,eduDes,eduObs);*/
     }//GEN-LAST:event_btnVEDGuardarActionPerformed
-    
-    private void llenaDatos(){
-/*    //Educcion edu = recuperarEduccion();
-        txtEDTipoF3.setText(edu.getEduFueTip());
-        txtMEDCargoE3.setText(edu.getEduEspCar());
-        txtMEDCargoF3.setText(edu.getEduFueCar());
-        txtMEDCodigo.setText(edu.getEduCod());
-        txtMEDDescripcion.setText(edu.getEduDes());
-        txtMEDEspecialidad.setText(edu.getEduEspEsp());
-        txtMEDExperiencia.setText(edu.getEduEspExp());
-        txtMEDFTipo3.setText(edu.getEduFueTip());
-        txtMEDNombre.setText(edu.getEduNom());
-        txtMEDVersion.setText(edu.getEduVer());
-        txtMEDObjetivo.setText(edu.getEduObj());
-        txtMEDObservaciones.setText(edu.getEduObs());
-        txtMEDTipo.setText(edu.getEduTip());
-        txtMEDFecha.setText(edu.getEduFec());
-        cmbMEDEspecialista.setSelectedIndex(edu.getEduEspNom());
-        cmbMEDFuente.setSelectedIndex(edu.getEduFueNom());
-        *******
-        String fecha ="05/12/2008";
-      SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-      Date fechaDate = formato.parse(fecha);
-      jdcFecha.setDate(fechaDate);
-      } catch (ParseException ex) {
-        Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
-      }  *****
-        */
+
+    private void cargarEduccion() {
+        txtEDTipoF3.setText(myEdu.getEduFueTip());
+        txtMEDCargoE3.setText(myEdu.getEduEspCar());
+        txtMEDCargoF3.setText(myEdu.getEduFueCar());
+        //txtMEDCodigo.setText(myEdu.getEduCod());
+        txtMEDDescripcion.setText(myEdu.getEduDes());
+        txtMEDEspecialidad.setText(myEdu.getEduEspEsp());
+        txtMEDExperiencia.setText(myEdu.getEduEspExp());
+        txtMEDFTipo3.setText(myEdu.getEduFueTip());
+        //txtMEDNombre.setText(myEdu.getEduNom());
+        txtMEDVersion.setText(myEdu.getEduVer());
+        txtMEDObjetivo.setText(myEdu.getEduObj());
+        txtMEDObservaciones.setText(myEdu.getEduObs());
+        txtMEDTipo.setText(myEdu.getEduTip());
+        txtMEDFecha.setText(myEdu.getEduFec());
+       // cmbMEDEspecialista.setSelectedIndex(myEdu.getEduEspNom());
+        //cmbMEDFuente.setSelectedIndex(myEdu.getEduFueNom());
+/**
+        String fecha = "05/12/2008";
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaDate = formato.parse(fecha);
+        jdcFecha.setDate(fechaDate);
+*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
