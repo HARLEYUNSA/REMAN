@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import org.apache.commons.io.FileUtils;
-import org.harley.reman.xml.FileManager;
+import org.harley.reman.reportes.xml.FileManager;
 
 public class Sistema {
     
