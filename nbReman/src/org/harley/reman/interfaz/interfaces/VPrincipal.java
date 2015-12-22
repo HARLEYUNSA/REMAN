@@ -39,7 +39,7 @@ public class VPrincipal extends javax.swing.JFrame {
         }
         nuevo.show();
         
-        venEdu = new VTEduccion();
+        venEdu = new VTEduccion(sysReman);
         venEli = new VTElicitacion();
         venEsp = new VTEspecificacion();
         venNoFun = new VTNoFuncional();
@@ -536,7 +536,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPEduccionActionPerformed(java.awt.event.ActionEvent evt) {
-        VEduccion ventanaEd = new VEduccion();
+        VEduccion ventanaEd = new VEduccion(sysReman);
         ventanaEd.setVisible(true);
     }
 

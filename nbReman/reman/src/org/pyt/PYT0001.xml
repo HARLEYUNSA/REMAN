@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<proyectTeam>
+    <teamNombre>
+        <pytCod>PYT0001</pytCod>
+        <pytNom>cr</pytNom>
+    </teamNombre>
+    <pytOrg>harley</pytOrg>
+    <pytEsp></pytEsp>
+    <pytExp></pytExp>
+    <pytCar></pytCar>
+    <pytCor></pytCor>
+    <pytCom></pytCom>
+</proyectTeam>

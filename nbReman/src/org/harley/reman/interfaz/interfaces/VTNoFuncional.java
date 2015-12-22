@@ -130,14 +130,10 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
 
     private void menuDocRnfItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocRnfItem1ActionPerformed
         //NUEVA EDUCCION
-        VEduccion veduccion = new VEduccion();
-        veduccion.setVisible(true);
     }//GEN-LAST:event_menuDocRnfItem1ActionPerformed
 
     private void menuRnfItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRnfItem1ActionPerformed
         //MODIFICAR EDUCCION
-        VMEduccion vmeduccion = new VMEduccion();
-        vmeduccion.setVisible(true);
     }//GEN-LAST:event_menuRnfItem1ActionPerformed
 
     private void menuRnfItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRnfItem2ActionPerformed

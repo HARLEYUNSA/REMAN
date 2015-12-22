@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlType;
     "pytCor",
     "pytCom"
 })
-public class ProyectTeam{
+public class ProyectTeam {
+
     private static int numero = 0;
     private static String codigo = "PYT0000";
     PytNombre teamNombre;
@@ -23,8 +24,9 @@ public class ProyectTeam{
     String pytCar;
     String pytCor;
     String pytCom;
-    
-    public ProyectTeam() {    }
+
+    public ProyectTeam() {
+    }
 
     public static int getNumero() {
         return numero;
@@ -32,7 +34,7 @@ public class ProyectTeam{
 
     public static void setNumero(int numero) {
         ProyectTeam.numero = numero;
-        for (int i = 0; i < numero; i++){
+        for (int i = 0; i < numero; i++) {
             codigo = ToolsSystem.IncrementarCodigo(codigo);
         }
     }
@@ -43,7 +45,7 @@ public class ProyectTeam{
         this.teamNombre = new PytNombre(codigo, pytNom);
     }
 
-    public ProyectTeam(String pytNom, String pytOrg, String pytEsp, 
+    public ProyectTeam(String pytNom, String pytOrg, String pytEsp,
             String pytExp, String pytCar, String pytCor, String pytCom) {
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
@@ -56,8 +58,8 @@ public class ProyectTeam{
         this.pytCom = pytCom;
     }
 
-    public ProyectTeam(String pytCod, String pytNom, String pytOrg, 
-            String pytEsp, String pytExp, String pytCar, String pytCor, 
+    public ProyectTeam(String pytCod, String pytNom, String pytOrg,
+            String pytEsp, String pytExp, String pytCar, String pytCor,
             String pytCom) {
         this.teamNombre = new PytNombre(pytCod, pytNom);
         this.pytOrg = pytOrg;
@@ -67,7 +69,7 @@ public class ProyectTeam{
         this.pytCor = pytCor;
         this.pytCom = pytCom;
     }
-    
+
     public static String getCodigo() {
         return codigo;
     }
@@ -84,53 +86,52 @@ public class ProyectTeam{
         this.teamNombre = teamNombre;
     }
 
-    public String getpytOrg() {
+    public String getPytOrg() {
         return pytOrg;
     }
 
-    public void setpytOrg(String pytOrg) {
+    public void setPytOrg(String pytOrg) {
         this.pytOrg = pytOrg;
     }
 
-    public String getpytEsp() {
+    public String getPytEsp() {
         return pytEsp;
     }
 
-    public void setpytEsp(String pytEsp) {
+    public void setPytEsp(String pytEsp) {
         this.pytEsp = pytEsp;
     }
 
-    public String getpytExp() {
+    public String getPytExp() {
         return pytExp;
     }
 
-    public void setpytExp(String pytExp) {
+    public void setPytExp(String pytExp) {
         this.pytExp = pytExp;
     }
 
-    public String getpytCar() {
+    public String getPytCar() {
         return pytCar;
     }
 
-    public void setpytCar(String pytCar) {
+    public void setPytCar(String pytCar) {
         this.pytCar = pytCar;
     }
 
-    public String getpytCor() {
+    public String getPytCor() {
         return pytCor;
     }
 
-    public void setpytCor(String pytCor) {
+    public void setPytCor(String pytCor) {
         this.pytCor = pytCor;
     }
 
-    public String getpytCom() {
+    public String getPytCom() {
         return pytCom;
     }
 
-    public void setpytCom(String pytCom) {
+    public void setPytCom(String pytCom) {
         this.pytCom = pytCom;
     }
-    
-    
+
 }

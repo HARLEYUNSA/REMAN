@@ -33,7 +33,7 @@ public class PytNombre {
         return pytNom;
     }
 
-    public void setpytNom(String pytNom) {
+    public void setPytNom(String pytNom) {
         this.pytNom = pytNom;
     }
 

@@ -1,17 +1,37 @@
 package org.harley.reman.interfaz.interfaces;
+
 import java.util.ArrayList;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
+import org.harley.reman.sistema.Sistema;
+
 /**
  *
  * @author Joel Mendoza
  */
 public class VEduccion extends javax.swing.JFrame {
 
-    //ArrayList<String>p = new ArrayList<String>();
-    ToolsInterface u = new ToolsInterface();
-    public VEduccion() {
-//        u.llenaCombo(cmbEDEspecialista,p); //
+    ArrayList<String> codEspecialista;
+    ArrayList<String> codFuente;
+    Sistema sysReman;
+
+    public VEduccion(Sistema sysReman) {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.sysReman = sysReman;
+        codEspecialista = new ArrayList<>();
+        codFuente = new ArrayList<>();
+        try {
+            ToolsInterface.llenarJComboBox(cmbEDFuente, this.sysReman.getFuenteNombres());
+            codFuente.addAll(this.sysReman.getFuenteCodigos());
+            ToolsInterface.llenarJComboBox(cmbEDEspecialista, this.sysReman.getEspecialistaNombres());
+            codEspecialista.addAll(this.sysReman.getEspecialistaCodigos());
+            this.setVisible(true);
+        } catch (Exception e) {
+            ToolsInterface.msjError("Error al cargar los actores del proyecto!");
+            this.dispose();
+        }
+       
+
     }
 
     /**
@@ -537,13 +557,11 @@ public class VEduccion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVEDCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDCancelarActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_btnVEDCancelarActionPerformed
 
     private void btnVEDGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDGuardarActionPerformed
-        // TODO add your handling code here:
-        String eduEspCar =txtEDCargoE.getText();
+        String eduEspCar = txtEDCargoE.getText();
         String eduFueCar = txtEDCargoF.getText();
         String eduDes = txtEDDescripcion.getText();
         String eduEspEsp = txtEDEspecialidad.getText();
@@ -554,18 +572,11 @@ public class VEduccion extends javax.swing.JFrame {
         String eduTip = txtEDTipo.getText();
         String eduFueTip = txtEDTipoF.getText();
         String eduVer = txtEDVersion.getText();
-        String eduEspNom = (String)cmbEDEspecialista.getSelectedItem();
-        String eduFueNom = (String)cmbEDFuente.getSelectedItem();
+        String eduEspNom = (String) cmbEDEspecialista.getSelectedItem();
+        String eduFueNom = (String) cmbEDFuente.getSelectedItem();
         String eduFec = dtEDFecha.getText();
-        
-/*        crearEduccion(eduNom,eduVer,eduTip,eduObj,eduFec,eduFueNom,
-                      eduFueCar,eduFueTip,eduEspNom,eduEspEsp,eduEspExp
-                            eduEspCar,eduDes,eduObs);*/
-        
+        sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs);
     }//GEN-LAST:event_btnVEDGuardarActionPerformed
-
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVEDCancelar;

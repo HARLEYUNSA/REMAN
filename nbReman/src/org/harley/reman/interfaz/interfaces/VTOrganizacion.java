@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
@@ -17,16 +18,18 @@ import org.harley.reman.interfaz.utilitario.ToolsInterface;
  */
 public class VTOrganizacion extends javax.swing.JInternalFrame {
 
+    Sistema sysReman;
+    TreePath dirTree;
     MouseListener ml = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             // Se obtiene el path para esa fila. Con el path podemos obtener
             // los nodos.
             if (e.getButton() == MouseEvent.BUTTON3) {
-                TreePath selPath = treeOrgMain.getPathForLocation(e.getX(), e.getY());
-                treeOrgMain.setSelectionPath(selPath);
-                if (selPath != null) {
-                    switch (selPath.getLastPathComponent().toString()) {
+                dirTree = treeOrgMain.getPathForLocation(e.getX(), e.getY());
+                treeOrgMain.setSelectionPath(dirTree);
+                if (dirTree != null) {
+                    switch (dirTree.getLastPathComponent().toString()) {
                         case "Documentos de la Organización":
                             break;
                         case "Organización":
@@ -41,13 +44,13 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
                             menuDocSth.show(e.getComponent(), e.getX(), e.getY() + 10);
                             break;
                     }
-                    if (ToolsInterface.checkExpReg("ORG[0-9][0-9][0-9][0-9]", selPath.getLastPathComponent().toString())) {
+                    if (ToolsInterface.checkExpReg("ORG[0-9][0-9][0-9][0-9]", dirTree.getLastPathComponent().toString())) {
                         menuOrg.show(e.getComponent(), e.getX(), e.getY() + 10);
                     }
-                    if (ToolsInterface.checkExpReg("PYT[0-9][0-9][0-9][0-9]", selPath.getLastPathComponent().toString())) {
+                    if (ToolsInterface.checkExpReg("PYT[0-9][0-9][0-9][0-9]", dirTree.getLastPathComponent().toString())) {
                         menuPyt.show(e.getComponent(), e.getX(), e.getY() + 10);
                     }
-                    if (ToolsInterface.checkExpReg("STH[0-9][0-9][0-9][0-9]", selPath.getLastPathComponent().toString())) {
+                    if (ToolsInterface.checkExpReg("STH[0-9][0-9][0-9][0-9]", dirTree.getLastPathComponent().toString())) {
                         menuSth.show(e.getComponent(), e.getX(), e.getY() + 10);
                     }
                 }
@@ -129,6 +132,11 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         menuOrg.add(menuOrgItem3);
 
         menuDocPytItem1.setText("Crear Especialista");
+        menuDocPytItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDocPytItem1ActionPerformed(evt);
+            }
+        });
         menuDocPyt.add(menuDocPytItem1);
 
         menuDocSthItem1.setText("Crear Fuente");
@@ -181,14 +189,10 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
 
     private void menuDocOrgItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocOrgItem1ActionPerformed
         //NUEVA EDUCCION
-        VEduccion veduccion = new VEduccion();
-        veduccion.setVisible(true);
     }//GEN-LAST:event_menuDocOrgItem1ActionPerformed
 
     private void menuOrgItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem1ActionPerformed
         //MODIFICAR EDUCCION
-        VMEduccion vmeduccion = new VMEduccion();
-        vmeduccion.setVisible(true);
     }//GEN-LAST:event_menuOrgItem1ActionPerformed
 
     private void menuOrgItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem2ActionPerformed
@@ -199,6 +203,16 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
     private void menuOrgItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem3ActionPerformed
         //RESTAURAR
     }//GEN-LAST:event_menuOrgItem3ActionPerformed
+
+    private void menuDocPytItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocPytItem1ActionPerformed
+        sysReman.crearProyectTeam("Jose Paredes Luna", "HARLEY", 
+                "Img de Requisitos", "Regular", "Analista", "joseP@hotmail.com",
+                "Esta en modo de prueba debido a su desempeño laboral");
+        sysReman.crearStakeholder("Teofilo Linares Valverde", "UNSA", 
+                "Subgerente", "Interno", "TeoValGreen@hotmail.com",
+                "Determino la mayoria de Req no funcionales");
+    
+    }//GEN-LAST:event_menuDocPytItem1ActionPerformed
 
     public void actualizar(JTree tree){
         treeOrgMain.setModel(tree.getModel());
