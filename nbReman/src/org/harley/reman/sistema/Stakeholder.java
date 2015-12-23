@@ -65,7 +65,7 @@ public class Stakeholder {
             codigo = ToolsSystem.IncrementarCodigo(codigo);
         }
     }
-    
+
     public SthNombre getSthNombre() {
         return sthNombre;
     }

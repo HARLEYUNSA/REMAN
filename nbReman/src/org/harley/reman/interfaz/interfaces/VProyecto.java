@@ -20,7 +20,6 @@ public class VProyecto extends javax.swing.JFrame {
     public VProyecto(Sistema sysReman) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
         this.sysReman = sysReman;
     }
 
@@ -350,8 +349,6 @@ public class VProyecto extends javax.swing.JFrame {
             ToolsInterface.msjError("Error, llenar todos los campos");
         } else {
             sysReman.crearProyecto(proNom, prdNom, empDes, empCli, proLid, fecIni, fecFin, proUbi);
-            sysReman.crearStateReman(proUbi);
-            sysReman.setDirPrincipal(proUbi);
             this.dispose();
         }
     }//GEN-LAST:event_btnPGuardarActionPerformed

@@ -13,7 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.harley.reman.reportes.xml.FileManager;
 
 public class Sistema {
-    
+
     Properties propiedades;
     Properties stateReman;
     String dirPrincipal;
@@ -34,31 +34,28 @@ public class Sistema {
     FileManager<Organizacion> manOrg;
     FileManager<Stakeholder> manSth;
     FileManager<ProyectTeam> manPyt;
-	
+
     /**
      * Constructor de la clase Sistema
      */
     public Sistema(String dirProyect) {
         propiedades = new Properties();
-        stateReman =  new Properties();
-        cargarStateReman();
-        setStateRemanDir(dirProyect);
-        guardarStateReman();
+        stateReman = new Properties();
         dirPrincipal = dirProyect;
     }
-    
+
     /**
      * Constructor de la clase Sistema
      */
     public Sistema() {
         propiedades = new Properties();
-        stateReman =  new Properties();
-        cargarStateReman();
-        dirPrincipal = getDirPrincipal();
+        stateReman = new Properties();
+        dirPrincipal = "";
     }
 
     /**
      * Crear el archivo propiedades del proyecto
+     *
      * @param proNom Nombre del Proyecto
      * @param prdNom Nombre del Producto
      * @param empDes Empresa desarrolladora
@@ -66,15 +63,15 @@ public class Sistema {
      * @param proLid Líder del proyecto
      * @param fecIni Fecha inicial
      * @param fecFin Fecha final
-     * @param proUbi Ubicación del proyecto 
+     * @param proUbi Ubicación del proyecto
      */
-    public void crearPropiedades(String proNom,String prdNom, String empDes, 
-            String empCli, String proLid, String fecIni, String fecFin, 
+    public void crearPropiedades(String proNom, String prdNom, String empDes,
+            String empCli, String proLid, String fecIni, String fecFin,
             String proUbi) {
         OutputStream salida = null;
         try {
-            salida = new FileOutputStream(proUbi + 
-                    "//remanproject//configuracion.properties");
+            salida = new FileOutputStream(proUbi
+                    + "//remanproject//configuracion.properties");
             propiedades.setProperty("proNom", proNom);
             propiedades.setProperty("prdNom", prdNom);
             propiedades.setProperty("empDes", empDes);
@@ -101,8 +98,17 @@ public class Sistema {
             }
         }
     }
-    
-	public void crearStateReman(String dir) {
+
+    private void crearFileRem(String dir, String name) {
+        OutputStream salida = null;
+        try {
+            salida = new FileOutputStream(dir + "\\" + name + ".rem");
+            salida.close();
+        } catch (Exception e) {
+        }
+    }
+
+    public void crearStateReman(String dir) {
         OutputStream salida = null;
         try {
             salida = new FileOutputStream("stateReman.properties");
@@ -118,15 +124,15 @@ public class Sistema {
             }
         }
     }
-    
-    public void cargarStateReman(){
+
+    public void setStateRemanDir(String newDir) {
         InputStream entrada = null;
         try {
             File input = new File("stateReman.properties");
             entrada = new FileInputStream(input);
             stateReman.load(entrada);
-            dirPrincipal = stateReman.getProperty("dirAct");
-        } catch (IOException ex) {          
+            stateReman.setProperty("dirAct", newDir);
+        } catch (IOException ex) {
         } finally {
             if (entrada != null) {
                 try {
@@ -136,12 +142,15 @@ public class Sistema {
             }
         }
     }
-    public void guardarStateReman(){
+
+    public String getStateRemanDir() {
         OutputStream salida = null;
-        try {    
+        String rpt = "";
+        try {
             File output = new File("stateReman.properties");
             salida = new FileOutputStream(output);
             stateReman.store(salida, null);
+            rpt = stateReman.getProperty("dirAct");
         } catch (IOException io) {
         } finally {
             if (salida != null) {
@@ -150,27 +159,16 @@ public class Sistema {
                 } catch (IOException e) {
                 }
             }
-        }  
-   }
-    
-    public void setStateRemanDir(String newDir){
-        cargarStateReman();
-        stateReman.setProperty("dirAct", newDir);
-        dirPrincipal = newDir;
-        guardarStateReman();
-        
+        }
+        return rpt;
     }
 
-    public String getStateRemanDir() {
-        cargarStateReman();
-        return stateReman.getProperty("dirAct");
-    }
-	
     /**
      * Crear los directorios del proyecto
+     *
      * @param dirPrincipal Directorio principal del proyecto
      */
-    public void crearDirectorios(String dirPrincipal){
+    public void crearDirectorios(String dirPrincipal) {
         this.dirPrincipal = dirPrincipal;
         new File(dirPrincipal).mkdir();
         new File(dirPrincipal, "remanproject").mkdir();
@@ -186,30 +184,31 @@ public class Sistema {
         new File(dirPrincipal, "verlib//esp").mkdir();
         new File(dirPrincipal, "verlib//rnf").mkdir();
     }
-    
+
     /**
      * Modifica el Directorio Principal
+     *
      * @param dirPrincipal url del directorio principal
      */
     public void setDirPrincipal(String dirPrincipal) {
-        setStateRemanDir(dirPrincipal);
         this.dirPrincipal = dirPrincipal;
     }
 
     /**
      * retorna la direccion del Directorio Principal
-     * @return 
+     *
+     * @return
      */
     public String getDirPrincipal() {
         return dirPrincipal;
     }
-	
+
     /**
-     * 
+     *
      * @param proUbi Ubicación del proyecto
-     * @throws IOException 
+     * @throws IOException
      */
-    public void iniciarHistoricos(String proUbi) throws IOException{
+    public void iniciarHistoricos(String proUbi) throws IOException {
         new File(proUbi + "//verlib//edu//eduhis.xml").createNewFile();
         new File(proUbi + "//verlib//eli//elihis.xml").createNewFile();
         new File(proUbi + "//verlib//eli//esphis.xml").createNewFile();
@@ -217,41 +216,41 @@ public class Sistema {
     }
 
     /**
-     * 
-     * @param proUbi 
+     *
+     * @param proUbi
      */
-    public void iniciarManagers(String proUbi){
-        manVerEdu = new FileManager<>(Educciones.class, 
+    public void iniciarManagers(String proUbi) {
+        manVerEdu = new FileManager<>(Educciones.class,
                 new File(proUbi + "//src//edu"));
-        manLibEdu = new FileManager<>(LibroEduccion.class, 
+        manLibEdu = new FileManager<>(LibroEduccion.class,
                 new File(proUbi + "//src//edu"));
-        manVerEli = new FileManager<>(Elicitaciones.class, 
+        manVerEli = new FileManager<>(Elicitaciones.class,
                 new File(proUbi + "//src//eli"));
-        manLibEli = new FileManager<>(LibroElicitacion.class, 
+        manLibEli = new FileManager<>(LibroElicitacion.class,
                 new File(proUbi + "//src//eli"));
-        manVerEsp = new FileManager<>(Especificaciones.class, 
+        manVerEsp = new FileManager<>(Especificaciones.class,
                 new File(proUbi + "//src//esp"));
-        manLibEsp = new FileManager<>(LibroEspecificacion.class, 
+        manLibEsp = new FileManager<>(LibroEspecificacion.class,
                 new File(proUbi + "//src//esp"));
-        manVerRnf = new FileManager<>(ReqNoFuncionales.class, 
+        manVerRnf = new FileManager<>(ReqNoFuncionales.class,
                 new File(proUbi + "//src//rnf"));
-        manLibRnf = new FileManager<>(LibroRequisitoNF.class, 
+        manLibRnf = new FileManager<>(LibroRequisitoNF.class,
                 new File(proUbi + "//src//rnf"));
-        manOrg = new FileManager<>(Organizacion.class, 
+        manOrg = new FileManager<>(Organizacion.class,
                 new File(proUbi + "//src//org//org"));
-        manLibOrg = new FileManager<>(LibroOrganizacion.class, 
+        manLibOrg = new FileManager<>(LibroOrganizacion.class,
                 new File(proUbi + "//src//org//org"));
-        manSth = new FileManager<>(Stakeholder.class, 
+        manSth = new FileManager<>(Stakeholder.class,
                 new File(proUbi + "//src//org//sth"));
-        manPyt = new FileManager<>(ProyectTeam.class, 
+        manPyt = new FileManager<>(ProyectTeam.class,
                 new File(proUbi + "//src//org//pyt"));
-        manLibAct = new FileManager<>(LibroActor.class, 
+        manLibAct = new FileManager<>(LibroActor.class,
                 new File(proUbi + "//src//org"));
     }
 
     /**
-     * CU-035. CREAR UN PROYECTO
-     * Crear un nuevo proyecto REMAN
+     * CU-035. CREAR UN PROYECTO Crear un nuevo proyecto REMAN
+     *
      * @param proNom Nombre del Proyecto
      * @param prdNom Nombre del Producto
      * @param empDes Empresa desarrolladora
@@ -262,28 +261,30 @@ public class Sistema {
      * @param proUbi Ubicación del proyecto
      * @return Un booleano que indica si la función se realizó correctamente
      */
-    public boolean crearProyecto(String proNom,String prdNom, String empDes, 
-            String empCli, String proLid, String fecIni, String fecFin, 
-            String proUbi){
+    public boolean crearProyecto(String proNom, String prdNom, String empDes,
+            String empCli, String proLid, String fecIni, String fecFin,
+            String proUbi) {
         try {
             crearDirectorios(proUbi);
-            crearPropiedades(proNom, prdNom, empDes, empCli, 
+            setStateRemanDir(proUbi);
+            crearPropiedades(proNom, prdNom, empDes, empCli,
                     proLid, fecIni, fecFin, proUbi);
+            crearFileRem(proUbi, proNom);
             iniciarHistoricos(proUbi);
             iniciarManagers(proUbi);
-            crearOrganizacion(empDes, "", "", "", "", "");    
-            crearOrganizacion(empCli, "", "", "", "", "");    
-            crearProyectTeam(proLid, empDes, "Desconocida", "Desconocida", "Lider", "a", "Autogenerado");           
+            crearOrganizacion(empDes, "Direccion Desconocida", "Desconocido", "www.empDes.com", "example@domain.com", "Autogenerado");
+            crearOrganizacion(empCli, "Direccion Desconocida", "Desconocido", "www.empCli,com", "example@domain.com", "Autogenerado");
+            crearProyectTeam(proLid, empDes, "Desconocida", "Desconocida", "Lider", "example@domain.com", "Autogenerado");
+            crearStakeholder("Cliente", empCli, "Jefe", "Interno", "example@domain.com", "Autogenerado");
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     /**
-     * CU-035. CREAR UNA EDUCCIÓN
-     * Crear una educción
+     * CU-035. CREAR UNA EDUCCIÓN Crear una educción
+     *
      * @param eduNom Nombre de la educción
      * @param eduVer Versión de la educción
      * @param eduTip Tipo de educción
@@ -300,41 +301,42 @@ public class Sistema {
      * @param eduObs Observaciones de la educción
      * @return Un booleano que indica si la función se realizó correctamente
      */
-    public boolean crearEduccion(String eduNom, String eduVer, String eduTip, 
-            String eduObj, String eduFec, String eduFueNom, String eduFueCar, 
+    public boolean crearEduccion(String eduNom, String eduVer, String eduTip,
+            String eduObj, String eduFec, String eduFueNom, String eduFueCar,
             String eduFueTip, String eduEspNom, String eduEspEsp,
             String eduEspExp, String eduEspCar, String eduDes, String eduObs) {
         try {
-            Educcion edu = new Educcion(eduNom, eduVer, eduTip, eduObj, eduFec, 
-                    eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, 
+            Educcion edu = new Educcion(eduNom, eduVer, eduTip, eduObj, eduFec,
+                    eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp,
                     eduEspExp, eduEspCar, eduDes, eduObs);
             Educciones verEdu = new Educciones();
             verEdu.newEdu(edu);
             manVerEdu.escribirXML(edu.getEduNombre().getEduCod(), verEdu);
-            propiedades.setProperty("numEdu", 
+            propiedades.setProperty("numEdu",
                     Integer.toString(Educcion.getNumero()));
             guardarPropiedades(dirPrincipal);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     /**
-     * 
+     *
      * Recuperar los datos de una educción
+     *
      * @param eduCod Cógio de la educción
-     * @return Un objeto Educcion que contiene métodos accesores y mutadores 
+     * @return Un objeto Educcion que contiene métodos accesores y mutadores
      */
     public Educcion recuperarEduccion(String eduCod) {
         Educciones verEdu = manVerEdu.leerXML(eduCod);
         return verEdu.getActual();
     }
-    
+
     /**
-     * 
+     *
      * Modifica una educción
+     *
      * @param eduCod Código de la educción
      * @param eduNom Nombre de la educción
      * @param eduVer Versión de la educción
@@ -352,27 +354,27 @@ public class Sistema {
      * @param eduObs Observaciones de la educción
      * @return Un booleano que indica si la función se realizó correctamente
      */
-    public boolean modificarEduccion(String eduCod, String eduNom, 
-            String eduVer, String eduTip, String eduObj, String eduFec, 
-            String eduFueNom, String eduFueCar, String eduFueTip, 
-            String eduEspNom, String eduEspEsp, String eduEspExp, 
+    public boolean modificarEduccion(String eduCod, String eduNom,
+            String eduVer, String eduTip, String eduObj, String eduFec,
+            String eduFueNom, String eduFueCar, String eduFueTip,
+            String eduEspNom, String eduEspEsp, String eduEspExp,
             String eduEspCar, String eduDes, String eduObs) {
         try {
             Educcion edu = new Educcion(eduCod, eduNom, eduVer, eduTip, eduObj,
-                    eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, 
+                    eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom,
                     eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs);
             Educciones verEdu = manVerEdu.leerXML(eduCod);
             verEdu.modEdu(edu);
             manVerEdu.escribirXML(eduCod, verEdu);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }   
+        }
     }
-    
+
     /**
      * Versionar una educción
+     *
      * @param verVer
      * @param verFec
      * @param verEsp
@@ -394,19 +396,19 @@ public class Sistema {
      * @param eduObs Observaciones de la educción
      * @return Un booleano que indica si la función se realizó correctamente
      */
-    public boolean versionarEduccion(String verVer, String verFec, 
-            String verEsp, String verRazCam, String eduCod, String eduNom, 
-            String eduVer,  String eduTip, String eduObj, String eduFec, 
-            String eduFueNom, String eduFueCar, String eduFueTip, 
+    public boolean versionarEduccion(String verVer, String verFec,
+            String verEsp, String verRazCam, String eduCod, String eduNom,
+            String eduVer, String eduTip, String eduObj, String eduFec,
+            String eduFueNom, String eduFueCar, String eduFueTip,
             String eduEspNom, String eduEspEsp, String eduEspExp,
             String eduEspCar, String eduDes, String eduObs) {
-        try{
+        try {
             Educciones verEdu = manVerEdu.leerXML(eduCod);
             String ultVer = verEdu.getLast().getEduNombre().getEduCod();
-            if (ToolsSystem.CompararVersiones(ultVer, verVer)){
-                Educcion edu = new Educcion(eduCod, eduNom, eduVer, eduTip, 
-                        eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, 
-                        eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, 
+            if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
+                Educcion edu = new Educcion(eduCod, eduNom, eduVer, eduTip,
+                        eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip,
+                        eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes,
                         eduObs);
                 verEdu.modEdu(edu);
                 verEdu.verEdu(verVer, verFec, verEsp, verRazCam);
@@ -414,15 +416,15 @@ public class Sistema {
                 return true;
             }
             return false;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }  
+        }
     }
-    
+
     /**
-     * 
+     *
      * Elimina una educción de un proyecto
+     *
      * @param eduCod
      * @return Un booleano que indica si la función se realizó correctamente
      */
@@ -431,22 +433,22 @@ public class Sistema {
             //verificar uso en elicitacion
             manVerEdu.borrarXML(eduCod);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }  
+        }
     }
-    
+
     /**
-     * 
+     *
      * Devolver el conjunto de históricos del elemento del libro seleccionado
+     *
      * @param libTip Tipo de libro
      * @param codigo Código del libro
-     * @return Un ArrayList que contiene un conjunto de objetos Historico con 
-     *         métodos accesores y mutadores
+     * @return Un ArrayList que contiene un conjunto de objetos Historico con
+     * métodos accesores y mutadores
      */
     public List<Historico> getHist(int libTip, String codigo) {
-        switch(libTip){
+        switch (libTip) {
             case 0:
                 Educciones edu = manVerEdu.leerXML(codigo);
                 return edu.getHistoricos();
@@ -462,10 +464,11 @@ public class Sistema {
         }
         return null;
     }
-    
+
     /**
-     * 
+     *
      * Restaurar una versión al estado actual
+     *
      * @param verCod Código de la versión
      * @param eduCod Código de la educción
      * @return Un booleano que indica si la función se realizó correctamente
@@ -476,14 +479,14 @@ public class Sistema {
             Educcion edu = verEdu.getVer(verCod);
             modificarEduccion(edu);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }  
+        }
     }
-    
+
     /**
      * Abre un proyecto
+     *
      * @return Un booleano que indica si la función se realizó correctamente
      */
     public boolean ingresarProyecto() {
@@ -505,21 +508,21 @@ public class Sistema {
                     Integer.parseInt(propiedades.getProperty("numPyt")));
             iniciarManagers(dirPrincipal);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        } 
+        }
     }
 
     /**
      * Carga el archivo de propiedades
+     *
      * @param proUbi Ubicación del proyecto
      */
-    public void cargarPropiedades(String proUbi){
+    public void cargarPropiedades(String proUbi) {
         InputStream entrada = null;
         try {
-            File input = new File(proUbi + 
-                    "//remanproject//configuracion.properties");
+            File input = new File(proUbi
+                    + "//remanproject//configuracion.properties");
             entrada = new FileInputStream(input);
             propiedades.load(entrada);
         } catch (IOException ex) {
@@ -534,16 +537,17 @@ public class Sistema {
             }
         }
     }
-    
+
     /**
      * Guarda el archivo de propiedades
+     *
      * @param proUbi Ubicación del proyecto
      */
-    public void guardarPropiedades(String proUbi){
+    public void guardarPropiedades(String proUbi) {
         OutputStream salida = null;
-        try {    
-            File output = new File(proUbi +
-                    "//remanproject//configuracion.properties");
+        try {
+            File output = new File(proUbi
+                    + "//remanproject//configuracion.properties");
             salida = new FileOutputStream(output);
             propiedades.store(salida, null);
         } catch (IOException io) {
@@ -556,9 +560,9 @@ public class Sistema {
                     e.printStackTrace();
                 }
             }
-        }  
-   }
-    
+        }
+    }
+
     //Cerrar libros
     public void salirProyecto() {
         this.manLibEdu = null;
@@ -597,7 +601,7 @@ public class Sistema {
         }
         createLibEdu("libEdu", lib);
         manLibEdu.exportarPDF("libEdu", destino, nombre);
-    }  
+    }
 
     public Educcion getLastEdu(String name) {
         Educciones edu;
@@ -605,9 +609,9 @@ public class Sistema {
         return edu.getLast();
     }
 
-    public void verLibroEdu(String version, String fecha, String razon, 
+    public void verLibroEdu(String version, String fecha, String razon,
             String autor) {
-        manLibEdu.copiarDirectorios(new File(dirPrincipal + "//src//edu"), 
+        manLibEdu.copiarDirectorios(new File(dirPrincipal + "//src//edu"),
                 new File(dirPrincipal + "//verlib//edu//edu" + version));
         LibroHistorico libH = manHisEdu.leerXML("eduhis");
         libH.createHistorico(version, fecha, razon, autor);
@@ -620,7 +624,7 @@ public class Sistema {
         } catch (IOException ex) {
         }
         manLibEdu.copiarDirectorios(
-                new File(dirPrincipal + "//verlib//edu//edu" + version), 
+                new File(dirPrincipal + "//verlib//edu//edu" + version),
                 new File(dirPrincipal + "//src//edu")
         );
     }
@@ -632,41 +636,47 @@ public class Sistema {
 
     public Caratula crearCaratula(String libro) {
         Caratula car = new Caratula(libro, propiedades.getProperty("proNom"),
-                propiedades.getProperty("empDes"), 
+                propiedades.getProperty("empDes"),
                 propiedades.getProperty("empCli"),
-                propiedades.getProperty("proLid"), 
+                propiedades.getProperty("proLid"),
                 propiedades.getProperty("proEst"),
-                propiedades.getProperty("fecIni"), 
+                propiedades.getProperty("fecIni"),
                 propiedades.getProperty("fecFin"),
                 "09 de noviembre del 2015", "Arequipa, Peru");
         return car;
     }
-    
+
     public void guardarProyecto() {
         guardarPropiedades(dirPrincipal);
     }
-    
+
     public void createLibEli(String nombre, LibroElicitacion lib) {
         manLibEli.escribirXML(nombre, lib);
     }
 
-    public void exportarLibro(int libTip, String destino, String nombre){
-        switch (libTip){
-            case 0: exportarLibroEdu(destino, nombre);
+    public void exportarLibro(int libTip, String destino, String nombre) {
+        switch (libTip) {
+            case 0:
+                exportarLibroEdu(destino, nombre);
                 break;
-            case 1: exportarLibroEli(destino, nombre);
+            case 1:
+                exportarLibroEli(destino, nombre);
                 break;
-            case 2: exportarLibroEsp(destino, nombre);
+            case 2:
+                exportarLibroEsp(destino, nombre);
                 break;
-            case 3: exportarLibroRnf(destino, nombre);
+            case 3:
+                exportarLibroRnf(destino, nombre);
                 break;
-            case 4: exportarLibroOrg(destino, nombre);
+            case 4:
+                exportarLibroOrg(destino, nombre);
                 break;
-            case 5: exportarLibroAct(destino, nombre);
+            case 5:
+                exportarLibroAct(destino, nombre);
                 break;
         }
     }
-    
+
     public void exportarLibroEli(String destino, String nombre) {
         LibroElicitacion lib = new LibroElicitacion();
         File[] ficheros = new File(dirPrincipal + "//src//eli").listFiles();
@@ -677,22 +687,21 @@ public class Sistema {
         }
         createLibEli("libEli", lib);
         manLibEli.exportarPDF("libEli", destino, nombre);
-    }  
+    }
 
     public Elicitacion getLastEli(String codEli) {
         Elicitaciones eli = manVerEli.leerXML(codEli);
         return eli.getLast();
     }
-    
+
     public void verLibroEli(String version, String fecha, String razon, String autor) {
-        manLibEli.copiarDirectorios(new File(dirPrincipal+"//src//eli"), 
-                new File(dirPrincipal+"//verlib//eli//eli" + version));
+        manLibEli.copiarDirectorios(new File(dirPrincipal + "//src//eli"),
+                new File(dirPrincipal + "//verlib//eli//eli" + version));
         LibroHistorico libH = manHisEli.leerXML("elihis");
         libH.createHistorico(version, fecha, razon, autor);
         manHisEli.escribirXML("elihis", libH);
     }
 
-    
     public void resLibroEli(String version) {
         try {
             FileUtils.deleteDirectory(new File(dirPrincipal + "//src//eli"));
@@ -708,7 +717,7 @@ public class Sistema {
         LibroHistorico libH = manHisEli.leerXML("elihis");
         return libH.getHistoricos();
     }
-    
+
     public void modificarElicitacion(Elicitacion eli) {
         Elicitaciones versiones;
         String cod = eli.getEliNombre().getEliCod();
@@ -717,85 +726,82 @@ public class Sistema {
         manVerEli.escribirXML(cod, versiones);
     }
 
-    public boolean crearElicitacion(String eliNom, String eliEduCod, 
+    public boolean crearElicitacion(String eliNom, String eliEduCod,
             String eliVer, String eliFec, String eliFueNom, String eliFueCar,
             String eliFueTip, String eliEspNom, String eliEspEsp,
-            String eliEspExp, String eliEspCar, String eliDep, String eliDes, 
-            String eliPre, ArrayList<Paso> eliSec, String eliPos, 
-            ArrayList<Paso> eliExc, 
-            String eliObs) { 
+            String eliEspExp, String eliEspCar, String eliDep, String eliDes,
+            String eliPre, ArrayList<Paso> eliSec, String eliPos,
+            ArrayList<Paso> eliExc,
+            String eliObs) {
         try {
-            Elicitacion eli = new Elicitacion(eliNom, eliEduCod, eliVer, eliFec, 
+            Elicitacion eli = new Elicitacion(eliNom, eliEduCod, eliVer, eliFec,
                     eliFueNom, eliFueCar, eliFueTip, eliEspNom, eliEspEsp,
-                    eliEspExp, eliEspCar, eliDep, eliDes, eliPre, eliSec, 
+                    eliEspExp, eliEspCar, eliDep, eliDes, eliPre, eliSec,
                     eliPos, eliExc, eliObs);
             Elicitaciones verEli = new Elicitaciones();
             verEli.newEli(eli);
             manVerEli.escribirXML(eli.getEliNombre().getEliCod(), verEli);
-            propiedades.setProperty("numEdu", 
+            propiedades.setProperty("numEdu",
                     Integer.toString(Elicitacion.getNumero()));
             guardarPropiedades(dirPrincipal);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     public Elicitacion recuperarElicitacion(String eliCod) {
         Elicitaciones verEli;
         verEli = manVerEli.leerXML(eliCod);
         return verEli.getActual();
     }
-    
-    public boolean modificarElicitacion(String eliCod, String eliNom, 
-            String eliEduCod, String eliVer, String eliFec, String eliFueNom, 
+
+    public boolean modificarElicitacion(String eliCod, String eliNom,
+            String eliEduCod, String eliVer, String eliFec, String eliFueNom,
             String eliFueCar, String eliFueTip, String eliEspNom,
             String eliEspEsp, String eliEspExp, String eliEspCar, String eliDep,
-            String eliDes, String eliPre, ArrayList<Paso> eliSec, String eliPos, 
-            ArrayList<Paso> eliExc, 
-            String eliObs) { 
+            String eliDes, String eliPre, ArrayList<Paso> eliSec, String eliPos,
+            ArrayList<Paso> eliExc,
+            String eliObs) {
         try {
             Elicitacion eli = new Elicitacion(eliCod, eliNom, eliEduCod, eliVer,
-                    eliFec, eliFueNom, eliFueCar, eliFueTip, eliEspNom, 
-                    eliEspEsp,eliEspExp, eliEspCar, eliDep, eliDes, eliPre, 
+                    eliFec, eliFueNom, eliFueCar, eliFueTip, eliEspNom,
+                    eliEspEsp, eliEspExp, eliEspCar, eliDep, eliDes, eliPre,
                     eliSec, eliPos, eliExc, eliObs);
             Elicitaciones verEli = manVerEli.leerXML(eliCod);
             verEli.modEli(eli);
             manVerEli.escribirXML(eliCod, verEli);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     public boolean eliminarElicitacion(String eliCod) {
         try {
             //verificar uso en especificacion
             manVerEli.borrarXML(eliCod);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }  
+        }
     }
-    
-    public boolean versionarElicitacion(String verVer, String verFec, 
-            String verEsp, String verRazCam, String eliCod, String eliNom, 
-            String eliEduCod, String eliVer, String eliFec, String eliFueNom, 
+
+    public boolean versionarElicitacion(String verVer, String verFec,
+            String verEsp, String verRazCam, String eliCod, String eliNom,
+            String eliEduCod, String eliVer, String eliFec, String eliFueNom,
             String eliFueCar, String eliFueTip, String eliEspNom,
             String eliEspEsp, String eliEspExp, String eliEspCar, String eliDep,
-            String eliDes, String eliPre, ArrayList<Paso> eliSec, String eliPos, 
-            ArrayList<Paso> eliExc, 
-            String eliObs) { 
-         try{
+            String eliDes, String eliPre, ArrayList<Paso> eliSec, String eliPos,
+            ArrayList<Paso> eliExc,
+            String eliObs) {
+        try {
             Elicitaciones verEli = manVerEli.leerXML(eliCod);
             String ultVer = verEli.getLast().getEliNombre().getEliCod();
-            if (ToolsSystem.CompararVersiones(ultVer, verVer)){
+            if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
                 Elicitacion eli = new Elicitacion(eliCod, eliNom, eliEduCod, eliVer,
-                        eliFec, eliFueNom, eliFueCar, eliFueTip, eliEspNom, 
-                        eliEspEsp,eliEspExp, eliEspCar, eliDep, eliDes, eliPre, 
+                        eliFec, eliFueNom, eliFueCar, eliFueTip, eliEspNom,
+                        eliEspEsp, eliEspExp, eliEspCar, eliDep, eliDes, eliPre,
                         eliSec, eliPos, eliExc, eliObs);
                 verEli.modEli(eli);
                 verEli.verEli(verVer, verFec, verEsp, verRazCam);
@@ -803,62 +809,59 @@ public class Sistema {
                 return true;
             }
             return false;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     public boolean restaurarVersionElicitacion(String verCod, String eliCod) {
         try {
             Elicitaciones verEli = manVerEli.leerXML(eliCod);
             Elicitacion eli = verEli.getVer(verCod);
             modificarElicitacion(eli);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }  
+        }
     }
-    
-    public boolean crearEspecificacion(String espNom, String espEliCod, 
-            String espVer, String espFec, String espFueNom, String espFueCar, 
-            String espFueTip, String espEspNom, String espEspEsp, 
+
+    public boolean crearEspecificacion(String espNom, String espEliCod,
+            String espVer, String espFec, String espFueNom, String espFueCar,
+            String espFueTip, String espEspNom, String espEspEsp,
             String espEspExp, String espEspCar, String espDep, String espDes,
-            String espPre, String espPos, ArrayList<Paso> espExc, 
-            String espObs) { 
+            String espPre, String espPos, ArrayList<Paso> espExc,
+            String espObs) {
         try {
             Especificacion esp = new Especificacion(espNom, espEliCod, espVer,
-            espFec, espFueNom, espFueCar, espFueTip, espEspNom,
-            espEspEsp, espEspExp, espEspCar, espDep, espDes,
-            espPre, espPos, espExc, espObs);
+                    espFec, espFueNom, espFueCar, espFueTip, espEspNom,
+                    espEspEsp, espEspExp, espEspCar, espDep, espDes,
+                    espPre, espPos, espExc, espObs);
             Especificaciones verEsp = new Especificaciones();
             verEsp.newEsp(esp);
             manVerEsp.escribirXML(esp.getEspNombre().getEspCod(), verEsp);
-            propiedades.setProperty("numEsp", 
+            propiedades.setProperty("numEsp",
                     Integer.toString(Especificacion.getNumero()));
             guardarPropiedades(dirPrincipal);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     public Especificacion recuperarEspecificacion(String espCod) {
         Especificaciones verEsp;
         verEsp = manVerEsp.leerXML(espCod);
         return verEsp.getActual();
     }
-    
-    public boolean modificarEspecificacion(String espCod, String espNom, String espEliCod, 
-            String espVer, String espFec, String espFueNom, String espFueCar, 
-            String espFueTip, String espEspNom, String espEspEsp, 
+
+    public boolean modificarEspecificacion(String espCod, String espNom, String espEliCod,
+            String espVer, String espFec, String espFueNom, String espFueCar,
+            String espFueTip, String espEspNom, String espEspEsp,
             String espEspExp, String espEspCar, String espDep, String espDes,
-            String espPre, String espPos, ArrayList<Paso> espExc, 
-            String espObs) { 
+            String espPre, String espPos, ArrayList<Paso> espExc,
+            String espObs) {
         try {
-            Especificacion esp = new Especificacion(espCod, espNom, espEliCod, 
+            Especificacion esp = new Especificacion(espCod, espNom, espEliCod,
                     espVer, espFec, espFueNom, espFueCar, espFueTip, espEspNom,
                     espEspEsp, espEspExp, espEspCar, espDep, espDes,
                     espPre, espPos, espExc, espObs);
@@ -866,61 +869,57 @@ public class Sistema {
             verEsp.modEsp(esp);
             manVerEsp.escribirXML(espCod, verEsp);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     public boolean eliminarEspecificacion(String espCod) {
         try {
             manVerEsp.borrarXML(espCod);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }  
+        }
     }
-        
-    public boolean versionarEspecificacion(String verVer, String verFec, 
+
+    public boolean versionarEspecificacion(String verVer, String verFec,
             String verEsp, String verRazCam, String espCod, String espNom,
-            String espEliCod, String espVer, String espFec, String espFueNom, 
-            String espFueCar, String espFueTip, String espEspNom, 
-            String espEspEsp, String espEspExp, String espEspCar, String espDep, 
-            String espDes, String espPre, String espPos, ArrayList<Paso> espExc, 
-            String espObs) { 
+            String espEliCod, String espVer, String espFec, String espFueNom,
+            String espFueCar, String espFueTip, String espEspNom,
+            String espEspEsp, String espEspExp, String espEspCar, String espDep,
+            String espDes, String espPre, String espPos, ArrayList<Paso> espExc,
+            String espObs) {
         try {
             Especificaciones verEsps = manVerEsp.leerXML(espCod);
             String ultVer = verEsps.getLast().getEspNombre().getEspCod();
-            if (ToolsSystem.CompararVersiones(ultVer, verVer)){
-                Especificacion esp = new Especificacion(espCod, espNom, espEliCod, 
-                    espVer, espFec, espFueNom, espFueCar, espFueTip, espEspNom,
-                    espEspEsp, espEspExp, espEspCar, espDep, espDes,
-                    espPre, espPos, espExc, espObs);
+            if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
+                Especificacion esp = new Especificacion(espCod, espNom, espEliCod,
+                        espVer, espFec, espFueNom, espFueCar, espFueTip, espEspNom,
+                        espEspEsp, espEspExp, espEspCar, espDep, espDes,
+                        espPre, espPos, espExc, espObs);
                 verEsps.modEsp(esp);
                 verEsps.verEsp(verVer, verFec, verEsp, verRazCam);
                 manVerEsp.escribirXML(espCod, verEsps);
                 return true;
             }
             return false;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     public boolean restaurarVersionEspecificacion(String verCod, String espCod) {
         try {
             Especificaciones verEsp = manVerEsp.leerXML(espCod);
             Especificacion esp = verEsp.getVer(verCod);
             modificarEspecificacion(esp);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }  
+        }
     }
-        
+
     public void exportarLibroEsp(String destino, String nombre) {
         LibroEspecificacion lib = new LibroEspecificacion();
         File[] ficheros = new File(dirPrincipal + "//src//esp").listFiles();
@@ -931,26 +930,26 @@ public class Sistema {
         }
         createLibEsp("libEsp", lib);
         manLibEsp.exportarPDF("libEsp", destino, nombre);
-    }  
+    }
 
     public void createLibEsp(String nombre, LibroEspecificacion lib) {
         manLibEsp.escribirXML(nombre, lib);
     }
-    
+
     public Especificacion getLastEsp(String name) {
         Especificaciones esp = manVerEsp.leerXML(name);
         return esp.getLast();
     }
-    
-    public void verLibroEsp(String version, String fecha, String razon, 
+
+    public void verLibroEsp(String version, String fecha, String razon,
             String autor) {
-        manLibEsp.copiarDirectorios(new File(dirPrincipal+"//src//esp"), 
-                new File(dirPrincipal+"//verlib//esp//esp" + version));
+        manLibEsp.copiarDirectorios(new File(dirPrincipal + "//src//esp"),
+                new File(dirPrincipal + "//verlib//esp//esp" + version));
         LibroHistorico libH = manHisEsp.leerXML("esphis");
         libH.createHistorico(version, fecha, razon, autor);
         manHisEsp.escribirXML("esphis", libH);
     }
-    
+
     public void resLibroEsp(String version) {
         try {
             FileUtils.deleteDirectory(new File(dirPrincipal + "//src//esp"));
@@ -966,7 +965,7 @@ public class Sistema {
         LibroHistorico libH = manHisEsp.leerXML("elihis");
         return libH.getHistoricos();
     }
-    
+
     public void exportarLibroRnf(String destino, String nombre) {
         LibroRequisitoNF lib = new LibroRequisitoNF();
         File[] ficheros = new File(dirPrincipal + "//src//rnf").listFiles();
@@ -977,26 +976,26 @@ public class Sistema {
         }
         createLibRnf("libRnf", lib);
         manLibRnf.exportarPDF("libRnf", destino, nombre);
-    }  
+    }
 
     public void createLibRnf(String nombre, LibroRequisitoNF lib) {
         manLibRnf.escribirXML(nombre, lib);
     }
-    
+
     public ReqNoFuncional getLastRnf(String name) {
         ReqNoFuncionales rnf = manVerRnf.leerXML(name);
         return rnf.getLast();
     }
-    
-    public void verLibroRnf(String version, String fecha, String razon, 
+
+    public void verLibroRnf(String version, String fecha, String razon,
             String autor) {
-        manLibEsp.copiarDirectorios(new File(dirPrincipal+"//src//rnf"), 
-                new File(dirPrincipal+"//verlib//rnf//rnf" + version));
+        manLibEsp.copiarDirectorios(new File(dirPrincipal + "//src//rnf"),
+                new File(dirPrincipal + "//verlib//rnf//rnf" + version));
         LibroHistorico libH = manHisRnf.leerXML("rnfhis");
         libH.createHistorico(version, fecha, razon, autor);
         manHisRnf.escribirXML("rnfhis", libH);
     }
-    
+
     public void resLibroRnf(String version) {
         try {
             FileUtils.deleteDirectory(new File(dirPrincipal + "//src//rnf"));
@@ -1012,7 +1011,7 @@ public class Sistema {
         LibroHistorico libH = manHisRnf.leerXML("rnfhis");
         return libH.getHistoricos();
     }
-    
+
     public void modificarEspecificacion(Especificacion esp) {
         Especificaciones versiones;
         String espCod = esp.getEspNombre().getEspCod();
@@ -1020,7 +1019,7 @@ public class Sistema {
         versiones.modEsp(esp);
         manVerEsp.escribirXML(espCod, versiones);
     }
-    
+
     public void modificarRequisitoNF(ReqNoFuncional rnf) {
         ReqNoFuncionales versiones;
         String rnfCod = rnf.getRnfNombre().getRnfCod();
@@ -1028,99 +1027,93 @@ public class Sistema {
         versiones.modRnf(rnf);
         manVerRnf.escribirXML(rnfCod, versiones);
     }
-    
-    public boolean crearReqNoFuncional(String rnfNom, String rnfVer, 
+
+    public boolean crearReqNoFuncional(String rnfNom, String rnfVer,
             String rnfTip, String rnfObj, String rnfFec, String rnfFueNom,
-            String rnfFueCar, String rnfFueTip, String rnfEspNom, 
+            String rnfFueCar, String rnfFueTip, String rnfEspNom,
             String rnfEspEsp, String rnfEspExp, String rnfEspCar, String rnfDep,
-            String rnfDes, String rnfObs) { 
+            String rnfDes, String rnfObs) {
         try {
-            ReqNoFuncional rnf = new ReqNoFuncional(rnfNom, rnfVer, rnfTip, 
+            ReqNoFuncional rnf = new ReqNoFuncional(rnfNom, rnfVer, rnfTip,
                     rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
                     rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs);
-            
+
             ReqNoFuncionales verRnf = new ReqNoFuncionales();
             verRnf.newRnf(rnf);
             manVerRnf.escribirXML(rnf.getRnfNombre().getRnfCod(), verRnf);
-            propiedades.setProperty("numRnf", 
+            propiedades.setProperty("numRnf",
                     Integer.toString(ReqNoFuncional.getNumero()));
             guardarPropiedades(dirPrincipal);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
-    public boolean modificarReqNoFuncional(String rnfCod, String rnfNom, String rnfVer, 
+
+    public boolean modificarReqNoFuncional(String rnfCod, String rnfNom, String rnfVer,
             String rnfTip, String rnfObj, String rnfFec, String rnfFueNom,
-            String rnfFueCar, String rnfFueTip, String rnfEspNom, 
+            String rnfFueCar, String rnfFueTip, String rnfEspNom,
             String rnfEspEsp, String rnfEspExp, String rnfEspCar, String rnfDep,
-            String rnfDes, String rnfObs) { 
+            String rnfDes, String rnfObs) {
         try {
-            ReqNoFuncional rnf = new ReqNoFuncional(rnfCod, rnfNom, rnfVer, 
-            rnfTip, rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom, 
-            rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs);
+            ReqNoFuncional rnf = new ReqNoFuncional(rnfCod, rnfNom, rnfVer,
+                    rnfTip, rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
+                    rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs);
             ReqNoFuncionales verRnf = manVerRnf.leerXML(rnfCod);
             verRnf.modRnf(rnf);
             manVerRnf.escribirXML(rnfCod, verRnf);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     public boolean eliminarRequisitoNF(String rnfCod) {
         try {
             manVerRnf.borrarXML(rnfCod);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }  
+        }
     }
-    
-    public boolean crearOrganizacion(String orgNom, String orgDir, 
-            String orgTel, String orgPagWeb, String orgCorEle, String orgCom) { 
+
+    public boolean crearOrganizacion(String orgNom, String orgDir,
+            String orgTel, String orgPagWeb, String orgCorEle, String orgCom) {
         try {
-            Organizacion org = new Organizacion(orgNom, orgDir, orgTel, 
+            Organizacion org = new Organizacion(orgNom, orgDir, orgTel,
                     orgPagWeb, orgCorEle, orgCom);
             manOrg.escribirXML(org.getOrgNom().getOrgCod(), org);
-            propiedades.setProperty("numOrg", 
+            propiedades.setProperty("numOrg",
                     Integer.toString(Organizacion.getNumero()));
             guardarPropiedades(dirPrincipal);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
-    public boolean modificarOrganizacion(String orgCod, String orgNom, 
-            String orgDir, String orgTel, String orgPagWeb, String orgCorEle, 
-            String orgCom) { 
+
+    public boolean modificarOrganizacion(String orgCod, String orgNom,
+            String orgDir, String orgTel, String orgPagWeb, String orgCorEle,
+            String orgCom) {
         try {
-            Organizacion org = new Organizacion(orgCod, orgNom, orgDir, orgTel, 
+            Organizacion org = new Organizacion(orgCod, orgNom, orgDir, orgTel,
                     orgPagWeb, orgCorEle, orgCom);
             manOrg.escribirXML(orgCod, org);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     public boolean eliminarOrganizacion(String orgCod) {
         try {
             manOrg.borrarXML(orgCod);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }  
+        }
     }
-    
+
     public void exportarLibroOrg(String destino, String nombre) {
         LibroOrganizacion lib = new LibroOrganizacion();
         File[] ficheros = new File(dirPrincipal + "//src//org//org").listFiles();
@@ -1132,91 +1125,86 @@ public class Sistema {
         createLibOrg("libOrg", lib);
         manLibEli.exportarPDF("libOrg", destino, nombre);
     }
-    
+
     public Organizacion getOrg(String codOrg) {
         Organizacion org = manOrg.leerXML(codOrg);
         return org;
     }
-    
+
     public void createLibOrg(String nombre, LibroOrganizacion lib) {
         manLibOrg.escribirXML(nombre, lib);
     }
-    
-    public boolean crearStakeholder(String sthNom, String sthOrg, String sthCar, 
-            String sthTip, String sthCorEle, String sthCom) { 
+
+    public boolean crearStakeholder(String sthNom, String sthOrg, String sthCar,
+            String sthTip, String sthCorEle, String sthCom) {
         try {
-            Stakeholder sth = new Stakeholder(sthNom, sthOrg, sthCar, sthTip, 
+            Stakeholder sth = new Stakeholder(sthNom, sthOrg, sthCar, sthTip,
                     sthCorEle, sthCom);
             manSth.escribirXML(sth.getSthNombre().getSthCod(), sth);
-            propiedades.setProperty("numSth", 
+            propiedades.setProperty("numSth",
                     Integer.toString(Stakeholder.getNumero()));
             guardarPropiedades(dirPrincipal);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
-    public boolean modificarStakeholder(String sthCod, String sthNom, 
-            String sthOrg, String sthCar, String sthTip, String sthCorEle, 
-            String sthCom) { 
+
+    public boolean modificarStakeholder(String sthCod, String sthNom,
+            String sthOrg, String sthCar, String sthTip, String sthCorEle,
+            String sthCom) {
         try {
-            Stakeholder sth = new Stakeholder(sthCod, sthNom, sthOrg, sthCar, 
+            Stakeholder sth = new Stakeholder(sthCod, sthNom, sthOrg, sthCar,
                     sthTip, sthCorEle, sthCom);
             manSth.escribirXML(sthCod, sth);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     public Stakeholder getStakeholder(String codSth) {
         Stakeholder sth = manSth.leerXML(codSth);
         return sth;
     }
-    
+
     public boolean eliminarStakeholder(String sthCod) {
         try {
             manSth.borrarXML(sthCod);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }  
+        }
     }
-    
-    public boolean crearProyectTeam(String pytNom, String pytOrg, String pytEsp, 
-            String pytExp, String pytCar, String pytCor, String pytCom) { 
+
+    public boolean crearProyectTeam(String pytNom, String pytOrg, String pytEsp,
+            String pytExp, String pytCar, String pytCor, String pytCom) {
         try {
             ProyectTeam pyt = new ProyectTeam(pytNom, pytOrg, pytEsp, pytExp,
                     pytCar, pytCor, pytCom);
             manPyt.escribirXML(pyt.getTeamNombre().getPytCod(), pyt);
-            propiedades.setProperty("numPyt", 
+            propiedades.setProperty("numPyt",
                     Integer.toString(ProyectTeam.getNumero()));
             guardarPropiedades(dirPrincipal);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
-    public boolean modificarProyectTeam(String pytCod, String pytNom, 
-            String pytOrg, String pytEsp, String pytExp, String pytCar, 
-            String pytCor, String pytCom) { 
+
+    public boolean modificarProyectTeam(String pytCod, String pytNom,
+            String pytOrg, String pytEsp, String pytExp, String pytCar,
+            String pytCor, String pytCom) {
         try {
-            ProyectTeam pyt = new ProyectTeam(pytCod, pytNom, pytOrg, pytEsp, 
+            ProyectTeam pyt = new ProyectTeam(pytCod, pytNom, pytOrg, pytEsp,
                     pytExp, pytCar, pytCor, pytCom);
             manPyt.escribirXML(pytCod, pyt);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
-    
+
     public ProyectTeam getProyectTeam(String codPyt) {
         ProyectTeam pyt = manPyt.leerXML(codPyt);
         return pyt;
@@ -1226,12 +1214,11 @@ public class Sistema {
         try {
             manPyt.borrarXML(pytCod);
             return true;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return false;
-        }  
+        }
     }
-    
+
     public void exportarLibroAct(String destino, String nombre) {
         LibroActor lib = new LibroActor();
         File[] stakes = new File(dirPrincipal + "//src//org//sth").listFiles();
@@ -1248,17 +1235,18 @@ public class Sistema {
         createLibAct("libAct", lib);
         manLibAct.exportarPDF("libAct", destino, nombre);
     }
-    
+
     public void createLibAct(String nombre, LibroActor lib) {
         manLibAct.escribirXML(nombre, lib);
     }
-    
+
     /**
-     * 
+     *
      * Devolver el conjunto de nombres de todas las fuentes del proyecto
-     * @return 
+     *
+     * @return
      */
-    public ArrayList<String> getFuenteNombres(){
+    public ArrayList<String> getFuenteNombres() {
         ArrayList<String> fueNom = new ArrayList<>();
         File[] fuentes = new File(dirPrincipal + "//src//org//sth").listFiles();
         for (File fichero : fuentes) {
@@ -1267,12 +1255,12 @@ public class Sistema {
         }
         return fueNom;
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public List<String> getFuenteCodigos(){
+    public List<String> getFuenteCodigos() {
         List<String> fueCod = new ArrayList<>();
         File[] fuentes = new File(dirPrincipal + "//src//org//sth").listFiles();
         for (File fichero : fuentes) {
@@ -1281,8 +1269,8 @@ public class Sistema {
         }
         return fueCod;
     }
-    
-    public ArrayList<String> getEspecialistaNombres(){
+
+    public ArrayList<String> getEspecialistaNombres() {
         ArrayList<String> espNom = new ArrayList<>();
         File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
         for (File fichero : especialistas) {
@@ -1291,8 +1279,8 @@ public class Sistema {
         }
         return espNom;
     }
-    
-        public ArrayList<String> getEspecialistaCodigos(){
+
+    public ArrayList<String> getEspecialistaCodigos() {
         ArrayList<String> espCod = new ArrayList<>();
         File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
         for (File fichero : especialistas) {
