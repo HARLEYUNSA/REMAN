@@ -28,7 +28,7 @@ public class VPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        sysReman.cargarStateReman();
+        this.sysReman.setDirPrincipal(sysReman.getStateRemanDir());
 
         //agrega pantalla de inicio
         VDocumento nuevo = new VDocumento();
@@ -506,8 +506,8 @@ public class VPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVPNuevoActionPerformed(java.awt.event.ActionEvent evt) {
-        VProyecto ventanaProyecto = new VProyecto(sysReman);
-        ventanaProyecto.setVisible(true);
+        new VProyecto(sysReman).setVisible(true);
+        actualizarJTrees();
     }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
