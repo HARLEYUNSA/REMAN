@@ -67,13 +67,10 @@ public class ToolsInterface {
     public static JTree generateJTreeOrg(String urlOrg) {
         ArrayList<String> datosOrg = new ArrayList<>();
         datosOrg.addAll(findFiles(urlOrg + "\\" + "org", "xml", false));
-        System.out.println(datosOrg.toString());
         ArrayList<String> datosSth = new ArrayList<>();
         datosSth.addAll(findFiles(urlOrg + "\\" + "sth", "xml", false));
-        System.out.println(datosSth.toString());
         ArrayList<String> datosPyt = new ArrayList<>();
         datosPyt.addAll(findFiles(urlOrg + "\\" + "pyt", "xml", false));
-        System.out.println(datosPyt.toString());
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Documentos de la Organización");
         DefaultTreeModel modelo = new DefaultTreeModel(root);
         JTree tree = new JTree(modelo);

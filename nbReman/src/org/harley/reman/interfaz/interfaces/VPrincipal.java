@@ -22,15 +22,15 @@ public class VPrincipal extends javax.swing.JFrame {
     VTNoFuncional venNoFun;
     VTInicio venIni;
     Sistema sysReman;
-
+    
     public VPrincipal(Sistema sysReman) {
-        getContentPane().setBackground(new java.awt.Color(119, 148, 171));
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.sysReman = sysReman;
-        System.out.println(this.sysReman.getDirPrincipal());
 
-        //agrega pantalla de inicio
+        //pantalla
+        getContentPane().setBackground(new java.awt.Color(119, 148, 171));
+        this.setLocationRelativeTo(null);
+        initComponents();
+
+        //agregando pantalla de inicio(ayuda)
         VDocumento nuevo = new VDocumento();
         DeskPanel1.add(nuevo);
         try {
@@ -38,14 +38,16 @@ public class VPrincipal extends javax.swing.JFrame {
         } catch (PropertyVetoException ex) {
         }
         nuevo.show();
-        
+
+        //inicializacion de Sistema
+        this.sysReman = sysReman;
         venEdu = new VTEduccion(sysReman);
         venEli = new VTElicitacion();
         venEsp = new VTEspecificacion();
         venNoFun = new VTNoFuncional();
         venOrg = new VTOrganizacion();
         actualizarJTrees();
-        
+
         venIni = new VTInicio();
         DeskPanel2.add(venIni);
         venIni.show();
@@ -506,12 +508,16 @@ public class VPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVPNuevoActionPerformed(java.awt.event.ActionEvent evt) {
-        new VProyecto(sysReman).setVisible(true);
-        actualizarJTrees();
+        VProyecto VNProyect = new VProyecto(this, sysReman);
+        VNProyect.setVisible(true);
+        if(VNProyect.createSuccessful()){
+            System.out.println(sysReman.getDirPrincipal());
+            actualizarJTrees();
+        }
     }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
-        VProyecto ventanaProyecto = new VProyecto(sysReman);
+        VProyecto ventanaProyecto = new VProyecto(this,sysReman);
         ventanaProyecto.setVisible(true);
     }
 
@@ -589,7 +595,7 @@ public class VPrincipal extends javax.swing.JFrame {
         String direccion = "";
         if (opt == JFileChooser.APPROVE_OPTION) {
             direccion = ExportarFile.getSelectedFile().getParent();
-            sysReman.setDirPrincipal(direccion);
+            sysReman.setDirPrincipal("Direccion abrir: " + direccion);
             actualizarJTrees();
         }
     }
@@ -631,7 +637,6 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void actualizarJTrees() {
-        System.out.println("my direccion" + sysReman.getDirPrincipal());
         venEdu.actualizar(ToolsInterface.generateJTreeBook("Documento de Educción", "Educción", sysReman.getDirPrincipal() + "\\src\\edu"));
         venEli.actualizar(ToolsInterface.generateJTreeBook("Documento de Elicitación", "Elicitación", sysReman.getDirPrincipal() + "\\src\\eli"));
         venEsp.actualizar(ToolsInterface.generateJTreeBook("Documento de Espesificación", "Espesificación", sysReman.getDirPrincipal() + "\\src\\esp"));
