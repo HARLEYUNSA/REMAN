@@ -70,8 +70,6 @@ public class FileManager<T> {
             in.close();
             out.close();
 
-            System.out.println("Copiando fichero " + f1.toString());
-
     } catch (IOException ioe){
             ioe.printStackTrace();
         }
@@ -84,7 +82,6 @@ public class FileManager<T> {
                     //Comprobamos si existe el directorio destino, si no lo creamos
                     if (!d2.exists()){                              
                             d2.mkdir();
-                            System.out.println("Creando directorio " + d2.toString());
                     }
 
                     // Sacamos todos los ficheros del directorio

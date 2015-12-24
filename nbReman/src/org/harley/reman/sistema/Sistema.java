@@ -618,6 +618,41 @@ public class Sistema {
         return edu.getLast();
     }
 
+    public void versionarLibro(int libTip, String version, String fecha, 
+            String razon, String autor) {
+        switch (libTip) {
+            case 0:
+                verLibroEdu(version, fecha, razon, autor);
+                break;
+            case 1:
+                verLibroEli(version, fecha, razon, autor);
+                break;
+            case 2:
+                verLibroEsp(version, fecha, razon, autor);
+                break;
+            case 3:
+                verLibroRnf(version, fecha, razon, autor);
+                break;
+        }   
+    }
+    
+    public void restaurarLibro(int libTip, String version) {
+        switch (libTip) {
+            case 0:
+                resLibroEdu(version);
+                break;
+            case 1:
+                resLibroEli(version);
+                break;
+            case 2:
+                resLibroEsp(version);
+                break;
+            case 3:
+                resLibroRnf(version);
+                break;
+        }   
+    }
+    
     public void verLibroEdu(String version, String fecha, String razon,
             String autor) {
         manLibEdu.copiarDirectorios(new File(dirPrincipal + "//src//edu"),

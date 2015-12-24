@@ -105,9 +105,9 @@
 <xsl:template match="intro">                       
     <xsl:apply-templates/>
 </xsl:template>
-<xsl:template match="titulo"> 
+<xsl:template match="carTit"> 
     <fo:block text-align="center" padding-left="1.8cm" margin="0cm">
-        <fo:external-graphic src="src/org/harley/reman/img/img_1red.png" 
+        <fo:external-graphic src="src/org/harley/reman/reportes/imagenes/img_1red.png" 
                              content-height="scale-to-fit" height="2.1cm" 
                              content-width="3.93cm" scaling="non-uniform"/>                 
     </fo:block>  
@@ -125,7 +125,7 @@
               border-bottom-color="rgb(140,180,225)">
     </fo:block>
 </xsl:template>
-<xsl:template match="pro">  
+<xsl:template match="carPro">  
         <fo:block-container border="1pt rgb(140,180,225)" border-style="dashed"
                             border-width="medium">
             <xsl:apply-templates/>
@@ -172,15 +172,15 @@
             <xsl:apply-templates/>
         </fo:block>
 </xsl:template>
-<xsl:template match="fecAct">    
+<xsl:template match="carFec">    
         <fo:block text-align="center" padding-top="20pt" padding-left="1.8cm" margin="0cm">
-            <fo:external-graphic src="src/org/harley/reman/img/img_2red.png" content-height="scale-to-fit" height="1.33cm"  content-width="2.1cm" scaling="non-uniform"/>                 
+            <fo:external-graphic src="src/org/harley/reman/reportes/imagenes/img_2red.png" content-height="scale-to-fit" height="1.33cm"  content-width="2.1cm" scaling="non-uniform"/>                 
         </fo:block>                       
         <fo:block font-weight="bold" text-align="center" padding-top="290pt">
            <xsl:apply-templates/>
         </fo:block>
 </xsl:template>
-<xsl:template match="lugar">                       
+<xsl:template match="carLug">                       
         <fo:block font-weight="bold" text-align="center">
            <xsl:apply-templates/>
         </fo:block>
