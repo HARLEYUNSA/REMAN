@@ -41,8 +41,8 @@ class LibroOrganizacion {
         return orgs;
     }
 
-    @XmlElementWrapper(name = "Organizaciones")
-    @XmlElement(name = "Organizacion")
+    @XmlElementWrapper(name = "tabla")
+    @XmlElement(name = "tablas")
     public void setOrgs(List<Organizacion> orgs) {
         this.orgs = orgs;
     }
@@ -56,7 +56,7 @@ class LibroOrganizacion {
 
     public Organizacion getOrg(String orgCod){
         for (Organizacion org : orgs) {
-            if (org.getOrgNom().getOrgCod().equals(orgCod)) {
+            if (org.getOrgNombre().getCodigo().equals(orgCod)) {
                 return org;
             }
         }

@@ -135,7 +135,7 @@ public class VTEduccion extends javax.swing.JInternalFrame {
 
     private void menuDocEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEduItem1ActionPerformed
         //NUEVA EDUCCION
-        new VEduccion(sysReman);
+        new VEduccion(sysReman).setVisible(true);
     }//GEN-LAST:event_menuDocEduItem1ActionPerformed
 
     private void menuEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem1ActionPerformed

@@ -1,11 +1,12 @@
 package org.harley.reman.sistema;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder = {
-    "teamNombre",
+    "pytNombre",
     "pytOrg",
     "pytEsp",
     "pytExp",
@@ -17,7 +18,7 @@ public class ProyectTeam {
 
     private static int numero = 0;
     private static String codigo = "PYT0000";
-    PytNombre teamNombre;
+    Nombre pytNombre;
     String pytOrg;
     String pytEsp;
     String pytExp;
@@ -42,14 +43,14 @@ public class ProyectTeam {
     public ProyectTeam(String pytNom, String pytOrg) {
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
-        this.teamNombre = new PytNombre(codigo, pytNom);
+        this.pytNombre = new Nombre(codigo, pytNom);
     }
 
     public ProyectTeam(String pytNom, String pytOrg, String pytEsp,
             String pytExp, String pytCar, String pytCor, String pytCom) {
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
-        this.teamNombre = new PytNombre(codigo, pytNom);
+        this.pytNombre = new Nombre(codigo, pytNom);
         this.pytOrg = pytOrg;
         this.pytEsp = pytEsp;
         this.pytExp = pytExp;
@@ -61,7 +62,7 @@ public class ProyectTeam {
     public ProyectTeam(String pytCod, String pytNom, String pytOrg,
             String pytEsp, String pytExp, String pytCar, String pytCor,
             String pytCom) {
-        this.teamNombre = new PytNombre(pytCod, pytNom);
+        this.pytNombre = new Nombre(pytCod, pytNom);
         this.pytOrg = pytOrg;
         this.pytEsp = pytEsp;
         this.pytExp = pytExp;
@@ -78,18 +79,20 @@ public class ProyectTeam {
         ProyectTeam.codigo = codigo;
     }
 
-    public PytNombre getTeamNombre() {
-        return teamNombre;
+    public Nombre getPytNombre() {
+        return pytNombre;
     }
-
-    public void setTeamNombre(PytNombre teamNombre) {
-        this.teamNombre = teamNombre;
+    
+    @XmlElement(name = "pytNombre")
+    public void setPytNombre(Nombre pytNombre) {
+        this.pytNombre = pytNombre;
     }
 
     public String getPytOrg() {
         return pytOrg;
     }
-
+    
+    @XmlElement(name = "organizacion")
     public void setPytOrg(String pytOrg) {
         this.pytOrg = pytOrg;
     }
@@ -97,7 +100,8 @@ public class ProyectTeam {
     public String getPytEsp() {
         return pytEsp;
     }
-
+    
+    @XmlElement(name = "especialidad")
     public void setPytEsp(String pytEsp) {
         this.pytEsp = pytEsp;
     }
@@ -105,7 +109,8 @@ public class ProyectTeam {
     public String getPytExp() {
         return pytExp;
     }
-
+    
+    @XmlElement(name = "experiencia")
     public void setPytExp(String pytExp) {
         this.pytExp = pytExp;
     }
@@ -113,7 +118,8 @@ public class ProyectTeam {
     public String getPytCar() {
         return pytCar;
     }
-
+    
+    @XmlElement(name = "cargo")
     public void setPytCar(String pytCar) {
         this.pytCar = pytCar;
     }
@@ -121,7 +127,8 @@ public class ProyectTeam {
     public String getPytCor() {
         return pytCor;
     }
-
+    
+    @XmlElement(name = "email")
     public void setPytCor(String pytCor) {
         this.pytCor = pytCor;
     }
@@ -129,7 +136,8 @@ public class ProyectTeam {
     public String getPytCom() {
         return pytCom;
     }
-
+    
+    @XmlElement(name = "comentarios")
     public void setPytCom(String pytCom) {
         this.pytCom = pytCom;
     }

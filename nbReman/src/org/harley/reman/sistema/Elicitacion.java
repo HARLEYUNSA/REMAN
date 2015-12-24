@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Elicitacion {
     private static int numero = 0;
-    private static String codigo = "ELI0001";
+    private static String codigo = "ELI0000";
     Nombre eliNombre;
     String eliEduCod;
     String eliVer;

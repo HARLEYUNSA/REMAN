@@ -26,10 +26,10 @@ import javax.xml.bind.annotation.XmlType;
         "rnfDes", 
         "rnfObs"
     })
-public class ReqNoFuncional {
+public class RequisitoNF {
     private static int numero = 0;
-    private static String codigo = "RNF0001";
-    RnfNombre rnfNombre;
+    private static String codigo = "RNF0000";
+    Nombre rnfNombre;
     String rnfVer;
     String rnfTip;
     String rnfObj;
@@ -45,16 +45,16 @@ public class ReqNoFuncional {
     String rnfDes;
     String rnfObs;
     
-    public ReqNoFuncional() {
+    public RequisitoNF() {
     }
 
-    public ReqNoFuncional(String rnfCod, String rnfNom, String rnfVer, 
+    public RequisitoNF(String rnfCod, String rnfNom, String rnfVer, 
             String rnfTip, String rnfObj, String rnfFec, String rnfFueNom,
             String rnfFueCar, String rnfFueTip, String rnfEspNom, 
             String rnfEspEsp, String rnfEspExp, String rnfEspCar, String rnfDep,
             String rnfDes, String rnfObs) {
         
-        this.rnfNombre = new RnfNombre(rnfCod, rnfNom);
+        this.rnfNombre = new Nombre(rnfCod, rnfNom);
         this.rnfVer = rnfVer;
         this.rnfTip = rnfTip;
         this.rnfObj = rnfObj;
@@ -72,7 +72,7 @@ public class ReqNoFuncional {
 
     }
     
-    public ReqNoFuncional(String rnfNom, String rnfVer, String rnfTip, 
+    public RequisitoNF(String rnfNom, String rnfVer, String rnfTip, 
             String rnfObj, String rnfFec, String rnfFueNom,
             String rnfFueCar, String rnfFueTip, String rnfEspNom, 
             String rnfEspEsp, String rnfEspExp, String rnfEspCar, String rnfDep,
@@ -80,7 +80,7 @@ public class ReqNoFuncional {
         
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
-        this.rnfNombre = new RnfNombre(codigo, rnfNom);
+        this.rnfNombre = new Nombre(codigo, rnfNom);
         this.rnfVer = rnfVer;
         this.rnfTip = rnfTip;
         this.rnfObj = rnfObj;
@@ -101,7 +101,7 @@ public class ReqNoFuncional {
     }
 
     public static void setNumero(int numero) {
-        ReqNoFuncional.numero = numero;
+        RequisitoNF.numero = numero;
     }
 
     public static String getCodigo() {
@@ -109,21 +109,23 @@ public class ReqNoFuncional {
     }
 
     public static void setCodigo(String codigo) {
-        ReqNoFuncional.codigo = codigo;
+        RequisitoNF.codigo = codigo;
     }
 
-    public RnfNombre getRnfNombre() {
+    public Nombre getRnfNombre() {
         return rnfNombre;
     }
-
-    public void setRnfNombre(RnfNombre rnfNombre) {
+    
+    @XmlElement(name = "rnfNombre")
+    public void setRnfNombre(Nombre rnfNombre) {
         this.rnfNombre = rnfNombre;
     }
 
     public String getRnfVer() {
         return rnfVer;
     }
-
+    
+    @XmlElement(name = "version")
     public void setRnfVer(String rnfVer) {
         this.rnfVer = rnfVer;
     }
@@ -131,7 +133,8 @@ public class ReqNoFuncional {
     public String getRnfTip() {
         return rnfTip;
     }
-
+    
+    @XmlElement(name = "tipo")
     public void setRnfTip(String rnfTip) {
         this.rnfTip = rnfTip;
     }
@@ -139,7 +142,8 @@ public class ReqNoFuncional {
     public String getRnfObj() {
         return rnfObj;
     }
-
+    
+    @XmlElement(name = "objetivo")
     public void setRnfObj(String rnfObj) {
         this.rnfObj = rnfObj;
     }
@@ -147,7 +151,8 @@ public class ReqNoFuncional {
     public String getRnfFec() {
         return rnfFec;
     }
-
+    
+    @XmlElement(name = "fecha")
     public void setRnfFec(String rnfFec) {
         this.rnfFec = rnfFec;
     }
@@ -155,7 +160,8 @@ public class ReqNoFuncional {
     public String getRnfFueNom() {
         return rnfFueNom;
     }
-
+    
+    @XmlElement(name = "fuenteNombre")
     public void setRnfFueNom(String rnfFueNom) {
         this.rnfFueNom = rnfFueNom;
     }
@@ -163,7 +169,8 @@ public class ReqNoFuncional {
     public String getRnfFueCar() {
         return rnfFueCar;
     }
-
+    
+    @XmlElement(name = "fuenteCargo")
     public void setRnfFueCar(String rnfFueCar) {
         this.rnfFueCar = rnfFueCar;
     }
@@ -171,7 +178,8 @@ public class ReqNoFuncional {
     public String getRnfFueTip() {
         return rnfFueTip;
     }
-
+    
+    @XmlElement(name = "fuenteTipo")
     public void setRnfFueTip(String rnfFueTip) {
         this.rnfFueTip = rnfFueTip;
     }
@@ -179,7 +187,8 @@ public class ReqNoFuncional {
     public String getRnfEspNom() {
         return rnfEspNom;
     }
-
+    
+    @XmlElement(name = "especialistaNombre")
     public void setRnfEspNom(String rnfEspNom) {
         this.rnfEspNom = rnfEspNom;
     }
@@ -187,7 +196,8 @@ public class ReqNoFuncional {
     public String getRnfEspEsp() {
         return rnfEspEsp;
     }
-
+    
+    @XmlElement(name = "especialistaEspecialidad")
     public void setRnfEspEsp(String rnfEspEsp) {
         this.rnfEspEsp = rnfEspEsp;
     }
@@ -195,7 +205,8 @@ public class ReqNoFuncional {
     public String getRnfEspExp() {
         return rnfEspExp;
     }
-
+    
+    @XmlElement(name = "especialistaExperiencia")
     public void setRnfEspExp(String rnfEspExp) {
         this.rnfEspExp = rnfEspExp;
     }
@@ -203,7 +214,8 @@ public class ReqNoFuncional {
     public String getRnfEspCar() {
         return rnfEspCar;
     }
-
+    
+    @XmlElement(name = "especialistaCargo")
     public void setRnfEspCar(String rnfEspCar) {
         this.rnfEspCar = rnfEspCar;
     }
@@ -211,7 +223,8 @@ public class ReqNoFuncional {
     public String getRnfDep() {
         return rnfDep;
     }
-
+    
+    @XmlElement(name = "dependencias")
     public void setRnfDep(String rnfDep) {
         this.rnfDep = rnfDep;
     }
@@ -219,7 +232,8 @@ public class ReqNoFuncional {
     public String getRnfDes() {
         return rnfDes;
     }
-
+    
+    @XmlElement(name = "descripcion")
     public void setRnfDes(String rnfDes) {
         this.rnfDes = rnfDes;
     }
@@ -227,7 +241,8 @@ public class ReqNoFuncional {
     public String getRnfObs() {
         return rnfObs;
     }
-
+    
+    @XmlElement(name = "observaciones")
     public void setRnfObs(String rnfObs) {
         this.rnfObs = rnfObs;
     }

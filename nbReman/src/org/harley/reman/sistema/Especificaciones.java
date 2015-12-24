@@ -62,7 +62,7 @@ public class Especificaciones {
     public void newEsp(Especificacion esp){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar cal = Calendar.getInstance();
-        String nomEsp = esp.getEspNombre().getEspNom();    
+        String nomEsp = esp.getEspNombre().getNombre();    
         addHistorico(esp, dateFormat.format(cal.getTime()), 
                    "Creación de la Especificacion " + nomEsp, "Gonzalo");
         addEspecificacion(esp);
@@ -102,7 +102,7 @@ public class Especificaciones {
        return last;
     }
 
-    void modRnf(ReqNoFuncional rnf) {
+    void modRnf(RequisitoNF rnf) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

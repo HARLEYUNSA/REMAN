@@ -31,8 +31,8 @@ public class LibroActor {
         return stakes;
     }
     
-    @XmlElementWrapper(name = "stakes")
-    @XmlElement(name = "stake")
+    @XmlElementWrapper(name = "tablas")
+    @XmlElement(name = "tabla")
     public void setStakes(List<Stakeholder> stakes) {
         this.stakes = stakes;
     }
@@ -48,8 +48,8 @@ public class LibroActor {
         return teams;
     }
     
-    @XmlElementWrapper(name = "proyectTeams")
-    @XmlElement(name = "proyectTeam")
+    @XmlElementWrapper(name = "tablas")
+    @XmlElement(name = "tabla")
     public void setTeams(List<ProyectTeam> teams) {
         this.teams = teams;
     }
@@ -64,7 +64,7 @@ public class LibroActor {
     public List<String> getFueCod(){
         List<String> fueNom = new ArrayList<>();
         for (Stakeholder stake : stakes) {
-            fueNom.add(stake.getSthNombre().getSthCod());
+            fueNom.add(stake.getSthNombre().getCodigo());
         }
         return fueNom;
     }
@@ -72,12 +72,9 @@ public class LibroActor {
     public List<String> getFueNom(){
         List<String> fueNom = new ArrayList<>();
         for (Stakeholder stake : stakes) {
-            fueNom.add(stake.getSthNombre().getSthNom());
+            fueNom.add(stake.getSthNombre().getCodigo());
         }
         return fueNom;
     }
 
-    /*public Stakeholder getSth(String sthCod){
-        
-    }*/
 }

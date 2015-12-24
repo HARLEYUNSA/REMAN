@@ -91,6 +91,50 @@
         </fo:page-sequence>
     </fo:root>	
 </xsl:template>
+<xsl:template match="libroActores">
+    <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+        <fo:layout-master-set>
+            <fo:simple-page-master  master-name="plantillaAct"
+                                    page-height="29.7cm" 
+                                    page-width="21cm"
+                                    margin-top="1cm" 
+                                    margin-bottom="2cm" 
+                                    margin-left="2.5cm" 
+                                    margin-right="2.5cm">
+                <fo:region-body margin-top="3cm"/>
+                <fo:region-before extent="3cm"/>
+                <fo:region-after extent="1.5cm"/>
+            </fo:simple-page-master>
+        </fo:layout-master-set>
+        <fo:page-sequence master-reference="plantillaAct">
+            <fo:flow flow-name="xsl-region-body">
+                <xsl:apply-templates/>
+            </fo:flow>
+        </fo:page-sequence>
+    </fo:root>	
+</xsl:template>
+<xsl:template match="libroOrganizacion">
+    <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+        <fo:layout-master-set>
+            <fo:simple-page-master  master-name="plantillaOrg"
+                                    page-height="29.7cm" 
+                                    page-width="21cm"
+                                    margin-top="1cm" 
+                                    margin-bottom="2cm" 
+                                    margin-left="2.5cm" 
+                                    margin-right="2.5cm">
+                <fo:region-body margin-top="3cm"/>
+                <fo:region-before extent="3cm"/>
+                <fo:region-after extent="1.5cm"/>
+            </fo:simple-page-master>
+        </fo:layout-master-set>
+        <fo:page-sequence master-reference="plantillaOrg">
+            <fo:flow flow-name="xsl-region-body">
+                <xsl:apply-templates/>
+            </fo:flow>
+        </fo:page-sequence>
+    </fo:root>	
+</xsl:template>
 <xsl:attribute-set name="row4col1">
 	<xsl:attribute name="border">solid 0.1cm black</xsl:attribute>
 	<xsl:attribute name="padding-left">0.2cm</xsl:attribute>
@@ -104,7 +148,7 @@
 	<xsl:attribute name="number-rows-spanned">4</xsl:attribute>
 	<xsl:attribute name="number-columns-spanned">2</xsl:attribute>                      
 </xsl:attribute-set>
-<xsl:attribute-set name="row3co1">
+<xsl:attribute-set name="row3col1">
 	<xsl:attribute name="border">solid 0.1cm black</xsl:attribute>
 	<xsl:attribute name="padding-left">0.2cm</xsl:attribute>
 	<xsl:attribute name="padding-top">1.1cm</xsl:attribute>
@@ -158,6 +202,22 @@
 <xsl:attribute-set name="whiteYellow">
 	<xsl:attribute name="color">white</xsl:attribute>
 	<xsl:attribute name="background-color">rgb(255,192,0)</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="whiteGreen">
+	<xsl:attribute name="color">white</xsl:attribute>
+	<xsl:attribute name="background-color">rgb(0,128,0)</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="whiteGray">
+	<xsl:attribute name="color">white</xsl:attribute>
+	<xsl:attribute name="background-color">rgb(166,166,166)</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="whiteLightBlue">
+	<xsl:attribute name="color">white</xsl:attribute>
+	<xsl:attribute name="background-color">rgb(0,176,240)</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="whiteOrange">
+	<xsl:attribute name="color">white</xsl:attribute>
+	<xsl:attribute name="background-color">rgb(235,112,12)</xsl:attribute>
 </xsl:attribute-set>
 <xsl:attribute-set name="borde">
 	<xsl:attribute name="border">0.03cm rgb(140,180,225)</xsl:attribute>
@@ -270,6 +330,66 @@
 <xsl:template match="eduNombre">
 	<fo:table-row xsl:use-attribute-sets="whiteRed" font-weight="bold">
         <xsl:apply-templates/>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="eliNombre">
+	<fo:table-row xsl:use-attribute-sets="whiteYellow" font-weight="bold">
+        <xsl:apply-templates/>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="espNombre">
+	<fo:table-row xsl:use-attribute-sets="whiteGreen" font-weight="bold">
+        <xsl:apply-templates/>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="rnfNombre">
+	<fo:table-row xsl:use-attribute-sets="whiteGray" font-weight="bold">
+        <xsl:apply-templates/>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="orgNombre">
+	<fo:table-row xsl:use-attribute-sets="whiteLightBlue" font-weight="bold">
+        <xsl:apply-templates/>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="sthNombre">
+	<fo:table-row xsl:use-attribute-sets="whiteGray" font-weight="bold">
+        <xsl:apply-templates/>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="pytNombre">
+	<fo:table-row xsl:use-attribute-sets="whiteGray" font-weight="bold">
+        <xsl:apply-templates/>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="educcionCodigo">
+	<fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block font-weight="bold">
+			   Educción Nº
+			</fo:block>
+        </fo:table-cell>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block>
+			   <xsl:apply-templates/>
+			</fo:block>
+        </fo:table-cell>
+      <xsl:apply-templates/>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="elicitacionCodigo">
+	<fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block font-weight="bold">
+			   Elicitacion Nº
+			</fo:block>
+        </fo:table-cell>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block>
+			   <xsl:apply-templates/>
+			</fo:block>
+        </fo:table-cell>
+      <xsl:apply-templates/>
 	</fo:table-row>
 </xsl:template>
 <xsl:template match="codigo">
@@ -479,28 +599,6 @@
         </fo:table-cell>
 	</fo:table-row>
 </xsl:template>
-
-<xsl:template match="eliNombre">
-	<fo:table-row xsl:use-attribute-sets="whiteYellow" font-weight="bold">
-        <xsl:apply-templates/>
-	</fo:table-row>
-</xsl:template>
-
-<xsl:template match="educcionCodigo">
-	<fo:table-row>
-        <fo:table-cell xsl:use-attribute-sets="cell2">
-			<fo:block font-weight="bold">
-			   Educción Nº
-			</fo:block>
-        </fo:table-cell>
-        <fo:table-cell xsl:use-attribute-sets="cell2">
-			<fo:block>
-			   <xsl:apply-templates/>
-			</fo:block>
-        </fo:table-cell>
-      <xsl:apply-templates/>
-	</fo:table-row>
-</xsl:template>
 <xsl:template match="dependencias">
 	<fo:table-row>
         <fo:table-cell xsl:use-attribute-sets="cell2">
@@ -559,7 +657,7 @@
 	<fo:table-row>
         <fo:table-cell xsl:use-attribute-sets="cell" number-rows-spanned="{$cols}">
 			<fo:block font-weight="bold">
-				Excepcion
+				Excepciones
 			</fo:block>
         </fo:table-cell> 
 	</fo:table-row>
@@ -583,5 +681,132 @@
             <xsl:apply-templates/>
         </fo:block>
     </fo:table-cell>
+</xsl:template>
+
+<xsl:template match="direccion">
+	<fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block font-weight="bold">
+				Dirección
+			</fo:block>
+        </fo:table-cell> 
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block>
+			   <xsl:apply-templates/>
+			</fo:block>
+        </fo:table-cell>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="telefonos">
+	<fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block font-weight="bold">
+				Teléfonos
+			</fo:block>
+        </fo:table-cell> 
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block>
+			   <xsl:apply-templates/>
+			</fo:block>
+        </fo:table-cell>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="paginaWeb">
+	<fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block font-weight="bold">
+				Página Web
+			</fo:block>
+        </fo:table-cell> 
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block>
+			   <xsl:apply-templates/>
+			</fo:block>
+        </fo:table-cell>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="email">
+	<fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block font-weight="bold">
+				Correo Electrónico
+			</fo:block>
+        </fo:table-cell> 
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block>
+			   <xsl:apply-templates/>
+			</fo:block>
+        </fo:table-cell>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="comentarios">
+	<fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block font-weight="bold">
+				Comentarios
+			</fo:block>
+        </fo:table-cell> 
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block>
+			   <xsl:apply-templates/>
+			</fo:block>
+        </fo:table-cell>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="organizacion">
+	<fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block font-weight="bold">
+				Organizacion
+			</fo:block>
+        </fo:table-cell> 
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block>
+			   <xsl:apply-templates/>
+			</fo:block>
+        </fo:table-cell>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="cargo">
+	<fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block font-weight="bold">
+				Cargo
+			</fo:block>
+        </fo:table-cell> 
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block>
+			   <xsl:apply-templates/>
+			</fo:block>
+        </fo:table-cell>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="especialidad">
+	<fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block font-weight="bold">
+				Especialidad
+			</fo:block>
+        </fo:table-cell> 
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block>
+			   <xsl:apply-templates/>
+			</fo:block>
+        </fo:table-cell>
+	</fo:table-row>
+</xsl:template>
+<xsl:template match="experiencia">
+	<fo:table-row>
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block font-weight="bold">
+				Experiencia
+			</fo:block>
+        </fo:table-cell> 
+        <fo:table-cell xsl:use-attribute-sets="cell2">
+			<fo:block>
+			   <xsl:apply-templates/>
+			</fo:block>
+        </fo:table-cell>
+	</fo:table-row>
 </xsl:template>
 </xsl:stylesheet>
