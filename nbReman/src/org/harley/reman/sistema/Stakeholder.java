@@ -113,5 +113,5 @@ public class Stakeholder {
     public void setSthCom(String sthCom) {
         this.sthCom = sthCom;
     }
-     
+    
 }

@@ -44,7 +44,7 @@ public class XMLConverter {
     public  XMLConverter (File directory){
         database = directory;
         salida = new File("informes");      //Salida por defecto
-        plantillas = new File("src/org/harley/reman/xml/plantillas");
+        plantillas = new File("src/org/harley/reman/reportes/xml/plantillas");
     }
     
     /**
@@ -135,16 +135,7 @@ public class XMLConverter {
         File xslFile = new File(plantillas, "plantilla.xsl");
         File foFile = new File(database, archivoXML +".fo");
         File pdfFile = new File(salida, archivoXML +".pdf");
-
-        //Status
-        System.out.println("Input: XML (" + xmlFile + ")");
-        System.out.println("Output: PDF (" + pdfFile + ")");
-        System.out.println();
-        System.out.println("Transforming...");
-
         convertXML2PDF(xmlFile, xslFile, foFile, pdfFile);
-
-        System.out.println("Success!");
     }
     
     /**
@@ -162,15 +153,7 @@ public class XMLConverter {
         File pdfFile = new File(destino, nombre +".pdf");
         File pdf = new File(destino);
         pdf.mkdir();
-        //Status
-        System.out.println("Input: XML (" + xmlFile + ")");
-        System.out.println("Output: PDF (" + pdfFile + ")");
-        System.out.println();
-        System.out.println("Transforming...");
-
         convertXML2PDF(xmlFile, xslFile, foFile, pdfFile);
-
-        System.out.println("Success!");
     }
 
     /**
@@ -214,6 +197,7 @@ public class XMLConverter {
     /**
      * Elimina el archivo FO intermedio
      * @param fo Archivo FO creado
+     * @param xml Arcguvi XML creado
      */
     public void clean(File fo, File xml){
         if (fo.exists())

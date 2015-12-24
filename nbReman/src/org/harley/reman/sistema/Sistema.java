@@ -202,10 +202,11 @@ public class Sistema {
      * @throws IOException
      */
     public void iniciarHistoricos(String proUbi) throws IOException {
-        new File(proUbi + "//verlib//edu//eduhis.xml").createNewFile();
-        new File(proUbi + "//verlib//eli//elihis.xml").createNewFile();
-        new File(proUbi + "//verlib//eli//esphis.xml").createNewFile();
-        new File(proUbi + "//verlib//rnf//rnfhis.xml").createNewFile();
+        LibroHistorico libH = new LibroHistorico();
+        manHisEdu.escribirXML("eduhis", libH);
+        manHisEli.escribirXML("elihis", libH);
+        manHisEsp.escribirXML("esphis", libH);
+        manHisRnf.escribirXML("rnfhis", libH);
     }
 
     /**
@@ -217,18 +218,26 @@ public class Sistema {
                 new File(proUbi + "//src//edu"));
         manLibEdu = new FileManager<>(LibroEduccion.class,
                 new File(proUbi + "//src//edu"));
+        manHisEdu = new FileManager<>(LibroHistorico.class,
+                new File(proUbi + "//verlib//edu"));
         manVerEli = new FileManager<>(Elicitaciones.class,
                 new File(proUbi + "//src//eli"));
         manLibEli = new FileManager<>(LibroElicitacion.class,
                 new File(proUbi + "//src//eli"));
+        manHisEli = new FileManager<>(LibroHistorico.class,
+                new File(proUbi + "//verlib//eli"));
         manVerEsp = new FileManager<>(Especificaciones.class,
                 new File(proUbi + "//src//esp"));
         manLibEsp = new FileManager<>(LibroEspecificacion.class,
                 new File(proUbi + "//src//esp"));
+        manHisEsp = new FileManager<>(LibroHistorico.class,
+                new File(proUbi + "//verlib//esp"));
         manVerRnf = new FileManager<>(ReqNoFuncionales.class,
                 new File(proUbi + "//src//rnf"));
         manLibRnf = new FileManager<>(LibroRequisitoNF.class,
                 new File(proUbi + "//src//rnf"));
+        manHisRnf = new FileManager<>(LibroHistorico.class,
+                new File(proUbi + "//verlib//rnf"));
         manOrg = new FileManager<>(Organizacion.class,
                 new File(proUbi + "//src//org//org"));
         manLibOrg = new FileManager<>(LibroOrganizacion.class,
@@ -263,8 +272,8 @@ public class Sistema {
             crearPropiedades(proNom, prdNom, empDes, empCli,
                     proLid, fecIni, fecFin, proUbi);
             crearFileRem(proUbi, proNom);
-            iniciarHistoricos(proUbi);
             iniciarManagers(proUbi);
+            iniciarHistoricos(proUbi);
             crearOrganizacion(empDes, "Direccion Desconocida", "Desconocido", "www.empDes.com", "example@domain.com", "Autogenerado");
             crearOrganizacion(empCli, "Direccion Desconocida", "Desconocido", "www.empCli,com", "example@domain.com", "Autogenerado");
             crearProyectTeam(proLid, empDes, "Desconocida", "Desconocida", "Lider", "example@domain.com", "Autogenerado");
@@ -602,6 +611,41 @@ public class Sistema {
         return edu.getLast();
     }
 
+    public void versionarLibro(int libTip, String version, String fecha, 
+            String razon, String autor) {
+        switch (libTip) {
+            case 0:
+                verLibroEdu(version, fecha, razon, autor);
+                break;
+            case 1:
+                verLibroEli(version, fecha, razon, autor);
+                break;
+            case 2:
+                verLibroEsp(version, fecha, razon, autor);
+                break;
+            case 3:
+                verLibroRnf(version, fecha, razon, autor);
+                break;
+        }   
+    }
+    
+    public void restaurarLibro(int libTip, String version) {
+        switch (libTip) {
+            case 0:
+                resLibroEdu(version);
+                break;
+            case 1:
+                resLibroEli(version);
+                break;
+            case 2:
+                resLibroEsp(version);
+                break;
+            case 3:
+                resLibroRnf(version);
+                break;
+        }   
+    }
+    
     public void verLibroEdu(String version, String fecha, String razon,
             String autor) {
         manLibEdu.copiarDirectorios(new File(dirPrincipal + "//src//edu"),
