@@ -38,19 +38,9 @@ public class Sistema {
     /**
      * Constructor de la clase Sistema
      */
-    public Sistema(String dirProyect) {
-        propiedades = new Properties();
-        stateReman = new Properties();
-        dirPrincipal = dirProyect;
-    }
-
-    /**
-     * Constructor de la clase Sistema
-     */
     public Sistema() {
         propiedades = new Properties();
         stateReman = new Properties();
-        dirPrincipal = "";
     }
 
     /**
@@ -99,20 +89,25 @@ public class Sistema {
         }
     }
 
-    private void crearFileRem(String dir, String name) {
+    private void crearFileRem(String name) {
         OutputStream salida = null;
         try {
-            salida = new FileOutputStream(dir + "\\" + name + ".rem");
+            salida = new FileOutputStream(dirPrincipal + "\\" + name + ".rem");
             salida.close();
         } catch (Exception e) {
         }
     }
 
-    public void crearStateReman(String dir) {
+    /**
+     * Crea un archivo q almacena la ubicacion del ultimo proyecto utilizado
+     *
+     * @param dir directorio del ultimo proyecto
+     */
+    public void crearStateReman() {
         OutputStream salida = null;
         try {
             salida = new FileOutputStream("stateReman.properties");
-            stateReman.setProperty("dirAct", dir);
+            stateReman.setProperty("dirAct", dirPrincipal);
             stateReman.store(salida, null);
         } catch (IOException io) {
         } finally {
@@ -125,32 +120,25 @@ public class Sistema {
         }
     }
 
-    public void setStateRemanDir(String newDir) {
+    public String getStateReman() {
         InputStream entrada = null;
+        String rpt = "\\";
         try {
             File input = new File("stateReman.properties");
             entrada = new FileInputStream(input);
             stateReman.load(entrada);
-            stateReman.setProperty("dirAct", newDir);
+            rpt = stateReman.getProperty("dirAct");
         } catch (IOException ex) {
-        } finally {
-            if (entrada != null) {
-                try {
-                    entrada.close();
-                } catch (IOException e) {
-                }
-            }
         }
+        return rpt;
     }
 
-    public String getStateRemanDir() {
+    public void setStateReman(String path) {
         OutputStream salida = null;
-        String rpt = "";
         try {
-            File output = new File("stateReman.properties");
-            salida = new FileOutputStream(output);
+            salida = new FileOutputStream("stateReman.properties");
+            stateReman.setProperty("dirAct", path);
             stateReman.store(salida, null);
-            rpt = stateReman.getProperty("dirAct");
         } catch (IOException io) {
         } finally {
             if (salida != null) {
@@ -160,16 +148,12 @@ public class Sistema {
                 }
             }
         }
-        return rpt;
     }
 
     /**
      * Crear los directorios del proyecto
-     *
-     * @param dirPrincipal Directorio principal del proyecto
      */
-    public void crearDirectorios(String dirPrincipal) {
-        this.dirPrincipal = dirPrincipal;
+    public void crearDirectorios() {
         new File(dirPrincipal).mkdir();
         new File(dirPrincipal, "remanproject").mkdir();
         new File(dirPrincipal, "src//edu").mkdirs();
@@ -208,7 +192,7 @@ public class Sistema {
      * @param proUbi Ubicación del proyecto
      * @throws IOException
      */
-    public void iniciarHistoricos(String proUbi) throws IOException {
+    public void iniciarHistoricos() {
         LibroHistorico libH = new LibroHistorico();
         manHisEdu.escribirXML("eduhis", libH);
         manHisEli.escribirXML("elihis", libH);
@@ -216,45 +200,41 @@ public class Sistema {
         manHisRnf.escribirXML("rnfhis", libH);
     }
 
-    /**
-     *
-     * @param proUbi
-     */
-    public void iniciarManagers(String proUbi) {
+    public void iniciarManagers() {
         manVerEdu = new FileManager<>(Educciones.class,
-                new File(proUbi + "//src//edu"));
+                new File(dirPrincipal + "//src//edu"));
         manLibEdu = new FileManager<>(LibroEduccion.class,
-                new File(proUbi + "//src//edu"));
+                new File(dirPrincipal + "//src//edu"));
         manHisEdu = new FileManager<>(LibroHistorico.class,
-                new File(proUbi + "//verlib//edu"));
+                new File(dirPrincipal + "//verlib//edu"));
         manVerEli = new FileManager<>(Elicitaciones.class,
-                new File(proUbi + "//src//eli"));
+                new File(dirPrincipal + "//src//eli"));
         manLibEli = new FileManager<>(LibroElicitacion.class,
-                new File(proUbi + "//src//eli"));
+                new File(dirPrincipal + "//src//eli"));
         manHisEli = new FileManager<>(LibroHistorico.class,
-                new File(proUbi + "//verlib//eli"));
+                new File(dirPrincipal + "//verlib//eli"));
         manVerEsp = new FileManager<>(Especificaciones.class,
-                new File(proUbi + "//src//esp"));
+                new File(dirPrincipal + "//src//esp"));
         manLibEsp = new FileManager<>(LibroEspecificacion.class,
-                new File(proUbi + "//src//esp"));
+                new File(dirPrincipal + "//src//esp"));
         manHisEsp = new FileManager<>(LibroHistorico.class,
-                new File(proUbi + "//verlib//esp"));
+                new File(dirPrincipal + "//verlib//esp"));
         manVerRnf = new FileManager<>(ReqNoFuncionales.class,
-                new File(proUbi + "//src//rnf"));
+                new File(dirPrincipal + "//src//rnf"));
         manLibRnf = new FileManager<>(LibroRequisitoNF.class,
-                new File(proUbi + "//src//rnf"));
+                new File(dirPrincipal + "//src//rnf"));
         manHisRnf = new FileManager<>(LibroHistorico.class,
-                new File(proUbi + "//verlib//rnf"));
+                new File(dirPrincipal + "//verlib//rnf"));
         manOrg = new FileManager<>(Organizacion.class,
-                new File(proUbi + "//src//org//org"));
+                new File(dirPrincipal + "//src//org//org"));
         manLibOrg = new FileManager<>(LibroOrganizacion.class,
-                new File(proUbi + "//src//org//org"));
+                new File(dirPrincipal + "//src//org//org"));
         manSth = new FileManager<>(Stakeholder.class,
-                new File(proUbi + "//src//org//sth"));
+                new File(dirPrincipal + "//src//org//sth"));
         manPyt = new FileManager<>(ProyectTeam.class,
-                new File(proUbi + "//src//org//pyt"));
+                new File(dirPrincipal + "//src//org//pyt"));
         manLibAct = new FileManager<>(LibroActor.class,
-                new File(proUbi + "//src//org"));
+                new File(dirPrincipal + "//src//org"));
     }
 
     /**
@@ -274,13 +254,13 @@ public class Sistema {
             String empCli, String proLid, String fecIni, String fecFin,
             String proUbi) {
         try {
-            crearDirectorios(proUbi);
-            setStateRemanDir(proUbi);
+            crearDirectorios();
+            crearStateReman();
             crearPropiedades(proNom, prdNom, empDes, empCli,
                     proLid, fecIni, fecFin, proUbi);
-            crearFileRem(proUbi, proNom);
-            iniciarManagers(proUbi);
-            iniciarHistoricos(proUbi);
+            crearFileRem(proNom);
+            iniciarManagers();
+            iniciarHistoricos();
             crearOrganizacion(empDes, "Direccion Desconocida", "Desconocido", "www.empDes.com", "example@domain.com", "Autogenerado");
             crearOrganizacion(empCli, "Direccion Desconocida", "Desconocido", "www.empCli,com", "example@domain.com", "Autogenerado");
             crearProyectTeam(proLid, empDes, "Desconocida", "Desconocida", "Lider", "example@domain.com", "Autogenerado");
@@ -500,7 +480,7 @@ public class Sistema {
      */
     public boolean ingresarProyecto() {
         try {
-            cargarPropiedades(dirPrincipal);
+            cargarPropiedades();
             Educcion.setNumero(
                     Integer.parseInt(propiedades.getProperty("numEdu")));
             Elicitacion.setNumero(
@@ -515,22 +495,17 @@ public class Sistema {
                     Integer.parseInt(propiedades.getProperty("numSth")));
             ProyectTeam.setNumero(
                     Integer.parseInt(propiedades.getProperty("numPyt")));
-            iniciarManagers(dirPrincipal);
+            iniciarManagers();
             return true;
         } catch (Exception ex) {
             return false;
         }
     }
 
-    /**
-     * Carga el archivo de propiedades
-     *
-     * @param proUbi Ubicación del proyecto
-     */
-    public void cargarPropiedades(String proUbi) {
+    public void cargarPropiedades() {
         InputStream entrada = null;
         try {
-            File input = new File(proUbi
+            File input = new File(dirPrincipal
                     + "//remanproject//configuracion.properties");
             entrada = new FileInputStream(input);
             propiedades.load(entrada);
@@ -618,7 +593,7 @@ public class Sistema {
         return edu.getLast();
     }
 
-    public void versionarLibro(int libTip, String version, String fecha, 
+    public void versionarLibro(int libTip, String version, String fecha,
             String razon, String autor) {
         switch (libTip) {
             case 0:
@@ -633,9 +608,9 @@ public class Sistema {
             case 3:
                 verLibroRnf(version, fecha, razon, autor);
                 break;
-        }   
+        }
     }
-    
+
     public void restaurarLibro(int libTip, String version) {
         switch (libTip) {
             case 0:
@@ -650,9 +625,9 @@ public class Sistema {
             case 3:
                 resLibroRnf(version);
                 break;
-        }   
+        }
     }
-    
+
     public void verLibroEdu(String version, String fecha, String razon,
             String autor) {
         manLibEdu.copiarDirectorios(new File(dirPrincipal + "//src//edu"),

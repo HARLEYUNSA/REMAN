@@ -6,7 +6,9 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.io.File;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
 
@@ -14,13 +16,16 @@ import org.harley.reman.sistema.Sistema;
  *
  * @author dj-abx
  */
-public class VProyecto extends javax.swing.JFrame {
+public class VProyecto extends JDialog {
 
     Sistema sysReman;
-    public VProyecto(Sistema sysReman) {
+    boolean flagNewProyect;
+    public VProyecto(JFrame padre, Sistema sysReman) {
+        super(padre,true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
+        flagNewProyect = false;
     }
 
     /**
@@ -339,20 +344,26 @@ public class VProyecto extends javax.swing.JFrame {
             error = true;
         }
         proUbi += "\\" +proNom;
-        
+
         if (empCli.equals("") || empDes.equals("") || proNom.equals("")
                 || prdNom.equals("") || proUbi.equals("") || proLid.equals("") || fecIni.equals("") || fecFin.equals("")) {
             error = true;
         }
 
-        if (error) {
-            ToolsInterface.msjError("Error, llenar todos los campos");
-        } else {
+        if (!error) {
+            sysReman.setDirPrincipal(proUbi);
+            sysReman.setStateReman(proUbi);
             sysReman.crearProyecto(proNom, prdNom, empDes, empCli, proLid, fecIni, fecFin, proUbi);
+            flagNewProyect = true;
             this.dispose();
+        } else {
+            ToolsInterface.msjError("Error, llenar todos los campos");
         }
     }//GEN-LAST:event_btnPGuardarActionPerformed
 
+    public boolean createSuccessful(){
+        return flagNewProyect;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser EscogeUbicacion;
