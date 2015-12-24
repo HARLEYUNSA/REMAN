@@ -33,8 +33,8 @@ public class LibroElicitacion {
         return elicitaciones;
     }
     
-    @XmlElementWrapper(name = "elicitaciones")
-    @XmlElement(name = "elicitacion")
+    @XmlElementWrapper(name = "tablas")
+    @XmlElement(name = "tabla")
     public void setElicitaciones(List<Elicitacion> elicitaciones) {
         this.elicitaciones = elicitaciones;
     }

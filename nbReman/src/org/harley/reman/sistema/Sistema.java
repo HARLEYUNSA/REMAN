@@ -320,7 +320,7 @@ public class Sistema {
                     eduEspExp, eduEspCar, eduDes, eduObs);
             Educciones verEdu = new Educciones();
             verEdu.newEdu(edu);
-            manVerEdu.escribirXML(edu.getEduNombre().getEduCod(), verEdu);
+            manVerEdu.escribirXML(edu.getEduNombre().getCodigo(), verEdu);
             propiedades.setProperty("numEdu",
                     Integer.toString(Educcion.getNumero()));
             guardarPropiedades(dirPrincipal);
@@ -413,7 +413,7 @@ public class Sistema {
             String eduEspCar, String eduDes, String eduObs) {
         try {
             Educciones verEdu = manVerEdu.leerXML(eduCod);
-            String ultVer = verEdu.getLast().getEduNombre().getEduCod();
+            String ultVer = verEdu.getLast().getEduNombre().getCodigo();
             if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
                 Educcion edu = new Educcion(eduCod, eduNom, eduVer, eduTip,
                         eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip,
@@ -581,7 +581,7 @@ public class Sistema {
 
     public void modificarEduccion(Educcion edu) {
         Educciones versiones;
-        String cod = edu.getEduNombre().getEduCod();
+        String cod = edu.getEduNombre().getCodigo();
         versiones = manVerEdu.leerXML(cod);
         versiones.modEdu(edu);
         manVerEdu.escribirXML(cod, versiones);
@@ -764,7 +764,7 @@ public class Sistema {
 
     public void modificarElicitacion(Elicitacion eli) {
         Elicitaciones versiones;
-        String cod = eli.getEliNombre().getEliCod();
+        String cod = eli.getEliNombre().getCodigo();
         versiones = manVerEli.leerXML(cod);
         versiones.modEli(eli);
         manVerEli.escribirXML(cod, versiones);
@@ -784,7 +784,7 @@ public class Sistema {
                     eliPos, eliExc, eliObs);
             Elicitaciones verEli = new Elicitaciones();
             verEli.newEli(eli);
-            manVerEli.escribirXML(eli.getEliNombre().getEliCod(), verEli);
+            manVerEli.escribirXML(eli.getEliNombre().getCodigo(), verEli);
             propiedades.setProperty("numEdu",
                     Integer.toString(Elicitacion.getNumero()));
             guardarPropiedades(dirPrincipal);
@@ -841,7 +841,7 @@ public class Sistema {
             String eliObs) {
         try {
             Elicitaciones verEli = manVerEli.leerXML(eliCod);
-            String ultVer = verEli.getLast().getEliNombre().getEliCod();
+            String ultVer = verEli.getLast().getEliNombre().getCodigo();
             if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
                 Elicitacion eli = new Elicitacion(eliCod, eliNom, eliEduCod, eliVer,
                         eliFec, eliFueNom, eliFueCar, eliFueTip, eliEspNom,

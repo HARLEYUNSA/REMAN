@@ -56,7 +56,7 @@ public class Educciones {
     }
     
     public void newEdu(Educcion edu){
-        String nomEdu = edu.eduNombre.getEduNom();    
+        String nomEdu = edu.eduNombre.getNombre();    
         addHistorico(edu, edu.eduFec, 
                    "Creación de la Educción " + nomEdu, edu.eduEspNom);
         addEduccion(edu);

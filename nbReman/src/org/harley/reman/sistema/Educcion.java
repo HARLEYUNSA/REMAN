@@ -1,5 +1,6 @@
 package org.harley.reman.sistema;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -23,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Educcion {
     private static int numero = 0;
     private static String codigo = "EDU0000";
-    EduNombre eduNombre;
+    Nombre eduNombre;
     String eduVer;
     String eduTip;
     String eduObj;
@@ -44,7 +45,7 @@ public class Educcion {
             String eduObj, String eduFec, String eduFueNom, String eduFueCar, 
             String eduFueTip, String eduEspNom, String eduEspEsp,
             String eduEspExp, String eduEspCar, String eduDes, String eduObs){
-        this.eduNombre = new EduNombre(eduCod, eduNom);
+        this.eduNombre = new Nombre(eduCod, eduNom);
         this.eduVer = eduVer;
         this.eduTip = eduTip;
         this.eduObj = eduObj;
@@ -66,7 +67,7 @@ public class Educcion {
             String eduEspExp, String eduEspCar, String eduDes, String eduObs){
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
-        this.eduNombre = new EduNombre(codigo, eduNom);
+        this.eduNombre = new Nombre(codigo, eduNom);
         this.eduVer = eduVer;
         this.eduFueNom = eduFueNom;
         this.eduFueCar = eduFueCar;
@@ -101,18 +102,20 @@ public class Educcion {
         Educcion.codigo = codigo;
     }
 
-    public EduNombre getEduNombre() {
+    public Nombre getEduNombre() {
         return eduNombre;
     }
 
-    public void setEduNombre(EduNombre eduNombre) {
+    @XmlElement(name = "eduNombre")
+    public void setEduNombre(Nombre eduNombre) {
         this.eduNombre = eduNombre;
     }
 
     public String getEduVer() {
         return eduVer;
     }
-
+    
+    @XmlElement(name = "version")
     public void setEduVer(String eduVer) {
         this.eduVer = eduVer;
     }
@@ -120,7 +123,8 @@ public class Educcion {
     public String getEduTip() {
         return eduTip;
     }
-
+    
+    @XmlElement(name = "tipo")
     public void setEduTip(String eduTip) {
         this.eduTip = eduTip;
     }
@@ -128,7 +132,8 @@ public class Educcion {
     public String getEduObj() {
         return eduObj;
     }
-
+    
+    @XmlElement(name = "objetivo")
     public void setEduObj(String eduObj) {
         this.eduObj = eduObj;
     }
@@ -136,7 +141,8 @@ public class Educcion {
     public String getEduFec() {
         return eduFec;
     }
-
+    
+    @XmlElement(name = "fecha")
     public void setEduFec(String eduFec) {
         this.eduFec = eduFec;
     }
@@ -144,7 +150,8 @@ public class Educcion {
     public String getEduFueNom() {
         return eduFueNom;
     }
-
+    
+    @XmlElement(name = "fuenteNombre")
     public void setEduFueNom(String eduFueNom) {
         this.eduFueNom = eduFueNom;
     }
@@ -152,7 +159,8 @@ public class Educcion {
     public String getEduFueCar() {
         return eduFueCar;
     }
-
+    
+    @XmlElement(name = "fuenteCargo")
     public void setEduFueCar(String eduFueCar) {
         this.eduFueCar = eduFueCar;
     }
@@ -160,7 +168,8 @@ public class Educcion {
     public String getEduFueTip() {
         return eduFueTip;
     }
-
+    
+    @XmlElement(name = "fuenteTipo")
     public void setEduFueTip(String eduFueTip) {
         this.eduFueTip = eduFueTip;
     }
@@ -168,7 +177,8 @@ public class Educcion {
     public String getEduEspNom() {
         return eduEspNom;
     }
-
+    
+    @XmlElement(name = "especialistaNombre")
     public void setEduEspNom(String eduEspNom) {
         this.eduEspNom = eduEspNom;
     }
@@ -176,7 +186,8 @@ public class Educcion {
     public String getEduEspEsp() {
         return eduEspEsp;
     }
-
+    
+    @XmlElement(name = "especialistaEspecialidad")
     public void setEduEspEsp(String eduEspEsp) {
         this.eduEspEsp = eduEspEsp;
     }
@@ -184,7 +195,8 @@ public class Educcion {
     public String getEduEspExp() {
         return eduEspExp;
     }
-
+    
+    @XmlElement(name = "especialistaExperiencia")
     public void setEduEspExp(String eduEspExp) {
         this.eduEspExp = eduEspExp;
     }
@@ -192,7 +204,8 @@ public class Educcion {
     public String getEduEspCar() {
         return eduEspCar;
     }
-
+    
+    @XmlElement(name = "especialistaCargo")
     public void setEduEspCar(String eduEspCar) {
         this.eduEspCar = eduEspCar;
     }
@@ -200,7 +213,8 @@ public class Educcion {
     public String getEduDes() {
         return eduDes;
     }
-
+    
+    @XmlElement(name = "descripcion")
     public void setEduDes(String eduDes) {
         this.eduDes = eduDes;
     }
@@ -208,7 +222,8 @@ public class Educcion {
     public String getEduObs() {
         return eduObs;
     }
-
+    
+    @XmlElement(name = "observaciones")
     public void setEduObs(String eduObs) {
         this.eduObs = eduObs;
     }

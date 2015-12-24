@@ -1,6 +1,7 @@
 package org.harley.reman.sistema;
 
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -28,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Elicitacion {
     private static int numero = 0;
     private static String codigo = "ELI0001";
-    EliNombre eliNombre;
+    Nombre eliNombre;
     String eliEduCod;
     String eliVer;
     String eliFec;
@@ -56,7 +57,7 @@ public class Elicitacion {
             String eliEspExp, String eliEspCar, String eliDep, String eliDes, 
             String eliPre, ArrayList<Paso> eliSec, String eliPos, 
             ArrayList<Paso> eliExc, String eliObs) {
-        this.eliNombre = new EliNombre(eliCod, eliNom);
+        this.eliNombre = new Nombre(eliCod, eliNom);
         this.eliEduCod = eliEduCod;
         this.eliVer = eliVer;
         this.eliFec = eliFec;
@@ -84,7 +85,7 @@ public class Elicitacion {
             String eliObs) {
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
-        this.eliNombre = new EliNombre(codigo, eliNom);
+        this.eliNombre = new Nombre(codigo, eliNom);
         this.eliEduCod = eliEduCod;
         this.eliVer = eliVer;
         this.eliFec = eliFec;
@@ -123,11 +124,12 @@ public class Elicitacion {
         Elicitacion.codigo = codigo;
     }
 
-    public EliNombre getEliNombre() {
+    public Nombre getEliNombre() {
         return eliNombre;
     }
 
-    public void setEliNombre(EliNombre eliNombre) {
+    @XmlElement(name = "eliNombre")
+    public void setEliNombre(Nombre eliNombre) {
         this.eliNombre = eliNombre;
     }
 
@@ -135,6 +137,7 @@ public class Elicitacion {
         return eliEduCod;
     }
 
+    @XmlElement(name = "educcionCodigo")
     public void setEliEduCod(String eliEduCod) {
         this.eliEduCod = eliEduCod;
     }
@@ -143,6 +146,7 @@ public class Elicitacion {
         return eliVer;
     }
 
+    @XmlElement(name = "version")
     public void setEliVer(String eliVer) {
         this.eliVer = eliVer;
     }
@@ -151,6 +155,7 @@ public class Elicitacion {
         return eliFec;
     }
 
+    @XmlElement(name = "fecha")
     public void setEliFec(String eliFec) {
         this.eliFec = eliFec;
     }
@@ -159,6 +164,7 @@ public class Elicitacion {
         return eliFueNom;
     }
 
+    @XmlElement(name = "fuenteNombre")
     public void setEliFueNom(String eliFueNom) {
         this.eliFueNom = eliFueNom;
     }
@@ -167,6 +173,7 @@ public class Elicitacion {
         return eliFueCar;
     }
 
+    @XmlElement(name = "fuenteCargo")
     public void setEliFueCar(String eliFueCar) {
         this.eliFueCar = eliFueCar;
     }
@@ -175,6 +182,7 @@ public class Elicitacion {
         return eliFueTip;
     }
 
+    @XmlElement(name = "fuenteTipo")
     public void setEliFueTip(String eliFueTip) {
         this.eliFueTip = eliFueTip;
     }
@@ -183,6 +191,7 @@ public class Elicitacion {
         return eliEspNom;
     }
 
+    @XmlElement(name = "especialistaNombre")
     public void setEliEspNom(String eliEspNom) {
         this.eliEspNom = eliEspNom;
     }
@@ -191,6 +200,7 @@ public class Elicitacion {
         return eliEspEsp;
     }
 
+    @XmlElement(name = "especialistaEspecialidad")
     public void setEliEspEsp(String eliEspEsp) {
         this.eliEspEsp = eliEspEsp;
     }
@@ -198,7 +208,8 @@ public class Elicitacion {
     public String getEliEspExp() {
         return eliEspExp;
     }
-
+    
+    @XmlElement(name = "especialistaExperiencia")
     public void setEliEspExp(String eliEspExp) {
         this.eliEspExp = eliEspExp;
     }
@@ -207,6 +218,7 @@ public class Elicitacion {
         return eliEspCar;
     }
 
+    @XmlElement(name = "especialistaCargo")
     public void setEliEspCar(String eliEspCar) {
         this.eliEspCar = eliEspCar;
     }
@@ -215,6 +227,7 @@ public class Elicitacion {
         return eliDep;
     }
 
+    @XmlElement(name = "dependencias")
     public void setEliDep(String eliDep) {
         this.eliDep = eliDep;
     }
@@ -223,6 +236,7 @@ public class Elicitacion {
         return eliDes;
     }
 
+    @XmlElement(name = "descripcion")
     public void setEliDes(String eliDes) {
         this.eliDes = eliDes;
     }
@@ -231,6 +245,7 @@ public class Elicitacion {
         return eliPre;
     }
 
+    @XmlElement(name = "precondicion")
     public void setEliPre(String eliPre) {
         this.eliPre = eliPre;
     }
@@ -239,6 +254,7 @@ public class Elicitacion {
         return eliSec;
     }
 
+    @XmlElement(name = "secuencia")
     public void setEliSec(Secuencia eliSec) {
         this.eliSec = eliSec;
     }
@@ -247,6 +263,7 @@ public class Elicitacion {
         return eliPos;
     }
 
+    @XmlElement(name = "postcondicion")
     public void setEliPos(String eliPos) {
         this.eliPos = eliPos;
     }
@@ -255,6 +272,7 @@ public class Elicitacion {
         return eliExc;
     }
     
+    @XmlElement(name = "excepcion")
     public void setEliExc(Secuencia eliExc) {
         this.eliExc = eliExc;
     }
@@ -263,6 +281,7 @@ public class Elicitacion {
         return eliObs;
     }
 
+    @XmlElement(name = "observaciones")
     public void setEliObs(String eliObs) {
         this.eliObs = eliObs;
     }
