@@ -23,7 +23,6 @@ public class Reman {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                //new Sistema().crearStateReman(" ");
                 new VPrincipal(new Sistema()).setVisible(true);
             }
         });

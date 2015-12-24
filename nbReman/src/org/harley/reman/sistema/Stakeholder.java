@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder = {
-    "sthNom",
+    "sthNombre",
     "sthOrg",
     "sthCar",
     "sthTip",

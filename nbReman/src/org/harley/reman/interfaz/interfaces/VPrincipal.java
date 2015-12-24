@@ -28,7 +28,7 @@ public class VPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        this.sysReman.setDirPrincipal(sysReman.getStateRemanDir());
+        System.out.println(this.sysReman.getDirPrincipal());
 
         //agrega pantalla de inicio
         VDocumento nuevo = new VDocumento();
@@ -631,6 +631,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void actualizarJTrees() {
+        System.out.println("my direccion" + sysReman.getDirPrincipal());
         venEdu.actualizar(ToolsInterface.generateJTreeBook("Documento de Educción", "Educción", sysReman.getDirPrincipal() + "\\src\\edu"));
         venEli.actualizar(ToolsInterface.generateJTreeBook("Documento de Elicitación", "Elicitación", sysReman.getDirPrincipal() + "\\src\\eli"));
         venEsp.actualizar(ToolsInterface.generateJTreeBook("Documento de Espesificación", "Espesificación", sysReman.getDirPrincipal() + "\\src\\esp"));

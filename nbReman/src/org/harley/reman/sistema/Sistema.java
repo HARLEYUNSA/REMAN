@@ -41,6 +41,7 @@ public class Sistema {
     public Sistema(String dirProyect) {
         propiedades = new Properties();
         stateReman = new Properties();
+        crearStateReman(dirProyect);
         dirPrincipal = dirProyect;
     }
 
@@ -50,7 +51,7 @@ public class Sistema {
     public Sistema() {
         propiedades = new Properties();
         stateReman = new Properties();
-        dirPrincipal = "";
+        cargarStateRemanDir();
     }
 
     /**
@@ -143,24 +144,16 @@ public class Sistema {
         }
     }
 
-    public String getStateRemanDir() {
+    public void cargarStateRemanDir() {
         OutputStream salida = null;
-        String rpt = "";
         try {
             File output = new File("stateReman.properties");
             salida = new FileOutputStream(output);
             stateReman.store(salida, null);
-            rpt = stateReman.getProperty("dirAct");
+            dirPrincipal = stateReman.getProperty("dirAct");
+            salida.close();
         } catch (IOException io) {
-        } finally {
-            if (salida != null) {
-                try {
-                    salida.close();
-                } catch (IOException e) {
-                }
-            }
-        }
-        return rpt;
+        } 
     }
 
     /**
@@ -266,7 +259,7 @@ public class Sistema {
             String proUbi) {
         try {
             crearDirectorios(proUbi);
-            setStateRemanDir(proUbi);
+            crearStateReman(proUbi);
             crearPropiedades(proNom, prdNom, empDes, empCli,
                     proLid, fecIni, fecFin, proUbi);
             crearFileRem(proUbi, proNom);
