@@ -41,12 +41,11 @@ public class VPrincipal extends javax.swing.JFrame {
 
         //inicializacion de Sistema
         this.sysReman = sysReman;
-        System.out.println(this.sysReman.getDirPrincipal() + " gg");
-        venEdu = new VTEduccion(this.sysReman);
-        venEli = new VTElicitacion(this.sysReman);
-        venEsp = new VTEspecificacion(this.sysReman);
-        venNoFun = new VTNoFuncional(this.sysReman);
-        venOrg = new VTOrganizacion(this.sysReman);
+        venEdu = new VTEduccion(this,this.sysReman);
+        venEli = new VTElicitacion(this,this.sysReman);
+        venEsp = new VTEspecificacion(this,this.sysReman);
+        venNoFun = new VTNoFuncional(this,this.sysReman);
+        venOrg = new VTOrganizacion(this,this.sysReman);
 
         //venIni = new VTInicio();
         //DeskPanel2.add(venIni);
@@ -542,7 +541,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPEduccionActionPerformed(java.awt.event.ActionEvent evt) {
-        VEduccion ventanaEd = new VEduccion(sysReman);
+        VEduccion ventanaEd = new VEduccion(this, sysReman);
         ventanaEd.setVisible(true);
     }
 

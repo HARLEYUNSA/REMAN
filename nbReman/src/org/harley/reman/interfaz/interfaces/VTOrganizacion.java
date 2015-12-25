@@ -6,6 +6,7 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.awt.event.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
@@ -20,6 +21,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
 
     Sistema sysReman;
     TreePath dirTree;
+    JFrame padre;
     MouseListener ml = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -58,15 +60,17 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         }
     };
 
-    public VTOrganizacion(Sistema sysReman, JTree tree) {
+    public VTOrganizacion(JFrame padre, Sistema sysReman, JTree tree) {
         initComponents();
+        this.padre = padre;
         this.sysReman = sysReman;
         treeOrgMain.setModel(tree.getModel());
         treeOrgMain.addMouseListener(ml);
     }
     
-    public VTOrganizacion(Sistema sysReman) {
+    public VTOrganizacion(JFrame padre, Sistema sysReman) {
         initComponents();
+        this.padre = padre;
         this.sysReman = sysReman;
         treeOrgMain.addMouseListener(ml);
     }

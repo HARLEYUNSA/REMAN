@@ -6,6 +6,7 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.awt.event.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
@@ -20,6 +21,7 @@ public class VTEduccion extends javax.swing.JInternalFrame {
 
     Sistema sysReman;
     TreePath dirTree;
+    JFrame padre;
     MouseListener ml = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -44,15 +46,17 @@ public class VTEduccion extends javax.swing.JInternalFrame {
         }
     };
 
-    public VTEduccion(Sistema sysReman, JTree tree) {
+    public VTEduccion(JFrame padre, Sistema sysReman, JTree tree) {
         initComponents();
+        this.padre = padre;
         this.sysReman = sysReman;
         treeEdu.setModel(tree.getModel());
         treeEdu.addMouseListener(ml);
     }
 
-    public VTEduccion(Sistema sysReman) {
+    public VTEduccion(JFrame padre, Sistema sysReman) {
         initComponents();
+        this.padre = padre;
         this.sysReman = sysReman;
         treeEdu.addMouseListener(ml);
     }
@@ -136,7 +140,7 @@ public class VTEduccion extends javax.swing.JInternalFrame {
 
     private void menuDocEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEduItem1ActionPerformed
         //NUEVA EDUCCION
-        VEduccion VEdu = new VEduccion(sysReman);
+        VEduccion VEdu = new VEduccion(padre, sysReman);
         if (VEdu.getIsCorrect()) {
             VEdu.setVisible(true);
         } else {
