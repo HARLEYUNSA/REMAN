@@ -592,7 +592,7 @@ public class Sistema {
         LibroEduccion lib = new LibroEduccion();
         File[] ficheros = new File(dirPrincipal + "//src//edu").listFiles();
         for (File fichero : ficheros) {
-            lib.addEduccion(getLastEdu(fichero.getName().split("\\.")[0]));
+            lib.addEduccion(getLastEdu(fichero.getName()));
             lib.setIntro(crearCaratula("EDUCCIÓN DE REQUERIMIENTOS"));
         }
         createLibEdu("libEdu", lib);
@@ -605,8 +605,7 @@ public class Sistema {
 	 * @param codigo Código de la educción
      */
     public Educcion getLastEdu(String codigo) {
-        Educciones edu;
-        edu = manVerEdu.leerXML(codigo);
+        Educciones edu = manVerEdu.leerXML(codigo);
         return edu.getLast();
     }
 
@@ -1562,52 +1561,100 @@ public class Sistema {
     }
 
     /**
+     * devuelve los nombres de las fuentes del proyecto REMAN
      *
-     * Devolver el conjunto de nombres de todas las fuentes del proyecto
-     *
-     * @return
+     * @return ArrayList<String> fuentes
      */
     public ArrayList<String> getFuenteNombres() {
-        ArrayList<String> fueNom = new ArrayList<>();
-        File[] fuentes = new File(dirPrincipal + "//src//org//sth").listFiles();
-        for (File fichero : fuentes) {
-            String name = fichero.getName().split("\\.")[0];
-            fueNom.add(getStakeholder(name).getSthNombre().getCodigo());
+        ArrayList<String> rpt = new ArrayList<>();
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
+            for (File fichero : ficheros) {
+                rpt.add(getStakeholder(fichero.getName()).getSthNombre().getNombre());
+            }
+        } catch (Exception e) {
         }
-        return fueNom;
+        return rpt;
     }
 
     /**
+     * devuelve los codigos de las fuentes del proyecto REMAN
      *
-     * @return
+     * @return ArrayList<String> fuentes codigo
      */
-    public List<String> getFuenteCodigos() {
-        List<String> fueCod = new ArrayList<>();
-        File[] fuentes = new File(dirPrincipal + "//src//org//sth").listFiles();
-        for (File fichero : fuentes) {
-            String cod = fichero.getName().split("\\.")[0];
-            fueCod.add(getStakeholder(cod).getSthNombre().getCodigo());
+    public ArrayList<String> getFuenteCodigos() {
+        ArrayList<String> rpt = new ArrayList<>();
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
+            for (File fichero : ficheros) {
+                rpt.add(getStakeholder(fichero.getName()).getSthNombre().getCodigo());
+            }
+        } catch (Exception e) {
         }
-        return fueCod;
+        return rpt;
+    }
+
+    public ArrayList<ArrayList<String>> getFuentes() {
+        ArrayList<ArrayList<String>> datos = new ArrayList<>();
+        ArrayList<String> codigo = new ArrayList<>();
+        ArrayList<String> nombre = new ArrayList<>();
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
+            for (File fichero : ficheros) {
+                codigo.add(getStakeholder(fichero.getName()).getSthNombre().getCodigo());
+                nombre.add(getStakeholder(fichero.getName()).getSthNombre().getNombre());
+            }
+        } catch (Exception e) {
+        }
+        datos.add(codigo);
+        datos.add(nombre);
+        return datos;
     }
 
     public ArrayList<String> getEspecialistaNombres() {
-        ArrayList<String> espNom = new ArrayList<>();
-        File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
-        for (File fichero : especialistas) {
-            String name = fichero.getName().split("\\.")[0];
-            espNom.add(getProyectTeam(name).getPytNombre().getNombre());
+        ArrayList<String> rpt = new ArrayList<>();
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
+            for (File fichero : ficheros) {
+                rpt.add(getProyectTeam(fichero.getName()).getPytNombre().getNombre());
+            }
+        } catch (Exception e) {
         }
-        return espNom;
+        return rpt;
     }
 
     public ArrayList<String> getEspecialistaCodigos() {
-        ArrayList<String> espCod = new ArrayList<>();
-        File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
-        for (File fichero : especialistas) {
-            String cod = fichero.getName().split("\\.")[0];
-            espCod.add(getProyectTeam(cod).getPytNombre().getNombre());
+        ArrayList<String> rpt = new ArrayList<>();
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
+            for (File fichero : ficheros) {
+                rpt.add(getProyectTeam(fichero.getName()).getPytNombre().getCodigo());
+            }
+        } catch (Exception e) {
         }
-        return espCod;
+        return rpt;
+    }
+    
+    public ArrayList<ArrayList<String>> getEspecialista() {
+        ArrayList<ArrayList<String>> datos = new ArrayList<>();
+        ArrayList<String> codigo = new ArrayList<>();
+        ArrayList<String> nombre = new ArrayList<>();
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
+            for (File fichero : ficheros) {
+                codigo.add(getProyectTeam(fichero.getName()).getPytNombre().getCodigo());
+                nombre.add(getProyectTeam(fichero.getName()).getPytNombre().getNombre());
+            }
+        } catch (Exception e) {
+        }
+        datos.add(codigo);
+        datos.add(nombre);
+        return datos;
     }
 }
