@@ -1,12 +1,7 @@
 package org.harley.reman;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.WindowConstants;
 import org.harley.reman.interfaz.interfaces.VPrincipal;
-import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
-import org.harley.reman.sistema.ToolsSystem;
 
 /**
  * @author CHRISTIAN
