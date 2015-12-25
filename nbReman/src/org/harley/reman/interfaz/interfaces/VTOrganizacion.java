@@ -211,13 +211,13 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_menuOrgItem3ActionPerformed
 
     private void menuDocPytItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocPytItem1ActionPerformed
-        sysReman.crearProyectTeam("Jose Paredes Luna", "HARLEY", 
-                "Img de Requisitos", "Regular", "Analista", "joseP@hotmail.com",
-                "Esta en modo de prueba debido a su desempeño laboral");
-        sysReman.crearStakeholder("Teofilo Linares Valverde", "UNSA", 
-                "Subgerente", "Interno", "TeoValGreen@hotmail.com",
-                "Determino la mayoria de Req no funcionales");
-    
+        //CREAR ESPECIALISTA
+        VEspecialista VEsp = new VEspecialista(padre, sysReman);
+        if(VEsp.getIsCorrect()){
+            VEsp.setVisible(true);
+        }else{
+            ToolsInterface.msjError("Error al cargar las Organizaciones!");
+        }
     }//GEN-LAST:event_menuDocPytItem1ActionPerformed
 
     public void actualizar(JTree tree){
