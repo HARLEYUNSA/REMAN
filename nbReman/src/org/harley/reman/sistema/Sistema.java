@@ -1261,6 +1261,7 @@ public class Sistema {
 
     /**
      * devuelve los nombres de las fuentes del proyecto REMAN
+     *
      * @return ArrayList<String> fuentes
      */
     public ArrayList<String> getFuenteNombres() {
@@ -1272,8 +1273,8 @@ public class Sistema {
                 temp = fichero.getName();
                 if ((temp.length() > 4)) {
                     temp = temp.substring(0, temp.length() - 4);
+                    System.out.println(temp);
                     rpt.add(getStakeholder(temp).getSthNombre().getNombre());
-                    System.out.println("gg"+getStakeholder(temp).getSthNombre().getNombre());
                 }
             }
         } catch (Exception e) {
@@ -1283,6 +1284,7 @@ public class Sistema {
 
     /**
      * devuelve los codigos de las fuentes del proyecto REMAN
+     *
      * @return ArrayList<String> fuentes codigo
      */
     public List<String> getFuenteCodigos() {
@@ -1301,8 +1303,8 @@ public class Sistema {
         }
         return rpt;
     }
-    
-    public ArrayList<ArrayList<String>> getFuentes(){
+
+    public ArrayList<ArrayList<String>> getFuentes() {
         ArrayList<ArrayList<String>> datos = new ArrayList<>();
         ArrayList<String> codigo = new ArrayList<>();
         ArrayList<String> nombre = new ArrayList<>();
@@ -1323,25 +1325,60 @@ public class Sistema {
         datos.add(nombre);
         return datos;
     }
-    
 
     public ArrayList<String> getEspecialistaNombres() {
-        ArrayList<String> espNom = new ArrayList<>();
-        File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
-        for (File fichero : especialistas) {
-            String name = fichero.getName().split("\\.")[0];
-            espNom.add(getProyectTeam(name).getPytNombre().getNombre());
+        ArrayList<String> rpt = new ArrayList<>();
+        String temp;
+        try {
+            File[] ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
+            for (File fichero : ficheros) {
+                temp = fichero.getName();
+                if ((temp.length() > 4)) {
+                    temp = temp.substring(0, temp.length() - 4);
+                    rpt.add(getProyectTeam(temp).getPytNombre().getNombre());
+                }
+            }
+        } catch (Exception e) {
         }
-        return espNom;
+        return rpt;
     }
 
     public ArrayList<String> getEspecialistaCodigos() {
-        ArrayList<String> espCod = new ArrayList<>();
-        File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
-        for (File fichero : especialistas) {
-            String cod = fichero.getName().split("\\.")[0];
-            espCod.add(getProyectTeam(cod).getPytNombre().getNombre());
+        ArrayList<String> rpt = new ArrayList<>();
+        String temp;
+        try {
+            File[] ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
+            for (File fichero : ficheros) {
+                temp = fichero.getName();
+                if ((temp.length() > 4)) {
+                    temp = temp.substring(0, temp.length() - 4);
+                    rpt.add(getProyectTeam(temp).getPytNombre().getCodigo());
+                }
+            }
+        } catch (Exception e) {
         }
-        return espCod;
+        return rpt;
+    }
+    
+    public ArrayList<ArrayList<String>> getEspecialista() {
+        ArrayList<ArrayList<String>> datos = new ArrayList<>();
+        ArrayList<String> codigo = new ArrayList<>();
+        ArrayList<String> nombre = new ArrayList<>();
+        String temp;
+        try {
+            File[] ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
+            for (File fichero : ficheros) {
+                temp = fichero.getName();
+                if ((temp.length() > 4)) {
+                    temp = temp.substring(0, temp.length() - 4);
+                    codigo.add(getProyectTeam(temp).getPytNombre().getCodigo());
+                    nombre.add(getProyectTeam(temp).getPytNombre().getNombre());
+                }
+            }
+        } catch (Exception e) {
+        }
+        datos.add(codigo);
+        datos.add(nombre);
+        return datos;
     }
 }

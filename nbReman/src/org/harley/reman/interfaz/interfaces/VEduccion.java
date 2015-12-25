@@ -1,13 +1,6 @@
 package org.harley.reman.interfaz.interfaces;
 
-import java.awt.Window;
-import java.util.ArrayList;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
 
@@ -17,30 +10,22 @@ import org.harley.reman.sistema.Sistema;
  */
 public class VEduccion extends JDialog {
 
-    ArrayList<String> codEspecialista;
-    ArrayList<String> codFuente;
     Sistema sysReman;
-
     public VEduccion(Sistema sysReman) {
         super();
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        codEspecialista = new ArrayList<>();
-        codFuente = new ArrayList<>();
+        
         try {
             ToolsInterface.llenarJComboBox(cmbEDFuente, this.sysReman.getFuenteNombres());
-            codFuente.addAll(this.sysReman.getFuenteCodigos());
-            ToolsInterface.llenarJComboBox(cmbEDEspecialista, this.sysReman.getFuenteNombres());
-            codEspecialista.addAll(this.sysReman.getFuenteCodigos());
+            ToolsInterface.llenarJComboBox(cmbEDEspecialista, this.sysReman.getEspecialistaNombres());
         } catch (Exception e) {
-            ToolsInterface.msjError("Error al cargar los actores del proyecto!");
-            this.dispose();
         }
     }
     
     public boolean getIsCorrect(){
-        System.out.println(cmbEDEspecialista.getItemCount() + "+" + cmbEDFuente.getItemCount());
+        System.out.println(cmbEDEspecialista.getItemCount()+"+"+ cmbEDFuente.getItemCount());
         return !(cmbEDEspecialista.getItemCount() == 0 || cmbEDFuente.getItemCount() == 0);
     }
 
@@ -567,7 +552,7 @@ public class VEduccion extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVEDCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDCancelarActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnVEDCancelarActionPerformed
 
     private void btnVEDGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDGuardarActionPerformed
@@ -585,7 +570,12 @@ public class VEduccion extends JDialog {
         String eduEspNom = (String) cmbEDEspecialista.getSelectedItem();
         String eduFueNom = (String) cmbEDFuente.getSelectedItem();
         String eduFec = dtEDFecha.getText();
-        sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs);
+        if(sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs)){
+            ToolsInterface.msjError("Creacion de educcion exitosa");
+            this.dispose();
+        }else{
+            ToolsInterface.msjError("Error al crear la educcion");
+        }
     }//GEN-LAST:event_btnVEDGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
