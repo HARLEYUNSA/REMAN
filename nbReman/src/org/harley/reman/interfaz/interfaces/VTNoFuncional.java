@@ -6,6 +6,7 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.awt.event.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
@@ -19,6 +20,7 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
 
     Sistema sysReman;
     TreePath dirTree;
+    JFrame padre;
     MouseListener ml = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -43,15 +45,17 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
         }
     };
 
-    public VTNoFuncional(Sistema sysReman, JTree tree) {
+    public VTNoFuncional(JFrame padre, Sistema sysReman, JTree tree) {
         initComponents();
+        this.padre = padre;
         this.sysReman = sysReman;
         treeRnf.setModel(tree.getModel());
         treeRnf.addMouseListener(ml);
     }
 
-    public VTNoFuncional(Sistema sysReman) {
+    public VTNoFuncional(JFrame padre, Sistema sysReman) {
         initComponents();
+        this.padre = padre;
         this.sysReman = sysReman;
         treeRnf.addMouseListener(ml);
     }

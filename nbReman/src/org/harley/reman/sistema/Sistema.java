@@ -1632,9 +1632,6 @@ public class Sistema {
                     email.add(getStakeholder(temp).getSthCorEle());
                     comentarios.add(getStakeholder(temp).getSthCom());
                 }
-
-                codigo.add(getStakeholder(fichero.getName()).getSthNombre().getCodigo());
-                nombre.add(getStakeholder(fichero.getName()).getSthNombre().getNombre());
             }
         } catch (Exception e) {
         }
@@ -1715,8 +1712,6 @@ public class Sistema {
                     email.add(getProyectTeam(temp).getPytCor());
                     comentarios.add(getProyectTeam(temp).getPytCom());
                 }
-                codigo.add(getProyectTeam(fichero.getName()).getPytNombre().getCodigo());
-                nombre.add(getProyectTeam(fichero.getName()).getPytNombre().getNombre());
             }
         } catch (Exception e) {
         }
