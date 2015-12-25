@@ -58,14 +58,16 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         }
     };
 
-    public VTOrganizacion(JTree tree) {
+    public VTOrganizacion(Sistema sysReman, JTree tree) {
         initComponents();
+        this.sysReman = sysReman;
         treeOrgMain.setModel(tree.getModel());
         treeOrgMain.addMouseListener(ml);
     }
     
-    public VTOrganizacion() {
+    public VTOrganizacion(Sistema sysReman) {
         initComponents();
+        this.sysReman = sysReman;
         treeOrgMain.addMouseListener(ml);
     }
 

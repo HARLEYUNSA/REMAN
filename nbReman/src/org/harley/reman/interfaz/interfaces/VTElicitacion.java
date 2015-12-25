@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
@@ -16,16 +17,18 @@ import javax.swing.tree.TreePath;
  */
 public class VTElicitacion extends javax.swing.JInternalFrame {
 
+    Sistema sysReman;
+    TreePath dirTree;
     MouseListener ml = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             // Se obtiene el path para esa fila. Con el path podemos obtener
             // los nodos.
             if (e.getButton() == MouseEvent.BUTTON3) {
-                TreePath selPath = treeEli.getPathForLocation(e.getX(), e.getY());
-                treeEli.setSelectionPath(selPath);
-                if (selPath != null) {
-                    switch (selPath.getLastPathComponent().toString()) {
+                dirTree = treeEli.getPathForLocation(e.getX(), e.getY());
+                treeEli.setSelectionPath(dirTree);
+                if (dirTree != null) {
+                    switch (dirTree.getLastPathComponent().toString()) {
                         case "Documento de Elicitación":
                             break;
                         case "Elicitación":
@@ -40,14 +43,16 @@ public class VTElicitacion extends javax.swing.JInternalFrame {
         }
     };
 
-    public VTElicitacion(JTree tree) {
+    public VTElicitacion(Sistema sysReman, JTree tree) {
         initComponents();
+        this.sysReman = sysReman;
         treeEli.setModel(tree.getModel());
         treeEli.addMouseListener(ml);
     }
     
-    public VTElicitacion() {
+    public VTElicitacion(Sistema sysReman) {
         initComponents();
+        this.sysReman = sysReman;
         treeEli.addMouseListener(ml);
     }
 

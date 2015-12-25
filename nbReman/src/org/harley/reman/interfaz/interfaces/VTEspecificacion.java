@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
@@ -16,16 +17,18 @@ import javax.swing.tree.TreePath;
  */
 public class VTEspecificacion extends javax.swing.JInternalFrame {
 
+    Sistema sysReman;
+    TreePath dirTree;
     MouseListener ml = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             // Se obtiene el path para esa fila. Con el path podemos obtener
             // los nodos.
             if (e.getButton() == MouseEvent.BUTTON3) {
-                TreePath selPath = treeEsp.getPathForLocation(e.getX(), e.getY());
-                treeEsp.setSelectionPath(selPath);
-                if (selPath != null) {
-                    switch (selPath.getLastPathComponent().toString()) {
+                dirTree = treeEsp.getPathForLocation(e.getX(), e.getY());
+                treeEsp.setSelectionPath(dirTree);
+                if (dirTree != null) {
+                    switch (dirTree.getLastPathComponent().toString()) {
                         case "Documento de Espesificación":
                             break;
                         case "Espesificación":
@@ -40,14 +43,16 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
         }
     };
 
-    public VTEspecificacion(JTree tree) {
+    public VTEspecificacion(Sistema sysReman, JTree tree) {
         initComponents();
+        this.sysReman = sysReman;
         treeEsp.setModel(tree.getModel());
         treeEsp.addMouseListener(ml);
     }
     
-    public VTEspecificacion() {
+    public VTEspecificacion(Sistema sysReman) {
         initComponents();
+        this.sysReman = sysReman;
         treeEsp.addMouseListener(ml);
     }
 

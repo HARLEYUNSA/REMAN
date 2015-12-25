@@ -352,7 +352,6 @@ public class VProyecto extends JDialog {
 
         if (!error) {
             sysReman.setDirPrincipal(proUbi);
-            System.out.println(proUbi);
             sysReman.setStateReman(proUbi);
             sysReman.crearProyecto(proNom, prdNom, empDes, empCli, proLid, fecIni, fecFin, proUbi);
             flagNewProyect = true;

@@ -22,12 +22,12 @@ public class VPrincipal extends javax.swing.JFrame {
     VTNoFuncional venNoFun;
     VTInicio venIni;
     Sistema sysReman;
-    
+
     public VPrincipal(Sistema sysReman) {
 
         //pantalla
         getContentPane().setBackground(new java.awt.Color(119, 148, 171));
-        initComponents();        
+        initComponents();
         this.setLocationRelativeTo(null);
 
         //agregando pantalla de inicio(ayuda)
@@ -41,21 +41,22 @@ public class VPrincipal extends javax.swing.JFrame {
 
         //inicializacion de Sistema
         this.sysReman = sysReman;
-        venEdu = new VTEduccion(sysReman);
-        venEli = new VTElicitacion();
-        venEsp = new VTEspecificacion();
-        venNoFun = new VTNoFuncional();
-        venOrg = new VTOrganizacion();
-        actualizarJTrees();
+        System.out.println(this.sysReman.getDirPrincipal() + " gg");
+        venEdu = new VTEduccion(this.sysReman);
+        venEli = new VTElicitacion(this.sysReman);
+        venEsp = new VTEspecificacion(this.sysReman);
+        venNoFun = new VTNoFuncional(this.sysReman);
+        venOrg = new VTOrganizacion(this.sysReman);
 
-        venIni = new VTInicio();
-        DeskPanel2.add(venIni);
-        venIni.show();
+        //venIni = new VTInicio();
+        //DeskPanel2.add(venIni);
+        //venIni.show();
         DeskPanel2.add(venEli);
         DeskPanel2.add(venEdu);
         DeskPanel2.add(venOrg);
         DeskPanel2.add(venEsp);
         DeskPanel2.add(venNoFun);
+        actualizarJTrees();
 
         //ayudas graficas
         btnVPAbrir.setToolTipText("Abrir");
@@ -510,13 +511,13 @@ public class VPrincipal extends javax.swing.JFrame {
     private void btnVPNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         VProyecto VNProyect = new VProyecto(this, sysReman);
         VNProyect.setVisible(true);
-        if(VNProyect.createSuccessful()){
+        if (VNProyect.createSuccessful()) {
             actualizarJTrees();
         }
     }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
-        VProyecto ventanaProyecto = new VProyecto(this,sysReman);
+        VProyecto ventanaProyecto = new VProyecto(this, sysReman);
         ventanaProyecto.setVisible(true);
     }
 
@@ -594,7 +595,8 @@ public class VPrincipal extends javax.swing.JFrame {
         String direccion = "";
         if (opt == JFileChooser.APPROVE_OPTION) {
             direccion = ExportarFile.getSelectedFile().getParent();
-            sysReman.setDirPrincipal("Direccion abrir: " + direccion);
+            sysReman.setDirPrincipal(direccion);
+            sysReman.setStateReman(direccion);
             actualizarJTrees();
         }
     }
