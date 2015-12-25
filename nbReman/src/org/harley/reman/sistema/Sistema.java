@@ -1142,7 +1142,7 @@ public class Sistema {
             lib.setIntro(crearCaratula("ORGANIZACIONES"));
         }
         createLibOrg("libOrg", lib);
-        manLibEli.exportarPDF("libOrg", destino, nombre);
+        manLibOrg.exportarPDF("libOrg", destino, nombre);
     }
 
     public Organizacion getOrg(String codOrg) {

@@ -7,7 +7,8 @@ import org.harley.reman.sistema.Sistema;
 public class MainTest {
     public static void main(String[] args) {
         Sistema test = new Sistema();
-        test.crearProyecto("REMAN", "remanPr", "HARLEY", "UNSA", "Incalla", "11/12/2015", "31/12/2015", "D:\\GG");
+        test.setDirPrincipal(test.getStateReman());
+        test.crearProyecto("REMAN", "remanPr", "HARLEY", "UNSA", "Incalla", "11/12/2015", "31/12/2015", "D:\\pr3");
         ArrayList<Paso> pas = new ArrayList<>();
         Paso p = new Paso("1","El sistema");
         pas.add(p);
