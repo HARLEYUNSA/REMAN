@@ -52,7 +52,8 @@ public class XMLReader<T> {
      */
     public T openXML(String nombreArchivo){
         try {
-            File xmlFile = new File(database, nombreArchivo.split("\\.")[0] + ".xml");
+            File xmlFile = new File(database, nombreArchivo + ".xml");
+            
             JAXBContext jaxbContext = JAXBContext.newInstance(typeParameterClass);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             

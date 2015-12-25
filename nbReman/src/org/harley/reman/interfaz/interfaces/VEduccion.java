@@ -1,5 +1,6 @@
 package org.harley.reman.interfaz.interfaces;
 
+import java.util.ArrayList;
 import javax.swing.JDialog;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
@@ -11,22 +12,35 @@ import org.harley.reman.sistema.Sistema;
 public class VEduccion extends JDialog {
 
     Sistema sysReman;
+    ArrayList<ArrayList<String>> datesEsp;
+    ArrayList<ArrayList<String>> datesFue;
+
     public VEduccion(Sistema sysReman) {
         super();
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        
+
+        datesEsp = this.sysReman.getEspecialistas();
+        datesFue = this.sysReman.getFuentes();
+
         try {
-            ToolsInterface.llenarJComboBox(cmbEDFuente, this.sysReman.getFuenteNombres());
-            ToolsInterface.llenarJComboBox(cmbEDEspecialista, this.sysReman.getEspecialistaNombres());
+            ToolsInterface.llenarJComboBox(cmbEDEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
+            txtEDEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(0));
+            txtEDExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(0));
+            txtEDCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(0));
+            
+            ToolsInterface.llenarJComboBox(cmbEDFuente, datesFue.get(Sistema.FUE_NOMBRE));
+            txtEDCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(0));
+            txtEDFTipo.setText(datesFue.get(Sistema.FUE_TIPO).get(0));
         } catch (Exception e) {
         }
     }
-    
-    public boolean getIsCorrect(){
-        System.out.println(cmbEDEspecialista.getItemCount()+"+"+ cmbEDFuente.getItemCount());
-        return !(cmbEDEspecialista.getItemCount() == 0 || cmbEDFuente.getItemCount() == 0);
+
+    public boolean getIsCorrect() {
+        int a = datesEsp.get(0).size(); //cantidad de codigos especialista
+        int b = datesFue.get(0).size(); //cantidad de codigos fuente
+        return !(a == 0 || b == 0);
     }
 
     /**
@@ -570,10 +584,10 @@ public class VEduccion extends JDialog {
         String eduEspNom = (String) cmbEDEspecialista.getSelectedItem();
         String eduFueNom = (String) cmbEDFuente.getSelectedItem();
         String eduFec = dtEDFecha.getText();
-        if(sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs)){
+        if (sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs)) {
             ToolsInterface.msjError("Creacion de educcion exitosa");
             this.dispose();
-        }else{
+        } else {
             ToolsInterface.msjError("Error al crear la educcion");
         }
     }//GEN-LAST:event_btnVEDGuardarActionPerformed

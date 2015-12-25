@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
@@ -16,16 +17,18 @@ import javax.swing.tree.TreePath;
  */
 public class VTNoFuncional extends javax.swing.JInternalFrame {
 
+    Sistema sysReman;
+    TreePath dirTree;
     MouseListener ml = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             // Se obtiene el path para esa fila. Con el path podemos obtener
             // los nodos.
             if (e.getButton() == MouseEvent.BUTTON3) {
-                TreePath selPath = treeRnf.getPathForLocation(e.getX(), e.getY());
-                treeRnf.setSelectionPath(selPath);
-                if (selPath != null) {
-                    switch (selPath.getLastPathComponent().toString()) {
+                dirTree = treeRnf.getPathForLocation(e.getX(), e.getY());
+                treeRnf.setSelectionPath(dirTree);
+                if (dirTree != null) {
+                    switch (dirTree.getLastPathComponent().toString()) {
                         case "Documento de Req no Funcional":
                             break;
                         case "Req no Funcional":
@@ -40,14 +43,16 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
         }
     };
 
-    public VTNoFuncional(JTree tree) {
+    public VTNoFuncional(Sistema sysReman, JTree tree) {
         initComponents();
+        this.sysReman = sysReman;
         treeRnf.setModel(tree.getModel());
         treeRnf.addMouseListener(ml);
     }
 
-    public VTNoFuncional() {
+    public VTNoFuncional(Sistema sysReman) {
         initComponents();
+        this.sysReman = sysReman;
         treeRnf.addMouseListener(ml);
     }
     

@@ -1,12 +1,7 @@
 package org.harley.reman;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.WindowConstants;
 import org.harley.reman.interfaz.interfaces.VPrincipal;
-import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
-import org.harley.reman.sistema.ToolsSystem;
 
 /**
  * @author CHRISTIAN
@@ -23,12 +18,8 @@ public class Reman {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                //inicializacion de datos del sistema
-                Sistema sysReman = new Sistema();  
-                sysReman.setDirPrincipal(sysReman.getStateReman());
-                
                 //pantalla principal
-                new VPrincipal(sysReman).setVisible(true);
+                new VPrincipal(new Sistema()).setVisible(true);
             }
         });
     }

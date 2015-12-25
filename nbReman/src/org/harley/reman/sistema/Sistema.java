@@ -41,6 +41,8 @@ public class Sistema {
     public Sistema() {
         propiedades = new Properties();
         stateReman = new Properties();
+        dirPrincipal = getStateReman();
+        ingresarProyecto();
     }
 
     /**
@@ -1596,14 +1598,41 @@ public class Sistema {
         return rpt;
     }
 
+    /**
+     * Funcion que retorna todos los datos de todas las fuentes existentes en el
+     * proyecto ArrayList<String> (0) -> codigo ArrayList<String> (1) -> nombre
+     * ArrayList<String> (2) -> organizacion ArrayList<String> (3) -> cargo
+     * ArrayList<String> (4) -> tipo ArrayList<String> (5) -> email
+     * ArrayList<String> (6) -> comentarios
+     *
+     * @return ArrayList<ArrayList<String>> rpt con todos los atributos
+     */
     public ArrayList<ArrayList<String>> getFuentes() {
         ArrayList<ArrayList<String>> datos = new ArrayList<>();
         ArrayList<String> codigo = new ArrayList<>();
         ArrayList<String> nombre = new ArrayList<>();
+        ArrayList<String> organizacion = new ArrayList<>();
+        ArrayList<String> cargo = new ArrayList<>();
+        ArrayList<String> tipo = new ArrayList<>();
+        ArrayList<String> email = new ArrayList<>();
+        ArrayList<String> comentarios = new ArrayList<>();
+        String temp;
         try {
             File[] ficheros;
             ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
             for (File fichero : ficheros) {
+                temp = fichero.getName();
+                if ((temp.length() > 4)) {
+                    temp = temp.substring(0, temp.length() - 4);
+                    codigo.add(getStakeholder(temp).getSthNombre().getCodigo());
+                    nombre.add(getStakeholder(temp).getSthNombre().getNombre());
+                    organizacion.add(getStakeholder(temp).getSthOrg());
+                    cargo.add(getStakeholder(temp).getSthCar());
+                    tipo.add(getStakeholder(temp).getSthTip());
+                    email.add(getStakeholder(temp).getSthCorEle());
+                    comentarios.add(getStakeholder(temp).getSthCom());
+                }
+
                 codigo.add(getStakeholder(fichero.getName()).getSthNombre().getCodigo());
                 nombre.add(getStakeholder(fichero.getName()).getSthNombre().getNombre());
             }
@@ -1611,6 +1640,11 @@ public class Sistema {
         }
         datos.add(codigo);
         datos.add(nombre);
+        datos.add(organizacion);
+        datos.add(cargo);
+        datos.add(tipo);
+        datos.add(email);
+        datos.add(comentarios);
         return datos;
     }
 
@@ -1639,15 +1673,48 @@ public class Sistema {
         }
         return rpt;
     }
-    
-    public ArrayList<ArrayList<String>> getEspecialista() {
+
+    /**
+     * Funcion que retorna todos los datos de todos los especialistas existentes en el proyecto
+     * ArrayList<String> (0) -> codigo
+     * ArrayList<String> (1) -> nombre
+     * ArrayList<String> (2) -> organizacion
+     * ArrayList<String> (3) -> especialidad
+     * ArrayList<String> (4) -> experiencia
+     * ArrayList<String> (5) -> cargo
+     * ArrayList<String> (6) -> email
+     * ArrayList<String> (7) -> comentarios
+     * @return ArrayList<ArrayList<String>> rpt con todos los atributos
+     * @return
+     */
+    public ArrayList<ArrayList<String>> getEspecialistas() {
         ArrayList<ArrayList<String>> datos = new ArrayList<>();
         ArrayList<String> codigo = new ArrayList<>();
         ArrayList<String> nombre = new ArrayList<>();
+        ArrayList<String> organizacion = new ArrayList<>();
+        ArrayList<String> especialidad = new ArrayList<>();
+        ArrayList<String> experiencia = new ArrayList<>();
+        ArrayList<String> cargo = new ArrayList<>();
+        ArrayList<String> email = new ArrayList<>();
+        ArrayList<String> comentarios = new ArrayList<>();
+        String temp;
+
         try {
             File[] ficheros;
             ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
             for (File fichero : ficheros) {
+                temp = fichero.getName();
+                if ((temp.length() > 4)) {
+                    temp = temp.substring(0, temp.length() - 4);
+                    codigo.add(getProyectTeam(temp).getPytNombre().getCodigo());
+                    nombre.add(getProyectTeam(temp).getPytNombre().getNombre());
+                    organizacion.add(getProyectTeam(temp).getPytOrg());
+                    especialidad.add(getProyectTeam(temp).getPytEsp());
+                    experiencia.add(getProyectTeam(temp).getPytExp());
+                    cargo.add(getProyectTeam(temp).getPytCar());
+                    email.add(getProyectTeam(temp).getPytCor());
+                    comentarios.add(getProyectTeam(temp).getPytCom());
+                }
                 codigo.add(getProyectTeam(fichero.getName()).getPytNombre().getCodigo());
                 nombre.add(getProyectTeam(fichero.getName()).getPytNombre().getNombre());
             }
@@ -1655,6 +1722,34 @@ public class Sistema {
         }
         datos.add(codigo);
         datos.add(nombre);
+        datos.add(organizacion);
+        datos.add(especialidad);
+        datos.add(experiencia);
+        datos.add(cargo);
+        datos.add(email);
+        datos.add(comentarios);
         return datos;
     }
+
+    public String getNextEdu() {
+        return ToolsSystem.IncrementarCodigo(Educcion.getCodigo());
+    }
+    
+    //Facilitadores de acceso
+    public static final int ESP_CODIGO = 0;
+    public static final int ESP_NOMBRE = 1;
+    public static final int ESP_ORGANIZACION = 2;        
+    public static final int ESP_ESPECIALIDAD = 3;
+    public static final int ESP_EXPERIENCIA = 4;
+    public static final int ESP_CARGO = 5;
+    public static final int ESP_EMAIL = 6;
+    public static final int ESP_COMENTARIOS = 7;
+
+    public static final int FUE_CODIGO = 0;
+    public static final int FUE_NOMBRE = 1;
+    public static final int FUE_ORGANIZACION = 2;
+    public static final int FUE_CARGO = 3;
+    public static final int FUE_TIPO = 4;
+    public static final int FUE_EMAIL = 5;
+    public static final int FUE_COMENTARIOS = 6; 
 }
