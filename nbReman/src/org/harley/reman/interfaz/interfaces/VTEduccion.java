@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
 
 /**
@@ -136,8 +137,10 @@ public class VTEduccion extends javax.swing.JInternalFrame {
     private void menuDocEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEduItem1ActionPerformed
         //NUEVA EDUCCION
         VEduccion VEdu = new VEduccion(sysReman);
-        if(VEdu.getIsCorrect()){
-            System.out.println("entro bien, se leyeron correctamente los actores");
+        if (VEdu.getIsCorrect()) {
+            VEdu.setVisible(true);
+        } else {
+            ToolsInterface.msjError("Error al cargar los actores del proyecto!");
         }
     }//GEN-LAST:event_menuDocEduItem1ActionPerformed
 
@@ -145,7 +148,7 @@ public class VTEduccion extends javax.swing.JInternalFrame {
         //MODIFICAR EDUCCION
         String nameXML = dirTree.getLastPathComponent().toString();
         //System.out.println(dirTree.getLastPathComponent().toString());
-        new VMEduccion(sysReman,nameXML).setVisible(true);
+        new VMEduccion(sysReman, nameXML).setVisible(true);
 
     }//GEN-LAST:event_menuEduItem1ActionPerformed
 
