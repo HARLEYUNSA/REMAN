@@ -42,8 +42,8 @@ public class LibroProyectTeam {
         return pyts;
     }
 
-    @XmlElementWrapper(name = "ProyectTeams")
-    @XmlElement(name = "ProyectTeam")
+    @XmlElementWrapper(name = "tabla")
+    @XmlElement(name = "tabla")
     public void setPyts(List<ProyectTeam> pyts) {
         this.pyts = pyts;
     }
@@ -57,7 +57,7 @@ public class LibroProyectTeam {
 
     public ProyectTeam getPyt(String pytCod){
         for (ProyectTeam pyt : pyts) {
-            if (pyt.getTeamNombre().getPytCod().equals(pytCod)) {
+            if (pyt.getPytNombre().getCodigo().equals(pytCod)) {
                 return pyt;
             }
         }

@@ -56,7 +56,7 @@ public class Elicitaciones {
     }
     
     public void newEli(Elicitacion eli){
-        String nomEli = eli.eliNombre.getEliNom();    
+        String nomEli = eli.eliNombre.getNombre();    
         addHistorico(eli, eli.eliFec, 
                    "Creación de la Elicitación " + nomEli, eli.eliEspNom);
         addElicitacion(eli);

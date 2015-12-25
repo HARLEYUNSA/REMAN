@@ -20,7 +20,7 @@ public class Secuencia {
         return number;
     }
     
-    @XmlAttribute(name="number")
+    @XmlAttribute(name = "number")
     public void setNumber(int number) {
         this.number = number;
     }
@@ -33,6 +33,5 @@ public class Secuencia {
     public void setPaso(ArrayList<Paso> paso) {
         this.paso = paso;
     }
-    
     
 }

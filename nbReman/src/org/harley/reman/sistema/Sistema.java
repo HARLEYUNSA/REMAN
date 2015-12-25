@@ -30,7 +30,7 @@ public class Sistema {
     FileManager<Educciones> manVerEdu;
     FileManager<Elicitaciones> manVerEli;
     FileManager<Especificaciones> manVerEsp;
-    FileManager<ReqNoFuncionales> manVerRnf;
+    FileManager<RequisitosNF> manVerRnf;
     FileManager<Organizacion> manOrg;
     FileManager<Stakeholder> manSth;
     FileManager<ProyectTeam> manPyt;
@@ -219,7 +219,7 @@ public class Sistema {
                 new File(dirPrincipal + "//src//esp"));
         manHisEsp = new FileManager<>(LibroHistorico.class,
                 new File(dirPrincipal + "//verlib//esp"));
-        manVerRnf = new FileManager<>(ReqNoFuncionales.class,
+        manVerRnf = new FileManager<>(RequisitosNF.class,
                 new File(dirPrincipal + "//src//rnf"));
         manLibRnf = new FileManager<>(LibroRequisitoNF.class,
                 new File(dirPrincipal + "//src//rnf"));
@@ -300,7 +300,7 @@ public class Sistema {
                     eduEspExp, eduEspCar, eduDes, eduObs);
             Educciones verEdu = new Educciones();
             verEdu.newEdu(edu);
-            manVerEdu.escribirXML(edu.getEduNombre().getEduCod(), verEdu);
+            manVerEdu.escribirXML(edu.getEduNombre().getCodigo(), verEdu);
             propiedades.setProperty("numEdu",
                     Integer.toString(Educcion.getNumero()));
             guardarPropiedades(dirPrincipal);
@@ -393,7 +393,7 @@ public class Sistema {
             String eduEspCar, String eduDes, String eduObs) {
         try {
             Educciones verEdu = manVerEdu.leerXML(eduCod);
-            String ultVer = verEdu.getLast().getEduNombre().getEduCod();
+            String ultVer = verEdu.getLast().getEduNombre().getCodigo();
             if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
                 Educcion edu = new Educcion(eduCod, eduNom, eduVer, eduTip,
                         eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip,
@@ -448,7 +448,7 @@ public class Sistema {
                 Especificaciones esp = manVerEsp.leerXML(codigo);
                 return esp.getHistoricos();
             case 3:
-                ReqNoFuncionales rnq = manVerRnf.leerXML(codigo);
+                RequisitosNF rnq = manVerRnf.leerXML(codigo);
                 return rnq.getHistoricos();
         }
         return null;
@@ -487,7 +487,7 @@ public class Sistema {
                     Integer.parseInt(propiedades.getProperty("numEli")));
             Especificacion.setNumero(
                     Integer.parseInt(propiedades.getProperty("numEsp")));
-            ReqNoFuncional.setNumero(
+            RequisitoNF.setNumero(
                     Integer.parseInt(propiedades.getProperty("numRnf")));
             Organizacion.setNumero(
                     Integer.parseInt(propiedades.getProperty("numOrg")));
@@ -556,7 +556,7 @@ public class Sistema {
 
     public void modificarEduccion(Educcion edu) {
         Educciones versiones;
-        String cod = edu.getEduNombre().getEduCod();
+        String cod = edu.getEduNombre().getCodigo();
         versiones = manVerEdu.leerXML(cod);
         versiones.modEdu(edu);
         manVerEdu.escribirXML(cod, versiones);
@@ -739,7 +739,7 @@ public class Sistema {
 
     public void modificarElicitacion(Elicitacion eli) {
         Elicitaciones versiones;
-        String cod = eli.getEliNombre().getEliCod();
+        String cod = eli.getEliNombre().getCodigo();
         versiones = manVerEli.leerXML(cod);
         versiones.modEli(eli);
         manVerEli.escribirXML(cod, versiones);
@@ -759,7 +759,7 @@ public class Sistema {
                     eliPos, eliExc, eliObs);
             Elicitaciones verEli = new Elicitaciones();
             verEli.newEli(eli);
-            manVerEli.escribirXML(eli.getEliNombre().getEliCod(), verEli);
+            manVerEli.escribirXML(eli.getEliNombre().getCodigo(), verEli);
             propiedades.setProperty("numEdu",
                     Integer.toString(Elicitacion.getNumero()));
             guardarPropiedades(dirPrincipal);
@@ -816,7 +816,7 @@ public class Sistema {
             String eliObs) {
         try {
             Elicitaciones verEli = manVerEli.leerXML(eliCod);
-            String ultVer = verEli.getLast().getEliNombre().getEliCod();
+            String ultVer = verEli.getLast().getEliNombre().getCodigo();
             if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
                 Elicitacion eli = new Elicitacion(eliCod, eliNom, eliEduCod, eliVer,
                         eliFec, eliFueNom, eliFueCar, eliFueTip, eliEspNom,
@@ -857,7 +857,7 @@ public class Sistema {
                     espPre, espPos, espExc, espObs);
             Especificaciones verEsp = new Especificaciones();
             verEsp.newEsp(esp);
-            manVerEsp.escribirXML(esp.getEspNombre().getEspCod(), verEsp);
+            manVerEsp.escribirXML(esp.getEspNombre().getCodigo(), verEsp);
             propiedades.setProperty("numEsp",
                     Integer.toString(Especificacion.getNumero()));
             guardarPropiedades(dirPrincipal);
@@ -911,7 +911,7 @@ public class Sistema {
             String espObs) {
         try {
             Especificaciones verEsps = manVerEsp.leerXML(espCod);
-            String ultVer = verEsps.getLast().getEspNombre().getEspCod();
+            String ultVer = verEsps.getLast().getEspNombre().getCodigo();
             if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
                 Especificacion esp = new Especificacion(espCod, espNom, espEliCod,
                         espVer, espFec, espFueNom, espFueCar, espFueTip, espEspNom,
@@ -1001,8 +1001,8 @@ public class Sistema {
         manLibRnf.escribirXML(nombre, lib);
     }
 
-    public ReqNoFuncional getLastRnf(String name) {
-        ReqNoFuncionales rnf = manVerRnf.leerXML(name);
+    public RequisitoNF getLastRnf(String name) {
+        RequisitosNF rnf = manVerRnf.leerXML(name);
         return rnf.getLast();
     }
 
@@ -1033,15 +1033,15 @@ public class Sistema {
 
     public void modificarEspecificacion(Especificacion esp) {
         Especificaciones versiones;
-        String espCod = esp.getEspNombre().getEspCod();
+        String espCod = esp.getEspNombre().getCodigo();
         versiones = manVerEsp.leerXML(espCod);
         versiones.modEsp(esp);
         manVerEsp.escribirXML(espCod, versiones);
     }
 
-    public void modificarRequisitoNF(ReqNoFuncional rnf) {
-        ReqNoFuncionales versiones;
-        String rnfCod = rnf.getRnfNombre().getRnfCod();
+    public void modificarRequisitoNF(RequisitoNF rnf) {
+        RequisitosNF versiones;
+        String rnfCod = rnf.getRnfNombre().getCodigo();
         versiones = manVerRnf.leerXML(rnfCod);
         versiones.modRnf(rnf);
         manVerRnf.escribirXML(rnfCod, versiones);
@@ -1053,15 +1053,15 @@ public class Sistema {
             String rnfEspEsp, String rnfEspExp, String rnfEspCar, String rnfDep,
             String rnfDes, String rnfObs) {
         try {
-            ReqNoFuncional rnf = new ReqNoFuncional(rnfNom, rnfVer, rnfTip,
+            RequisitoNF rnf = new RequisitoNF(rnfNom, rnfVer, rnfTip,
                     rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
                     rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs);
 
-            ReqNoFuncionales verRnf = new ReqNoFuncionales();
+            RequisitosNF verRnf = new RequisitosNF();
             verRnf.newRnf(rnf);
-            manVerRnf.escribirXML(rnf.getRnfNombre().getRnfCod(), verRnf);
+            manVerRnf.escribirXML(rnf.getRnfNombre().getCodigo(), verRnf);
             propiedades.setProperty("numRnf",
-                    Integer.toString(ReqNoFuncional.getNumero()));
+                    Integer.toString(RequisitoNF.getNumero()));
             guardarPropiedades(dirPrincipal);
             return true;
         } catch (Exception ex) {
@@ -1075,10 +1075,10 @@ public class Sistema {
             String rnfEspEsp, String rnfEspExp, String rnfEspCar, String rnfDep,
             String rnfDes, String rnfObs) {
         try {
-            ReqNoFuncional rnf = new ReqNoFuncional(rnfCod, rnfNom, rnfVer,
+            RequisitoNF rnf = new RequisitoNF(rnfCod, rnfNom, rnfVer,
                     rnfTip, rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
                     rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs);
-            ReqNoFuncionales verRnf = manVerRnf.leerXML(rnfCod);
+            RequisitosNF verRnf = manVerRnf.leerXML(rnfCod);
             verRnf.modRnf(rnf);
             manVerRnf.escribirXML(rnfCod, verRnf);
             return true;
@@ -1101,7 +1101,7 @@ public class Sistema {
         try {
             Organizacion org = new Organizacion(orgNom, orgDir, orgTel,
                     orgPagWeb, orgCorEle, orgCom);
-            manOrg.escribirXML(org.getOrgNom().getOrgCod(), org);
+            manOrg.escribirXML(org.getOrgNombre().getCodigo(), org);
             propiedades.setProperty("numOrg",
                     Integer.toString(Organizacion.getNumero()));
             guardarPropiedades(dirPrincipal);
@@ -1142,7 +1142,7 @@ public class Sistema {
             lib.setIntro(crearCaratula("ORGANIZACIONES"));
         }
         createLibOrg("libOrg", lib);
-        manLibEli.exportarPDF("libOrg", destino, nombre);
+        manLibOrg.exportarPDF("libOrg", destino, nombre);
     }
 
     public Organizacion getOrg(String codOrg) {
@@ -1159,7 +1159,7 @@ public class Sistema {
         try {
             Stakeholder sth = new Stakeholder(sthNom, sthOrg, sthCar, sthTip,
                     sthCorEle, sthCom);
-            manSth.escribirXML(sth.getSthNombre().getSthCod(), sth);
+            manSth.escribirXML(sth.getSthNombre().getCodigo(), sth);
             propiedades.setProperty("numSth",
                     Integer.toString(Stakeholder.getNumero()));
             guardarPropiedades(dirPrincipal);
@@ -1201,7 +1201,7 @@ public class Sistema {
         try {
             ProyectTeam pyt = new ProyectTeam(pytNom, pytOrg, pytEsp, pytExp,
                     pytCar, pytCor, pytCom);
-            manPyt.escribirXML(pyt.getTeamNombre().getPytCod(), pyt);
+            manPyt.escribirXML(pyt.getPytNombre().getCodigo(), pyt);
             propiedades.setProperty("numPyt",
                     Integer.toString(ProyectTeam.getNumero()));
             guardarPropiedades(dirPrincipal);
@@ -1270,7 +1270,7 @@ public class Sistema {
         File[] fuentes = new File(dirPrincipal + "//src//org//sth").listFiles();
         for (File fichero : fuentes) {
             String name = fichero.getName().split("\\.")[0];
-            fueNom.add(getStakeholder(name).getSthNombre().getSthNom());
+            fueNom.add(getStakeholder(name).getSthNombre().getCodigo());
         }
         return fueNom;
     }
@@ -1284,7 +1284,7 @@ public class Sistema {
         File[] fuentes = new File(dirPrincipal + "//src//org//sth").listFiles();
         for (File fichero : fuentes) {
             String cod = fichero.getName().split("\\.")[0];
-            fueCod.add(getStakeholder(cod).getSthNombre().getSthCod());
+            fueCod.add(getStakeholder(cod).getSthNombre().getCodigo());
         }
         return fueCod;
     }
@@ -1294,7 +1294,7 @@ public class Sistema {
         File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
         for (File fichero : especialistas) {
             String name = fichero.getName().split("\\.")[0];
-            espNom.add(getProyectTeam(name).getTeamNombre().getPytNom());
+            espNom.add(getProyectTeam(name).getPytNombre().getNombre());
         }
         return espNom;
     }
@@ -1304,7 +1304,7 @@ public class Sistema {
         File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
         for (File fichero : especialistas) {
             String cod = fichero.getName().split("\\.")[0];
-            espCod.add(getProyectTeam(cod).getTeamNombre().getPytCod());
+            espCod.add(getProyectTeam(cod).getPytNombre().getNombre());
         }
         return espCod;
     }

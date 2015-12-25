@@ -34,8 +34,8 @@ public class LibroEduccion {
         return educciones;
     }
     
-    @XmlElementWrapper(name = "educciones")
-    @XmlElement(name = "educcion")
+    @XmlElementWrapper(name = "tablas")
+    @XmlElement(name = "tabla")
     public void setEducciones(List<Educcion> educciones) {
         this.educciones = educciones;
     }

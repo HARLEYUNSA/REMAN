@@ -31,8 +31,8 @@ public class LibroEspecificacion {
     public List<Especificacion> getEspecificaciones() {
         return especificaciones;
     }
-    @XmlElementWrapper(name = "especificaciones")
-    @XmlElement(name = "especificacion")
+    @XmlElementWrapper(name = "tablas")
+    @XmlElement(name = "tabla")
     public void setEspecificaciones(List<Especificacion> especificaciones) {
         this.especificaciones = especificaciones;
     }

@@ -17,31 +17,31 @@ import javax.xml.bind.annotation.XmlType;
     "versiones"
 })
 
-public class ReqNoFuncionales {
-    ReqNoFuncional actual;
-    List<ReqNoFuncional> versiones;
+public class RequisitosNF {
+    RequisitoNF actual;
+    List<RequisitoNF> versiones;
     List<Historico> historicos;
 
-    public ReqNoFuncionales() {
+    public RequisitosNF() {
         this.versiones = new ArrayList<>();
         this.historicos = new ArrayList<>();
     }
 
-    public ReqNoFuncional getActual() {
+    public RequisitoNF getActual() {
         return actual;
     }
 
-    public void setActual(ReqNoFuncional actual) {
+    public void setActual(RequisitoNF actual) {
         this.actual = actual;
     }
     
-    public List<ReqNoFuncional> getVersiones() {
+    public List<RequisitoNF> getVersiones() {
         return versiones;
     }
     
 @XmlElementWrapper(name = "versiones")
 @XmlElement(name = "version")
-    public void setVersiones(List<ReqNoFuncional> versiones) {
+    public void setVersiones(List<RequisitoNF> versiones) {
         this.versiones = versiones;
     }
 
@@ -59,17 +59,17 @@ public class ReqNoFuncionales {
         return (this.historicos == null);
     }
     
-    public void newRnf(ReqNoFuncional rnf){
+    public void newRnf(RequisitoNF rnf){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar cal = Calendar.getInstance();
-        String nomRnf = rnf.getRnfNombre().getRnfNom();    
+        String nomRnf = rnf.getRnfNombre().getNombre();    
         addHistorico(rnf, dateFormat.format(cal.getTime()), 
                    "Creación de la ReqNoFuncional " + nomRnf, "Gonzalo");
         addReqNoFuncional(rnf);
         actual = rnf;
     }
     
-    public void modRnf(ReqNoFuncional rnf){
+    public void modRnf(RequisitoNF rnf){
         actual = rnf;
     }
     
@@ -80,16 +80,16 @@ public class ReqNoFuncionales {
         addReqNoFuncional(actual);
     }
     
-    public void addHistorico(ReqNoFuncional rnf, String fecha, String actor, String razon){
+    public void addHistorico(RequisitoNF rnf, String fecha, String actor, String razon){
         Historico hist = new Historico(rnf.getRnfVer(), fecha, razon, actor);
         historicos.add(hist);
     }
     
-    public void addReqNoFuncional(ReqNoFuncional rnf){	
+    public void addReqNoFuncional(RequisitoNF rnf){	
         versiones.add(rnf);
     }
     
-    public ReqNoFuncional getVer(String ver){
+    public RequisitoNF getVer(String ver){
        for (int i = 0; i < versiones.size(); i++){
            if(versiones.get(i).getRnfVer().equals(ver))
                return versiones.get(i);
@@ -97,8 +97,8 @@ public class ReqNoFuncionales {
        return null;
     }
     
-    public ReqNoFuncional getLast(){
-       ReqNoFuncional last = versiones.get(versiones.size()-1);
+    public RequisitoNF getLast(){
+       RequisitoNF last = versiones.get(versiones.size()-1);
        return last;
     }
 }

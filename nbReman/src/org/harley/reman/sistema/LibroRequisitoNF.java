@@ -11,12 +11,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "libroEspecificacion")
 @XmlType(propOrder = {
     "intro", 
-    "reqnofuncionales"
+    "requisitosNF"
 })
 class LibroRequisitoNF {
 
     Caratula intro;
-    List<ReqNoFuncional> reqnofuncionales;
+    List<RequisitoNF> requisitosNF;
 
     public LibroRequisitoNF() {
     }
@@ -29,24 +29,24 @@ class LibroRequisitoNF {
         this.intro = intro;
     }
 
-    public List<ReqNoFuncional> getReqNoFuncional() {
-        return reqnofuncionales;
+    public List<RequisitoNF> getRequisitosNF() {
+        return requisitosNF;
     }
-    @XmlElementWrapper(name = "reqnofuncionale")
-    @XmlElement(name = "reqnofuncionales")
-    public void setReqNoFuncionales(List<ReqNoFuncional> reqnofuncionales) {
-        this.reqnofuncionales = reqnofuncionales;
+    @XmlElementWrapper(name = "tablas")
+    @XmlElement(name = "tabla")
+    public void setRequisitosNF(List<RequisitoNF> reqnofuncionales) {
+        this.requisitosNF = reqnofuncionales;
     }
     
     public boolean isEmpty(){
-        return (this.reqnofuncionales == null);
+        return (this.requisitosNF == null);
     }
     
-    public void addReqNoFuncional(ReqNoFuncional rnf){
+    public void addReqNoFuncional(RequisitoNF rnf){
         if (isEmpty()){
-           reqnofuncionales = new ArrayList<>();
+           requisitosNF = new ArrayList<>();
         }
-        reqnofuncionales.add(rnf);
+        requisitosNF.add(rnf);
     }
     
 }

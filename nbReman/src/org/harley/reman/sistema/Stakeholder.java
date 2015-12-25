@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Stakeholder {
     private static int numero = 0;
     private static String codigo = "STH0000";
-    SthNombre sthNombre;
+    Nombre sthNombre;
     String sthOrg;
     String sthCar;
     String sthTip;
@@ -30,14 +30,14 @@ public class Stakeholder {
     public Stakeholder(String sthNom) {
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
-        this.sthNombre = new SthNombre(codigo, sthNom);
+        this.sthNombre = new Nombre(codigo, sthNom);
     }
 
     public Stakeholder(String sthNom, String sthOrg, String sthCar, 
             String sthTip, String sthCorEle, String sthCom) {
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
-        this.sthNombre = new SthNombre(codigo, sthNom);
+        this.sthNombre = new Nombre(codigo, sthNom);
         this.sthOrg = sthOrg;
         this.sthCar = sthCar;
         this.sthTip = sthTip;
@@ -47,7 +47,7 @@ public class Stakeholder {
 
     public Stakeholder(String sthCod, String sthNom, String sthOrg, 
             String sthCar, String sthTip, String sthCorEle, String sthCom) {
-        this.sthNombre = new SthNombre(sthCod, sthNom);
+        this.sthNombre = new Nombre(sthCod, sthNom);
         this.sthOrg = sthOrg;
         this.sthCar = sthCar;
         this.sthTip = sthTip;
@@ -66,18 +66,20 @@ public class Stakeholder {
         }
     }
 
-    public SthNombre getSthNombre() {
+    public Nombre getSthNombre() {
         return sthNombre;
     }
-
-    public void setSthNombre(SthNombre sthNombre) {
+    
+    @XmlElement(name = "sthNombre")
+    public void setSthNombre(Nombre sthNombre) {
         this.sthNombre = sthNombre;
     }
 
     public String getSthOrg() {
         return sthOrg;
     }
-
+    
+    @XmlElement(name = "organizacion")
     public void setSthOrg(String sthOrg) {
         this.sthOrg = sthOrg;
     }
@@ -85,7 +87,8 @@ public class Stakeholder {
     public String getSthCar() {
         return sthCar;
     }
-
+    
+    @XmlElement(name = "cargo")
     public void setSthCar(String sthCar) {
         this.sthCar = sthCar;
     }
@@ -93,7 +96,8 @@ public class Stakeholder {
     public String getSthTip() {
         return sthTip;
     }
-
+    
+    @XmlElement(name = "tipo")
     public void setSthTip(String sthTip) {
         this.sthTip = sthTip;
     }
@@ -101,7 +105,8 @@ public class Stakeholder {
     public String getSthCorEle() {
         return sthCorEle;
     }
-
+    
+    @XmlElement(name = "email")
     public void setSthCorEle(String sthCorEle) {
         this.sthCorEle = sthCorEle;
     }
@@ -109,7 +114,8 @@ public class Stakeholder {
     public String getSthCom() {
         return sthCom;
     }
-
+    
+    @XmlElement(name = "comentarios")
     public void setSthCom(String sthCom) {
         this.sthCom = sthCom;
     }
