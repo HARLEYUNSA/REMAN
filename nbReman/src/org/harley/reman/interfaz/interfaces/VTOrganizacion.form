@@ -60,6 +60,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Crear Especialista"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDocPytItem1ActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>

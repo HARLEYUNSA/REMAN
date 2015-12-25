@@ -55,6 +55,14 @@ public class Stakeholder {
         this.sthCom = sthCom;
     }
 
+    public static void setCodigo(String codigo) {
+        Stakeholder.codigo = codigo;
+    }
+   
+    public static String getCodigo() {
+        return codigo;
+    }
+    
     public static int getNumero() {
         return numero;
     }
