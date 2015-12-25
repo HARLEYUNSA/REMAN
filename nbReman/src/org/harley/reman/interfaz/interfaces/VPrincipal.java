@@ -27,8 +27,8 @@ public class VPrincipal extends javax.swing.JFrame {
 
         //pantalla
         getContentPane().setBackground(new java.awt.Color(119, 148, 171));
+        initComponents();        
         this.setLocationRelativeTo(null);
-        initComponents();
 
         //agregando pantalla de inicio(ayuda)
         VDocumento nuevo = new VDocumento();
@@ -511,7 +511,6 @@ public class VPrincipal extends javax.swing.JFrame {
         VProyecto VNProyect = new VProyecto(this, sysReman);
         VNProyect.setVisible(true);
         if(VNProyect.createSuccessful()){
-            System.out.println(sysReman.getDirPrincipal());
             actualizarJTrees();
         }
     }

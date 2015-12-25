@@ -1,6 +1,13 @@
 package org.harley.reman.interfaz.interfaces;
 
+import java.awt.Window;
 import java.util.ArrayList;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
 
@@ -8,13 +15,14 @@ import org.harley.reman.sistema.Sistema;
  *
  * @author Joel Mendoza
  */
-public class VEduccion extends javax.swing.JFrame {
+public class VEduccion extends JDialog {
 
     ArrayList<String> codEspecialista;
     ArrayList<String> codFuente;
     Sistema sysReman;
 
     public VEduccion(Sistema sysReman) {
+        super();
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
@@ -25,13 +33,19 @@ public class VEduccion extends javax.swing.JFrame {
             codFuente.addAll(this.sysReman.getFuenteCodigos());
             ToolsInterface.llenarJComboBox(cmbEDEspecialista, this.sysReman.getEspecialistaNombres());
             codEspecialista.addAll(this.sysReman.getEspecialistaCodigos());
-            this.setVisible(true);
         } catch (Exception e) {
             ToolsInterface.msjError("Error al cargar los actores del proyecto!");
             this.dispose();
         }
-       
-
+    }
+    
+    public boolean getIsCorrect(){
+        if(cmbEDEspecialista.getItemCount() == 0 || cmbEDFuente.getItemCount() == 0){
+            System.out.println("hay diomio");
+            return false;
+        }else{
+            return true;
+        }
     }
 
     /**
