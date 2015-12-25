@@ -41,6 +41,7 @@ public class Sistema {
     public Sistema() {
         propiedades = new Properties();
         stateReman = new Properties();
+        dirPrincipal = getStateReman();
     }
 
     /**

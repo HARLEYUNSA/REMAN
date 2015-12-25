@@ -23,12 +23,8 @@ public class Reman {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                //inicializacion de datos del sistema
-                Sistema sysReman = new Sistema();  
-                sysReman.setDirPrincipal(sysReman.getStateReman());
-                
                 //pantalla principal
-                new VPrincipal(sysReman).setVisible(true);
+                new VPrincipal(new Sistema()).setVisible(true);
             }
         });
     }

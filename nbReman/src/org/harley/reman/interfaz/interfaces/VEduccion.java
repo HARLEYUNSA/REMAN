@@ -1,5 +1,6 @@
 package org.harley.reman.interfaz.interfaces;
 
+import java.util.ArrayList;
 import javax.swing.JDialog;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
@@ -11,22 +12,26 @@ import org.harley.reman.sistema.Sistema;
 public class VEduccion extends JDialog {
 
     Sistema sysReman;
+    ArrayList<String> pr1;
+    ArrayList<String> pr2;
+            
     public VEduccion(Sistema sysReman) {
         super();
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        
+        pr1 = this.sysReman.getFuenteNombres();
+        pr2 = this.sysReman.getEspecialistaNombres();
         try {
-            ToolsInterface.llenarJComboBox(cmbEDFuente, this.sysReman.getFuenteNombres());
-            ToolsInterface.llenarJComboBox(cmbEDEspecialista, this.sysReman.getEspecialistaNombres());
+            ToolsInterface.llenarJComboBox(cmbEDFuente, pr1);
+            ToolsInterface.llenarJComboBox(cmbEDEspecialista, pr2);
         } catch (Exception e) {
         }
     }
     
     public boolean getIsCorrect(){
-        System.out.println(cmbEDEspecialista.getItemCount()+"+"+ cmbEDFuente.getItemCount());
-        return !(cmbEDEspecialista.getItemCount() == 0 || cmbEDFuente.getItemCount() == 0);
+        System.out.println(pr1.size() + "+" + pr2.size());
+        return !(pr1.isEmpty() || pr2.isEmpty());
     }
 
     /**
