@@ -31,8 +31,8 @@ public class VEduccion extends JDialog {
         try {
             ToolsInterface.llenarJComboBox(cmbEDFuente, this.sysReman.getFuenteNombres());
             codFuente.addAll(this.sysReman.getFuenteCodigos());
-            ToolsInterface.llenarJComboBox(cmbEDEspecialista, this.sysReman.getEspecialistaNombres());
-            codEspecialista.addAll(this.sysReman.getEspecialistaCodigos());
+            ToolsInterface.llenarJComboBox(cmbEDEspecialista, this.sysReman.getFuenteNombres());
+            codEspecialista.addAll(this.sysReman.getFuenteCodigos());
         } catch (Exception e) {
             ToolsInterface.msjError("Error al cargar los actores del proyecto!");
             this.dispose();
@@ -40,12 +40,8 @@ public class VEduccion extends JDialog {
     }
     
     public boolean getIsCorrect(){
-        if(cmbEDEspecialista.getItemCount() == 0 || cmbEDFuente.getItemCount() == 0){
-            System.out.println("hay diomio");
-            return false;
-        }else{
-            return true;
-        }
+        System.out.println(cmbEDEspecialista.getItemCount() + "+" + cmbEDFuente.getItemCount());
+        return !(cmbEDEspecialista.getItemCount() == 0 || cmbEDFuente.getItemCount() == 0);
     }
 
     /**

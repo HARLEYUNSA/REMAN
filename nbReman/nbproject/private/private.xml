@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GitHub/FORK/REMAN/nbReman/src/org/harley/reman/interfaz/interfaces/VTOrganizacion.java</file>
+            <file>file:/D:/GitHub/FORK/REMAN/nbReman/src/org/harley/reman/interfaz/interfaces/VEduccion.java</file>
             <file>file:/D:/GitHub/FORK/REMAN/nbReman/src/org/harley/reman/interfaz/utilitario/ToolsInterface.java</file>
-            <file>file:/D:/GitHub/FORK/REMAN/nbReman/src/org/harley/reman/interfaz/interfaces/VPrincipal.java</file>
+            <file>file:/D:/GitHub/FORK/REMAN/nbReman/src/org/harley/reman/interfaz/interfaces/VTEduccion.java</file>
+            <file>file:/D:/GitHub/FORK/REMAN/nbReman/src/org/harley/reman/sistema/Sistema.java</file>
         </group>
     </open-files>
 </project-private>
