@@ -1,13 +1,7 @@
 package org.harley.reman.interfaz.interfaces;
 
-import java.awt.Window;
 import java.util.ArrayList;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
 
@@ -17,35 +11,36 @@ import org.harley.reman.sistema.Sistema;
  */
 public class VEduccion extends JDialog {
 
-    ArrayList<String> codEspecialista;
-    ArrayList<String> codFuente;
     Sistema sysReman;
+    ArrayList<ArrayList<String>> datesEsp;
+    ArrayList<ArrayList<String>> datesFue;
 
     public VEduccion(Sistema sysReman) {
         super();
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        codEspecialista = new ArrayList<>();
-        codFuente = new ArrayList<>();
+
+        datesEsp = this.sysReman.getEspecialistas();
+        datesFue = this.sysReman.getFuentes();
+
         try {
-            ToolsInterface.llenarJComboBox(cmbEDFuente, this.sysReman.getFuenteNombres());
-            codFuente.addAll(this.sysReman.getFuenteCodigos());
-            ToolsInterface.llenarJComboBox(cmbEDEspecialista, this.sysReman.getEspecialistaNombres());
-            codEspecialista.addAll(this.sysReman.getEspecialistaCodigos());
+            ToolsInterface.llenarJComboBox(cmbEDEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
+            txtEDEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(0));
+            txtEDExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(0));
+            txtEDCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(0));
+            
+            ToolsInterface.llenarJComboBox(cmbEDFuente, datesFue.get(Sistema.FUE_NOMBRE));
+            txtEDCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(0));
+            txtEDFTipo.setText(datesFue.get(Sistema.FUE_TIPO).get(0));
         } catch (Exception e) {
-            ToolsInterface.msjError("Error al cargar los actores del proyecto!");
-            this.dispose();
         }
     }
-    
-    public boolean getIsCorrect(){
-        if(cmbEDEspecialista.getItemCount() == 0 || cmbEDFuente.getItemCount() == 0){
-            System.out.println("hay diomio");
-            return false;
-        }else{
-            return true;
-        }
+
+    public boolean getIsCorrect() {
+        int a = datesEsp.get(0).size(); //cantidad de codigos especialista
+        int b = datesFue.get(0).size(); //cantidad de codigos fuente
+        return !(a == 0 || b == 0);
     }
 
     /**
@@ -571,7 +566,7 @@ public class VEduccion extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVEDCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDCancelarActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnVEDCancelarActionPerformed
 
     private void btnVEDGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDGuardarActionPerformed
@@ -589,7 +584,12 @@ public class VEduccion extends JDialog {
         String eduEspNom = (String) cmbEDEspecialista.getSelectedItem();
         String eduFueNom = (String) cmbEDFuente.getSelectedItem();
         String eduFec = dtEDFecha.getText();
-        sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs);
+        if (sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs)) {
+            ToolsInterface.msjError("Creacion de educcion exitosa");
+            this.dispose();
+        } else {
+            ToolsInterface.msjError("Error al crear la educcion");
+        }
     }//GEN-LAST:event_btnVEDGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

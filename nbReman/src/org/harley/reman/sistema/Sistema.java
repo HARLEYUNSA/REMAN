@@ -41,6 +41,8 @@ public class Sistema {
     public Sistema() {
         propiedades = new Properties();
         stateReman = new Properties();
+        dirPrincipal = getStateReman();
+        ingresarProyecto();
     }
 
     /**
@@ -592,7 +594,7 @@ public class Sistema {
         LibroEduccion lib = new LibroEduccion();
         File[] ficheros = new File(dirPrincipal + "//src//edu").listFiles();
         for (File fichero : ficheros) {
-            lib.addEduccion(getLastEdu(fichero.getName().split("\\.")[0]));
+            lib.addEduccion(getLastEdu(fichero.getName()));
             lib.setIntro(crearCaratula("EDUCCIÓN DE REQUERIMIENTOS"));
         }
         createLibEdu("libEdu", lib);
@@ -605,8 +607,7 @@ public class Sistema {
 	 * @param codigo Código de la educción
      */
     public Educcion getLastEdu(String codigo) {
-        Educciones edu;
-        edu = manVerEdu.leerXML(codigo);
+        Educciones edu = manVerEdu.leerXML(codigo);
         return edu.getLast();
     }
 
@@ -1562,52 +1563,189 @@ public class Sistema {
     }
 
     /**
+     * devuelve los nombres de las fuentes del proyecto REMAN
      *
-     * Devolver el conjunto de nombres de todas las fuentes del proyecto
-     *
-     * @return
+     * @return ArrayList<String> fuentes
      */
     public ArrayList<String> getFuenteNombres() {
-        ArrayList<String> fueNom = new ArrayList<>();
-        File[] fuentes = new File(dirPrincipal + "//src//org//sth").listFiles();
-        for (File fichero : fuentes) {
-            String name = fichero.getName().split("\\.")[0];
-            fueNom.add(getStakeholder(name).getSthNombre().getCodigo());
+        ArrayList<String> rpt = new ArrayList<>();
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
+            for (File fichero : ficheros) {
+                rpt.add(getStakeholder(fichero.getName()).getSthNombre().getNombre());
+            }
+        } catch (Exception e) {
         }
-        return fueNom;
+        return rpt;
     }
 
     /**
+     * devuelve los codigos de las fuentes del proyecto REMAN
      *
-     * @return
+     * @return ArrayList<String> fuentes codigo
      */
-    public List<String> getFuenteCodigos() {
-        List<String> fueCod = new ArrayList<>();
-        File[] fuentes = new File(dirPrincipal + "//src//org//sth").listFiles();
-        for (File fichero : fuentes) {
-            String cod = fichero.getName().split("\\.")[0];
-            fueCod.add(getStakeholder(cod).getSthNombre().getCodigo());
+    public ArrayList<String> getFuenteCodigos() {
+        ArrayList<String> rpt = new ArrayList<>();
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
+            for (File fichero : ficheros) {
+                rpt.add(getStakeholder(fichero.getName()).getSthNombre().getCodigo());
+            }
+        } catch (Exception e) {
         }
-        return fueCod;
+        return rpt;
+    }
+
+    /**
+     * Funcion que retorna todos los datos de todas las fuentes existentes en el
+     * proyecto ArrayList<String> (0) -> codigo ArrayList<String> (1) -> nombre
+     * ArrayList<String> (2) -> organizacion ArrayList<String> (3) -> cargo
+     * ArrayList<String> (4) -> tipo ArrayList<String> (5) -> email
+     * ArrayList<String> (6) -> comentarios
+     *
+     * @return ArrayList<ArrayList<String>> rpt con todos los atributos
+     */
+    public ArrayList<ArrayList<String>> getFuentes() {
+        ArrayList<ArrayList<String>> datos = new ArrayList<>();
+        ArrayList<String> codigo = new ArrayList<>();
+        ArrayList<String> nombre = new ArrayList<>();
+        ArrayList<String> organizacion = new ArrayList<>();
+        ArrayList<String> cargo = new ArrayList<>();
+        ArrayList<String> tipo = new ArrayList<>();
+        ArrayList<String> email = new ArrayList<>();
+        ArrayList<String> comentarios = new ArrayList<>();
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
+            String temp;
+            for (File fichero : ficheros) {
+                temp = fichero.getName();
+                codigo.add(getStakeholder(temp).getSthNombre().getCodigo());
+                nombre.add(getStakeholder(temp).getSthNombre().getNombre());
+                organizacion.add(getStakeholder(temp).getSthOrg());
+                cargo.add(getStakeholder(temp).getSthCar());
+                tipo.add(getStakeholder(temp).getSthTip());
+                email.add(getStakeholder(temp).getSthCorEle());
+                comentarios.add(getStakeholder(temp).getSthCom());
+                codigo.add(getStakeholder(temp).getSthNombre().getCodigo());
+                nombre.add(getStakeholder(temp).getSthNombre().getNombre());
+            }
+        } catch (Exception e) {
+        }
+        datos.add(codigo);
+        datos.add(nombre);
+        datos.add(organizacion);
+        datos.add(cargo);
+        datos.add(tipo);
+        datos.add(email);
+        datos.add(comentarios);
+        return datos;
     }
 
     public ArrayList<String> getEspecialistaNombres() {
-        ArrayList<String> espNom = new ArrayList<>();
-        File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
-        for (File fichero : especialistas) {
-            String name = fichero.getName().split("\\.")[0];
-            espNom.add(getProyectTeam(name).getPytNombre().getNombre());
+        ArrayList<String> rpt = new ArrayList<>();
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
+            for (File fichero : ficheros) {
+                rpt.add(getProyectTeam(fichero.getName()).getPytNombre().getNombre());
+            }
+        } catch (Exception e) {
         }
-        return espNom;
+        return rpt;
     }
 
     public ArrayList<String> getEspecialistaCodigos() {
-        ArrayList<String> espCod = new ArrayList<>();
-        File[] especialistas = new File(dirPrincipal + "//src//org//pyt").listFiles();
-        for (File fichero : especialistas) {
-            String cod = fichero.getName().split("\\.")[0];
-            espCod.add(getProyectTeam(cod).getPytNombre().getNombre());
+        ArrayList<String> rpt = new ArrayList<>();
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
+            for (File fichero : ficheros) {
+                rpt.add(getProyectTeam(fichero.getName()).getPytNombre().getCodigo());
+            }
+        } catch (Exception e) {
         }
-        return espCod;
+        return rpt;
     }
+
+    /**
+     * Funcion que retorna todos los datos de todos los especialistas existentes en el proyecto
+     * ArrayList<String> (0) -> codigo
+     * ArrayList<String> (1) -> nombre
+     * ArrayList<String> (2) -> organizacion
+     * ArrayList<String> (3) -> especialidad
+     * ArrayList<String> (4) -> experiencia
+     * ArrayList<String> (5) -> cargo
+     * ArrayList<String> (6) -> email
+     * ArrayList<String> (7) -> comentarios
+     * @return ArrayList<ArrayList<String>> rpt con todos los atributos
+     * @return
+     */
+    public ArrayList<ArrayList<String>> getEspecialistas() {
+        ArrayList<ArrayList<String>> datos = new ArrayList<>();
+        ArrayList<String> codigo = new ArrayList<>();
+        ArrayList<String> nombre = new ArrayList<>();
+        ArrayList<String> organizacion = new ArrayList<>();
+        ArrayList<String> especialidad = new ArrayList<>();
+        ArrayList<String> experiencia = new ArrayList<>();
+        ArrayList<String> cargo = new ArrayList<>();
+        ArrayList<String> email = new ArrayList<>();
+        ArrayList<String> comentarios = new ArrayList<>();
+        String temp;
+
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
+            for (File fichero : ficheros) {
+                temp = fichero.getName();
+                if ((temp.length() > 4)) {
+                    temp = temp.substring(0, temp.length() - 4);
+                    codigo.add(getProyectTeam(temp).getPytNombre().getCodigo());
+                    nombre.add(getProyectTeam(temp).getPytNombre().getNombre());
+                    organizacion.add(getProyectTeam(temp).getPytOrg());
+                    especialidad.add(getProyectTeam(temp).getPytEsp());
+                    experiencia.add(getProyectTeam(temp).getPytExp());
+                    cargo.add(getProyectTeam(temp).getPytCar());
+                    email.add(getProyectTeam(temp).getPytCor());
+                    comentarios.add(getProyectTeam(temp).getPytCom());
+                }
+                codigo.add(getProyectTeam(fichero.getName()).getPytNombre().getCodigo());
+                nombre.add(getProyectTeam(fichero.getName()).getPytNombre().getNombre());
+            }
+        } catch (Exception e) {
+        }
+        datos.add(codigo);
+        datos.add(nombre);
+        datos.add(organizacion);
+        datos.add(especialidad);
+        datos.add(experiencia);
+        datos.add(cargo);
+        datos.add(email);
+        datos.add(comentarios);
+        return datos;
+    }
+
+    public String getNextEdu() {
+        return ToolsSystem.IncrementarCodigo(Educcion.getCodigo());
+    }
+    
+    //Facilitadores de acceso
+    public static final int ESP_CODIGO = 0;
+    public static final int ESP_NOMBRE = 1;
+    public static final int ESP_ORGANIZACION = 2;        
+    public static final int ESP_ESPECIALIDAD = 3;
+    public static final int ESP_EXPERIENCIA = 4;
+    public static final int ESP_CARGO = 5;
+    public static final int ESP_EMAIL = 6;
+    public static final int ESP_COMENTARIOS = 7;
+
+    public static final int FUE_CODIGO = 0;
+    public static final int FUE_NOMBRE = 1;
+    public static final int FUE_ORGANIZACION = 2;
+    public static final int FUE_CARGO = 3;
+    public static final int FUE_TIPO = 4;
+    public static final int FUE_EMAIL = 5;
+    public static final int FUE_COMENTARIOS = 6; 
 }

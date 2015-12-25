@@ -15,8 +15,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Educciones {
     Educcion actual;
-    List<Educcion> versiones;
-    List<Historico> historicos;
+    ArrayList<Educcion> versiones;
+    ArrayList<Historico> historicos;
 
     public Educciones() {
         this.versiones = new ArrayList<>();
@@ -37,17 +37,17 @@ public class Educciones {
     
     @XmlElementWrapper(name = "versiones")
     @XmlElement(name = "version")
-    public void setVersiones(List<Educcion> versiones) {
+    public void setVersiones(ArrayList<Educcion> versiones) {
         this.versiones = versiones;
     }
 
-    public List<Historico> getHistoricos() {
+    public ArrayList<Historico> getHistoricos() {
         return historicos;
     }
     
     @XmlElementWrapper(name = "historicos")
     @XmlElement(name = "historico")
-    public void setHistoricos(List<Historico> historicos) {
+    public void setHistoricos(ArrayList<Historico> historicos) {
         this.historicos = historicos;
     }
     
