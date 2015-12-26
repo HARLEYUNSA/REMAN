@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "libroProyectTeam")
 @XmlType(propOrder = {
     "intro",
-    "Pyts"
+    "pyts"
 })
 public class LibroProyectTeam {
     
@@ -36,7 +36,7 @@ public class LibroProyectTeam {
         return pyts;
     }
 
-    @XmlElementWrapper(name = "tabla")
+    @XmlElementWrapper(name = "tablas")
     @XmlElement(name = "tabla")
     public void setPyts(ArrayList<ProyectTeam> pyts) {
         this.pyts = pyts;
