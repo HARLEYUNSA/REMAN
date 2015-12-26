@@ -12,13 +12,13 @@ import org.harley.reman.sistema.Sistema;
 public class VOrganizacion extends JDialog {
 
     Sistema sysReman;
-    boolean flagIsOk;
+    boolean flagNewOk;
     public VOrganizacion(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        flagIsOk = false;
+        flagNewOk = false;
         try {
             txtOCodigo.setText(sysReman.getNextOrg());  
         } catch (Exception e) {
@@ -276,7 +276,7 @@ public class VOrganizacion extends JDialog {
         }
         if(!error){
             sysReman.crearOrganizacion(orgNom, orgDir, orgTel, orgPagWeb, orgCorEle, orgCom);
-            flagIsOk = true;
+            flagNewOk = true;
             ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Organizacion "
                     + orgNom + " fue creado satisfactoriamente.");
             this.dispose();
@@ -291,7 +291,7 @@ public class VOrganizacion extends JDialog {
      * @return 
      */
     public boolean createSuccessful(){
-        return flagIsOk;
+        return flagNewOk;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

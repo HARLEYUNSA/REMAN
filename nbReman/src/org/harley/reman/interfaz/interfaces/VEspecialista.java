@@ -276,7 +276,7 @@ public class VEspecialista extends JDialog {
      * Indica si estan correctamente cargados los parametros de entrada
      * @return 
      */
-    public boolean getIsCorrect() {
+    public boolean getLoadIsCorrect() {
         return !(org.isEmpty());
     }
     

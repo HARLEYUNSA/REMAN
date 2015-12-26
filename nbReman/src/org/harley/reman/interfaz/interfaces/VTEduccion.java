@@ -150,9 +150,9 @@ public class VTEduccion extends javax.swing.JInternalFrame {
 
     private void menuEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem1ActionPerformed
         //MODIFICAR EDUCCION
-        String nameXML = dirTree.getLastPathComponent().toString();
+        String path = dirTree.getLastPathComponent().toString();
         //System.out.println(dirTree.getLastPathComponent().toString());
-        new VMEduccion(sysReman, nameXML).setVisible(true);
+        new VMEduccion(sysReman, path).setVisible(true);
 
     }//GEN-LAST:event_menuEduItem1ActionPerformed
 

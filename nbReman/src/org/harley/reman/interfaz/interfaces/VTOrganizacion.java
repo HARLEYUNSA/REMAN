@@ -89,7 +89,6 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         menuOrg = new javax.swing.JPopupMenu();
         menuOrgItem1 = new javax.swing.JMenuItem();
         menuOrgItem2 = new javax.swing.JMenuItem();
-        menuOrgItem3 = new javax.swing.JMenuItem();
         menuDocPyt = new javax.swing.JPopupMenu();
         menuDocPytItem1 = new javax.swing.JMenuItem();
         menuDocSth = new javax.swing.JPopupMenu();
@@ -128,14 +127,6 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             }
         });
         menuOrg.add(menuOrgItem2);
-
-        menuOrgItem3.setText("Restaurar");
-        menuOrgItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuOrgItem3ActionPerformed(evt);
-            }
-        });
-        menuOrg.add(menuOrgItem3);
 
         menuDocPytItem1.setText("Crear Especialista");
         menuDocPytItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -203,22 +194,34 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_menuDocOrgItem1ActionPerformed
 
     private void menuOrgItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem1ActionPerformed
-        //MODIFICAR EDUCCION
+        //MODIFICAR ORGANIZACION
+        String path = dirTree.getLastPathComponent().toString();
+        VMOrganizacion VOrg = new VMOrganizacion(padre, sysReman, path);
+        if(VOrg.getLoadIsCorrect()){
+            VOrg.setVisible(true);
+        }
+        else{
+            ToolsInterface.msjError(padre, "Error al cargar los datos de la Organizacion!");
+        }
     }//GEN-LAST:event_menuOrgItem1ActionPerformed
 
     private void menuOrgItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem2ActionPerformed
-        //ELIMINAR
+        //ELIMINAR ORGANIZACION
+        String path; 
         int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
+        if(resp == 0){
+            path = dirTree.getLastPathComponent().toString();
+            sysReman.eliminarOrganizacion(path);
+            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            ToolsInterface.msjInfo(padre,"Eliminacion Exitosa" ,"Se elimino correctamente la Organizacion " + path);
+        }
+        
     }//GEN-LAST:event_menuOrgItem2ActionPerformed
-
-    private void menuOrgItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem3ActionPerformed
-        //RESTAURAR
-    }//GEN-LAST:event_menuOrgItem3ActionPerformed
 
     private void menuDocPytItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocPytItem1ActionPerformed
         //CREAR ESPECIALISTA
         VEspecialista VEsp = new VEspecialista(padre, sysReman);
-        if(VEsp.getIsCorrect()){
+        if(VEsp.getLoadIsCorrect()){
             VEsp.setVisible(true);
         }else{
             ToolsInterface.msjError(padre,"Error al cargar las Organizaciones!");
@@ -242,7 +245,6 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu menuOrg;
     private javax.swing.JMenuItem menuOrgItem1;
     private javax.swing.JMenuItem menuOrgItem2;
-    private javax.swing.JMenuItem menuOrgItem3;
     private javax.swing.JPopupMenu menuPyt;
     private javax.swing.JMenuItem menuPytItem1;
     private javax.swing.JMenuItem menuPytItem2;
