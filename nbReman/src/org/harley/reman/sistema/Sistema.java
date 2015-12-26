@@ -1568,11 +1568,13 @@ public class Sistema {
      */
     public ArrayList<String> getFuenteNombres() {
         ArrayList<String> rpt = new ArrayList<>();
+        String name;
         try {
             File[] ficheros;
             ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
             for (File fichero : ficheros) {
-                rpt.add(getStakeholder(fichero.getName()).getSthNombre().getNombre());
+                name = fichero.getName();
+                rpt.add(getStakeholder(name).getSthNombre().getNombre());
             }
         } catch (Exception e) {
         }
@@ -1586,11 +1588,13 @@ public class Sistema {
      */
     public ArrayList<String> getFuenteCodigos() {
         ArrayList<String> rpt = new ArrayList<>();
+        String name;
         try {
             File[] ficheros;
             ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
             for (File fichero : ficheros) {
-                rpt.add(getStakeholder(fichero.getName()).getSthNombre().getCodigo());
+                name = fichero.getName();
+                rpt.add(getStakeholder(name).getSthNombre().getCodigo());
             }
         } catch (Exception e) {
         }
@@ -1615,22 +1619,19 @@ public class Sistema {
         ArrayList<String> tipo = new ArrayList<>();
         ArrayList<String> email = new ArrayList<>();
         ArrayList<String> comentarios = new ArrayList<>();
-        String temp;
+        String name;
         try {
             File[] ficheros;
             ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
             for (File fichero : ficheros) {
-                temp = fichero.getName();
-                if ((temp.length() > 4)) {
-                    temp = temp.substring(0, temp.length() - 4);
-                    codigo.add(getStakeholder(temp).getSthNombre().getCodigo());
-                    nombre.add(getStakeholder(temp).getSthNombre().getNombre());
-                    organizacion.add(getStakeholder(temp).getSthOrg());
-                    cargo.add(getStakeholder(temp).getSthCar());
-                    tipo.add(getStakeholder(temp).getSthTip());
-                    email.add(getStakeholder(temp).getSthCorEle());
-                    comentarios.add(getStakeholder(temp).getSthCom());
-                }
+                name = fichero.getName();
+                codigo.add(getStakeholder(name).getSthNombre().getCodigo());
+                nombre.add(getStakeholder(name).getSthNombre().getNombre());
+                organizacion.add(getStakeholder(name).getSthOrg());
+                cargo.add(getStakeholder(name).getSthCar());
+                tipo.add(getStakeholder(name).getSthTip());
+                email.add(getStakeholder(name).getSthCorEle());
+                comentarios.add(getStakeholder(name).getSthCom());
             }
         } catch (Exception e) {
         }
@@ -1646,11 +1647,13 @@ public class Sistema {
 
     public ArrayList<String> getEspecialistaNombres() {
         ArrayList<String> rpt = new ArrayList<>();
+        String name;
         try {
             File[] ficheros;
             ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
             for (File fichero : ficheros) {
-                rpt.add(getProyectTeam(fichero.getName()).getPytNombre().getNombre());
+                name = fichero.getName();
+                rpt.add(getProyectTeam(name).getPytNombre().getNombre());
             }
         } catch (Exception e) {
         }
@@ -1659,11 +1662,13 @@ public class Sistema {
 
     public ArrayList<String> getEspecialistaCodigos() {
         ArrayList<String> rpt = new ArrayList<>();
+        String name;
         try {
             File[] ficheros;
             ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
             for (File fichero : ficheros) {
-                rpt.add(getProyectTeam(fichero.getName()).getPytNombre().getCodigo());
+                name = fichero.getName();
+                rpt.add(getProyectTeam(name).getPytNombre().getCodigo());
             }
         } catch (Exception e) {
         }
@@ -1691,26 +1696,22 @@ public class Sistema {
         ArrayList<String> cargo = new ArrayList<>();
         ArrayList<String> email = new ArrayList<>();
         ArrayList<String> comentarios = new ArrayList<>();
-        String temp;
-
+        String name;
         try {
             File[] ficheros;
             ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
             for (File fichero : ficheros) {
-                temp = fichero.getName();
-                if ((temp.length() > 4)) {
-                    temp = temp.substring(0, temp.length() - 4);
-                    codigo.add(getProyectTeam(temp).getPytNombre().getCodigo());
-                    nombre.add(getProyectTeam(temp).getPytNombre().getNombre());
-                    organizacion.add(getProyectTeam(temp).getPytOrg());
-                    especialidad.add(getProyectTeam(temp).getPytEsp());
-                    experiencia.add(getProyectTeam(temp).getPytExp());
-                    cargo.add(getProyectTeam(temp).getPytCar());
-                    email.add(getProyectTeam(temp).getPytCor());
-                    comentarios.add(getProyectTeam(temp).getPytCom());
-                }
-                codigo.add(getProyectTeam(fichero.getName()).getPytNombre().getCodigo());
-                nombre.add(getProyectTeam(fichero.getName()).getPytNombre().getNombre());
+                name = fichero.getName();
+                codigo.add(getProyectTeam(name).getPytNombre().getCodigo());
+                nombre.add(getProyectTeam(name).getPytNombre().getNombre());
+                organizacion.add(getProyectTeam(name).getPytOrg());
+                especialidad.add(getProyectTeam(name).getPytEsp());
+                experiencia.add(getProyectTeam(name).getPytExp());
+                cargo.add(getProyectTeam(name).getPytCar());
+                email.add(getProyectTeam(name).getPytCor());
+                comentarios.add(getProyectTeam(name).getPytCom());
+                codigo.add(getProyectTeam(name).getPytNombre().getCodigo());
+                nombre.add(getProyectTeam(name).getPytNombre().getNombre());
             }
         } catch (Exception e) {
         }
@@ -1727,16 +1728,13 @@ public class Sistema {
 
     public ArrayList<String> getOrgNombres() {
         ArrayList<String> rpt = new ArrayList<>();
-        String temp;
+        String name;
         try {
             File[] ficheros;
             ficheros = new File(dirPrincipal + "\\src\\org\\org").listFiles();
             for (File fichero : ficheros) {
-                temp = fichero.getName();
-                if ((temp.length() > 4)) {
-                    temp = temp.substring(0, temp.length() - 4);
-                    rpt.add(getOrg(temp).getOrgNombre().getNombre());
-                }
+                name = fichero.getName();
+                rpt.add(getOrg(name).getOrgNombre().getNombre());
             }
         } catch (Exception e) {
         }

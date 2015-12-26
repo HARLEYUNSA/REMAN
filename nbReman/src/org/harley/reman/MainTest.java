@@ -9,7 +9,7 @@ public class MainTest {
         Sistema test = new Sistema();
         test.setDirPrincipal(test.getStateReman());
         test.ingresarProyecto();
-        ArrayList<String> x = test.getFuenteNombres();
+        ArrayList<String> x = test.getOrgNombres();
         for (String x1 : x) {
             System.out.println(x1);
         }
