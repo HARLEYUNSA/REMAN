@@ -1,8 +1,5 @@
 package org.harley.reman.sistema;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -59,11 +56,9 @@ public class RequisitosNF {
     }
     
     public void newRnf(RequisitoNF rnf){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Calendar cal = Calendar.getInstance();
-        String nomRnf = rnf.getRnfNombre().getNombre();    
-        addHistorico(rnf, dateFormat.format(cal.getTime()), 
-                   "Creación de la ReqNoFuncional " + nomRnf, "Gonzalo");
+        String nomRnf = rnf.rnfNombre.getNombre();    
+        addHistorico(rnf, rnf.rnfFec,
+                "Creación del ReqNoFuncional " + nomRnf, rnf.rnfEspNom);
         addReqNoFuncional(rnf);
         actual = rnf;
     }
@@ -79,7 +74,8 @@ public class RequisitosNF {
         addReqNoFuncional(actual);
     }
     
-    public void addHistorico(RequisitoNF rnf, String fecha, String actor, String razon){
+    public void addHistorico(RequisitoNF rnf, String fecha, String actor, 
+            String razon){
         Historico hist = new Historico(rnf.getRnfVer(), fecha, razon, actor);
         historicos.add(hist);
     }

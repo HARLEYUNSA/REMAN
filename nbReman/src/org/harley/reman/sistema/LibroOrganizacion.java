@@ -6,17 +6,12 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author Gonzalo
- */
 @XmlRootElement(name = "libroOrganizacion")
 @XmlType(propOrder = {
     "intro",
     "orgs"
 })
 class LibroOrganizacion {
-
     Caratula intro;
     ArrayList<Organizacion> orgs;
 

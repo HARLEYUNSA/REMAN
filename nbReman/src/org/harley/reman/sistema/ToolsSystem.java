@@ -1,5 +1,9 @@
 package org.harley.reman.sistema;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class ToolsSystem {
     
     public static boolean CompararVersiones(String A, String B){
@@ -72,5 +76,11 @@ public class ToolsSystem {
             B = B + String.valueOf((char)convertido[i]);
         }
         return B;
+    }
+    
+    public static String getDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar cal = Calendar.getInstance();
+        return dateFormat.format(cal.getTime());
     }
 }

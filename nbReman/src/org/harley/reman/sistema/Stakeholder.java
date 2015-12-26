@@ -13,7 +13,6 @@ import javax.xml.bind.annotation.XmlType;
     "sthCorEle",
     "sthCom"
 })
-
 public class Stakeholder {
     private static int numero = 0;
     private static String codigo = "STH0000";

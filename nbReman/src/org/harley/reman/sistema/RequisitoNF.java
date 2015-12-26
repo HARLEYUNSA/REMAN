@@ -1,29 +1,28 @@
 
 package org.harley.reman.sistema;
 
-import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-    @XmlType(propOrder = {
-        "rnfNombre", 
-        "rnfVer", 
-        "rnfTip", 
-        "rnfObj", 
-        "rnfFec", 
-        "rnfFueNom", 
-        "rnfFueCar", 
-        "rnfFueTip", 
-        "rnfEspNom", 
-        "rnfEspEsp", 
-        "rnfEspExp", 
-        "rnfEspCar", 
-        "rnfDep", 
-        "rnfDes", 
-        "rnfObs"
-    })
+@XmlType(propOrder = {
+    "rnfNombre", 
+    "rnfVer", 
+    "rnfTip", 
+    "rnfObj", 
+    "rnfFec", 
+    "rnfFueNom", 
+    "rnfFueCar", 
+    "rnfFueTip", 
+    "rnfEspNom", 
+    "rnfEspEsp", 
+    "rnfEspExp", 
+    "rnfEspCar", 
+    "rnfDep", 
+    "rnfDes", 
+    "rnfObs"
+})
 public class RequisitoNF {
     private static int numero = 0;
     private static String codigo = "RNF0000";
@@ -249,5 +248,4 @@ public class RequisitoNF {
     public void setRnfObs(String rnfObs) {
         this.rnfObs = rnfObs;
     }
-
 }

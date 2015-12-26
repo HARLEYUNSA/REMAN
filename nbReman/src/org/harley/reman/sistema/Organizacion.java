@@ -44,8 +44,8 @@ public class Organizacion {
         this.orgCom = orgCom;
     }
 
-    public Organizacion(String orgCod, String orgNom, String ordDir, String orgTel, 
-            String orgPagWeb, String orgCorEle, String orgCom) {
+    public Organizacion(String orgCod, String orgNom, String ordDir,
+            String orgTel, String orgPagWeb, String orgCorEle, String orgCom) {
         this.orgNombre = new Nombre(orgCod, orgNom);
         this.orgDir = ordDir;
         this.orgTel = orgTel;

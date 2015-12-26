@@ -1,9 +1,6 @@
 package org.harley.reman.sistema;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -59,11 +56,9 @@ public class Especificaciones {
     }
     
     public void newEsp(Especificacion esp){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Calendar cal = Calendar.getInstance();
-        String nomEsp = esp.getEspNombre().getNombre();    
-        addHistorico(esp, dateFormat.format(cal.getTime()), 
-                   "Creación de la Especificacion " + nomEsp, "Gonzalo");
+        String nomEsp = esp.espNombre.getNombre();   
+        addHistorico(esp, esp.espFec,
+                "Creación de la Especificacion " + nomEsp, esp.espEspNom);
         addEspecificacion(esp);
         actual = esp;
     }
@@ -79,7 +74,8 @@ public class Especificaciones {
         addEspecificacion(actual);
     }
     
-    public void addHistorico(Especificacion esp, String fecha, String actor, String razon){
+    public void addHistorico(Especificacion esp, String fecha, String actor, 
+            String razon){
         Historico hist = new Historico(esp.getEspVer(), fecha, razon, actor);
         historicos.add(hist);
     }
@@ -102,7 +98,4 @@ public class Especificaciones {
        return last;
     }
 
-    void modRnf(RequisitoNF rnf) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
