@@ -1,5 +1,6 @@
 package org.harley.reman.interfaz.utilitario;
 
+import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -29,6 +30,10 @@ public class ToolsInterface {
 
     public static void msjError(String msj) {
         JOptionPane.showMessageDialog(null, msj);
+    }
+    
+    public static void msjInfo(Component frame,String title, String msj) {
+        JOptionPane.showMessageDialog(frame, msj, title, JOptionPane.OK_OPTION);
     }
 
     /**
