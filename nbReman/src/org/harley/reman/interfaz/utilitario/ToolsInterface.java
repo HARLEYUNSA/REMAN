@@ -31,8 +31,8 @@ public class ToolsInterface {
     public static void msjError(Component frame, String msj) {
         JOptionPane.showMessageDialog(frame, msj, "Error!", JOptionPane.ERROR_MESSAGE);
     }
-    
-    public static void msjInfo(Component frame,String title, String msj) {
+
+    public static void msjInfo(Component frame, String title, String msj) {
         JOptionPane.showMessageDialog(frame, msj, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -159,19 +159,23 @@ public class ToolsInterface {
         Matcher mat = pat.matcher(text);
         return mat.find();
     }
-    
-    public static boolean isNumber(String number){
+
+    public static boolean isNumber(String number) {
+        char letter;
         for (int i = 0; i < number.length(); i++) {
-            if(!Character.isDigit(number.charAt(i))){
+            letter = number.charAt(i);
+            if (!Character.isDigit(letter) && letter != '_' && letter != ' ' && letter != '-') {
                 return false;
             }
         }
         return true;
     }
-    
-    public static boolean isAlphabetic(String number){
+
+    public static boolean isAlphabetic(String number) {
+        char letter;
         for (int i = 0; i < number.length(); i++) {
-            if(!Character.isAlphabetic(number.charAt(i))){
+            letter = number.charAt(i);
+            if (!Character.isAlphabetic(letter) && letter != '_' && letter != ' ' && letter != '-') {
                 return false;
             }
         }

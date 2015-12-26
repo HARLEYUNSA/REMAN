@@ -526,8 +526,16 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {
-        VActor ventanaActor = new VActor();
-        ventanaActor.setVisible(true);
+        //CREAR ESPECIALISTA
+        VEspecialista VEsp = new VEspecialista(this, sysReman);
+        if(VEsp.getLoadIsCorrect()){
+            VEsp.setVisible(true);
+        }else{
+            ToolsInterface.msjError(this,"Error al cargar las Organizaciones!");
+        }
+        if(VEsp.createSuccessful()){
+            venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+        }
     }
 
     private void btnVPOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {
@@ -540,8 +548,16 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPFuenteActionPerformed(java.awt.event.ActionEvent evt) {
-        VFuente ventanaF = new VFuente();
-        ventanaF.setVisible(true);
+        //CREAR FUENTE
+        VFuente VFue = new VFuente(this, sysReman);
+        if(VFue.getLoadIsCorrect()){
+            VFue.setVisible(true);
+        }else{
+            ToolsInterface.msjError(this, "Error al cargar las Organizaciones!");
+        }
+        if(VFue.createSuccessful()){
+            venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+        }
     }
 
     private void btnVPEduccionActionPerformed(java.awt.event.ActionEvent evt) {
