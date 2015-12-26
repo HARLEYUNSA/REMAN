@@ -6,6 +6,7 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.awt.event.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
@@ -20,6 +21,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
 
     Sistema sysReman;
     TreePath dirTree;
+    JFrame padre;
     MouseListener ml = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -58,15 +60,17 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         }
     };
 
-    public VTOrganizacion(Sistema sysReman, JTree tree) {
+    public VTOrganizacion(JFrame padre, Sistema sysReman, JTree tree) {
         initComponents();
+        this.padre = padre;
         this.sysReman = sysReman;
         treeOrgMain.setModel(tree.getModel());
         treeOrgMain.addMouseListener(ml);
     }
     
-    public VTOrganizacion(Sistema sysReman) {
+    public VTOrganizacion(JFrame padre, Sistema sysReman) {
         initComponents();
+        this.padre = padre;
         this.sysReman = sysReman;
         treeOrgMain.addMouseListener(ml);
     }
@@ -207,13 +211,16 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_menuOrgItem3ActionPerformed
 
     private void menuDocPytItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocPytItem1ActionPerformed
-        sysReman.crearProyectTeam("Jose Paredes Luna", "HARLEY", 
-                "Img de Requisitos", "Regular", "Analista", "joseP@hotmail.com",
-                "Esta en modo de prueba debido a su desempeño laboral");
-        sysReman.crearStakeholder("Teofilo Linares Valverde", "UNSA", 
-                "Subgerente", "Interno", "TeoValGreen@hotmail.com",
-                "Determino la mayoria de Req no funcionales");
-    
+        //CREAR ESPECIALISTA
+        VEspecialista VEsp = new VEspecialista(padre, sysReman);
+        if(VEsp.getIsCorrect()){
+            VEsp.setVisible(true);
+        }else{
+            ToolsInterface.msjError("Error al cargar las Organizaciones!");
+        }
+        if(VEsp.createSuccessful()){
+            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+        }
     }//GEN-LAST:event_menuDocPytItem1ActionPerformed
 
     public void actualizar(JTree tree){

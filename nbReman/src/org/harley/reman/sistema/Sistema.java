@@ -369,7 +369,7 @@ public class Sistema {
      * @param verVer Versión de la educción
      * @param verFec Fecha de la versión
      * @param verEsp Especialista que versiona
-     * @param verRazCam Razón de cambió 
+     * @param verRazCam Razón de cambió
      * @param eduCod Código de la educción
      * @param eduNom Nombre de la educción
      * @param eduVer Versión de la educción
@@ -574,21 +574,21 @@ public class Sistema {
         }
     }
 
-	/**
+    /**
      * Crear el libro de educción
      *
      * @param nombre Nombre del libro
-	 * @param lib Objeto LibroEduccion a guardar
+     * @param lib Objeto LibroEduccion a guardar
      */
     public void createLibEdu(String nombre, LibroEduccion lib) {
         manLibEdu.escribirXML(nombre, lib);
     }
 
-	/**
+    /**
      * Exportar el libro de educción
      *
      * @param destino Destino del pdf
-	 * @param nombre Nombre del libro
+     * @param nombre Nombre del libro
      */
     public void exportarLibroEdu(String destino, String nombre) {
         LibroEduccion lib = new LibroEduccion();
@@ -601,24 +601,24 @@ public class Sistema {
         manLibEdu.exportarPDF("libEdu", destino, nombre);
     }
 
-	/**
+    /**
      * Obtener la educción actual
      *
-	 * @param codigo Código de la educción
+     * @param codigo Código de la educción
      */
     public Educcion getLastEdu(String codigo) {
         Educciones edu = manVerEdu.leerXML(codigo);
         return edu.getLast();
     }
 
-	/**
+    /**
      * Versionar un libro
      *
-	 * @param libTip Tipo de libro
-	 * @param version Versión del libro
-	 * @param fecha Fecha de la versión
-	 * @param razon Razón de cambio del libro
-	 * @param autor Autor de la versión
+     * @param libTip Tipo de libro
+     * @param version Versión del libro
+     * @param fecha Fecha de la versión
+     * @param razon Razón de cambio del libro
+     * @param autor Autor de la versión
      */
     public void versionarLibro(int libTip, String version, String fecha,
             String razon, String autor) {
@@ -638,11 +638,11 @@ public class Sistema {
         }
     }
 
-	/**
+    /**
      * Restaurar un libro
      *
-	 * @param libTip Tipo de libro
-	 * @param version Versión de la educción
+     * @param libTip Tipo de libro
+     * @param version Versión de la educción
      */
     public void restaurarLibro(int libTip, String version) {
         switch (libTip) {
@@ -661,13 +661,13 @@ public class Sistema {
         }
     }
 
-	/**
+    /**
      * Versionar libro de educción
      *
-	 * @param version Versión de la educción
-	 * @param fecha Fecha de la versión
-	 * @param razon Razón de cambio de la educción
-	 * @param autor Autor de la versión
+     * @param version Versión de la educción
+     * @param fecha Fecha de la versión
+     * @param razon Razón de cambio de la educción
+     * @param autor Autor de la versión
      */
     public void verLibroEdu(String version, String fecha, String razon,
             String autor) {
@@ -678,10 +678,10 @@ public class Sistema {
         manHisEdu.escribirXML("eduhis", libH);
     }
 
-	/**
+    /**
      * Restaurar libro de educción
      *
-	 * @param version Versión de la educción
+     * @param version Versión de la educción
      */
     public void resLibroEdu(String version) {
         try {
@@ -694,7 +694,7 @@ public class Sistema {
         );
     }
 
-	/**
+    /**
      * Obtener el histórico de libro de educción
      *
      * @return Lista con los históricos de libro educción
@@ -704,11 +704,11 @@ public class Sistema {
         return libH.getHistoricos();
     }
 
-	/**
+    /**
      * Crear carátula para los libros
-	 *
+     *
      * @param libNom Nombre del libro
-	 *
+     *
      */
     public Caratula crearCaratula(String libNom) {
         Caratula car = new Caratula(libNom, propiedades.getProperty("proNom"),
@@ -726,22 +726,22 @@ public class Sistema {
         guardarPropiedades(dirPrincipal);
     }
 
-	/**
+    /**
      * Crear el libro de elicitación
      *
      * @param nombre Nombre del libro
-	 * @param lib Objeto LibroElicitacion a guardar
+     * @param lib Objeto LibroElicitacion a guardar
      */
     public void createLibEli(String nombre, LibroElicitacion lib) {
         manLibEli.escribirXML(nombre, lib);
     }
 
-	/**
-     * Exportar un libro 
-	 *
+    /**
+     * Exportar un libro
+     *
      * @param libTip Tipo de libro
      * @param destino Destino del pdf
-	 * @param nombre Nombre del libro
+     * @param nombre Nombre del libro
      */
     public void exportarLibro(int libTip, String destino, String nombre) {
         switch (libTip) {
@@ -766,11 +766,11 @@ public class Sistema {
         }
     }
 
-	/**
+    /**
      * Exportar el libro de elicitación
      *
      * @param destino Destino del pdf
-	 * @param nombre Nombre del libro
+     * @param nombre Nombre del libro
      */
     public void exportarLibroEli(String destino, String nombre) {
         LibroElicitacion lib = new LibroElicitacion();
@@ -784,10 +784,10 @@ public class Sistema {
         manLibEli.exportarPDF("libEli", destino, nombre);
     }
 
-	/**
+    /**
      * Obtener la elicitación actual
      *
-	 * @param codEli Código de la elicitación
+     * @param codEli Código de la elicitación
      * @return Elicitación recuperada
      */
     public Elicitacion getLastEli(String codEli) {
@@ -795,13 +795,13 @@ public class Sistema {
         return eli.getLast();
     }
 
-	/**
+    /**
      * Versionar libro de elicitación
      *
-	 * @param version Versión de la elicitación
-	 * @param fecha Fecha de la versión
-	 * @param razon Razón de cambio de la elicitación
-	 * @param autor Autor de la versión
+     * @param version Versión de la elicitación
+     * @param fecha Fecha de la versión
+     * @param razon Razón de cambio de la elicitación
+     * @param autor Autor de la versión
      */
     public void verLibroEli(String version, String fecha, String razon, String autor) {
         manLibEli.copiarDirectorios(new File(dirPrincipal + "//src//eli"),
@@ -811,10 +811,10 @@ public class Sistema {
         manHisEli.escribirXML("elihis", libH);
     }
 
-	/**
+    /**
      * Restaurar libro de elicitación
      *
-	 * @param version Versión de la elicitación
+     * @param version Versión de la elicitación
      */
     public void resLibroEli(String version) {
         try {
@@ -827,7 +827,7 @@ public class Sistema {
         );
     }
 
-	/**
+    /**
      * Obtener el histórico de libro de elicitación
      *
      * @return Lista con los históricos de libro educción
@@ -845,11 +845,11 @@ public class Sistema {
         manVerEli.escribirXML(cod, versiones);
     }
 
-	/**
+    /**
      * CU-035. CREAR UNA ELICITACIÓN Crear una elicitación
      *
      * @param eliNom Nombre de la elicitación
-	 * @param eliEduCod Código de la educción
+     * @param eliEduCod Código de la educción
      * @param eliVer Versión de la elicitación
      * @param eliFec Fecha de creación de la elicitación
      * @param eliFueNom Nombre de la fuente
@@ -861,10 +861,10 @@ public class Sistema {
      * @param eliEspCar Cargo del especialista
      * @param eliDep Dependencias de la elicitación
      * @param eliDes Descripción de la elicitación
-	 * @param eliPre Precondición de la elicitación
-	 * @param eliSec Secuencia normal de la elicitación
-	 * @param eliPos Postcondición de la elicitación
-	 * @param eliExc Secuencia excepción de la elicitación
+     * @param eliPre Precondición de la elicitación
+     * @param eliSec Secuencia normal de la elicitación
+     * @param eliPos Postcondición de la elicitación
+     * @param eliExc Secuencia excepción de la elicitación
      * @param eliObs Observaciones de la elicitación
      * @return Un booleano que indica si la función se realizó correctamente
      */
@@ -891,7 +891,7 @@ public class Sistema {
         }
     }
 
-	/**
+    /**
      *
      * Recuperar los datos de una elicitación
      *
@@ -904,12 +904,12 @@ public class Sistema {
         return verEli.getActual();
     }
 
-	/**
+    /**
      * Modificar una elicitación
      *
-	 * @param eliCod Código de la elicitación
+     * @param eliCod Código de la elicitación
      * @param eliNom Nombre de la elicitación
-	 * @param eliEduCod Código de la educción
+     * @param eliEduCod Código de la educción
      * @param eliVer Versión de la elicitación
      * @param eliFec Fecha de creación de la elicitación
      * @param eliFueNom Nombre de la fuente
@@ -921,10 +921,10 @@ public class Sistema {
      * @param eliEspCar Cargo del especialista
      * @param eliDep Dependencias de la elicitación
      * @param eliDes Descripción de la elicitación
-	 * @param eliPre Precondición de la elicitación
-	 * @param eliSec Secuencia normal de la elicitación
-	 * @param eliPos Postcondición de la elicitación
-	 * @param eliExc Secuencia excepción de la elicitación
+     * @param eliPre Precondición de la elicitación
+     * @param eliSec Secuencia normal de la elicitación
+     * @param eliPos Postcondición de la elicitación
+     * @param eliExc Secuencia excepción de la elicitación
      * @param eliObs Observaciones de la elicitación
      * @return Un booleano que indica si la función se realizó correctamente
      */
@@ -949,7 +949,7 @@ public class Sistema {
         }
     }
 
-	/**
+    /**
      *
      * Eliminar una elicitación
      *
@@ -966,17 +966,17 @@ public class Sistema {
         }
     }
 
-	/**
-	 *
+    /**
+     *
      * Versionar una elicitación
      *
      * @param verVer Versión de la elicitación
      * @param verFec Fecha de la versión
      * @param verEsp Especialista que versiona
-     * @param verRazCam Razón de cambio 
-	 * @param eliCod Código de la elicitación
+     * @param verRazCam Razón de cambio
+     * @param eliCod Código de la elicitación
      * @param eliNom Nombre de la elicitación
-	 * @param eliEduCod Código de la educción
+     * @param eliEduCod Código de la educción
      * @param eliVer Versión de la elicitación
      * @param eliFec Fecha de creación de la elicitación
      * @param eliFueNom Nombre de la fuente
@@ -988,10 +988,10 @@ public class Sistema {
      * @param eliEspCar Cargo del especialista
      * @param eliDep Dependencias de la elicitación
      * @param eliDes Descripción de la elicitación
-	 * @param eliPre Precondición de la elicitación
-	 * @param eliSec Secuencia normal de la elicitación
-	 * @param eliPos Postcondición de la elicitación
-	 * @param eliExc Secuencia excepción de la elicitación
+     * @param eliPre Precondición de la elicitación
+     * @param eliSec Secuencia normal de la elicitación
+     * @param eliPos Postcondición de la elicitación
+     * @param eliExc Secuencia excepción de la elicitación
      * @param eliObs Observaciones de la elicitación
      * @return Un booleano que indica si la función se realizó correctamente
      */
@@ -1021,7 +1021,7 @@ public class Sistema {
         }
     }
 
-	/**
+    /**
      *
      * Restaurar una elicitación
      *
@@ -1040,11 +1040,11 @@ public class Sistema {
         }
     }
 
-	/**
+    /**
      * CU-035. CREAR UNA ESPECIFICACIÓN Crear una especificación
      *
      * @param espNom Nombre de la especificación
-	 * @param espEliCod Código de la educción
+     * @param espEliCod Código de la educción
      * @param espVer Versión de la especificación
      * @param espFec Fecha de creación de la especificación
      * @param espFueNom Nombre de la fuente
@@ -1056,9 +1056,9 @@ public class Sistema {
      * @param espEspCar Cargo del especialista
      * @param espDep Dependencias de la especificación
      * @param espDes Descripción de la especificación
-	 * @param espPre Precondición de la especificación
-	 * @param espPos Postcondición de la especificación
-	 * @param espExc Secuencia excepción de la especificación
+     * @param espPre Precondición de la especificación
+     * @param espPos Postcondición de la especificación
+     * @param espExc Secuencia excepción de la especificación
      * @param espObs Observaciones de la especificación
      * @return Un booleano que indica si la función se realizó correctamente
      */
@@ -1085,7 +1085,7 @@ public class Sistema {
         }
     }
 
-	/**
+    /**
      *
      * Recuperar los datos de una especificación
      *
@@ -1098,12 +1098,12 @@ public class Sistema {
         return verEsp.getActual();
     }
 
-	/**
+    /**
      * Modificar una especificación
      *
-	 * @param espCod Código de la especificación
+     * @param espCod Código de la especificación
      * @param espNom Nombre de la especificación
-	 * @param espEliCod Código de la educción
+     * @param espEliCod Código de la educción
      * @param espVer Versión de la especificación
      * @param espFec Fecha de creación de la especificación
      * @param espFueNom Nombre de la fuente
@@ -1115,9 +1115,9 @@ public class Sistema {
      * @param espEspCar Cargo del especialista
      * @param espDep Dependencias de la especificación
      * @param espDes Descripción de la especificación
-	 * @param espPre Precondición de la especificación
-	 * @param espPos Postcondición de la especificación
-	 * @param espExc Secuencia excepción de la especificación
+     * @param espPre Precondición de la especificación
+     * @param espPos Postcondición de la especificación
+     * @param espExc Secuencia excepción de la especificación
      * @param espObs Observaciones de la especificación
      * @return Un booleano que indica si la función se realizó correctamente
      */
@@ -1140,8 +1140,8 @@ public class Sistema {
             return false;
         }
     }
-	
-	/**
+
+    /**
      *
      * Eliminar una especificación
      *
@@ -1157,17 +1157,17 @@ public class Sistema {
         }
     }
 
-	/**
-	 *
+    /**
+     *
      * Versionar una especificación
      *
      * @param verVer Versión de la especificación
      * @param verFec Fecha de la versión
      * @param verEsp Especialista que versiona
      * @param verRazCam Razón de cambio
-	 * @param espCod Código de la especificación
+     * @param espCod Código de la especificación
      * @param espNom Nombre de la especificación
-	 * @param espEliCod Código de la elicitación
+     * @param espEliCod Código de la elicitación
      * @param espVer Versión de la especificación
      * @param espFec Fecha de creación de la especificación
      * @param espFueNom Nombre de la fuente
@@ -1179,9 +1179,9 @@ public class Sistema {
      * @param espEspCar Cargo del especialista
      * @param espDep Dependencias de la especificación
      * @param espDes Descripción de la especificación
-	 * @param espPre Precondición de la especificación
-	 * @param espPos Postcondición de la especificación
-	 * @param espExc Secuencia excepción de la especificación
+     * @param espPre Precondición de la especificación
+     * @param espPos Postcondición de la especificación
+     * @param espExc Secuencia excepción de la especificación
      * @param espObs Observaciones de la especificación
      * @return Un booleano que indica si la función se realizó correctamente
      */
@@ -1211,7 +1211,7 @@ public class Sistema {
         }
     }
 
-	/**
+    /**
      *
      * Restaurar una especificación
      *
@@ -1230,11 +1230,11 @@ public class Sistema {
         }
     }
 
-	/**
+    /**
      * Exportar el libro de especificación
      *
      * @param destino Destino del pdf
-	 * @param nombre Nombre del libro
+     * @param nombre Nombre del libro
      */
     public void exportarLibroEsp(String destino, String nombre) {
         LibroEspecificacion lib = new LibroEspecificacion();
@@ -1248,11 +1248,11 @@ public class Sistema {
         manLibEsp.exportarPDF("libEsp", destino, nombre);
     }
 
-	/**
+    /**
      * Crear el libro de especificación
      *
      * @param nombre Nombre del libro
-	 * @param lib Objeto LibroEspecificacion a guardar
+     * @param lib Objeto LibroEspecificacion a guardar
      */
     public void createLibEsp(String nombre, LibroEspecificacion lib) {
         manLibEsp.escribirXML(nombre, lib);
@@ -1616,21 +1616,22 @@ public class Sistema {
         ArrayList<String> tipo = new ArrayList<>();
         ArrayList<String> email = new ArrayList<>();
         ArrayList<String> comentarios = new ArrayList<>();
+        String temp;
         try {
             File[] ficheros;
             ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
-            String temp;
             for (File fichero : ficheros) {
                 temp = fichero.getName();
-                codigo.add(getStakeholder(temp).getSthNombre().getCodigo());
-                nombre.add(getStakeholder(temp).getSthNombre().getNombre());
-                organizacion.add(getStakeholder(temp).getSthOrg());
-                cargo.add(getStakeholder(temp).getSthCar());
-                tipo.add(getStakeholder(temp).getSthTip());
-                email.add(getStakeholder(temp).getSthCorEle());
-                comentarios.add(getStakeholder(temp).getSthCom());
-                codigo.add(getStakeholder(temp).getSthNombre().getCodigo());
-                nombre.add(getStakeholder(temp).getSthNombre().getNombre());
+                if ((temp.length() > 4)) {
+                    temp = temp.substring(0, temp.length() - 4);
+                    codigo.add(getStakeholder(temp).getSthNombre().getCodigo());
+                    nombre.add(getStakeholder(temp).getSthNombre().getNombre());
+                    organizacion.add(getStakeholder(temp).getSthOrg());
+                    cargo.add(getStakeholder(temp).getSthCar());
+                    tipo.add(getStakeholder(temp).getSthTip());
+                    email.add(getStakeholder(temp).getSthCorEle());
+                    comentarios.add(getStakeholder(temp).getSthCom());
+                }
             }
         } catch (Exception e) {
         }
@@ -1671,15 +1672,13 @@ public class Sistema {
     }
 
     /**
-     * Funcion que retorna todos los datos de todos los especialistas existentes en el proyecto
-     * ArrayList<String> (0) -> codigo
-     * ArrayList<String> (1) -> nombre
-     * ArrayList<String> (2) -> organizacion
-     * ArrayList<String> (3) -> especialidad
-     * ArrayList<String> (4) -> experiencia
-     * ArrayList<String> (5) -> cargo
-     * ArrayList<String> (6) -> email
-     * ArrayList<String> (7) -> comentarios
+     * Funcion que retorna todos los datos de todos los especialistas existentes
+     * en el proyecto ArrayList<String> (0) -> codigo ArrayList<String> (1) ->
+     * nombre ArrayList<String> (2) -> organizacion ArrayList<String> (3) ->
+     * especialidad ArrayList<String> (4) -> experiencia ArrayList<String> (5)
+     * -> cargo ArrayList<String> (6) -> email ArrayList<String> (7) ->
+     * comentarios
+     *
      * @return ArrayList<ArrayList<String>> rpt con todos los atributos
      * @return
      */
@@ -1727,14 +1726,40 @@ public class Sistema {
         return datos;
     }
 
+    public ArrayList<String> getOrgNombres() {
+        ArrayList<String> rpt = new ArrayList<>();
+        String temp;
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\org\\org").listFiles();
+            for (File fichero : ficheros) {
+                temp = fichero.getName();
+                if ((temp.length() > 4)) {
+                    temp = temp.substring(0, temp.length() - 4);
+                    rpt.add(getOrg(temp).getOrgNombre().getNombre());
+                }
+            }
+        } catch (Exception e) {
+        }
+        return rpt;
+    }
+
     public String getNextEdu() {
         return ToolsSystem.IncrementarCodigo(Educcion.getCodigo());
     }
-    
+
+    public String getNextSth() {
+        return ToolsSystem.IncrementarCodigo(Stakeholder.getCodigo());
+    }
+
+    public String getNextPyt() {
+        return ToolsSystem.IncrementarCodigo(ProyectTeam.getCodigo());
+    }
+
     //Facilitadores de acceso
     public static final int ESP_CODIGO = 0;
     public static final int ESP_NOMBRE = 1;
-    public static final int ESP_ORGANIZACION = 2;        
+    public static final int ESP_ORGANIZACION = 2;
     public static final int ESP_ESPECIALIDAD = 3;
     public static final int ESP_EXPERIENCIA = 4;
     public static final int ESP_CARGO = 5;
@@ -1747,5 +1772,5 @@ public class Sistema {
     public static final int FUE_CARGO = 3;
     public static final int FUE_TIPO = 4;
     public static final int FUE_EMAIL = 5;
-    public static final int FUE_COMENTARIOS = 6; 
+    public static final int FUE_COMENTARIOS = 6;
 }

@@ -2,6 +2,7 @@ package org.harley.reman.interfaz.interfaces;
 
 import java.util.ArrayList;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
 
@@ -15,8 +16,8 @@ public class VEduccion extends JDialog {
     ArrayList<ArrayList<String>> datesEsp;
     ArrayList<ArrayList<String>> datesFue;
 
-    public VEduccion(Sistema sysReman) {
-        super();
+    public VEduccion(JFrame padre, Sistema sysReman) {
+        super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
