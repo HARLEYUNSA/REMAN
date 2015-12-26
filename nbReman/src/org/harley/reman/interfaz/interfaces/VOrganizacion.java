@@ -1,16 +1,29 @@
 package org.harley.reman.interfaz.interfaces;
 
+import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
+import org.harley.reman.sistema.Sistema;
+
 /**
  *
  * @author Joel Mendoza
  */
-public class VOrganizacion extends javax.swing.JFrame {
+public class VOrganizacion extends JDialog {
 
-    /**
-     * Creates new form VOrganizacion
-     */
-    public VOrganizacion() {
+    Sistema sysReman;
+    boolean flagIsOk;
+    public VOrganizacion(JFrame padre, Sistema sysReman) {
+        super(padre, true);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.sysReman = sysReman;
+        flagIsOk = false;
+        try {
+            txtOCodigo.setText(sysReman.getNextOrg());  
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -41,7 +54,7 @@ public class VOrganizacion extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtOrgComent = new javax.swing.JTextArea();
         btnOCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -50,12 +63,19 @@ public class VOrganizacion extends javax.swing.JFrame {
 
         btnOGuardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnOGuardar.setText("Guardar");
+        btnOGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOGuardarActionPerformed(evt);
+            }
+        });
 
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Generales de la Empresa"));
         jLayeredPane1.setPreferredSize(new java.awt.Dimension(368, 244));
 
+        txtOCodigo.setEnabled(false);
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Nombre de Organización");
+        jLabel2.setText("Nombre");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Dirección");
@@ -85,7 +105,7 @@ public class VOrganizacion extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
-                .addGap(43, 43, 43)
+                .addGap(52, 52, 52)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtOTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                     .addComponent(txtOPagina, javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,7 +113,7 @@ public class VOrganizacion extends javax.swing.JFrame {
                     .addComponent(txtONombre)
                     .addComponent(txtODireccion)
                     .addComponent(txtOEmail, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,9 +178,9 @@ public class VOrganizacion extends javax.swing.JFrame {
 
         jLayeredPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Comentarios"));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtOrgComent.setColumns(20);
+        txtOrgComent.setRows(5);
+        jScrollPane1.setViewportView(txtOrgComent);
 
         javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
         jLayeredPane2.setLayout(jLayeredPane2Layout);
@@ -239,9 +259,42 @@ public class VOrganizacion extends javax.swing.JFrame {
 
     private void btnOCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOCancelarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnOCancelarActionPerformed
 
+    private void btnOGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOGuardarActionPerformed
+        boolean error = false;
+        String orgNom = txtONombre.getText().trim();
+        String orgDir = txtODireccion.getText().trim();
+        String orgTel = txtOTelefono.getText().trim();
+        String orgPagWeb = txtOPagina.getText().trim();
+        String orgCorEle = txtOEmail.getText().trim();
+        String orgCom = txtOrgComent.getText();
+        
+        if(orgNom.equals("") || orgDir.equals("") || orgTel.equals("") || 
+                orgPagWeb.equals("") || orgCorEle.equals("")){
+            error = true;
+        }
+        if(!error){
+            sysReman.crearOrganizacion(orgNom, orgDir, orgTel, orgPagWeb, orgCorEle, orgCom);
+            flagIsOk = true;
+            ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Organizacion "
+                    + orgNom + " fue creado satisfactoriamente.");
+            this.dispose();
+        }else{
+            ToolsInterface.msjError("Error, llenar todos los campos");
+        }
+        
+    }//GEN-LAST:event_btnOGuardarActionPerformed
+
+    /**
+     * Indica si se creo correctamente el Especialista
+     * @return 
+     */
+    public boolean createSuccessful(){
+        return flagIsOk;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOCancelar;
     private javax.swing.JButton btnOGuardar;
@@ -257,12 +310,12 @@ public class VOrganizacion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtOCodigo;
     private javax.swing.JTextField txtODireccion;
     private javax.swing.JTextField txtOEmail;
     private javax.swing.JTextField txtONombre;
     private javax.swing.JTextField txtOPagina;
     private javax.swing.JTextField txtOTelefono;
+    private javax.swing.JTextArea txtOrgComent;
     // End of variables declaration//GEN-END:variables
 }

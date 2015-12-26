@@ -531,7 +531,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {
-        VOrganizacion ventanaO = new VOrganizacion();
+        VOrganizacion ventanaO = new VOrganizacion(this, sysReman);
         ventanaO.setVisible(true);
     }
 
