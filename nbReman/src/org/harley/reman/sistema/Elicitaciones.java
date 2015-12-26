@@ -1,7 +1,6 @@
 package org.harley.reman.sistema;
 
 import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,8 +14,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Elicitaciones {
     Elicitacion actual;
-    List<Elicitacion> versiones;
-    List<Historico> historicos;
+    ArrayList<Elicitacion> versiones;
+    ArrayList<Historico> historicos;
 
     public Elicitaciones() {
         this.versiones = new ArrayList<>();
@@ -31,23 +30,23 @@ public class Elicitaciones {
         this.actual = actual;
     }
     
-    public List<Elicitacion> getVersiones() {
+    public ArrayList<Elicitacion> getVersiones() {
         return versiones;
     }
     
 @XmlElementWrapper(name = "versiones")
 @XmlElement(name = "version")
-    public void setVersiones(List<Elicitacion> versiones) {
+    public void setVersiones(ArrayList<Elicitacion> versiones) {
         this.versiones = versiones;
     }
 
-    public List<Historico> getHistoricos() {
+    public ArrayList<Historico> getHistoricos() {
         return historicos;
     }
     
 @XmlElementWrapper(name = "historicos")
 @XmlElement(name = "historico")
-    public void setHistoricos(List<Historico> historicos) {
+    public void setHistoricos(ArrayList<Historico> historicos) {
         this.historicos = historicos;
     }
     

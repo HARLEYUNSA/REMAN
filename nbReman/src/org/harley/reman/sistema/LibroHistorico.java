@@ -1,10 +1,6 @@
 package org.harley.reman.sistema;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 public class LibroHistorico {
     String titulo;
     String intro;
-    List<Historico> historicos;
+    ArrayList<Historico> historicos;
 
     public String getTitulo() {
         return titulo;
@@ -40,13 +36,13 @@ public class LibroHistorico {
         this.intro = intro;
     }
 
-    public List<Historico> getHistoricos() {
+    public ArrayList<Historico> getHistoricos() {
         return historicos;
     }
     
     @XmlElementWrapper(name = "historicos")
     @XmlElement(name = "historico")
-    public void setHistoricos(List<Historico> historicos) {
+    public void setHistoricos(ArrayList<Historico> historicos) {
         this.historicos = historicos;
     }
     

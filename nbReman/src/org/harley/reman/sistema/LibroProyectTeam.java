@@ -1,8 +1,6 @@
-
 package org.harley.reman.sistema;
 
 import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,12 +18,12 @@ import javax.xml.bind.annotation.XmlType;
 public class LibroProyectTeam {
     
     String intro;
-    List<ProyectTeam> pyts;
+    ArrayList<ProyectTeam> pyts;
 
     public LibroProyectTeam() {
     }
     
-    public LibroProyectTeam(String intro, List<ProyectTeam> pyts) {
+    public LibroProyectTeam(String intro, ArrayList<ProyectTeam> pyts) {
         this.intro = intro;
         this.pyts = pyts;
     }
@@ -38,13 +36,13 @@ public class LibroProyectTeam {
         this.intro = intro;
     }
 
-    public List<ProyectTeam> getPyts() {
+    public ArrayList<ProyectTeam> getPyts() {
         return pyts;
     }
 
     @XmlElementWrapper(name = "tabla")
     @XmlElement(name = "tabla")
-    public void setPyts(List<ProyectTeam> pyts) {
+    public void setPyts(ArrayList<ProyectTeam> pyts) {
         this.pyts = pyts;
     }
     

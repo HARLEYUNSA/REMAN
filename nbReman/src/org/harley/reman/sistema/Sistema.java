@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.harley.reman.reportes.xml.FileManager;
@@ -438,7 +437,7 @@ public class Sistema {
      * @return Un ArrayList que contiene un conjunto de objetos Historico con
      * métodos accesores y mutadores
      */
-    public List<Historico> getHist(int libTip, String codigo) {
+    public ArrayList<Historico> getHist(int libTip, String codigo) {
         switch (libTip) {
             case 0:
                 Educciones edu = manVerEdu.leerXML(codigo);
@@ -699,7 +698,7 @@ public class Sistema {
      *
      * @return Lista con los históricos de libro educción
      */
-    public List<Historico> getHistLibEdu() {
+    public ArrayList<Historico> getHistLibEdu() {
         LibroHistorico libH = manHisEdu.leerXML("eduhis");
         return libH.getHistoricos();
     }
@@ -832,7 +831,7 @@ public class Sistema {
      *
      * @return Lista con los históricos de libro educción
      */
-    public List<Historico> getHistLibEli() {
+    public ArrayList<Historico> getHistLibEli() {
         LibroHistorico libH = manHisEli.leerXML("elihis");
         return libH.getHistoricos();
     }
@@ -1283,7 +1282,7 @@ public class Sistema {
         );
     }
 
-    public List<Historico> getHistLibEsp() {
+    public ArrayList<Historico> getHistLibEsp() {
         LibroHistorico libH = manHisEsp.leerXML("elihis");
         return libH.getHistoricos();
     }
@@ -1329,7 +1328,7 @@ public class Sistema {
         );
     }
 
-    public List<Historico> getHistLibRnf() {
+    public ArrayList<Historico> getHistLibRnf() {
         LibroHistorico libH = manHisRnf.leerXML("rnfhis");
         return libH.getHistoricos();
     }
@@ -1710,6 +1709,8 @@ public class Sistema {
                     email.add(getProyectTeam(temp).getPytCor());
                     comentarios.add(getProyectTeam(temp).getPytCom());
                 }
+                codigo.add(getProyectTeam(fichero.getName()).getPytNombre().getCodigo());
+                nombre.add(getProyectTeam(fichero.getName()).getPytNombre().getNombre());
             }
         } catch (Exception e) {
         }
