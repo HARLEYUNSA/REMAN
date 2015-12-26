@@ -1754,6 +1754,12 @@ public class Sistema {
     public String getNextPyt() {
         return ToolsSystem.IncrementarCodigo(ProyectTeam.getCodigo());
     }
+    
+    public String getNextOrg() {
+        return ToolsSystem.IncrementarCodigo(Organizacion.getCodigo());
+    }
+    
+    
 
     //Facilitadores de acceso
     public static final int ESP_CODIGO = 0;
