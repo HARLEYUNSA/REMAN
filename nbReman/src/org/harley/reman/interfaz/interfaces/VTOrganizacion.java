@@ -218,6 +218,9 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         }else{
             ToolsInterface.msjError("Error al cargar las Organizaciones!");
         }
+        if(VEsp.createSuccessful()){
+            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+        }
     }//GEN-LAST:event_menuDocPytItem1ActionPerformed
 
     public void actualizar(JTree tree){

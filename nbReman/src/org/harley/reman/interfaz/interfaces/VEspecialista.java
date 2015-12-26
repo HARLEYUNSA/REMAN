@@ -5,7 +5,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
-import org.harley.reman.sistema.ToolsSystem;
 
 /**
  *
@@ -15,6 +14,7 @@ public class VEspecialista extends JDialog {
 
     Sistema sysReman;
     ArrayList<String> org;
+    boolean flagIsOk;
 
     public VEspecialista(JFrame padre, Sistema sysReman) {
         super(padre, true);
@@ -23,6 +23,7 @@ public class VEspecialista extends JDialog {
 
         this.sysReman = sysReman;
         org = this.sysReman.getOrgNombres();
+        flagIsOk = false;
 
         try {
             ToolsInterface.llenarJComboBox(cmbFOrganizacion, org);
@@ -40,23 +41,23 @@ public class VEspecialista extends JDialog {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtFCargo = new javax.swing.JTextField();
+        txtFEspecialidad = new javax.swing.JTextField();
         cmbFOrganizacion = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         txtFCodigo = new javax.swing.JTextField();
-        txtFEmail = new javax.swing.JTextField();
+        txtFExperiencia = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtFNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtFEmail1 = new javax.swing.JTextField();
+        txtFCargo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtFEmail2 = new javax.swing.JTextField();
+        txtFEmail = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtFComentario = new javax.swing.JTextArea();
         btnFGuardar = new javax.swing.JButton();
         btnFCancelar = new javax.swing.JButton();
 
@@ -67,7 +68,7 @@ public class VEspecialista extends JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Código");
 
-        txtFCargo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFEspecialidad.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         cmbFOrganizacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -77,7 +78,7 @@ public class VEspecialista extends JDialog {
         txtFCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtFCodigo.setEnabled(false);
 
-        txtFEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFExperiencia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Nombre");
@@ -93,12 +94,12 @@ public class VEspecialista extends JDialog {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Cargo");
 
-        txtFEmail1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFCargo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("E-mail");
 
-        txtFEmail2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,12 +111,12 @@ public class VEspecialista extends JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtFEmail2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel7)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtFEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtFCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -127,8 +128,8 @@ public class VEspecialista extends JDialog {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(cmbFOrganizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtFCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtFEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtFExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtFCodigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
@@ -150,19 +151,19 @@ public class VEspecialista extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtFCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtFEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtFEmail2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -172,9 +173,9 @@ public class VEspecialista extends JDialog {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Comentarios"));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtFComentario.setColumns(20);
+        txtFComentario.setRows(5);
+        jScrollPane1.setViewportView(txtFComentario);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -198,6 +199,11 @@ public class VEspecialista extends JDialog {
 
         btnFGuardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnFGuardar.setText("Guardar");
+        btnFGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFGuardarActionPerformed(evt);
+            }
+        });
 
         btnFCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnFCancelar.setText("Cancelar");
@@ -238,12 +244,47 @@ public class VEspecialista extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFCancelarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnFCancelarActionPerformed
 
+    private void btnFGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFGuardarActionPerformed
+        boolean error = false;
+        String pytNom = txtFNombre.getText().trim();
+        String pytOrg = (String) cmbFOrganizacion.getSelectedItem();
+        String pytEsp = txtFEspecialidad.getText().trim();
+        String pytExp = txtFExperiencia.getText().trim();
+        String pytCar = txtFCargo.getText().trim();
+        String pytCor = txtFEmail.getText().trim();
+        String pytCom = txtFComentario.getText();
+        
+        if(pytNom.equals("") || pytEsp.equals("") || pytExp.equals("") ||
+                pytCar.equals("") || pytCor.equals("")){
+            error = true;
+        }
+        if(!error){
+            sysReman.crearProyectTeam(pytNom, pytOrg, pytEsp, pytExp, pytCar, pytCor, pytCom);
+            flagIsOk = true;
+            this.dispose();
+        }else{
+            ToolsInterface.msjError("Error, llenar todos los campos");
+        }
+        
+    }//GEN-LAST:event_btnFGuardarActionPerformed
+
+    /**
+     * Indica si estan correctamente cargados los parametros de entrada
+     * @return 
+     */
     public boolean getIsCorrect() {
         return !(org.isEmpty());
+    }
+    
+    /**
+     * Indica si se creo correctamente el Especialista
+     * @return 
+     */
+    public boolean createSuccessful(){
+        return flagIsOk;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -263,12 +304,12 @@ public class VEspecialista extends JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtFCargo;
     private javax.swing.JTextField txtFCodigo;
+    private javax.swing.JTextArea txtFComentario;
     private javax.swing.JTextField txtFEmail;
-    private javax.swing.JTextField txtFEmail1;
-    private javax.swing.JTextField txtFEmail2;
+    private javax.swing.JTextField txtFEspecialidad;
+    private javax.swing.JTextField txtFExperiencia;
     private javax.swing.JTextField txtFNombre;
     // End of variables declaration//GEN-END:variables
 }

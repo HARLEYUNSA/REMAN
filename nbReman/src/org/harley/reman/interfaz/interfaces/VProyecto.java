@@ -19,13 +19,13 @@ import org.harley.reman.sistema.Sistema;
 public class VProyecto extends JDialog {
 
     Sistema sysReman;
-    boolean flagNewProyect;
+    boolean flagIsOk;
     public VProyecto(JFrame padre, Sistema sysReman) {
         super(padre,true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        flagNewProyect = false;
+        flagIsOk = false;
     }
 
     /**
@@ -354,7 +354,7 @@ public class VProyecto extends JDialog {
             sysReman.setDirPrincipal(proUbi);
             sysReman.setStateReman(proUbi);
             sysReman.crearProyecto(proNom, prdNom, empDes, empCli, proLid, fecIni, fecFin, proUbi);
-            flagNewProyect = true;
+            flagIsOk = true;
             this.dispose();
         } else {
             ToolsInterface.msjError("Error, llenar todos los campos");
@@ -362,7 +362,7 @@ public class VProyecto extends JDialog {
     }//GEN-LAST:event_btnPGuardarActionPerformed
 
     public boolean createSuccessful(){
-        return flagNewProyect;
+        return flagIsOk;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
