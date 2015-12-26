@@ -8,7 +8,6 @@ import javax.xml.bind.Unmarshaller;
 
 /**
  * Clase que permite leer y escribir documentos xml.
- * @author Gonzalo
  * @param <T> Tipo de objeto para instanciar la clase
  */
 public class XMLReader<T> {
@@ -18,6 +17,7 @@ public class XMLReader<T> {
     /**
      * Constructor de la clase <code>XMLReader</code>
      * @param typeParameterClass 
+     * @param directory 
      */
     public XMLReader(Class<T> typeParameterClass, File directory) {
         this.database = directory;
