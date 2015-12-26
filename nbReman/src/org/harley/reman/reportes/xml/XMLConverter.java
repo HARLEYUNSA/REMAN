@@ -140,7 +140,6 @@ public class XMLConverter {
     
     /**
      * Convierte el archivo XML en PDF
-     * @param plantilla Archivo XLS para dar formato
      * @param archivoXML Archivo XML de origen
      * @param destino
      * @param nombre

@@ -75,26 +75,17 @@ public class FileManager<T> {
         }
     }
 
-    public void copiarDirectorios(File d1, File d2){
-
-            // Comprobamos que es un directorio
-            if (d1.isDirectory()){
-                    //Comprobamos si existe el directorio destino, si no lo creamos
-                    if (!d2.exists()){                              
-                            d2.mkdir();
-                    }
-
-                    // Sacamos todos los ficheros del directorio
-                    String[] ficheros = d1.list();
-                    for (int x=0;x<ficheros.length;x++) {
-                            // Por cada fichero volvemos a llamar recursivamente a la copa de directorios
-                            copiarDirectorios(new File(d1,ficheros[x]),new File(d2,ficheros[x]));                           
-                    }
-
-
-            } else {
-                    copiarFicheros(d1,d2);
+    public void copiarDirectorios(File f1, File f2){
+        if (f1.isDirectory()){
+            if (!f2.exists()){                              
+                f2.mkdir();
             }
-
+            String[] ficheros = f1.list();
+            for (String fichero : ficheros) {
+                copiarDirectorios(new File(f1, fichero), new File(f2, fichero));
+            }
+        } else {
+            copiarFicheros(f1,f2);
+        }
     }
 }

@@ -595,9 +595,11 @@ public class Sistema {
      * @param destino Destino del pdf
      * @param nombre Nombre del libro
      */
-    public void exportarLibroEdu(String destino, String nombre) {
+    public void exportarLibroEdu(String destino, String nombre) throws Exception {
         LibroEduccion lib = new LibroEduccion();
         File[] ficheros = new File(dirPrincipal + "//src//edu").listFiles();
+        if (ficheros.length == 0)
+            throw new Exception();  
         for (File fichero : ficheros) {
             lib.addEduccion(getLastEdu(fichero.getName()));
             lib.setIntro(crearCaratula("EDUCCIÓN DE REQUERIMIENTOS"));
@@ -748,27 +750,33 @@ public class Sistema {
      * @param destino Destino del pdf
      * @param nombre Nombre del libro
      */
-    public void exportarLibro(int libTip, String destino, String nombre) {
-        switch (libTip) {
-            case 0:
-                exportarLibroEdu(destino, nombre);
-                break;
-            case 1:
-                exportarLibroEli(destino, nombre);
-                break;
-            case 2:
-                exportarLibroEsp(destino, nombre);
-                break;
-            case 3:
-                exportarLibroRnf(destino, nombre);
-                break;
-            case 4:
-                exportarLibroOrg(destino, nombre);
-                break;
-            case 5:
-                exportarLibroAct(destino, nombre);
-                break;
+    public boolean exportarLibro(int libTip, String destino, String nombre) {
+        try {
+            switch (libTip) {
+                case 0:
+                    exportarLibroEdu(destino, nombre);
+                    return true;
+                case 1:
+                    exportarLibroEli(destino, nombre);
+                    return true;
+                case 2:
+                    exportarLibroEsp(destino, nombre);
+                    return true;
+                case 3:
+                    exportarLibroRnf(destino, nombre);
+                    return true;
+                case 4:
+                    exportarLibroOrg(destino, nombre);
+                    return true;
+                case 5:
+                    exportarLibroAct(destino, nombre);
+                    return true;
+            }
         }
+        catch (Exception ex) {
+            return false;
+        }
+        return true;   
     }
 
     /**
@@ -777,9 +785,11 @@ public class Sistema {
      * @param destino Destino del pdf
      * @param nombre Nombre del libro
      */
-    public void exportarLibroEli(String destino, String nombre) {
+    public void exportarLibroEli(String destino, String nombre) throws Exception {
         LibroElicitacion lib = new LibroElicitacion();
         File[] ficheros = new File(dirPrincipal + "//src//eli").listFiles();
+        if (ficheros.length == 0)
+            throw new Exception();
         for (File fichero : ficheros) {
             String name = fichero.getName().split("\\.")[0];
             lib.addElicitacion(getLastEli(name));
@@ -1242,9 +1252,11 @@ public class Sistema {
      * @param destino Destino del pdf
      * @param nombre Nombre del libro
      */
-    public void exportarLibroEsp(String destino, String nombre) {
+    public void exportarLibroEsp(String destino, String nombre) throws Exception {
         LibroEspecificacion lib = new LibroEspecificacion();
         File[] ficheros = new File(dirPrincipal + "//src//esp").listFiles();
+        if (ficheros.length == 0)
+            throw new Exception(); 
         for (File fichero : ficheros) {
             String name = fichero.getName().split("\\.")[0];
             lib.addEspecificacion(getLastEsp(name));
@@ -1294,9 +1306,11 @@ public class Sistema {
         return libH.getHistoricos();
     }
 
-    public void exportarLibroRnf(String destino, String nombre) {
+    public void exportarLibroRnf(String destino, String nombre) throws Exception {
         LibroRequisitoNF lib = new LibroRequisitoNF();
         File[] ficheros = new File(dirPrincipal + "//src//rnf").listFiles();
+        if (ficheros.length == 0)
+            throw new Exception(); 
         for (File fichero : ficheros) {
             String name = fichero.getName().split("\\.")[0];
             lib.addReqNoFuncional(getLastRnf(name));
@@ -1442,9 +1456,11 @@ public class Sistema {
         }
     }
 
-    public void exportarLibroOrg(String destino, String nombre) {
+    public void exportarLibroOrg(String destino, String nombre) throws Exception {
         LibroOrganizacion lib = new LibroOrganizacion();
         File[] ficheros = new File(dirPrincipal+"//src//org//org").listFiles();
+        if (ficheros.length == 0)
+            throw new Exception(); 
         for (File fichero : ficheros) {
             String name = fichero.getName().split("\\.")[0];
             lib.addOrg(getOrg(name));
@@ -1547,14 +1563,16 @@ public class Sistema {
         }
     }
 
-    public void exportarLibroAct(String destino, String nombre) {
+    public void exportarLibroAct(String destino, String nombre) throws Exception {
         LibroActor lib = new LibroActor();
         File[] stakes = new File(dirPrincipal + "//src//org//sth").listFiles();
+        File[] pro = new File(dirPrincipal + "//src//org//pyt").listFiles();
+        if (stakes.length == 0 || pro.length == 0)
+            throw new Exception(); 
         for (File fichero : stakes) {
             String name = fichero.getName().split("\\.")[0];
             lib.addStake(getStakeholder(name));
         }
-        File[] pro = new File(dirPrincipal + "//src//org//pyt").listFiles();
         for (File fichero : pro) {
             String name = fichero.getName().split("\\.")[0];
             lib.addTeam(getProyectTeam(name));
@@ -1764,7 +1782,25 @@ public class Sistema {
         return ToolsSystem.IncrementarCodigo(Organizacion.getCodigo());
     }
     
+    public ArrayList<Historico> getHistEdu(String cod) {
+        Educciones libH = manVerEdu.leerXML(cod);
+        return libH.getHistoricos();
+    }
     
+    public ArrayList<Historico> getHistEli(String cod) {
+        Elicitaciones libH = manVerEli.leerXML(cod);
+        return libH.getHistoricos();
+    }
+    
+    public ArrayList<Historico> getHistEsp(String cod) {
+        Especificaciones libH = manVerEsp.leerXML(cod);
+        return libH.getHistoricos();
+    }
+    
+    public ArrayList<Historico> getHistRnf(String cod) {
+        RequisitosNF libH = manVerRnf.leerXML(cod);
+        return libH.getHistoricos();
+    }
 
     //Facilitadores de acceso
     public static final int ESP_CODIGO = 0;
