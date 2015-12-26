@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 import org.apache.commons.io.FileUtils;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.reportes.xml.FileManager;
 
 public class Sistema {
@@ -42,8 +43,9 @@ public class Sistema {
         stateReman = new Properties();
         dirPrincipal = getStateReman();
         File f = new File(dirPrincipal);
-        if (f.exists())
+        if (f.exists()) {
             ingresarProyecto();
+        }
     }
 
     /**
@@ -264,13 +266,13 @@ public class Sistema {
             crearFileRem(proNom);
             iniciarManagers();
             iniciarHistoricos();
-            crearOrganizacion(empDes, "Direccion Desconocida", "0123456789", 
+            crearOrganizacion(empDes, "Direccion Desconocida", "0123456789",
                     "www.empDes.com", "example@domain.com", "Autogenerado");
-            crearOrganizacion(empCli, "Direccion Desconocida", "0123456789", 
+            crearOrganizacion(empCli, "Direccion Desconocida", "0123456789",
                     "www.empCli,com", "example@domain.com", "Autogenerado");
-            crearProyectTeam(proLid, empDes, "Desconocida", "Desconocida", 
+            crearProyectTeam(proLid, empDes, "Desconocida", "Desconocida",
                     "Lider", "example@domain.com", "Autogenerado");
-            crearStakeholder("Cliente", empCli, "Jefe", "Interno", 
+            crearStakeholder("Cliente", empCli, "Jefe", "Interno",
                     "example@domain.com", "Autogenerado");
             return true;
         } catch (Exception ex) {
@@ -598,8 +600,9 @@ public class Sistema {
     public void exportarLibroEdu(String destino, String nombre) throws Exception {
         LibroEduccion lib = new LibroEduccion();
         File[] ficheros = new File(dirPrincipal + "//src//edu").listFiles();
-        if (ficheros.length == 0)
-            throw new Exception();  
+        if (ficheros.length == 0) {
+            throw new Exception();
+        }
         for (File fichero : ficheros) {
             lib.addEduccion(getLastEdu(fichero.getName()));
             lib.setIntro(crearCaratula("EDUCCIÓN DE REQUERIMIENTOS"));
@@ -753,30 +756,29 @@ public class Sistema {
     public boolean exportarLibro(int libTip, String destino, String nombre) {
         try {
             switch (libTip) {
-                case 0:
+                case LIB_EDU:
                     exportarLibroEdu(destino, nombre);
                     return true;
-                case 1:
+                case LIB_ELI:
                     exportarLibroEli(destino, nombre);
                     return true;
-                case 2:
+                case LIB_ESP:
                     exportarLibroEsp(destino, nombre);
                     return true;
-                case 3:
+                case LIB_RNF:
                     exportarLibroRnf(destino, nombre);
                     return true;
-                case 4:
+                case LIB_ORG:
                     exportarLibroOrg(destino, nombre);
                     return true;
-                case 5:
+                case LIB_ACT:
                     exportarLibroAct(destino, nombre);
                     return true;
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return false;
         }
-        return true;   
+        return true;
     }
 
     /**
@@ -788,8 +790,9 @@ public class Sistema {
     public void exportarLibroEli(String destino, String nombre) throws Exception {
         LibroElicitacion lib = new LibroElicitacion();
         File[] ficheros = new File(dirPrincipal + "//src//eli").listFiles();
-        if (ficheros.length == 0)
+        if (ficheros.length == 0) {
             throw new Exception();
+        }
         for (File fichero : ficheros) {
             String name = fichero.getName().split("\\.")[0];
             lib.addElicitacion(getLastEli(name));
@@ -818,7 +821,7 @@ public class Sistema {
      * @param razon Razón de cambio de la elicitación
      * @param autor Autor de la versión
      */
-    public void verLibroEli(String version, String fecha, String razon, 
+    public void verLibroEli(String version, String fecha, String razon,
             String autor) {
         manLibEli.copiarDirectorios(new File(dirPrincipal + "//src//eli"),
                 new File(dirPrincipal + "//verlib//eli//eli" + version));
@@ -1022,9 +1025,9 @@ public class Sistema {
             Elicitaciones verEli = manVerEli.leerXML(eliCod);
             String ultVer = verEli.getLast().getEliNombre().getCodigo();
             if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
-                Elicitacion eli = new Elicitacion(eliCod, eliNom, eliEduCod, 
-                        eliVer, eliFec, eliFueNom, eliFueCar, eliFueTip, 
-                        eliEspNom, eliEspEsp, eliEspExp, eliEspCar, eliDep, 
+                Elicitacion eli = new Elicitacion(eliCod, eliNom, eliEduCod,
+                        eliVer, eliFec, eliFueNom, eliFueCar, eliFueTip,
+                        eliEspNom, eliEspEsp, eliEspExp, eliEspCar, eliDep,
                         eliDes, eliPre, eliSec, eliPos, eliExc, eliObs);
                 verEli.modEli(eli);
                 verEli.verEli(verVer, verFec, verEsp, verRazCam);
@@ -1137,9 +1140,8 @@ public class Sistema {
      * @param espObs Observaciones de la especificación
      * @return Un booleano que indica si la función se realizó correctamente
      */
-    public boolean modificarEspecificacion(String espCod, String espNom, String 
-            espEliCod, String espVer, String espFec, String espFueNom, 
-            String espFueCar, String espFueTip, String espEspNom, 
+    public boolean modificarEspecificacion(String espCod, String espNom, String espEliCod, String espVer, String espFec, String espFueNom,
+            String espFueCar, String espFueTip, String espEspNom,
             String espEspEsp, String espEspExp, String espEspCar, String espDep,
             String espDes, String espPre, String espPos, ArrayList<Paso> espExc,
             String espObs) {
@@ -1212,8 +1214,8 @@ public class Sistema {
             Especificaciones verEsps = manVerEsp.leerXML(espCod);
             String ultVer = verEsps.getLast().getEspNombre().getCodigo();
             if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
-                Especificacion esp = new Especificacion(espCod, espNom, 
-                        espEliCod, espVer, espFec, espFueNom, espFueCar, 
+                Especificacion esp = new Especificacion(espCod, espNom,
+                        espEliCod, espVer, espFec, espFueNom, espFueCar,
                         espFueTip, espEspNom, espEspEsp, espEspExp, espEspCar,
                         espDep, espDes, espPre, espPos, espExc, espObs);
                 verEsps.modEsp(esp);
@@ -1235,7 +1237,7 @@ public class Sistema {
      * @param espCod Código de la especificación
      * @return Un booleano que indica si la función se realizó correctamente
      */
-    public boolean restaurarVersionEspecificacion(String verCod, String espCod){
+    public boolean restaurarVersionEspecificacion(String verCod, String espCod) {
         try {
             Especificaciones verEsp = manVerEsp.leerXML(espCod);
             Especificacion esp = verEsp.getVer(verCod);
@@ -1255,8 +1257,9 @@ public class Sistema {
     public void exportarLibroEsp(String destino, String nombre) throws Exception {
         LibroEspecificacion lib = new LibroEspecificacion();
         File[] ficheros = new File(dirPrincipal + "//src//esp").listFiles();
-        if (ficheros.length == 0)
-            throw new Exception(); 
+        if (ficheros.length == 0) {
+            throw new Exception();
+        }
         for (File fichero : ficheros) {
             String name = fichero.getName().split("\\.")[0];
             lib.addEspecificacion(getLastEsp(name));
@@ -1309,8 +1312,9 @@ public class Sistema {
     public void exportarLibroRnf(String destino, String nombre) throws Exception {
         LibroRequisitoNF lib = new LibroRequisitoNF();
         File[] ficheros = new File(dirPrincipal + "//src//rnf").listFiles();
-        if (ficheros.length == 0)
-            throw new Exception(); 
+        if (ficheros.length == 0) {
+            throw new Exception();
+        }
         for (File fichero : ficheros) {
             String name = fichero.getName().split("\\.")[0];
             lib.addReqNoFuncional(getLastRnf(name));
@@ -1392,13 +1396,13 @@ public class Sistema {
         }
     }
 
-    public boolean modificarReqNoFuncional(String rnfCod, String rnfNom, 
+    public boolean modificarReqNoFuncional(String rnfCod, String rnfNom,
             String rnfVer, String rnfTip, String rnfObj, String rnfFec,
-            String rnfFueNom, String rnfFueCar, String rnfFueTip, 
-            String rnfEspNom, String rnfEspEsp, String rnfEspExp, 
+            String rnfFueNom, String rnfFueCar, String rnfFueTip,
+            String rnfEspNom, String rnfEspEsp, String rnfEspExp,
             String rnfEspCar, String rnfDep, String rnfDes, String rnfObs) {
         try {
-            RequisitoNF rnf = new RequisitoNF(rnfCod, rnfNom, rnfVer, rnfTip, 
+            RequisitoNF rnf = new RequisitoNF(rnfCod, rnfNom, rnfVer, rnfTip,
                     rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
                     rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs);
             RequisitosNF verRnf = manVerRnf.leerXML(rnfCod);
@@ -1458,9 +1462,10 @@ public class Sistema {
 
     public void exportarLibroOrg(String destino, String nombre) throws Exception {
         LibroOrganizacion lib = new LibroOrganizacion();
-        File[] ficheros = new File(dirPrincipal+"//src//org//org").listFiles();
-        if (ficheros.length == 0)
-            throw new Exception(); 
+        File[] ficheros = new File(dirPrincipal + "//src//org//org").listFiles();
+        if (ficheros.length == 0) {
+            throw new Exception();
+        }
         for (File fichero : ficheros) {
             String name = fichero.getName().split("\\.")[0];
             lib.addOrg(getOrg(name));
@@ -1567,8 +1572,9 @@ public class Sistema {
         LibroActor lib = new LibroActor();
         File[] stakes = new File(dirPrincipal + "//src//org//sth").listFiles();
         File[] pro = new File(dirPrincipal + "//src//org//pyt").listFiles();
-        if (stakes.length == 0 || pro.length == 0)
-            throw new Exception(); 
+        if (stakes.length == 0 || pro.length == 0) {
+            throw new Exception();
+        }
         for (File fichero : stakes) {
             String name = fichero.getName().split("\\.")[0];
             lib.addStake(getStakeholder(name));
@@ -1601,6 +1607,9 @@ public class Sistema {
             ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
             for (File fichero : ficheros) {
                 name = fichero.getName();
+                if (!ToolsInterface.checkExpReg("STH[0-9][0-9][0-9][0-9].xml", name)) {
+                    continue;
+                }
                 rpt.add(getStakeholder(name).getSthNombre().getNombre());
             }
         } catch (Exception e) {
@@ -1621,6 +1630,9 @@ public class Sistema {
             ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
             for (File fichero : ficheros) {
                 name = fichero.getName();
+                if (!ToolsInterface.checkExpReg("STH[0-9][0-9][0-9][0-9].xml", name)) {
+                    continue;
+                }
                 rpt.add(getStakeholder(name).getSthNombre().getCodigo());
             }
         } catch (Exception e) {
@@ -1652,6 +1664,10 @@ public class Sistema {
             ficheros = new File(dirPrincipal + "\\src\\org\\sth").listFiles();
             for (File fichero : ficheros) {
                 name = fichero.getName();
+                if (!ToolsInterface.checkExpReg("STH[0-9][0-9][0-9][0-9].xml", name)) {
+                    continue;
+                }
+                
                 codigo.add(getStakeholder(name).getSthNombre().getCodigo());
                 nombre.add(getStakeholder(name).getSthNombre().getNombre());
                 organizacion.add(getStakeholder(name).getSthOrg());
@@ -1680,6 +1696,9 @@ public class Sistema {
             ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
             for (File fichero : ficheros) {
                 name = fichero.getName();
+                if (!ToolsInterface.checkExpReg("PYT[0-9][0-9][0-9][0-9].xml", name)) {
+                    continue;
+                }
                 rpt.add(getProyectTeam(name).getPytNombre().getNombre());
             }
         } catch (Exception e) {
@@ -1695,6 +1714,9 @@ public class Sistema {
             ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
             for (File fichero : ficheros) {
                 name = fichero.getName();
+                if (!ToolsInterface.checkExpReg("PYT[0-9][0-9][0-9][0-9].xml", name)) {
+                    continue;
+                }
                 rpt.add(getProyectTeam(name).getPytNombre().getCodigo());
             }
         } catch (Exception e) {
@@ -1729,6 +1751,10 @@ public class Sistema {
             ficheros = new File(dirPrincipal + "\\src\\org\\pyt").listFiles();
             for (File fichero : ficheros) {
                 name = fichero.getName();
+                if (!ToolsInterface.checkExpReg("PYT[0-9][0-9][0-9][0-9].xml", name)) {
+                    continue;
+                }
+
                 codigo.add(getProyectTeam(name).getPytNombre().getCodigo());
                 nombre.add(getProyectTeam(name).getPytNombre().getNombre());
                 organizacion.add(getProyectTeam(name).getPytOrg());
@@ -1753,13 +1779,16 @@ public class Sistema {
 
     public ArrayList<String> getOrgNombres() {
         ArrayList<String> rpt = new ArrayList<>();
-        String name;
+        String temp;
         try {
             File[] ficheros;
             ficheros = new File(dirPrincipal + "\\src\\org\\org").listFiles();
             for (File fichero : ficheros) {
-                name = fichero.getName();
-                rpt.add(getOrg(name).getOrgNombre().getNombre());
+                temp = fichero.getName();
+                if (!ToolsInterface.checkExpReg("ORG[0-9][0-9][0-9][0-9].xml", temp)) {
+                    continue;
+                }
+                rpt.add(getOrg(temp).getOrgNombre().getNombre());
             }
         } catch (Exception e) {
         }
@@ -1777,26 +1806,26 @@ public class Sistema {
     public String getNextPyt() {
         return ToolsSystem.IncrementarCodigo(ProyectTeam.getCodigo());
     }
-    
+
     public String getNextOrg() {
         return ToolsSystem.IncrementarCodigo(Organizacion.getCodigo());
     }
-    
+
     public ArrayList<Historico> getHistEdu(String cod) {
         Educciones libH = manVerEdu.leerXML(cod);
         return libH.getHistoricos();
     }
-    
+
     public ArrayList<Historico> getHistEli(String cod) {
         Elicitaciones libH = manVerEli.leerXML(cod);
         return libH.getHistoricos();
     }
-    
+
     public ArrayList<Historico> getHistEsp(String cod) {
         Especificaciones libH = manVerEsp.leerXML(cod);
         return libH.getHistoricos();
     }
-    
+
     public ArrayList<Historico> getHistRnf(String cod) {
         RequisitosNF libH = manVerRnf.leerXML(cod);
         return libH.getHistoricos();
@@ -1819,4 +1848,11 @@ public class Sistema {
     public static final int FUE_TIPO = 4;
     public static final int FUE_EMAIL = 5;
     public static final int FUE_COMENTARIOS = 6;
+
+    public static final int LIB_EDU = 0;
+    public static final int LIB_ELI = 1;
+    public static final int LIB_ESP = 2;
+    public static final int LIB_RNF = 3;
+    public static final int LIB_ORG = 4;
+    public static final int LIB_ACT = 5;
 }
