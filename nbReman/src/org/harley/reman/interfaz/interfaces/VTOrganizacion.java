@@ -67,7 +67,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         treeOrgMain.setModel(tree.getModel());
         treeOrgMain.addMouseListener(ml);
     }
-    
+
     public VTOrganizacion(JFrame padre, Sistema sysReman) {
         initComponents();
         this.padre = padre;
@@ -96,11 +96,9 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         menuPyt = new javax.swing.JPopupMenu();
         menuPytItem1 = new javax.swing.JMenuItem();
         menuPytItem2 = new javax.swing.JMenuItem();
-        menuPytItem3 = new javax.swing.JMenuItem();
         menuSth = new javax.swing.JPopupMenu();
         menuSthItem1 = new javax.swing.JMenuItem();
         menuSthItem2 = new javax.swing.JMenuItem();
-        menuSthItem3 = new javax.swing.JMenuItem();
         scrollTree = new javax.swing.JScrollPane();
         treeOrgMain = new javax.swing.JTree();
 
@@ -137,25 +135,44 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         menuDocPyt.add(menuDocPytItem1);
 
         menuDocSthItem1.setText("Crear Fuente");
+        menuDocSthItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDocSthItem1ActionPerformed(evt);
+            }
+        });
         menuDocSth.add(menuDocSthItem1);
 
         menuPytItem1.setText("Modificar");
+        menuPytItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPytItem1ActionPerformed(evt);
+            }
+        });
         menuPyt.add(menuPytItem1);
 
         menuPytItem2.setText("Eliminar");
+        menuPytItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPytItem2ActionPerformed(evt);
+            }
+        });
         menuPyt.add(menuPytItem2);
 
-        menuPytItem3.setText("Restaura");
-        menuPyt.add(menuPytItem3);
-
         menuSthItem1.setText("Modificar");
+        menuSthItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSthItem1ActionPerformed(evt);
+            }
+        });
         menuSth.add(menuSthItem1);
 
         menuSthItem2.setText("Eliminar");
+        menuSthItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSthItem2ActionPerformed(evt);
+            }
+        });
         menuSth.add(menuSthItem2);
-
-        menuSthItem3.setText("Restaurar");
-        menuSth.add(menuSthItem3);
 
         setMaximizable(true);
         setResizable(true);
@@ -188,7 +205,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         //NUEVA ORGANIZACION
         VOrganizacion VOrg = new VOrganizacion(padre, sysReman);
         VOrg.setVisible(true);
-        if(VOrg.createSuccessful()){
+        if (VOrg.createSuccessful()) {
             actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
         }
     }//GEN-LAST:event_menuDocOrgItem1ActionPerformed
@@ -197,41 +214,99 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         //MODIFICAR ORGANIZACION
         String path = dirTree.getLastPathComponent().toString();
         VMOrganizacion VOrg = new VMOrganizacion(padre, sysReman, path);
-        if(VOrg.getLoadIsCorrect()){
+        if (VOrg.getLoadIsCorrect()) {
             VOrg.setVisible(true);
-        }
-        else{
+        } else {
             ToolsInterface.msjError(padre, "Error al cargar los datos de la Organizacion!");
         }
     }//GEN-LAST:event_menuOrgItem1ActionPerformed
 
     private void menuOrgItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem2ActionPerformed
         //ELIMINAR ORGANIZACION
-        String path; 
-        int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
-        if(resp == 0){
+        String path;
+        int resp = JOptionPane.showConfirmDialog(null, "Eliminar Organización", "Alerta!", JOptionPane.YES_NO_OPTION);
+        if (resp == 0) {
             path = dirTree.getLastPathComponent().toString();
             sysReman.eliminarOrganizacion(path);
             actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
-            ToolsInterface.msjInfo(padre,"Eliminacion Exitosa" ,"Se elimino correctamente la Organizacion " + path);
+            ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente la Organizacion " + path);
         }
-        
+
     }//GEN-LAST:event_menuOrgItem2ActionPerformed
 
     private void menuDocPytItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocPytItem1ActionPerformed
         //CREAR ESPECIALISTA
         VEspecialista VEsp = new VEspecialista(padre, sysReman);
-        if(VEsp.getLoadIsCorrect()){
+        if (VEsp.getLoadIsCorrect()) {
             VEsp.setVisible(true);
-        }else{
-            ToolsInterface.msjError(padre,"Error al cargar las Organizaciones!");
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar las Organizaciones!");
         }
-        if(VEsp.createSuccessful()){
+        if (VEsp.createSuccessful()) {
             actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
         }
     }//GEN-LAST:event_menuDocPytItem1ActionPerformed
 
-    public void actualizar(JTree tree){
+    private void menuPytItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPytItem1ActionPerformed
+        //MODIFICAR ESPECIALISTA
+        String path = dirTree.getLastPathComponent().toString();
+        VMEspecialista VOrg = new VMEspecialista(padre, sysReman, path);
+        if (VOrg.getLoadIsCorrect()) {
+            VOrg.setVisible(true);
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar los datos de la Organizacion!");
+        }
+    }//GEN-LAST:event_menuPytItem1ActionPerformed
+
+    private void menuPytItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPytItem2ActionPerformed
+        //ELIMINAR ESPECIALISTA
+        String path;
+        int resp = JOptionPane.showConfirmDialog(null, "Eliminar Especialista", "Alerta!", JOptionPane.YES_NO_OPTION);
+        if (resp == 0) {
+            path = dirTree.getLastPathComponent().toString();
+            sysReman.eliminarProyectTeam(path);
+            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente el Especialista " + path);
+        }
+    }//GEN-LAST:event_menuPytItem2ActionPerformed
+
+    private void menuDocSthItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocSthItem1ActionPerformed
+        //CREAR FUENTE
+        VFuente VFue = new VFuente(padre, sysReman);
+        if (VFue.getLoadIsCorrect()) {
+            VFue.setVisible(true);
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar las Organizaciones!");
+        }
+        if (VFue.createSuccessful()) {
+            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+        }
+    }//GEN-LAST:event_menuDocSthItem1ActionPerformed
+
+    private void menuSthItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSthItem2ActionPerformed
+        //ELIMINAR FUENTE
+        String path;
+        int resp = JOptionPane.showConfirmDialog(null, "Eliminar Fuente", "Alerta!", JOptionPane.YES_NO_OPTION);
+        if (resp == 0) {
+            path = dirTree.getLastPathComponent().toString();
+            sysReman.eliminarStakeholder(path);
+            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente la Fuente " + path);
+        }
+    }//GEN-LAST:event_menuSthItem2ActionPerformed
+
+    private void menuSthItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSthItem1ActionPerformed
+        //MODIFICAR ESPECIALISTA
+        String path = dirTree.getLastPathComponent().toString();
+        VMFuente VFue = new VMFuente(padre, sysReman, path);
+        if (VFue.getLoadIsCorrect()) {
+            VFue.setVisible(true);
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar los datos de la Organizacion!");
+        }
+    }//GEN-LAST:event_menuSthItem1ActionPerformed
+
+    public void actualizar(JTree tree) {
         treeOrgMain.setModel(tree.getModel());
     }
 
@@ -248,11 +323,9 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu menuPyt;
     private javax.swing.JMenuItem menuPytItem1;
     private javax.swing.JMenuItem menuPytItem2;
-    private javax.swing.JMenuItem menuPytItem3;
     private javax.swing.JPopupMenu menuSth;
     private javax.swing.JMenuItem menuSthItem1;
     private javax.swing.JMenuItem menuSthItem2;
-    private javax.swing.JMenuItem menuSthItem3;
     private javax.swing.JScrollPane scrollTree;
     private javax.swing.JTree treeOrgMain;
     // End of variables declaration//GEN-END:variables

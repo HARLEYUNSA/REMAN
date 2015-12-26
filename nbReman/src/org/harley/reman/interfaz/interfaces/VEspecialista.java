@@ -255,19 +255,20 @@ public class VEspecialista extends JDialog {
         String pytCar = txtFCargo.getText().trim();
         String pytCor = txtFEmail.getText().trim();
         String pytCom = txtFComentario.getText();
-        
-        if(pytNom.equals("") || pytEsp.equals("") || pytExp.equals("") ||
-                pytCar.equals("") || pytCor.equals("")){
+
+        if (pytNom.equals("") || pytEsp.equals("") || pytExp.equals("")
+                || pytCar.equals("") || pytCor.equals("")
+                || !ToolsInterface.isAlphabetic(pytNom)) {
             error = true;
         }
-        if(!error){
+        if (!error) {
             sysReman.crearProyectTeam(pytNom, pytOrg, pytEsp, pytExp, pytCar, pytCor, pytCom);
             flagIsOk = true;
             ToolsInterface.msjInfo(this, "Operacion Exitosa", "El especialista "
                     + pytNom + " fue creado satisfactoriamente.");
             this.dispose();
-        }else{
-            ToolsInterface.msjError(this, "Error, llenar todos los campos");
+        } else {
+            ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
         }
         
     }//GEN-LAST:event_btnFGuardarActionPerformed

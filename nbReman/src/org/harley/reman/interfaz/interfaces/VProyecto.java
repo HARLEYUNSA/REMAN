@@ -20,8 +20,9 @@ public class VProyecto extends JDialog {
 
     Sistema sysReman;
     boolean flagIsOk;
+
     public VProyecto(JFrame padre, Sistema sysReman) {
-        super(padre,true);
+        super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
@@ -340,13 +341,15 @@ public class VProyecto extends JDialog {
         String fecFin = dateChooserCombo2.getText();
 
         File url = new File(proUbi);
-        if( !url.exists()){
+        if (!url.exists()) {
             error = true;
         }
-        proUbi += "\\" +proNom;
+        proUbi += "\\" + proNom;
 
         if (empCli.equals("") || empDes.equals("") || proNom.equals("")
-                || prdNom.equals("") || proUbi.equals("") || proLid.equals("") || fecIni.equals("") || fecFin.equals("")) {
+                || prdNom.equals("") || proUbi.equals("") || proLid.equals("")
+                || fecIni.equals("") || fecFin.equals("")
+                || !ToolsInterface.isAlphabetic(proLid)) {
             error = true;
         }
 
@@ -361,7 +364,7 @@ public class VProyecto extends JDialog {
         }
     }//GEN-LAST:event_btnPGuardarActionPerformed
 
-    public boolean createSuccessful(){
+    public boolean createSuccessful() {
         return flagIsOk;
     }
 

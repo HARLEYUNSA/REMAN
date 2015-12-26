@@ -281,7 +281,7 @@ public class VOrganizacion extends JDialog {
                     + orgNom + " fue creado satisfactoriamente.");
             this.dispose();
         }else{
-            ToolsInterface.msjError(this,"Error, llenar todos los campos");
+            ToolsInterface.msjError(this,"Error, Verificar los campos ingresados!");
         }
         
     }//GEN-LAST:event_btnOGuardarActionPerformed
