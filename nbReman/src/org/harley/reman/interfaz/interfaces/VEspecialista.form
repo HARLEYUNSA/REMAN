@@ -81,13 +81,13 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="txtFEmail2" min="-2" pref="180" max="-2" attributes="0"/>
+                              <Component id="txtFEmail" min="-2" pref="180" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="txtFEmail1" min="-2" pref="180" max="-2" attributes="0"/>
+                                  <Component id="txtFCargo" min="-2" pref="180" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -101,8 +101,8 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="cmbFOrganizacion" min="-2" pref="180" max="-2" attributes="0"/>
                                       <Component id="txtFNombre" min="-2" pref="180" max="-2" attributes="0"/>
-                                      <Component id="txtFCargo" min="-2" pref="180" max="-2" attributes="0"/>
-                                      <Component id="txtFEmail" min="-2" pref="180" max="-2" attributes="0"/>
+                                      <Component id="txtFEspecialidad" min="-2" pref="180" max="-2" attributes="0"/>
+                                      <Component id="txtFExperiencia" min="-2" pref="180" max="-2" attributes="0"/>
                                       <Component id="txtFCodigo" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -133,22 +133,22 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFCargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFEspecialidad" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFExperiencia" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFEmail1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFCargo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFEmail2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -164,7 +164,7 @@
                 <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtFCargo">
+            <Component class="javax.swing.JTextField" name="txtFEspecialidad">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
@@ -202,7 +202,7 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtFEmail">
+            <Component class="javax.swing.JTextField" name="txtFExperiencia">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
@@ -248,7 +248,7 @@
                 <Property name="text" type="java.lang.String" value="Cargo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtFEmail1">
+            <Component class="javax.swing.JTextField" name="txtFCargo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
@@ -263,7 +263,7 @@
                 <Property name="text" type="java.lang.String" value="E-mail"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtFEmail2">
+            <Component class="javax.swing.JTextField" name="txtFEmail">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
@@ -326,7 +326,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea1">
+                    <Component class="javax.swing.JTextArea" name="txtFComentario">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="5"/>
@@ -347,6 +347,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFGuardarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnFCancelar">
       <Properties>
