@@ -64,7 +64,15 @@ public class Organizacion {
             codigo = ToolsSystem.IncrementarCodigo(codigo);
         }
     }
-    
+
+    public static String getCodigo() {
+        return codigo;
+    }
+
+    public static void setCodigo(String codigo) {
+        Organizacion.codigo = codigo;
+    }
+      
     public Nombre getOrgNombre() {
         return orgNombre;
     }

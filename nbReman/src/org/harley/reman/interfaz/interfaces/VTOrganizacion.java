@@ -195,7 +195,11 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
 
     private void menuDocOrgItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocOrgItem1ActionPerformed
         //NUEVA ORGANIZACION
-        
+        VOrganizacion VOrg = new VOrganizacion(padre, sysReman);
+        VOrg.setVisible(true);
+        if(VOrg.createSuccessful()){
+            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+        }
     }//GEN-LAST:event_menuDocOrgItem1ActionPerformed
 
     private void menuOrgItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem1ActionPerformed
