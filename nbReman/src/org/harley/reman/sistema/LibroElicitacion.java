@@ -1,7 +1,6 @@
 package org.harley.reman.sistema;
 
 import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 
 public class LibroElicitacion {
     Caratula intro;
-    List<Elicitacion> elicitaciones;
+    ArrayList<Elicitacion> elicitaciones;
 
     public LibroElicitacion() {
     }
@@ -29,13 +28,13 @@ public class LibroElicitacion {
         this.intro = intro;
     }
 
-    public List<Elicitacion> getElicitaciones() {
+    public ArrayList<Elicitacion> getElicitaciones() {
         return elicitaciones;
     }
     
     @XmlElementWrapper(name = "tablas")
     @XmlElement(name = "tabla")
-    public void setElicitaciones(List<Elicitacion> elicitaciones) {
+    public void setElicitaciones(ArrayList<Elicitacion> elicitaciones) {
         this.elicitaciones = elicitaciones;
     }
     

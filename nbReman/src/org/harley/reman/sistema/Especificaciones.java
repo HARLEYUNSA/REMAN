@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,8 +18,8 @@ import javax.xml.bind.annotation.XmlType;
 
 public class Especificaciones {
     Especificacion actual;
-    List<Especificacion> versiones;
-    List<Historico> historicos;
+    ArrayList<Especificacion> versiones;
+    ArrayList<Historico> historicos;
 
     public Especificaciones() {
         this.versiones = new ArrayList<>();
@@ -35,23 +34,23 @@ public class Especificaciones {
         this.actual = actual;
     }
     
-    public List<Especificacion> getVersiones() {
+    public ArrayList<Especificacion> getVersiones() {
         return versiones;
     }
     
-@XmlElementWrapper(name = "versiones")
-@XmlElement(name = "version")
-    public void setVersiones(List<Especificacion> versiones) {
+    @XmlElementWrapper(name = "versiones")
+    @XmlElement(name = "version")
+    public void setVersiones(ArrayList<Especificacion> versiones) {
         this.versiones = versiones;
     }
 
-    public List<Historico> getHistoricos() {
+    public ArrayList<Historico> getHistoricos() {
         return historicos;
     }
     
-@XmlElementWrapper(name = "historicos")
-@XmlElement(name = "historico")
-    public void setHistoricos(List<Historico> historicos) {
+    @XmlElementWrapper(name = "historicos")
+    @XmlElement(name = "historico")
+    public void setHistoricos(ArrayList<Historico> historicos) {
         this.historicos = historicos;
     }
     
@@ -90,10 +89,11 @@ public class Especificaciones {
     }
     
     public Especificacion getVer(String ver){
-       for (int i = 0; i < versiones.size(); i++){
-           if(versiones.get(i).getEspVer().equals(ver))
-               return versiones.get(i);
-       }
+        for (Especificacion version : versiones) {
+            if (version.getEspVer().equals(ver)) {
+                return version;
+            }
+        }
        return null;
     }
     

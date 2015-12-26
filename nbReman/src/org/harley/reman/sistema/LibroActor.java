@@ -1,7 +1,6 @@
 package org.harley.reman.sistema;
 
 import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,8 +14,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class LibroActor {
     Caratula intro;
-    List<Stakeholder> stakes;
-    List<ProyectTeam> teams;
+    ArrayList<Stakeholder> stakes;
+    ArrayList<ProyectTeam> teams;
 
     public Caratula getIntro() {
         return intro;
@@ -27,13 +26,13 @@ public class LibroActor {
         this.intro = intro;
     }
 
-    public List<Stakeholder> getStakes() {
+    public ArrayList<Stakeholder> getStakes() {
         return stakes;
     }
     
     @XmlElementWrapper(name = "tablas")
     @XmlElement(name = "tabla")
-    public void setStakes(List<Stakeholder> stakes) {
+    public void setStakes(ArrayList<Stakeholder> stakes) {
         this.stakes = stakes;
     }
 
@@ -44,13 +43,13 @@ public class LibroActor {
             this.stakes.add(sth);
     }
     
-    public List<ProyectTeam> getTeams() {
+    public ArrayList<ProyectTeam> getTeams() {
         return teams;
     }
     
     @XmlElementWrapper(name = "tablas")
     @XmlElement(name = "tabla")
-    public void setTeams(List<ProyectTeam> teams) {
+    public void setTeams(ArrayList<ProyectTeam> teams) {
         this.teams = teams;
     }
     
@@ -61,16 +60,16 @@ public class LibroActor {
         this.teams.add(pyt);
     }
     
-    public List<String> getFueCod(){
-        List<String> fueNom = new ArrayList<>();
+    public ArrayList<String> getFueCod(){
+        ArrayList<String> fueNom = new ArrayList<>();
         for (Stakeholder stake : stakes) {
             fueNom.add(stake.getSthNombre().getCodigo());
         }
         return fueNom;
     }
     
-    public List<String> getFueNom(){
-        List<String> fueNom = new ArrayList<>();
+    public ArrayList<String> getFueNom(){
+        ArrayList<String> fueNom = new ArrayList<>();
         for (Stakeholder stake : stakes) {
             fueNom.add(stake.getSthNombre().getCodigo());
         }

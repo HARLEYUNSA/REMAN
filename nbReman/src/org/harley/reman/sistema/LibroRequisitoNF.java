@@ -1,8 +1,6 @@
-
 package org.harley.reman.sistema;
 
 import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 class LibroRequisitoNF {
 
     Caratula intro;
-    List<RequisitoNF> requisitosNF;
+    ArrayList<RequisitoNF> requisitosNF;
 
     public LibroRequisitoNF() {
     }
@@ -29,12 +27,12 @@ class LibroRequisitoNF {
         this.intro = intro;
     }
 
-    public List<RequisitoNF> getRequisitosNF() {
+    public ArrayList<RequisitoNF> getRequisitosNF() {
         return requisitosNF;
     }
     @XmlElementWrapper(name = "tablas")
     @XmlElement(name = "tabla")
-    public void setRequisitosNF(List<RequisitoNF> reqnofuncionales) {
+    public void setRequisitosNF(ArrayList<RequisitoNF> reqnofuncionales) {
         this.requisitosNF = reqnofuncionales;
     }
     

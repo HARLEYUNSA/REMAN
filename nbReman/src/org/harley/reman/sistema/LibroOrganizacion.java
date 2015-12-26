@@ -1,7 +1,6 @@
 package org.harley.reman.sistema;
 
 import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,12 +18,12 @@ import javax.xml.bind.annotation.XmlType;
 class LibroOrganizacion {
 
     Caratula intro;
-    List<Organizacion> orgs;
+    ArrayList<Organizacion> orgs;
 
     public LibroOrganizacion() {
     }
     
-    public LibroOrganizacion(Caratula intro, List<Organizacion> orgs) {
+    public LibroOrganizacion(Caratula intro, ArrayList<Organizacion> orgs) {
         this.intro = intro;
         this.orgs = orgs;
     }
@@ -37,13 +36,13 @@ class LibroOrganizacion {
         this.intro = intro;
     }
 
-    public List<Organizacion> getOrgs() {
+    public ArrayList<Organizacion> getOrgs() {
         return orgs;
     }
 
     @XmlElementWrapper(name = "tabla")
     @XmlElement(name = "tablas")
-    public void setOrgs(List<Organizacion> orgs) {
+    public void setOrgs(ArrayList<Organizacion> orgs) {
         this.orgs = orgs;
     }
     

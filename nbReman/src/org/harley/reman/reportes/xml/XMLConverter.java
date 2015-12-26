@@ -106,7 +106,7 @@ public class XMLConverter {
 
             // Result processing
             /*FormattingResults foResults = fop.getResults();
-            List pageSequences = foResults.getPageSequences();
+            ArrayList pageSequences = foResults.getPageSequences();
             for (Iterator it = pageSequences.iterator(); it.hasNext();) {
                 PageSequenceResults pageSequenceResults = (PageSequenceResults)it.next();
                 System.out.println("PageSequence "
