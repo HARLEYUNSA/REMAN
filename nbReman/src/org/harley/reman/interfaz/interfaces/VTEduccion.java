@@ -144,15 +144,15 @@ public class VTEduccion extends javax.swing.JInternalFrame {
         if (VEdu.getIsCorrect()) {
             VEdu.setVisible(true);
         } else {
-            ToolsInterface.msjError("Error al cargar los actores del proyecto!");
+            ToolsInterface.msjError(padre, "Error al cargar los actores del proyecto!");
         }
     }//GEN-LAST:event_menuDocEduItem1ActionPerformed
 
     private void menuEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem1ActionPerformed
         //MODIFICAR EDUCCION
-        String nameXML = dirTree.getLastPathComponent().toString();
+        String path = dirTree.getLastPathComponent().toString();
         //System.out.println(dirTree.getLastPathComponent().toString());
-        new VMEduccion(sysReman, nameXML).setVisible(true);
+        new VMEduccion(sysReman, path).setVisible(true);
 
     }//GEN-LAST:event_menuEduItem1ActionPerformed
 

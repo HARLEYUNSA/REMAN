@@ -267,7 +267,7 @@ public class VEspecialista extends JDialog {
                     + pytNom + " fue creado satisfactoriamente.");
             this.dispose();
         }else{
-            ToolsInterface.msjError("Error, llenar todos los campos");
+            ToolsInterface.msjError(this, "Error, llenar todos los campos");
         }
         
     }//GEN-LAST:event_btnFGuardarActionPerformed
@@ -276,7 +276,7 @@ public class VEspecialista extends JDialog {
      * Indica si estan correctamente cargados los parametros de entrada
      * @return 
      */
-    public boolean getIsCorrect() {
+    public boolean getLoadIsCorrect() {
         return !(org.isEmpty());
     }
     
