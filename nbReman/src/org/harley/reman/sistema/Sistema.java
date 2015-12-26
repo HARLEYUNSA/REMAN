@@ -264,8 +264,8 @@ public class Sistema {
             crearFileRem(proNom);
             iniciarManagers();
             iniciarHistoricos();
-            crearOrganizacion(empDes, "Direccion Desconocida", "Desconocido", "www.empDes.com", "example@domain.com", "Autogenerado");
-            crearOrganizacion(empCli, "Direccion Desconocida", "Desconocido", "www.empCli,com", "example@domain.com", "Autogenerado");
+            crearOrganizacion(empDes, "Direccion Desconocida", "0123456789", "www.empDes.com", "example@domain.com", "Autogenerado");
+            crearOrganizacion(empCli, "Direccion Desconocida", "0123456789", "www.empCli,com", "example@domain.com", "Autogenerado");
             crearProyectTeam(proLid, empDes, "Desconocida", "Desconocida", "Lider", "example@domain.com", "Autogenerado");
             crearStakeholder("Cliente", empCli, "Jefe", "Interno", "example@domain.com", "Autogenerado");
             return true;
@@ -1712,8 +1712,6 @@ public class Sistema {
                 cargo.add(getProyectTeam(name).getPytCar());
                 email.add(getProyectTeam(name).getPytCor());
                 comentarios.add(getProyectTeam(name).getPytCom());
-                codigo.add(getProyectTeam(name).getPytNombre().getCodigo());
-                nombre.add(getProyectTeam(name).getPytNombre().getNombre());
             }
         } catch (Exception e) {
         }

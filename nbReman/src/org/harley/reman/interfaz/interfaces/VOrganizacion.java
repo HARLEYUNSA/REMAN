@@ -1,6 +1,5 @@
 package org.harley.reman.interfaz.interfaces;
 
-import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
@@ -13,13 +12,13 @@ import org.harley.reman.sistema.Sistema;
 public class VOrganizacion extends JDialog {
 
     Sistema sysReman;
-    boolean flagIsOk;
+    boolean flagNewOk;
     public VOrganizacion(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        flagIsOk = false;
+        flagNewOk = false;
         try {
             txtOCodigo.setText(sysReman.getNextOrg());  
         } catch (Exception e) {
@@ -258,7 +257,6 @@ public class VOrganizacion extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOCancelarActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnOCancelarActionPerformed
 
@@ -272,17 +270,18 @@ public class VOrganizacion extends JDialog {
         String orgCom = txtOrgComent.getText();
         
         if(orgNom.equals("") || orgDir.equals("") || orgTel.equals("") || 
-                orgPagWeb.equals("") || orgCorEle.equals("")){
+                orgPagWeb.equals("") || orgCorEle.equals("") 
+                || !ToolsInterface.isAlphabetic(orgNom) || !ToolsInterface.isNumber(orgTel)){
             error = true;
         }
         if(!error){
             sysReman.crearOrganizacion(orgNom, orgDir, orgTel, orgPagWeb, orgCorEle, orgCom);
-            flagIsOk = true;
+            flagNewOk = true;
             ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Organizacion "
                     + orgNom + " fue creado satisfactoriamente.");
             this.dispose();
         }else{
-            ToolsInterface.msjError("Error, llenar todos los campos");
+            ToolsInterface.msjError(this,"Error, Verificar los campos ingresados!");
         }
         
     }//GEN-LAST:event_btnOGuardarActionPerformed
@@ -292,7 +291,7 @@ public class VOrganizacion extends JDialog {
      * @return 
      */
     public boolean createSuccessful(){
-        return flagIsOk;
+        return flagNewOk;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

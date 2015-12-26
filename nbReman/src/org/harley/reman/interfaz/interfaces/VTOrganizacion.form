@@ -40,14 +40,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuOrgItem2ActionPerformed"/>
           </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="menuOrgItem3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Restaurar"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuOrgItem3ActionPerformed"/>
-          </Events>
-        </MenuItem>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPopupMenu" name="menuDocPyt">
@@ -76,6 +68,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Crear Fuente"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDocSthItem1ActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
@@ -89,16 +84,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Modificar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuPytItem1ActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuPytItem2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="menuPytItem3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Restaura"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuPytItem2ActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
@@ -112,16 +108,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Modificar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSthItem1ActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuSthItem2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="menuSthItem3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Restaurar"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSthItem2ActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
