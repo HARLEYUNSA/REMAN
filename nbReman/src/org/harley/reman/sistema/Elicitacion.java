@@ -111,6 +111,7 @@ public class Elicitacion {
 
     public static void setNumero(int numero) {
         Elicitacion.numero = numero;
+        codigo = "ELI0000";
         for (int i = 0; i < numero; i++){
             codigo = ToolsSystem.IncrementarCodigo(codigo);
         }    

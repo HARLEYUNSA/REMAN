@@ -35,6 +35,7 @@ public class ProyectTeam {
 
     public static void setNumero(int numero) {
         ProyectTeam.numero = numero;
+        codigo = "PYT0000";
         for (int i = 0; i < numero; i++) {
             codigo = ToolsSystem.IncrementarCodigo(codigo);
         }
