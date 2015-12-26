@@ -6,9 +6,11 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.awt.event.*;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.TreePath;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
@@ -86,6 +88,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
 
         menuDocOrg = new javax.swing.JPopupMenu();
         menuDocOrgItem1 = new javax.swing.JMenuItem();
+        menuDocOrgItem2 = new javax.swing.JMenuItem();
         menuOrg = new javax.swing.JPopupMenu();
         menuOrgItem1 = new javax.swing.JMenuItem();
         menuOrgItem2 = new javax.swing.JMenuItem();
@@ -99,6 +102,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         menuSth = new javax.swing.JPopupMenu();
         menuSthItem1 = new javax.swing.JMenuItem();
         menuSthItem2 = new javax.swing.JMenuItem();
+        ExportarFile = new javax.swing.JFileChooser();
         scrollTree = new javax.swing.JScrollPane();
         treeOrgMain = new javax.swing.JTree();
 
@@ -109,6 +113,14 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             }
         });
         menuDocOrg.add(menuDocOrgItem1);
+
+        menuDocOrgItem2.setText("Exportar a pdf");
+        menuDocOrgItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDocOrgItem2ActionPerformed(evt);
+            }
+        });
+        menuDocOrg.add(menuDocOrgItem2);
 
         menuOrgItem1.setText("Modificar");
         menuOrgItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +185,9 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             }
         });
         menuSth.add(menuSthItem2);
+
+        ExportarFile.setDialogType(javax.swing.JFileChooser.CUSTOM_DIALOG);
+        ExportarFile.setDialogTitle("Seleccione");
 
         setMaximizable(true);
         setResizable(true);
@@ -306,13 +321,33 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_menuSthItem1ActionPerformed
 
+    private void menuDocOrgItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocOrgItem2ActionPerformed
+        //EXPORTAR A PDF ORGANIZACION
+        int opt = ExportarFile.showSaveDialog(this);
+        String direccion;
+        String nombre;
+        if (opt == JFileChooser.APPROVE_OPTION) {
+            direccion = ExportarFile.getSelectedFile().getParent();
+            nombre = ExportarFile.getSelectedFile().getName();
+            nombre = ToolsInterface.addExtensionPdf(nombre);
+            if(!nombre.equals("error")){
+                sysReman.exportarLibroOrg(direccion, nombre);
+                //ToolsInterface.msjInfo(padre, "Operacion Exitosa", "Organizacion Se exporto correctamente.");
+            }else{
+                ToolsInterface.msjError(padre, "Error con el nombre del archivo, intentelo nuevamente!");
+            }   
+        }
+    }//GEN-LAST:event_menuDocOrgItem2ActionPerformed
+
     public void actualizar(JTree tree) {
         treeOrgMain.setModel(tree.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFileChooser ExportarFile;
     private javax.swing.JPopupMenu menuDocOrg;
     private javax.swing.JMenuItem menuDocOrgItem1;
+    private javax.swing.JMenuItem menuDocOrgItem2;
     private javax.swing.JPopupMenu menuDocPyt;
     private javax.swing.JMenuItem menuDocPytItem1;
     private javax.swing.JPopupMenu menuDocSth;

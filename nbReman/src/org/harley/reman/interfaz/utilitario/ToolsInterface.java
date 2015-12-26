@@ -181,4 +181,41 @@ public class ToolsInterface {
         }
         return true;
     }
+
+    /**
+     * verifica si la extension es correcta y si le falta la misma
+     *
+     * @param nameFile nombre del archivo a revisar
+     * @return
+     */
+    public static String addExtensionPdf(String nameFile) {
+        int lenght = nameFile.length();
+        char letter;
+        int point = 0;
+        for (int i = 0; i < lenght; i++) {
+            letter = nameFile.charAt(i);
+            if (letter == '.') {
+                point = i;
+                break;
+            }
+        }
+        //si no existe punto no existe extension
+        if (point == 0) {
+            return nameFile;
+        } else {
+            //la extension es mayor o menor a 4 chars ".pdf"
+            if (lenght - point != 4) {
+                return "error";
+            } else {
+                //la extension es correcta
+                if (nameFile.charAt(point + 1) == 'p' &&  nameFile.charAt(point + 2) == 'd' && nameFile.charAt(point + 3) == 'f'){
+                    return nameFile.substring(0,point);
+                }
+                else{
+                    return "error";
+                }
+            }
+        }
+
+    }
 }
