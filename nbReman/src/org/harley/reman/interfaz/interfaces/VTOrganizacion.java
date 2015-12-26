@@ -342,8 +342,9 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             nombre = ExportarFile.getSelectedFile().getName();
             nombre = ToolsInterface.addExtensionPdf(nombre);
             if(!nombre.equals("error")){
-                sysReman.exportarLibroOrg(direccion, nombre);
-                //ToolsInterface.msjInfo(padre, "Operacion Exitosa", "Se exporto correctamente.");
+                if(!sysReman.exportarLibro(Sistema.LIB_ORG,direccion, nombre)){
+                    ToolsInterface.msjError(padre, "Error al cargar las Organizaciones, reviselos antes de continuar la operacion!");
+                }
             }else{
                 ToolsInterface.msjError(padre, "Error con el nombre del archivo, intentelo nuevamente!");
             }   
@@ -360,8 +361,9 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             nombre = ExportarFile.getSelectedFile().getName();
             nombre = ToolsInterface.addExtensionPdf(nombre);
             if(!nombre.equals("error")){
-                sysReman.exportarLibroAct(direccion, nombre);
-                //ToolsInterface.msjInfo(padre, "Operacion Exitosa", "Se exporto correctamente.");
+                if(!sysReman.exportarLibro(Sistema.LIB_ACT,direccion, nombre)){
+                    ToolsInterface.msjError(padre, "Error al cargar los Actores, reviselos antes de continuar la operacion!");
+                }
             }else{
                 ToolsInterface.msjError(padre, "Error con el nombre del archivo, intentelo nuevamente!");
             }   
