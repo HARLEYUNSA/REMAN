@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlType;
     "requisitosNF"
 })
 class LibroRequisitoNF {
-
     Caratula intro;
     ArrayList<RequisitoNF> requisitosNF;
 
@@ -46,5 +45,4 @@ class LibroRequisitoNF {
         }
         requisitosNF.add(rnf);
     }
-    
 }

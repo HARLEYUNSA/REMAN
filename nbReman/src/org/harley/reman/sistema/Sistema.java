@@ -264,10 +264,14 @@ public class Sistema {
             crearFileRem(proNom);
             iniciarManagers();
             iniciarHistoricos();
-            crearOrganizacion(empDes, "Direccion Desconocida", "0123456789", "www.empDes.com", "example@domain.com", "Autogenerado");
-            crearOrganizacion(empCli, "Direccion Desconocida", "0123456789", "www.empCli,com", "example@domain.com", "Autogenerado");
-            crearProyectTeam(proLid, empDes, "Desconocida", "Desconocida", "Lider", "example@domain.com", "Autogenerado");
-            crearStakeholder("Cliente", empCli, "Jefe", "Interno", "example@domain.com", "Autogenerado");
+            crearOrganizacion(empDes, "Direccion Desconocida", "0123456789", 
+                    "www.empDes.com", "example@domain.com", "Autogenerado");
+            crearOrganizacion(empCli, "Direccion Desconocida", "0123456789", 
+                    "www.empCli,com", "example@domain.com", "Autogenerado");
+            crearProyectTeam(proLid, empDes, "Desconocida", "Desconocida", 
+                    "Lider", "example@domain.com", "Autogenerado");
+            crearStakeholder("Cliente", empCli, "Jefe", "Interno", 
+                    "example@domain.com", "Autogenerado");
             return true;
         } catch (Exception ex) {
             return false;
@@ -804,7 +808,8 @@ public class Sistema {
      * @param razon Razón de cambio de la elicitación
      * @param autor Autor de la versión
      */
-    public void verLibroEli(String version, String fecha, String razon, String autor) {
+    public void verLibroEli(String version, String fecha, String razon, 
+            String autor) {
         manLibEli.copiarDirectorios(new File(dirPrincipal + "//src//eli"),
                 new File(dirPrincipal + "//verlib//eli//eli" + version));
         LibroHistorico libH = manHisEli.leerXML("elihis");
@@ -1007,10 +1012,10 @@ public class Sistema {
             Elicitaciones verEli = manVerEli.leerXML(eliCod);
             String ultVer = verEli.getLast().getEliNombre().getCodigo();
             if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
-                Elicitacion eli = new Elicitacion(eliCod, eliNom, eliEduCod, eliVer,
-                        eliFec, eliFueNom, eliFueCar, eliFueTip, eliEspNom,
-                        eliEspEsp, eliEspExp, eliEspCar, eliDep, eliDes, eliPre,
-                        eliSec, eliPos, eliExc, eliObs);
+                Elicitacion eli = new Elicitacion(eliCod, eliNom, eliEduCod, 
+                        eliVer, eliFec, eliFueNom, eliFueCar, eliFueTip, 
+                        eliEspNom, eliEspEsp, eliEspExp, eliEspCar, eliDep, 
+                        eliDes, eliPre, eliSec, eliPos, eliExc, eliObs);
                 verEli.modEli(eli);
                 verEli.verEli(verVer, verFec, verEsp, verRazCam);
                 manVerEli.escribirXML(eliCod, verEli);
@@ -1122,11 +1127,11 @@ public class Sistema {
      * @param espObs Observaciones de la especificación
      * @return Un booleano que indica si la función se realizó correctamente
      */
-    public boolean modificarEspecificacion(String espCod, String espNom, String espEliCod,
-            String espVer, String espFec, String espFueNom, String espFueCar,
-            String espFueTip, String espEspNom, String espEspEsp,
-            String espEspExp, String espEspCar, String espDep, String espDes,
-            String espPre, String espPos, ArrayList<Paso> espExc,
+    public boolean modificarEspecificacion(String espCod, String espNom, String 
+            espEliCod, String espVer, String espFec, String espFueNom, 
+            String espFueCar, String espFueTip, String espEspNom, 
+            String espEspEsp, String espEspExp, String espEspCar, String espDep,
+            String espDes, String espPre, String espPos, ArrayList<Paso> espExc,
             String espObs) {
         try {
             Especificacion esp = new Especificacion(espCod, espNom, espEliCod,
@@ -1197,10 +1202,10 @@ public class Sistema {
             Especificaciones verEsps = manVerEsp.leerXML(espCod);
             String ultVer = verEsps.getLast().getEspNombre().getCodigo();
             if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
-                Especificacion esp = new Especificacion(espCod, espNom, espEliCod,
-                        espVer, espFec, espFueNom, espFueCar, espFueTip, espEspNom,
-                        espEspEsp, espEspExp, espEspCar, espDep, espDes,
-                        espPre, espPos, espExc, espObs);
+                Especificacion esp = new Especificacion(espCod, espNom, 
+                        espEliCod, espVer, espFec, espFueNom, espFueCar, 
+                        espFueTip, espEspNom, espEspEsp, espEspExp, espEspCar,
+                        espDep, espDes, espPre, espPos, espExc, espObs);
                 verEsps.modEsp(esp);
                 verEsps.verEsp(verVer, verFec, verEsp, verRazCam);
                 manVerEsp.escribirXML(espCod, verEsps);
@@ -1220,7 +1225,7 @@ public class Sistema {
      * @param espCod Código de la especificación
      * @return Un booleano que indica si la función se realizó correctamente
      */
-    public boolean restaurarVersionEspecificacion(String verCod, String espCod) {
+    public boolean restaurarVersionEspecificacion(String verCod, String espCod){
         try {
             Especificaciones verEsp = manVerEsp.leerXML(espCod);
             Especificacion esp = verEsp.getVer(verCod);
@@ -1373,14 +1378,14 @@ public class Sistema {
         }
     }
 
-    public boolean modificarReqNoFuncional(String rnfCod, String rnfNom, String rnfVer,
-            String rnfTip, String rnfObj, String rnfFec, String rnfFueNom,
-            String rnfFueCar, String rnfFueTip, String rnfEspNom,
-            String rnfEspEsp, String rnfEspExp, String rnfEspCar, String rnfDep,
-            String rnfDes, String rnfObs) {
+    public boolean modificarReqNoFuncional(String rnfCod, String rnfNom, 
+            String rnfVer, String rnfTip, String rnfObj, String rnfFec,
+            String rnfFueNom, String rnfFueCar, String rnfFueTip, 
+            String rnfEspNom, String rnfEspEsp, String rnfEspExp, 
+            String rnfEspCar, String rnfDep, String rnfDes, String rnfObs) {
         try {
-            RequisitoNF rnf = new RequisitoNF(rnfCod, rnfNom, rnfVer,
-                    rnfTip, rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
+            RequisitoNF rnf = new RequisitoNF(rnfCod, rnfNom, rnfVer, rnfTip, 
+                    rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
                     rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs);
             RequisitosNF verRnf = manVerRnf.leerXML(rnfCod);
             verRnf.modRnf(rnf);
@@ -1439,7 +1444,7 @@ public class Sistema {
 
     public void exportarLibroOrg(String destino, String nombre) {
         LibroOrganizacion lib = new LibroOrganizacion();
-        File[] ficheros = new File(dirPrincipal + "//src//org//org").listFiles();
+        File[] ficheros = new File(dirPrincipal+"//src//org//org").listFiles();
         for (File fichero : ficheros) {
             String name = fichero.getName().split("\\.")[0];
             lib.addOrg(getOrg(name));
@@ -1549,8 +1554,8 @@ public class Sistema {
             String name = fichero.getName().split("\\.")[0];
             lib.addStake(getStakeholder(name));
         }
-        File[] proyects = new File(dirPrincipal + "//src//org//pyt").listFiles();
-        for (File fichero : proyects) {
+        File[] pro = new File(dirPrincipal + "//src//org//pyt").listFiles();
+        for (File fichero : pro) {
             String name = fichero.getName().split("\\.")[0];
             lib.addTeam(getProyectTeam(name));
         }

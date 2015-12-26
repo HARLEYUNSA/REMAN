@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.XmlType;
     "pytCom"
 })
 public class ProyectTeam {
-
     private static int numero = 0;
     private static String codigo = "PYT0000";
     Nombre pytNombre;

@@ -13,7 +13,6 @@ import javax.xml.bind.annotation.XmlType;
 })
 
 public class LibroEduccion {
-
     Caratula intro;
     ArrayList<Educcion> educciones;
     

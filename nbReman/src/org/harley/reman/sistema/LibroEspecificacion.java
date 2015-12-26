@@ -32,7 +32,7 @@ public class LibroEspecificacion {
     }
     @XmlElementWrapper(name = "tablas")
     @XmlElement(name = "tabla")
-    public void setEspecificaciones(ArrayList<Especificacion> especificaciones) {
+    public void setEspecificaciones(ArrayList<Especificacion> especificaciones){
         this.especificaciones = especificaciones;
     }
     

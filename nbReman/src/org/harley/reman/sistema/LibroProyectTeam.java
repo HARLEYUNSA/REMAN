@@ -6,10 +6,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author Teo
- */
 @XmlRootElement(name = "libroProyectTeam")
 @XmlType(propOrder = {
     "intro",
@@ -61,5 +57,4 @@ public class LibroProyectTeam {
         }
        return null;
     }
-    
 }

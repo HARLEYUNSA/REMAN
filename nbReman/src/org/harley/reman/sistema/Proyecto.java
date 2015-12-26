@@ -4,15 +4,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-    @XmlType(propOrder = {
-        "proNom",
-        "empDes",
-        "empCli",
-        "proLid",
-        "proEst",
-        "fecIni",
-        "fecFin",
-    })
+@XmlType(propOrder = {
+    "proNom",
+    "empDes",
+    "empCli",
+    "proLid",
+    "proEst",
+    "fecIni",
+    "fecFin",
+})
 public class Proyecto {
     String proNom;
     String empDes;
@@ -25,7 +25,8 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public Proyecto(String proNom, String empDes, String empCli, String proLid, String proEst, String fecIni, String fecFin) {
+    public Proyecto(String proNom, String empDes, String empCli, String proLid,
+            String proEst, String fecIni, String fecFin) {
         this.proNom = proNom;
         this.empDes = empDes;
         this.empCli = empCli;

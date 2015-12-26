@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlType;
     "autor"
 })
 public class Historico {
-
     String version;
     String fecha;
     String razon;

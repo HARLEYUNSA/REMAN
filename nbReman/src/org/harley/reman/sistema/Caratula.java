@@ -24,8 +24,8 @@ public class Caratula {
             String proLid, String proEst, String fecIni, String fecFin,
             String carFec, String carLug) {
         this.carTit = carTit;
-        this.carPro = new Proyecto(proNom, empDes, empCli, proLid, proEst, fecIni,
-        fecFin);
+        this.carPro = new Proyecto(proNom, empDes, empCli, proLid, proEst, 
+                fecIni, fecFin);
         this.carFec = carFec;
         this.carLug = carLug;
     }

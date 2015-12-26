@@ -25,10 +25,7 @@ import javax.xml.bind.annotation.XmlType;
         "espExc",
         "espObs"
     })
-    
-
 public class Especificacion {
-
     private static int numero = 0;
     private static String codigo = "ESP0000";
     Nombre espNombre;
@@ -52,11 +49,12 @@ public class Especificacion {
     public Especificacion() {
     }
 
-    public Especificacion(String espCod, String espNom, String espEliCod, String espVer,
-            String espFec, String espFueNom, String espFueCar, String espFueTip, String espEspNom,
-            String espEspEsp, String espEspExp, String espEspCar, String espDep, String espDes,
-            String espPre, String espPos, ArrayList<Paso> espExc, String espObs) {
-        
+    public Especificacion(String espCod, String espNom, String espEliCod, 
+            String espVer, String espFec, String espFueNom, String espFueCar, 
+            String espFueTip, String espEspNom, String espEspEsp, 
+            String espEspExp, String espEspCar, String espDep, String espDes,
+            String espPre, String espPos, ArrayList<Paso> espExc, 
+            String espObs) {
         this.espNombre = new Nombre(espCod, espNom);
         this.espEliCod = espEliCod;
         this.espVer = espVer;
@@ -76,11 +74,12 @@ public class Especificacion {
         this.espObs = espObs;
     }
     
-    public Especificacion(String espNom, String espEliCod, String espVer,
-            String espFec, String espFueNom, String espFueCar, String espFueTip, String espEspNom,
-            String espEspEsp, String espEspExp, String espEspCar, String espDep, String espDes,
-            String espPre, String espPos, ArrayList<Paso> espExc, String espObs) {
-        
+    public Especificacion(String espNom, String espEliCod, 
+            String espVer, String espFec, String espFueNom, String espFueCar, 
+            String espFueTip, String espEspNom, String espEspEsp, 
+            String espEspExp, String espEspCar, String espDep, String espDes,
+            String espPre, String espPos, ArrayList<Paso> espExc, 
+            String espObs) {
         numero++;
         codigo = ToolsSystem.IncrementarCodigo(codigo);
         this.espNombre = new Nombre(codigo, espNom);

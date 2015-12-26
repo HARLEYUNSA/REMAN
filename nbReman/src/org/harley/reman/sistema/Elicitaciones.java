@@ -14,9 +14,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Elicitaciones {
     Elicitacion actual;
-    ArrayList<Elicitacion> versiones;
     ArrayList<Historico> historicos;
-
+    ArrayList<Elicitacion> versiones;
+    
     public Elicitaciones() {
         this.versiones = new ArrayList<>();
         this.historicos = new ArrayList<>();
@@ -34,8 +34,8 @@ public class Elicitaciones {
         return versiones;
     }
     
-@XmlElementWrapper(name = "versiones")
-@XmlElement(name = "version")
+    @XmlElementWrapper(name = "versiones")
+    @XmlElement(name = "version")
     public void setVersiones(ArrayList<Elicitacion> versiones) {
         this.versiones = versiones;
     }
@@ -44,8 +44,8 @@ public class Elicitaciones {
         return historicos;
     }
     
-@XmlElementWrapper(name = "historicos")
-@XmlElement(name = "historico")
+    @XmlElementWrapper(name = "historicos")
+    @XmlElement(name = "historico")
     public void setHistoricos(ArrayList<Historico> historicos) {
         this.historicos = historicos;
     }
