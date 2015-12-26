@@ -94,12 +94,17 @@ public class RequisitoNF {
         this.rnfDes = rnfDes;
         this.rnfObs = rnfObs;
     }
+    
     public static int getNumero() {
         return numero;
     }
 
     public static void setNumero(int numero) {
         RequisitoNF.numero = numero;
+        codigo = "RNF0000";
+        for (int i = 0; i < numero; i++) {
+            codigo = ToolsSystem.IncrementarCodigo(codigo);
+        }
     }
 
     public static String getCodigo() {

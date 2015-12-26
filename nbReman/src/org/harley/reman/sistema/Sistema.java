@@ -41,7 +41,9 @@ public class Sistema {
         propiedades = new Properties();
         stateReman = new Properties();
         dirPrincipal = getStateReman();
-        ingresarProyecto();
+        File f = new File(dirPrincipal);
+        if (f.exists())
+            ingresarProyecto();
     }
 
     /**
@@ -256,9 +258,9 @@ public class Sistema {
             String proUbi) {
         try {
             crearDirectorios();
-            crearStateReman();
             crearPropiedades(proNom, prdNom, empDes, empCli,
                     proLid, fecIni, fecFin, proUbi);
+            ingresarProyecto();
             crearFileRem(proNom);
             iniciarManagers();
             iniciarHistoricos();
