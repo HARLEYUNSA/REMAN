@@ -178,7 +178,7 @@ public class XMLConverter {
         }
         finally {
             //Delete temporal directory
-            clean(fo, xml);
+            //clean(fo, xml);
         }
     }
     

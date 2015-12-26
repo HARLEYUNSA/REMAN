@@ -9,11 +9,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "libroActores")
 @XmlType(propOrder = {
     "intro",
+    "titulo1",
     "stakes",
+    "titulo2",
     "teams"
 })
 public class LibroActor {
     Caratula intro;
+    String titulo1;
+    String titulo2;
     ArrayList<Stakeholder> stakes;
     ArrayList<ProyectTeam> teams;
 
@@ -59,7 +63,25 @@ public class LibroActor {
         }
         this.teams.add(pyt);
     }
+
+    public String getTitulo1() {
+        return titulo1;
+    }
     
+    @XmlElement(name = "titulo")
+    public void setTitulo1(String titulo1) {
+        this.titulo1 = titulo1;
+    }
+
+    public String getTitulo2() {
+        return titulo2;
+    }
+    
+    @XmlElement(name = "titulo")
+    public void setTitulo2(String titulo2) {
+        this.titulo2 = titulo2;
+    }
+
     public ArrayList<String> getFueCod(){
         ArrayList<String> fueNom = new ArrayList<>();
         for (Stakeholder stake : stakes) {

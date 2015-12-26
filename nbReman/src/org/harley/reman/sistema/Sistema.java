@@ -1560,6 +1560,8 @@ public class Sistema {
             lib.addTeam(getProyectTeam(name));
         }
         lib.setIntro(crearCaratula("Actores"));
+        lib.setTitulo1("STAKEHOLDERS");
+        lib.setTitulo2("PROYECT TEAM");
         createLibAct("libAct", lib);
         manLibAct.exportarPDF("libAct", destino, nombre);
     }

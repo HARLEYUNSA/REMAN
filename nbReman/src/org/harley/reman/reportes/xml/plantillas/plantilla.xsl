@@ -237,12 +237,12 @@
 				padding-top="0.4cm" border-bottom-color="rgb(140,180,225)">
     </fo:block>
     <fo:block 	font-family="cambria"  font-size="27pt" 
-				padding-top="0.4cm"
+				padding-top="0.5cm"
 				text-align="center"
 				font-weight="bold">
 				<xsl:apply-templates/>
     </fo:block>
-    <fo:block 	border-bottom-width="0.03cm" border-bottom-style="solid" 
+    <fo:block 	border-bottom-width="0.05cm" border-bottom-style="solid" 
 				margin-bottom="1cm" 
 				border-bottom-color="rgb(140,180,225)">
     </fo:block>
@@ -808,5 +808,10 @@
 			</fo:block>
         </fo:table-cell>
 	</fo:table-row>
+</xsl:template>
+<xsl:template match="titulo">
+	<fo:block text-align="center" padding-top="0.5cm" padding-bottom="0.5cm">
+		<xsl:apply-templates/>
+	</fo:block>   
 </xsl:template>
 </xsl:stylesheet>

@@ -9,10 +9,7 @@ public class MainTest {
         Sistema test = new Sistema();
         test.setDirPrincipal(test.getStateReman());
         test.ingresarProyecto();
-        ArrayList<String> x = test.getOrgNombres();
-        for (String x1 : x) {
-            System.out.println(x1);
-        }
+        test.exportarLibro(5, "D://informes", "LibroAct");
         /*ArrayList<Paso> pas = new ArrayList<>();
         Paso p = new Paso("1","El sistema");
         pas.add(p);
@@ -32,8 +29,8 @@ public class MainTest {
         test.exportarLibro(4, "D://informes", "LibroOrg");
         test.exportarLibro(3, "D://informes", "LibroRnf");
         test.exportarLibro(2, "D://informes", "LibroEsp");
-        test.exportarLibro(1, "D://informes", "LibroEli");*/
-        test.exportarLibro(0, "D://informes", "LibroEdu");
+        test.exportarLibro(1, "D://informes", "LibroEli");
+        test.exportarLibro(0, "D://informes", "LibroEdu");*/
         
         //        test.versionarLibro(0,"1.1","02/03", "yo", "razon"); //
 //        test.versionarEduccion("1.1","02","Yo", "nada", "EDU0001", "Gonzal", "1.0", "zxv", "ad", "a", "b", "c", "d", "e", "f", "g", "g", "a", "a");

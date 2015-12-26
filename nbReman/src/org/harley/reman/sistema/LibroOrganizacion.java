@@ -35,8 +35,8 @@ class LibroOrganizacion {
         return orgs;
     }
 
-    @XmlElementWrapper(name = "tabla")
-    @XmlElement(name = "tablas")
+    @XmlElementWrapper(name = "tablas")
+    @XmlElement(name = "tabla")
     public void setOrgs(ArrayList<Organizacion> orgs) {
         this.orgs = orgs;
     }
