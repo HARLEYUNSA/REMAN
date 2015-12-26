@@ -89,6 +89,7 @@ public class Educcion {
 
     public static void setNumero(int numero) {
         Educcion.numero = numero;
+        codigo = "EDU0000";
         for (int i = 0; i < numero; i++){
             codigo = ToolsSystem.IncrementarCodigo(codigo);
         }
