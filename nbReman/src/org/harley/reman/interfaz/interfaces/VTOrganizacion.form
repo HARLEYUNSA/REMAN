@@ -136,6 +136,22 @@
         <Property name="dialogTitle" type="java.lang.String" value="Seleccione"/>
       </Properties>
     </Component>
+    <Container class="javax.swing.JPopupMenu" name="menuDocAct">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="menuDocActItem1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Exportar a pdf"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDocActItem1ActionPerformed"/>
+          </Events>
+        </MenuItem>
+      </SubComponents>
+    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="maximizable" type="boolean" value="true"/>
