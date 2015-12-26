@@ -357,7 +357,7 @@ public class VProyecto extends JDialog {
             flagIsOk = true;
             this.dispose();
         } else {
-            ToolsInterface.msjError("Error, llenar todos los campos");
+            ToolsInterface.msjError(this, "Error, llenar todos los campos");
         }
     }//GEN-LAST:event_btnPGuardarActionPerformed
 

@@ -267,7 +267,7 @@ public class VEspecialista extends JDialog {
                     + pytNom + " fue creado satisfactoriamente.");
             this.dispose();
         }else{
-            ToolsInterface.msjError("Error, llenar todos los campos");
+            ToolsInterface.msjError(this, "Error, llenar todos los campos");
         }
         
     }//GEN-LAST:event_btnFGuardarActionPerformed

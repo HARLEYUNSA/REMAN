@@ -1,6 +1,5 @@
 package org.harley.reman.interfaz.interfaces;
 
-import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
@@ -258,7 +257,6 @@ public class VOrganizacion extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOCancelarActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnOCancelarActionPerformed
 
@@ -272,7 +270,8 @@ public class VOrganizacion extends JDialog {
         String orgCom = txtOrgComent.getText();
         
         if(orgNom.equals("") || orgDir.equals("") || orgTel.equals("") || 
-                orgPagWeb.equals("") || orgCorEle.equals("")){
+                orgPagWeb.equals("") || orgCorEle.equals("") 
+                || !ToolsInterface.isAlphabetic(orgNom) || !ToolsInterface.isNumber(orgTel)){
             error = true;
         }
         if(!error){
@@ -282,7 +281,7 @@ public class VOrganizacion extends JDialog {
                     + orgNom + " fue creado satisfactoriamente.");
             this.dispose();
         }else{
-            ToolsInterface.msjError("Error, llenar todos los campos");
+            ToolsInterface.msjError(this,"Error, llenar todos los campos");
         }
         
     }//GEN-LAST:event_btnOGuardarActionPerformed

@@ -586,10 +586,10 @@ public class VEduccion extends JDialog {
         String eduFueNom = (String) cmbEDFuente.getSelectedItem();
         String eduFec = dtEDFecha.getText();
         if (sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs)) {
-            ToolsInterface.msjError("Creacion de educcion exitosa");
+            ToolsInterface.msjError(this, "Creacion de educcion exitosa");
             this.dispose();
         } else {
-            ToolsInterface.msjError("Error al crear la educcion");
+            ToolsInterface.msjError(this, "Error al crear la educcion");
         }
     }//GEN-LAST:event_btnVEDGuardarActionPerformed
 

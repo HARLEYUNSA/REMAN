@@ -531,8 +531,12 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {
-        VOrganizacion ventanaO = new VOrganizacion(this, sysReman);
-        ventanaO.setVisible(true);
+        //NUEVA ORGANIZACION
+        VOrganizacion VOrg = new VOrganizacion(this, sysReman);
+        VOrg.setVisible(true);
+        if(VOrg.createSuccessful()){
+            venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+        }
     }
 
     private void btnVPFuenteActionPerformed(java.awt.event.ActionEvent evt) {

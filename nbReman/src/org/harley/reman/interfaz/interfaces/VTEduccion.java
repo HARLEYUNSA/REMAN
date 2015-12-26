@@ -144,7 +144,7 @@ public class VTEduccion extends javax.swing.JInternalFrame {
         if (VEdu.getIsCorrect()) {
             VEdu.setVisible(true);
         } else {
-            ToolsInterface.msjError("Error al cargar los actores del proyecto!");
+            ToolsInterface.msjError(padre, "Error al cargar los actores del proyecto!");
         }
     }//GEN-LAST:event_menuDocEduItem1ActionPerformed
 

@@ -28,12 +28,12 @@ public class ToolsInterface {
         ComboBox.removeAllItems();
     }
 
-    public static void msjError(String msj) {
-        JOptionPane.showMessageDialog(null, msj);
+    public static void msjError(Component frame, String msj) {
+        JOptionPane.showMessageDialog(frame, msj, "Error!", JOptionPane.ERROR_MESSAGE);
     }
     
     public static void msjInfo(Component frame,String title, String msj) {
-        JOptionPane.showMessageDialog(frame, msj, title, JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(frame, msj, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -158,5 +158,23 @@ public class ToolsInterface {
         Pattern pat = Pattern.compile(expReg);
         Matcher mat = pat.matcher(text);
         return mat.find();
+    }
+    
+    public static boolean isNumber(String number){
+        for (int i = 0; i < number.length(); i++) {
+            if(!Character.isDigit(number.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static boolean isAlphabetic(String number){
+        for (int i = 0; i < number.length(); i++) {
+            if(!Character.isAlphabetic(number.charAt(i))){
+                return false;
+            }
+        }
+        return true;
     }
 }

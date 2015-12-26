@@ -1712,8 +1712,6 @@ public class Sistema {
                 cargo.add(getProyectTeam(name).getPytCar());
                 email.add(getProyectTeam(name).getPytCor());
                 comentarios.add(getProyectTeam(name).getPytCom());
-                codigo.add(getProyectTeam(name).getPytNombre().getCodigo());
-                nombre.add(getProyectTeam(name).getPytNombre().getNombre());
             }
         } catch (Exception e) {
         }
