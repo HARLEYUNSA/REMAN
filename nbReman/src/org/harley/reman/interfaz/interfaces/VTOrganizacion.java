@@ -194,7 +194,8 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuDocOrgItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocOrgItem1ActionPerformed
-        //NUEVA EDUCCION
+        //NUEVA ORGANIZACION
+        
     }//GEN-LAST:event_menuDocOrgItem1ActionPerformed
 
     private void menuOrgItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrgItem1ActionPerformed
