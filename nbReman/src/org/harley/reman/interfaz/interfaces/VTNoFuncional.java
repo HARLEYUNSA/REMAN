@@ -139,20 +139,29 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuDocRnfItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocRnfItem1ActionPerformed
-        //NUEVA EDUCCION
+        //NUEVO REQ NO FUNCIONAL
+        VCNoFuncional VNoFun = new VCNoFuncional(padre, sysReman);
+        if (VNoFun.getLoadIsCorrect()) {
+            VNoFun.setVisible(true);
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar los actores del proyecto!");
+        }
+        if (VNoFun.createSuccessful()) {
+            actualizarJTree();
+        } 
     }//GEN-LAST:event_menuDocRnfItem1ActionPerformed
 
     private void menuRnfItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRnfItem1ActionPerformed
-        //MODIFICAR EDUCCION
+        //MODIFICAR REQ NO FUNCIONAL
     }//GEN-LAST:event_menuRnfItem1ActionPerformed
 
     private void menuRnfItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRnfItem2ActionPerformed
-        //ELIMINAR
+        //ELIMINAR REQ NO FUNCIONAL
         int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
     }//GEN-LAST:event_menuRnfItem2ActionPerformed
 
     private void menuRnfItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRnfItem3ActionPerformed
-        //RESTAURAR
+        //RESTAURAR REQ NO FUNCIONAL
     }//GEN-LAST:event_menuRnfItem3ActionPerformed
 
     public void actualizarJTree(){
