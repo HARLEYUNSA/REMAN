@@ -607,13 +607,10 @@ public class VEduccion extends JDialog {
         String eduFueNom = (String) cmbEDFuente.getSelectedItem();
         String eduFec = dtEDFecha.getText();
 
-        if (eduNom.equals("")
-                || !ToolsInterface.isAlphabetic(eduNom)
-                || !ToolsInterface.verificarVersion(eduVer)) {
-            error = true;
-        }
 
-        if (!error) {
+
+        if (ToolsInterface.validaEduccion(eduEspCar, eduFueCar, eduDes, eduEspEsp, eduEspExp, eduNom, eduObj, eduObs, eduTip, eduFueTip, eduVer, eduEspNom, eduFueNom, eduFec) && 
+                ToolsInterface.isAlphabetic(eduNom) && ToolsInterface.verificarVersion(eduVer)) {
             if (sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs)) {
                 flagNewOk = true;
                 ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Educcion \""
