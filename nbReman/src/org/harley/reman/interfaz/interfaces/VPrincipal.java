@@ -21,7 +21,6 @@ public class VPrincipal extends javax.swing.JFrame {
     VTOrganizacion venOrg;
     VTEspecificacion venEsp;
     VTNoFuncional venNoFun;
-    VTInicio venIni;
     Sistema sysReman;
 
     public VPrincipal(Sistema sysReman) {
@@ -48,9 +47,6 @@ public class VPrincipal extends javax.swing.JFrame {
         venNoFun = new VTNoFuncional(this,this.sysReman);
         venOrg = new VTOrganizacion(this,this.sysReman);
 
-        //venIni = new VTInicio();
-        //DeskPanel2.add(venIni);
-        //venIni.show();
         DeskPanel2.add(venEli);
         DeskPanel2.add(venEdu);
         DeskPanel2.add(venOrg);
@@ -585,8 +581,16 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPEduccionActionPerformed(java.awt.event.ActionEvent evt) {
-        VEduccion ventanaEd = new VEduccion(this, sysReman);
-        ventanaEd.setVisible(true);
+        //NUEVA EDUCCION
+        VEduccion VEdu = new VEduccion(this, sysReman);
+        if (VEdu.getLoadIsCorrect()) {
+            VEdu.setVisible(true);
+        } else {
+            ToolsInterface.msjError(this, "Error al cargar los actores del proyecto!");
+        }
+        if (VEdu.createSuccessful()) {
+            venEdu.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\edu"));
+        } 
     }
 
     private void btnVPElicitacionActionPerformed(java.awt.event.ActionEvent evt) {
@@ -600,35 +604,36 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {
-        venOrg.show();
-        venEdu.hide();
-        venEsp.hide();
-        venEli.hide();
-        venNoFun.hide();
+        
+        venOrg.setVisible(true);
+        venEdu.setVisible(false);
+        venEsp.setVisible(false);
+        venEli.setVisible(false);
+        venNoFun.setVisible(false);
     }
 
     private void btnEduccionActionPerformed(java.awt.event.ActionEvent evt) {
-        venEdu.show();
-        venOrg.hide();
-        venEsp.hide();
-        venEli.hide();
-        venNoFun.hide();
+        venEdu.setVisible(true);
+        venOrg.setVisible(false);
+        venEsp.setVisible(false);
+        venEli.setVisible(false);
+        venNoFun.setVisible(false);
     }
 
     private void btnElicitacionActionPerformed(java.awt.event.ActionEvent evt) {
-        venEli.show();
-        venOrg.hide();
-        venEdu.hide();
-        venEsp.hide();
-        venNoFun.hide();
+        venEli.setVisible(true);
+        venOrg.setVisible(false);
+        venEdu.setVisible(false);
+        venEsp.setVisible(false);
+        venNoFun.setVisible(false);
     }
 
     private void btnEspecificacionActionPerformed(java.awt.event.ActionEvent evt) {
-        venEsp.show();
-        venOrg.hide();
-        venEdu.hide();
-        venEli.hide();
-        venNoFun.hide();
+        venEsp.setVisible(true);
+        venOrg.setVisible(false);
+        venEdu.setVisible(false);
+        venEli.setVisible(false);
+        venNoFun.setVisible(false);
     }
 
     private void btnVPAbrirActionPerformed(java.awt.event.ActionEvent evt) {
@@ -657,12 +662,11 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnNoFuncionalActionPerformed(java.awt.event.ActionEvent evt) {
-        venNoFun.show();
-        venEli.hide();
-        venOrg.hide();
-        venEdu.hide();
-        venEsp.hide();
-        venIni.hide();
+        venNoFun.setVisible(true);
+        venEli.setVisible(false);
+        venOrg.setVisible(false);
+        venEdu.setVisible(false);
+        venEsp.setVisible(false);
     }
 
     private void btnVPNoFuncionalActionPerformed(java.awt.event.ActionEvent evt) {

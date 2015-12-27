@@ -28,6 +28,8 @@ public class VEduccion extends JDialog {
         datesFue = this.sysReman.getFuentes();
 
         try {
+            txtEDCodigo.setText(sysReman.getNextEdu());
+
             ToolsInterface.llenarJComboBox(cmbEDEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
             txtEDEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(0));
             txtEDExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(0));
@@ -576,6 +578,7 @@ public class VEduccion extends JDialog {
     }//GEN-LAST:event_btnVEDCancelarActionPerformed
 
     private void btnVEDGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDGuardarActionPerformed
+        boolean error = false;
         String eduEspCar = txtEDCargoE.getText();
         String eduFueCar = txtEDCargoF.getText();
         String eduDes = txtEDDescripcion.getText();
@@ -590,11 +593,23 @@ public class VEduccion extends JDialog {
         String eduEspNom = (String) cmbEDEspecialista.getSelectedItem();
         String eduFueNom = (String) cmbEDFuente.getSelectedItem();
         String eduFec = dtEDFecha.getText();
-        if (sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs)) {
-            ToolsInterface.msjError(this, "Creacion de educcion exitosa");
-            this.dispose();
+
+        if (eduNom.equals("")
+                || !ToolsInterface.isAlphabetic(eduNom)
+                || !ToolsInterface.verificarVersion(eduVer)) {
+            error = true;
+        }
+
+        if (!error) {
+            if (sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs)) {
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Educcion \""
+                        + eduNom + "\" fue creada satisfactoriamente.");
+                this.dispose();
+            } else {
+                ToolsInterface.msjError(this, "Error al crear la Educcion");
+            }
         } else {
-            ToolsInterface.msjError(this, "Error al crear la educcion");
+            ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
         }
     }//GEN-LAST:event_btnVEDGuardarActionPerformed
 

@@ -218,4 +218,18 @@ public class ToolsInterface {
         }
 
     }
+    
+    public static boolean verificarVersion(String version){
+        int lenght = version.length();
+        if(!Character.isDigit(version.charAt(0))){
+            return false;
+        }
+        
+        for (int i = 1; i < lenght; i++) {
+            if(!Character.isDigit(version.charAt(i)) && !Character.isAlphabetic(version.charAt(i)) && version.charAt(i) != '.'){
+                return false;
+            }
+        }
+        return true;
+    }
 }
