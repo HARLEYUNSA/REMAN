@@ -383,7 +383,7 @@ public class ToolsInterface {
             obj[1] = row.getFecha();
             obj[2] = row.getAutor();
             obj[3] = row.getRazon(); 
-            DTtable.addColumn(obj);
+            DTtable.addRow(obj);
         }
     }
 }

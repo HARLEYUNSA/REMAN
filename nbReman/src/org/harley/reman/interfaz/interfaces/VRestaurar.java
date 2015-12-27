@@ -3,6 +3,7 @@ package org.harley.reman.interfaz.interfaces;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Historico;
 import org.harley.reman.sistema.Sistema;
@@ -30,7 +31,7 @@ public class VRestaurar extends JDialog {
         try {
             ToolsInterface.putJTableHistorico(JTVersion, libEdu);
         } catch (Exception e) {
-            ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
+            //ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
         }
 
     }
@@ -158,7 +159,23 @@ public class VRestaurar extends JDialog {
     }//GEN-LAST:event_btnVCancelarActionPerformed
 
     private void btnVGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVGuardarActionPerformed
-        System.out.println("versiona");
+        int select = cmblib.getSelectedIndex();
+        int numRow = JTVersion.getSelectedRow();
+        String version;
+        if (numRow != -1) {
+            int resp = JOptionPane.showConfirmDialog(null, "Se perdera toda la informacion actual del libro a restaurar!", "Alerta!", JOptionPane.YES_NO_OPTION);
+            if (resp == 0) {
+                version = JTVersion.getValueAt(numRow, 0).toString();
+                sysReman.restaurarLibro(select, version);
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "Se recupero la version: " + version);
+                this.dispose();
+            }
+
+        } else {
+            ToolsInterface.msjError(this, "Seleccione una version!");
+        }
+
+
     }//GEN-LAST:event_btnVGuardarActionPerformed
 
     private void cmblibActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmblibActionPerformed
@@ -167,28 +184,28 @@ public class VRestaurar extends JDialog {
                 try {
                     ToolsInterface.putJTableHistorico(JTVersion, libEdu);
                 } catch (Exception e) {
-                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
+                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
                 }
                 break;
             case ELI:
                 try {
                     ToolsInterface.putJTableHistorico(JTVersion, libEli);
                 } catch (Exception e) {
-                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de elicitacion.");
+                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de elicitacion.");
                 }
                 break;
             case ESP:
                 try {
                     ToolsInterface.putJTableHistorico(JTVersion, libEsp);
                 } catch (Exception e) {
-                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de especificacion de req.");
+                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de especificacion de req.");
                 }
                 break;
             case RNF:
                 try {
                     ToolsInterface.putJTableHistorico(JTVersion, libRnf);
                 } catch (Exception e) {
-                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de req no funcionales.");
+                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de req no funcionales.");
                 }
                 break;
         }
