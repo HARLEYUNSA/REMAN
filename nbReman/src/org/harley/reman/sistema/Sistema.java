@@ -429,7 +429,7 @@ public class Sistema {
         }
     }
 
-        /**
+    /**
      *
      * Restaurar una educción
      *
@@ -1820,7 +1820,7 @@ public class Sistema {
      * @param codigo Código del elemento
      * @return Un ArrayList de String que contiene los datos de los históricos
      */
-    public ArrayList<ArrayList<String>> getHist(int libTip, String codigo) {
+    public ArrayList<Historico> getHist(int libTip, String codigo) {
         ArrayList<Historico> his = null;
         switch (libTip) {
             case LIB_EDU:
@@ -1836,7 +1836,7 @@ public class Sistema {
                 his = manVerRnf.leerXML(codigo).getHistoricos();
                 break;
         }
-        return ToolsSystem.getHist(his);
+        return his;
     }
     
     /**
@@ -1864,6 +1864,25 @@ public class Sistema {
                 break;
         }
         return ToolsSystem.getHist(his);
+    }
+    
+    /**
+     *
+     * Restaurar un requisito no funcional
+     * 
+     * @param verCod Código de la versión
+     * @param rnfCod Código del requisito no funcional
+     * @return Un booleano que indica si la función se realizó correctamente
+     */
+    public boolean restaurarVersionRequisitoNF(String verCod, String rnfCod) {
+        try {
+            RequisitosNF verRnf = manVerRnf.leerXML(rnfCod);
+            RequisitoNF rnf = verRnf.getVer(verCod);
+            modificarRequisitoNF(rnf);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     //Facilitadores de acceso
