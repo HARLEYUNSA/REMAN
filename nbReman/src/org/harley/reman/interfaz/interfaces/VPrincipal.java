@@ -661,8 +661,17 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPNoFuncionalActionPerformed(java.awt.event.ActionEvent evt) {
-        VCNoFuncional ventanaNF = new VCNoFuncional();
-        ventanaNF.setVisible(true);
+        //NUEVO REQUISITO NO FUNCIONAL
+        VCNoFuncional ventanaNF = new VCNoFuncional(this, sysReman);
+        if (ventanaNF.getLoadIsCorrect()) {
+            ventanaNF.setVisible(true);
+        } else {
+            ToolsInterface.msjError(this, "Error al cargar los actores del proyecto!");
+        }
+        if (ventanaNF.createSuccessful()) {
+            venEdu.actualizarJTree();
+        } 
+        
     }
 
     private void btnVPImportarActionPerformed(java.awt.event.ActionEvent evt) {
