@@ -15,8 +15,6 @@ public class VEduccion extends JDialog {
     Sistema sysReman;
     ArrayList<ArrayList<String>> datesEsp;
     ArrayList<ArrayList<String>> datesFue;
-    boolean flagLoadOk;
-    boolean flagNewOk;
 
     public VEduccion(JFrame padre, Sistema sysReman) {
         super(padre, true);
@@ -32,21 +30,18 @@ public class VEduccion extends JDialog {
             txtEDEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(0));
             txtEDExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(0));
             txtEDCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(0));
-
+            
             ToolsInterface.llenarJComboBox(cmbEDFuente, datesFue.get(Sistema.FUE_NOMBRE));
             txtEDCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(0));
             txtEDFTipo.setText(datesFue.get(Sistema.FUE_TIPO).get(0));
-            flagLoadOk = true;
         } catch (Exception e) {
         }
     }
 
-    public boolean getLoadIsCorrect() {
-        return flagLoadOk && cmbEDEspecialista.getItemCount() != 0 && cmbEDFuente.getItemCount() != 0;
-    }
-
-    public boolean createSuccessful() {
-        return flagNewOk;
+    public boolean getIsCorrect() {
+        int a = datesEsp.get(0).size(); //cantidad de codigos especialista
+        int b = datesFue.get(0).size(); //cantidad de codigos fuente
+        return !(a == 0 || b == 0);
     }
 
     /**
