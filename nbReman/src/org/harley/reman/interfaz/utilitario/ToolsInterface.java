@@ -142,6 +142,73 @@ public class ToolsInterface {
         return rpt;
     }
 
+    public static boolean validaProyecto(String proNom, String prdNom, String empDes,
+            String empCli, String proLid, String fecIni, String fecFin,
+            String proUbi){
+        boolean error=true;
+        if (empCli.equals("") || empDes.equals("") || proNom.equals("")
+                || prdNom.equals("") || proUbi.equals("") || proLid.equals("") 
+                || fecIni.equals("") || fecFin.equals("")) {
+            error = false;
+        }
+        return error;
+    }
+    public static boolean validaEduccion(String eduEspCar, String eduFueCar, 
+            String eduDes, String eduEspEsp, String eduEspExp, String eduNom, 
+            String eduObj, String eduObs, String eduTip, String eduFueTip,
+            String eduVer, String eduEspNom, String eduFueNom, String eduFec){
+        boolean flag = true;
+        
+        if(eduEspCar.equals("") || eduFueCar.equals("") || eduDes.equals("") ||
+            eduEspEsp.equals("") || eduEspExp.equals("") || eduNom.equals("") ||
+             eduObj.equals("") ||  eduObs.equals("") ||  eduTip.equals("") ||  
+                eduFueTip.equals("") || eduVer.equals("") ||  eduEspNom.equals("")
+                ||  eduFueNom.equals("") ||  eduFec.equals("")){
+            flag = false;
+        }
+        
+        return flag;
+    }
+    
+    public static boolean validaElicitacion(String eliAre, String eliCarEsp, 
+        String eliCarFue, String eliCod, String eliDes, String eliEspEsp,
+        String eliEspExp, String eliNom, String eliObs, String eliPosCon,
+        String eliPreCon, String eliTipfue, String eliVer, String eliEspNom,
+        String eliFueNom, String eliFec){
+        
+        boolean flag = true;
+        
+        if(eliAre.equals("") || eliCarEsp.equals("") || eliCarFue.equals("") ||
+                eliCod.equals("") || eliDes.equals("") || eliEspEsp.equals("") ||
+                eliEspExp.equals("") || eliNom.equals("") || eliObs.equals("") 
+                || eliPosCon.equals("") || eliPreCon.equals("") || eliTipfue.equals("") ||
+                eliVer.equals("") || eliEspNom.equals("") || eliFueNom.equals("") ||
+                eliFec.equals("")){
+            flag = false;
+        }
+  
+        return flag;
+    }
+    
+    public static boolean validaEspecificacion(String espAre, String espCarEsp, 
+        String espCarFue, String espCod, String espDes, String espEspEsp,
+        String espEspExp, String espNom, String espObs, String espPosCon,
+        String espPreCon, String espTipfue, String espVer, String espEspNom,
+        String espFueNom, String espFec){
+        
+        boolean flag = true;
+        
+        if(espAre.equals("") || espCarEsp.equals("") || espCarFue.equals("") ||
+                espCod.equals("") || espDes.equals("") || espEspEsp.equals("") ||
+                espEspExp.equals("") || espNom.equals("") || espObs.equals("") 
+                || espPosCon.equals("") || espPreCon.equals("") || espTipfue.equals("") ||
+                espVer.equals("") || espEspNom.equals("") || espFueNom.equals("") ||
+                espFec.equals("")){
+            flag = false;
+        }
+  
+        return flag;
+    }    
     /**
      * Devuelve si encuentra la expresion regular en el texto indicado
      *
