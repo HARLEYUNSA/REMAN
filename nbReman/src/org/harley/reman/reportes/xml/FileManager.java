@@ -47,10 +47,6 @@ public class FileManager<T> {
         directory.delete();
     }    
 
-    public void exportarPDF(String archivo) {
-        factory.convert(archivo);
-    }
-    
     public void exportarPDF(String xml, String destino, String nombre) {
         factory.convert(xml, destino, nombre);
     }

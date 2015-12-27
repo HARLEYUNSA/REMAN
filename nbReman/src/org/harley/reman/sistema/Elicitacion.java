@@ -286,4 +286,6 @@ public class Elicitacion {
     public void setEliObs(String eliObs) {
         this.eliObs = eliObs;
     }
+    
+    
 }
