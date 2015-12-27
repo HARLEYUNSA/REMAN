@@ -643,7 +643,7 @@ public class VMNoFuncional extends javax.swing.JFrame {
 
     private void btnNFVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNFVersionarActionPerformed
         // TODO add your handling code here:
-        VVersionalElem verElemento = new VVersionalElem();
+        VOEVersionar verElemento = new VOEVersionar();
         verElemento.setVisible(true);
     }//GEN-LAST:event_btnNFVersionarActionPerformed
 

@@ -8,34 +8,59 @@ import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Historico;
 import org.harley.reman.sistema.Sistema;
 
-public class VRestaurar extends JDialog {
+public class VOERestaurar extends JDialog {
 
     Sistema sysReman;
-    ArrayList<Historico> libEdu;
-    ArrayList<Historico> libEli;
-    ArrayList<Historico> libEsp;
-    ArrayList<Historico> libRnf;
+    int tipLib;
+    String codEle;
+    ArrayList<Historico> historic;
     boolean flagOk;
+    boolean flagLoadOk;
 
-    public VRestaurar(JFrame padre, Sistema sysReman) {
+    public VOERestaurar(JFrame padre, Sistema sysReman, String codEle, int tipLib) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
+        this.tipLib = tipLib;
+        this.codEle = codEle;
+        
+        switch (tipLib) {
+            case Sistema.LIB_EDU:
+                txtTitle.setText("EDUCCION: " + codEle);
+                break;
 
-        libEdu = sysReman.getHistLibEdu();
-        libEli = sysReman.getHistLibEli();
-        libEsp = sysReman.getHistLibEsp();
-        libRnf = sysReman.getHistLibRnf();
+            case Sistema.LIB_ELI:
+                txtTitle.setText("ELICITACION: " + codEle);
+                break;
+
+            case Sistema.LIB_ESP:
+                txtTitle.setText("ESPECIFICACION: " + codEle);
+                break;
+
+            case Sistema.LIB_RNF:
+                txtTitle.setText("REQ NO FUNCIONAL: " + codEle);
+                break;
+
+            default:
+                txtTitle.setText("NONE DOC: " + codEle);
+                break;
+        }
 
         try {
-            ToolsInterface.putJTableHistorico(JTVersion, libEdu);
+            historic = sysReman.getHist(tipLib, codEle);
+            ToolsInterface.putJTableHistorico(JTVersion, historic);
+            flagLoadOk = true;
         } catch (Exception e) {
-            //ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
+            flagLoadOk = false;
         }
 
     }
 
+    public boolean getLoadIsCorrect() {
+        return flagLoadOk;
+    }
+    
     public boolean versionSuccessful() {
         return flagOk;
     }
@@ -49,27 +74,15 @@ public class VRestaurar extends JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
-        cmblib = new javax.swing.JComboBox();
         btnVGuardar = new javax.swing.JButton();
         btnVCancelar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTVersion = new javax.swing.JTable();
+        txtTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Versionar");
+        setTitle("Restaurar");
         setResizable(false);
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Libro a Versionar");
-
-        cmblib.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmblib.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Libro Educción", "Libro Elicitación", "Libro Especificación", "Libro Req no Funcional" }));
-        cmblib.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmblibActionPerformed(evt);
-            }
-        });
 
         btnVGuardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnVGuardar.setText("Restaurar");
@@ -115,6 +128,9 @@ public class VRestaurar extends JDialog {
         });
         jScrollPane2.setViewportView(JTVersion);
 
+        txtTitle.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtTitle.setText("title");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,33 +138,29 @@ public class VRestaurar extends JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmblib, 0, 249, Short.MAX_VALUE)
-                        .addGap(301, 301, 301))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnVGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
-                        .addComponent(btnVCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnVCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtTitle)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cmblib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(txtTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVCancelar))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -159,15 +171,31 @@ public class VRestaurar extends JDialog {
     }//GEN-LAST:event_btnVCancelarActionPerformed
 
     private void btnVGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVGuardarActionPerformed
-        int select = cmblib.getSelectedIndex();
         int numRow = JTVersion.getSelectedRow();
         String version;
         if (numRow != -1) {
-            int resp = JOptionPane.showConfirmDialog(null, "Se perdera toda la informacion actual del libro a restaurar!", "Alerta!", JOptionPane.YES_NO_OPTION);
+            int resp = JOptionPane.showConfirmDialog(null, "Se perdera toda la informacion actual del documento a restaurar!", "Alerta!", JOptionPane.YES_NO_OPTION);
             if (resp == 0) {
                 version = JTVersion.getValueAt(numRow, 0).toString();
-                sysReman.restaurarLibro(select, version);
+                switch (tipLib) {
+                    case Sistema.LIB_EDU:
+                        sysReman.restaurarVersionEduccion(version, codEle);
+                        break;
+
+                    case Sistema.LIB_ELI:
+                        sysReman.restaurarVersionElicitacion(version, codEle);
+                        break;
+
+                    case Sistema.LIB_ESP:
+                        sysReman.restaurarVersionEspecificacion(version, codEle);
+                        break;
+
+                    case Sistema.LIB_RNF:
+                        //sysReman.restaurarVersionReqNoFuncional(version, codEle);
+                        break; 
+                }
                 ToolsInterface.msjInfo(this, "Operacion Exitosa", "Se recupero la version: " + version);
+                flagOk = true;
                 this.dispose();
             }
 
@@ -177,39 +205,6 @@ public class VRestaurar extends JDialog {
 
 
     }//GEN-LAST:event_btnVGuardarActionPerformed
-
-    private void cmblibActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmblibActionPerformed
-        switch (cmblib.getSelectedIndex()) {
-            case EDU:
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libEdu);
-                } catch (Exception e) {
-                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
-                }
-                break;
-            case ELI:
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libEli);
-                } catch (Exception e) {
-                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de elicitacion.");
-                }
-                break;
-            case ESP:
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libEsp);
-                } catch (Exception e) {
-                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de especificacion de req.");
-                }
-                break;
-            case RNF:
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libRnf);
-                } catch (Exception e) {
-                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de req no funcionales.");
-                }
-                break;
-        }
-    }//GEN-LAST:event_cmblibActionPerformed
 
     public static final int EDU = 0;
     public static final int ELI = 1;
@@ -221,8 +216,7 @@ public class VRestaurar extends JDialog {
     private javax.swing.JTable JTVersion;
     private javax.swing.JButton btnVCancelar;
     private javax.swing.JButton btnVGuardar;
-    private javax.swing.JComboBox cmblib;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables
 }

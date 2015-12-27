@@ -10,13 +10,13 @@ import org.harley.reman.sistema.Sistema;
  *
  * @author Joel Mendoza
  */
-public class VEspecialista extends JDialog {
+public class VCEspecialista extends JDialog {
 
     Sistema sysReman;
     ArrayList<String> org;
     boolean flagIsOk;
 
-    public VEspecialista(JFrame padre, Sistema sysReman) {
+    public VCEspecialista(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
