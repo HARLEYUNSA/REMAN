@@ -33,7 +33,7 @@ public class VMFuente extends JDialog {
             mySth = sysReman.getStakeholder(codPyt);
             txtFCodigo.setText(codPyt);
             txtFNombre.setText(mySth.getSthNombre().getNombre());
-            ToolsInterface.llenarJComboBox(cmbFOrganizacion, sysReman.getOrgNombres());
+            ToolsInterface.addItems2JComboBox(cmbFOrganizacion, sysReman.getOrgNombres());
             txtFCargo.setText(mySth.getSthCar());
             txtFTipo.setText(mySth.getSthTip());
             txtFEmail.setText(mySth.getSthCorEle());

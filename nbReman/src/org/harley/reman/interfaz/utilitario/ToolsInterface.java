@@ -1,5 +1,6 @@
 package org.harley.reman.interfaz.utilitario;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
@@ -7,9 +8,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import org.harley.reman.sistema.Historico;
 
 /**
  *
@@ -17,7 +21,7 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public class ToolsInterface {
 
-    public static void llenarJComboBox(JComboBox ComboBox, ArrayList<String> arr) {
+    public static void addItems2JComboBox(JComboBox ComboBox, ArrayList<String> arr) {
         ComboBox.removeAllItems();
         for (String arr1 : arr) {
             ComboBox.addItem(arr1);
@@ -147,6 +151,73 @@ public class ToolsInterface {
         return rpt;
     }
 
+    public static boolean validaProyecto(String proNom, String prdNom, String empDes,
+            String empCli, String proLid, String fecIni, String fecFin,
+            String proUbi){
+        boolean error=true;
+        if (empCli.equals("") || empDes.equals("") || proNom.equals("")
+                || prdNom.equals("") || proUbi.equals("") || proLid.equals("") 
+                || fecIni.equals("") || fecFin.equals("")) {
+            error = false;
+        }
+        return error;
+    }
+    public static boolean validaEduccion(String eduEspCar, String eduFueCar, 
+            String eduDes, String eduEspEsp, String eduEspExp, String eduNom, 
+            String eduObj, String eduObs, String eduTip, String eduFueTip,
+            String eduVer, String eduEspNom, String eduFueNom, String eduFec){
+        boolean flag = true;
+        
+        if(eduEspCar.equals("") || eduFueCar.equals("") || eduDes.equals("") ||
+            eduEspEsp.equals("") || eduEspExp.equals("") || eduNom.equals("") ||
+             eduObj.equals("") ||  eduObs.equals("") ||  eduTip.equals("") ||  
+                eduFueTip.equals("") || eduVer.equals("") ||  eduEspNom.equals("")
+                ||  eduFueNom.equals("") ||  eduFec.equals("")){
+            flag = false;
+        }
+        
+        return flag;
+    }
+    
+    public static boolean validaElicitacion(String eliAre, String eliCarEsp, 
+        String eliCarFue, String eliCod, String eliDes, String eliEspEsp,
+        String eliEspExp, String eliNom, String eliObs, String eliPosCon,
+        String eliPreCon, String eliTipfue, String eliVer, String eliEspNom,
+        String eliFueNom, String eliFec){
+        
+        boolean flag = true;
+        
+        if(eliAre.equals("") || eliCarEsp.equals("") || eliCarFue.equals("") ||
+                eliCod.equals("") || eliDes.equals("") || eliEspEsp.equals("") ||
+                eliEspExp.equals("") || eliNom.equals("") || eliObs.equals("") 
+                || eliPosCon.equals("") || eliPreCon.equals("") || eliTipfue.equals("") ||
+                eliVer.equals("") || eliEspNom.equals("") || eliFueNom.equals("") ||
+                eliFec.equals("")){
+            flag = false;
+        }
+  
+        return flag;
+    }
+    
+    public static boolean validaEspecificacion(String espAre, String espCarEsp, 
+        String espCarFue, String espCod, String espDes, String espEspEsp,
+        String espEspExp, String espNom, String espObs, String espPosCon,
+        String espPreCon, String espTipfue, String espVer, String espEspNom,
+        String espFueNom, String espFec){
+        
+        boolean flag = true;
+        
+        if(espAre.equals("") || espCarEsp.equals("") || espCarFue.equals("") ||
+                espCod.equals("") || espDes.equals("") || espEspEsp.equals("") ||
+                espEspExp.equals("") || espNom.equals("") || espObs.equals("") 
+                || espPosCon.equals("") || espPreCon.equals("") || espTipfue.equals("") ||
+                espVer.equals("") || espEspNom.equals("") || espFueNom.equals("") ||
+                espFec.equals("")){
+            flag = false;
+        }
+  
+        return flag;
+    }    
     /**
      * Devuelve si encuentra la expresion regular en el texto indicado
      *
@@ -217,5 +288,102 @@ public class ToolsInterface {
             }
         }
 
+    }
+    
+    public static boolean verificarVersion(String version){
+        int lenght = version.length();
+        if(lenght == 0){
+            return false;
+        }
+        if(!Character.isDigit(version.charAt(0))){
+            return false;
+        }
+        
+        for (int i = 1; i < lenght; i++) {
+            if(!Character.isDigit(version.charAt(i)) && !Character.isAlphabetic(version.charAt(i)) && version.charAt(i) != '.'){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    private static void cleanJTable(JTable table, String[] columns){
+        table.getTableHeader().setReorderingAllowed(false) ;
+        table.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {},columns){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+    }
+    
+    private static void cleanJTable(JTable table, ArrayList<String> columns){
+        int size = columns.size();
+        String[] values = new String[size];
+        for(int i =0;i< size;i++){
+            values[i] = columns.get(i);
+        }
+        table.getTableHeader().setReorderingAllowed(false) ;
+        table.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {},values){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+    }
+    
+    private static void cleanJTable(JTable table){
+        table.getTableHeader().setReorderingAllowed(false) ;
+        table.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {},new String [] {}){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+    }
+    
+    /**
+     * el numero de columns debe coincidir con el numero de atributos del Objeto
+     * @param table     tabla contenedora
+     * @param dates     datos a ingresar
+     * @param columns   columnas
+     */
+    public static void putJTable(JTable table, ArrayList<Object[]> dates, String[] columns){
+        cleanJTable(table, columns);
+        DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
+        for(Object[] row : dates){
+            DTtable.addRow(row); 
+        }
+    }
+     
+    /**
+     * El numero de atributos del Objeto debe coincidir con el numero de columnas de la tabla
+     * @param table     tabla contenedora
+     * @param dates     datos a ingresar
+     */
+    public static void putJTable(JTable table, ArrayList<Object[]> dates){
+        cleanJTable(table);
+        DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
+        for(Object[] row : dates){
+            DTtable.addRow(row); 
+        }
+    }
+    
+    /**
+     * El numero de atributos del Objeto debe coincidir con el numero de columnas de la tabla
+     * @param table     tabla contenedora
+     * @param dates     datos a ingresar
+     */
+    public static void putJTableHistorico(JTable table, ArrayList<Historico> dates){
+        cleanJTable(table,new String[]{"Version","Fecha","Autor","Razon"});
+        DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
+        Object[] obj = new Object[4];
+        for(Historico row : dates){
+            obj[0] = row.getVersion();
+            obj[1] = row.getFecha();
+            obj[2] = row.getAutor();
+            obj[3] = row.getRazon(); 
+            DTtable.addColumn(obj);
+        }
     }
 }

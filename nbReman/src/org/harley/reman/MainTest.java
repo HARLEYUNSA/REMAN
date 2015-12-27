@@ -10,8 +10,6 @@ public class MainTest {
         Sistema test = new Sistema();
         test.setDirPrincipal(test.getStateReman());
         test.ingresarProyecto();
-        test.exportarLibro(4, "D://informes", "LibroOrg");
-
         //test.exportarLibro(0, "D://informes", "LibroEdu");
         /*ArrayList<Paso> pas = new ArrayList<>();
         Paso p = new Paso("1","El sistema");
@@ -19,10 +17,7 @@ public class MainTest {
         Paso p1 = new Paso("2","El usuario");
         pas.add(p1);*/
         //test.crearEduccion("Gonzal", "1.0", "asd", "ad", "a", "b", "c", "d", "e", "f", "g", "g", "a", "a");
-        /*test.versionarEduccion("1.1","ada","esp","cambio","EDU0001","Gonzal", "1.0", "asd", "ad", "a", "b", "c", "d", "e", "f", "g", "g", "a", "a");
-        ArrayList<Historico> his = test.getHistEdu("EDU0001");
-        for(Historico h:his)
-            System.out.println(h.getVersion());*/
+        test.versionarEduccion("1.1","ada","esp","cambio","EDU0001","Gonzal", "1.0", "asd", "ad", "a", "b", "c", "d", "e", "f", "g", "g", "a", "a");
         //test.crearElicitacion("Gonzal", "1.0", "asd", "ad", "a", "b", "c", "d", "e", "f", "g", "g", "a", "a", pas,"b",pas,"o");
         //test.crearEspecificacion("Gonzal", "1.0", "asd", "ad", "a", "b", "c", "d", "e", "f", "g", "g", "a", "a", "b", pas,"b");
         //test.crearReqNoFuncional("Gonzal", "1.0", "asd", "ad", "a", "b", "c", "d", "e", "f", "g", "g", "a", "a","b");

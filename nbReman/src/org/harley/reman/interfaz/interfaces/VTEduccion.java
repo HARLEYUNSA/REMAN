@@ -141,37 +141,48 @@ public class VTEduccion extends javax.swing.JInternalFrame {
     private void menuDocEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEduItem1ActionPerformed
         //NUEVA EDUCCION
         VEduccion VEdu = new VEduccion(padre, sysReman);
-        if (VEdu.getIsCorrect()) {
+        if (VEdu.getLoadIsCorrect()) {
             VEdu.setVisible(true);
         } else {
             ToolsInterface.msjError(padre, "Error al cargar los actores del proyecto!");
         }
+        if (VEdu.createSuccessful()) {
+            actualizarJTree();
+        }       
     }//GEN-LAST:event_menuDocEduItem1ActionPerformed
 
     private void menuEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem1ActionPerformed
         //MODIFICAR EDUCCION
         String path = dirTree.getLastPathComponent().toString();
-        //System.out.println(dirTree.getLastPathComponent().toString());
-        new VMEduccion(sysReman, path).setVisible(true);
+        VMEduccion VEdu = new VMEduccion(padre, sysReman, path);
+        if (VEdu.getLoadIsCorrect()) {
+            VEdu.setVisible(true);
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar los datos de los actores!");
+        }
 
     }//GEN-LAST:event_menuEduItem1ActionPerformed
 
     private void menuEduItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem2ActionPerformed
-        //ELIMINAR
+        //ELIMINAR EDUCCION
+        String path;
         int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
-        if (resp == 1) {
-            String nameXML = dirTree.getLastPathComponent().toString();
-            sysReman.eliminarEduccion(nameXML);
-        }
-
+        if (resp == 0) {
+            path = dirTree.getLastPathComponent().toString();
+            sysReman.eliminarEduccion(path);
+            actualizarJTree();
+            ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente la Educcion: " + path);
+        }     
     }//GEN-LAST:event_menuEduItem2ActionPerformed
 
     private void menuEduItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem3ActionPerformed
         //RESTAURAR
+        
     }//GEN-LAST:event_menuEduItem3ActionPerformed
 
-    public void actualizar(JTree tree) {
-        treeEdu.setModel(tree.getModel());
+    public void actualizarJTree() {
+        JTree Tmodel = ToolsInterface.generateJTreeBook("Documento de Educción", "Educción", sysReman.getDirPrincipal() + "\\src\\edu");
+        treeEdu.setModel(Tmodel.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
