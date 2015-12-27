@@ -13,6 +13,7 @@ public class VOrganizacion extends JDialog {
 
     Sistema sysReman;
     boolean flagNewOk;
+
     public VOrganizacion(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
@@ -20,7 +21,7 @@ public class VOrganizacion extends JDialog {
         this.sysReman = sysReman;
         flagNewOk = false;
         try {
-            txtOCodigo.setText(sysReman.getNextOrg());  
+            txtOCodigo.setText(sysReman.getNextOrg());
         } catch (Exception e) {
         }
     }
@@ -268,32 +269,37 @@ public class VOrganizacion extends JDialog {
         String orgPagWeb = txtOPagina.getText().trim();
         String orgCorEle = txtOEmail.getText().trim();
         String orgCom = txtOrgComent.getText();
-        
-        if(orgNom.equals("") || orgDir.equals("") || orgTel.equals("") || 
-                orgPagWeb.equals("") || orgCorEle.equals("") 
-                || !ToolsInterface.isAlphabetic(orgNom) || !ToolsInterface.isNumber(orgTel)){
+
+        if (orgNom.equals("") || orgDir.equals("") || orgTel.equals("")
+                || orgPagWeb.equals("") || orgCorEle.equals("")
+                || !ToolsInterface.isAlphabetic(orgNom) || !ToolsInterface.isNumber(orgTel)) {
             error = true;
         }
-        if(!error){
-            sysReman.crearOrganizacion(orgNom, orgDir, orgTel, orgPagWeb, orgCorEle, orgCom);
-            flagNewOk = true;
-            ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Organizacion "
-                    + orgNom + " fue creado satisfactoriamente.");
+        if (!error) {
+            if (sysReman.crearOrganizacion(orgNom, orgDir, orgTel, orgPagWeb, orgCorEle, orgCom)) {
+                flagNewOk = true;
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Organizacion \""
+                        + orgNom + "\" fue creado satisfactoriamente.");
+            }else{
+                ToolsInterface.msjError(this, "Error al crear la Organizacion");
+            }
+
             this.dispose();
-        }else{
-            ToolsInterface.msjError(this,"Error, Verificar los campos ingresados!");
+        } else {
+            ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
         }
-        
+
     }//GEN-LAST:event_btnOGuardarActionPerformed
 
     /**
      * Indica si se creo correctamente el Especialista
-     * @return 
+     *
+     * @return
      */
-    public boolean createSuccessful(){
+    public boolean createSuccessful() {
         return flagNewOk;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOCancelar;
     private javax.swing.JButton btnOGuardar;

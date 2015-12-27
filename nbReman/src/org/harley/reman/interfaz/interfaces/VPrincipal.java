@@ -2,6 +2,7 @@ package org.harley.reman.interfaz.interfaces;
 
 import java.beans.PropertyVetoException;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
@@ -20,7 +21,6 @@ public class VPrincipal extends javax.swing.JFrame {
     VTOrganizacion venOrg;
     VTEspecificacion venEsp;
     VTNoFuncional venNoFun;
-    VTInicio venIni;
     Sistema sysReman;
 
     public VPrincipal(Sistema sysReman) {
@@ -47,9 +47,6 @@ public class VPrincipal extends javax.swing.JFrame {
         venNoFun = new VTNoFuncional(this,this.sysReman);
         venOrg = new VTOrganizacion(this,this.sysReman);
 
-        //venIni = new VTInicio();
-        //DeskPanel2.add(venIni);
-        //venIni.show();
         DeskPanel2.add(venEli);
         DeskPanel2.add(venEdu);
         DeskPanel2.add(venOrg);
@@ -114,10 +111,9 @@ public class VPrincipal extends javax.swing.JFrame {
         DeskPanel2 = new javax.swing.JDesktopPane();
         menuReman = new javax.swing.JMenuBar();
         mnVPArchivo = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        mnArchivo_Nuevo = new javax.swing.JMenuItem();
+        mnArchivo_Abrir = new javax.swing.JMenuItem();
+        mnArchivo_Salir = new javax.swing.JMenuItem();
         mnVPEditar = new javax.swing.JMenu();
         mnVPVer = new javax.swing.JMenu();
         mnVPHerramienta = new javax.swing.JMenu();
@@ -409,36 +405,32 @@ public class VPrincipal extends javax.swing.JFrame {
 
         mnVPArchivo.setText("Archivo");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Nuevo");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mnArchivo_Nuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        mnArchivo_Nuevo.setText("Nuevo");
+        mnArchivo_Nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mnArchivo_NuevoActionPerformed(evt);
             }
         });
-        mnVPArchivo.add(jMenuItem1);
+        mnVPArchivo.add(mnArchivo_Nuevo);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Abrir");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        mnArchivo_Abrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        mnArchivo_Abrir.setText("Abrir");
+        mnArchivo_Abrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                mnArchivo_AbrirActionPerformed(evt);
             }
         });
-        mnVPArchivo.add(jMenuItem2);
+        mnVPArchivo.add(mnArchivo_Abrir);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("Guardar");
-        mnVPArchivo.add(jMenuItem3);
-
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem4.setText("Salir");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        mnArchivo_Salir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        mnArchivo_Salir.setText("Salir");
+        mnArchivo_Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                mnArchivo_SalirActionPerformed(evt);
             }
         });
-        mnVPArchivo.add(jMenuItem4);
+        mnVPArchivo.add(mnArchivo_Salir);
 
         menuReman.add(mnVPArchivo);
 
@@ -507,6 +499,34 @@ public class VPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void mnArchivo_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnArchivo_NuevoActionPerformed
+        VProyecto VNProyect = new VProyecto(this, sysReman);
+        VNProyect.setVisible(true);
+        if (VNProyect.createSuccessful()) {
+            actualizarJTrees();
+        }
+    }//GEN-LAST:event_mnArchivo_NuevoActionPerformed
+
+    private void mnArchivo_AbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnArchivo_AbrirActionPerformed
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos Reman", "rem");
+        ExportarFile.setFileFilter(filtro);
+        int opt = ExportarFile.showOpenDialog(this);
+        String direccion = "";
+        if (opt == JFileChooser.APPROVE_OPTION) {
+            direccion = ExportarFile.getSelectedFile().getParent();
+            sysReman.setDirPrincipal(direccion);
+            sysReman.setStateReman(direccion);
+            actualizarJTrees();
+        }
+    }//GEN-LAST:event_mnArchivo_AbrirActionPerformed
+
+    private void mnArchivo_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnArchivo_SalirActionPerformed
+        int resp = JOptionPane.showConfirmDialog(null, "Esta Seguro de Salir de REMAN?", "Alerta!", JOptionPane.YES_NO_OPTION);
+        if (resp == 0) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_mnArchivo_SalirActionPerformed
+
     private void btnVPNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         VProyecto VNProyect = new VProyecto(this, sysReman);
         VNProyect.setVisible(true);
@@ -561,8 +581,16 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPEduccionActionPerformed(java.awt.event.ActionEvent evt) {
-        VEduccion ventanaEd = new VEduccion(this, sysReman);
-        ventanaEd.setVisible(true);
+        //NUEVA EDUCCION
+        VEduccion VEdu = new VEduccion(this, sysReman);
+        if (VEdu.getLoadIsCorrect()) {
+            VEdu.setVisible(true);
+        } else {
+            ToolsInterface.msjError(this, "Error al cargar los actores del proyecto!");
+        }
+        if (VEdu.createSuccessful()) {
+            venEdu.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\edu"));
+        } 
     }
 
     private void btnVPElicitacionActionPerformed(java.awt.event.ActionEvent evt) {
@@ -576,35 +604,36 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {
-        venOrg.show();
-        venEdu.hide();
-        venEsp.hide();
-        venEli.hide();
-        venNoFun.hide();
+        
+        venOrg.setVisible(true);
+        venEdu.setVisible(false);
+        venEsp.setVisible(false);
+        venEli.setVisible(false);
+        venNoFun.setVisible(false);
     }
 
     private void btnEduccionActionPerformed(java.awt.event.ActionEvent evt) {
-        venEdu.show();
-        venOrg.hide();
-        venEsp.hide();
-        venEli.hide();
-        venNoFun.hide();
+        venEdu.setVisible(true);
+        venOrg.setVisible(false);
+        venEsp.setVisible(false);
+        venEli.setVisible(false);
+        venNoFun.setVisible(false);
     }
 
     private void btnElicitacionActionPerformed(java.awt.event.ActionEvent evt) {
-        venEli.show();
-        venOrg.hide();
-        venEdu.hide();
-        venEsp.hide();
-        venNoFun.hide();
+        venEli.setVisible(true);
+        venOrg.setVisible(false);
+        venEdu.setVisible(false);
+        venEsp.setVisible(false);
+        venNoFun.setVisible(false);
     }
 
     private void btnEspecificacionActionPerformed(java.awt.event.ActionEvent evt) {
-        venNoFun.hide();
-        venEsp.show();
-        venOrg.hide();
-        venEdu.hide();
-        venEli.hide();
+        venEsp.setVisible(true);
+        venOrg.setVisible(false);
+        venEdu.setVisible(false);
+        venEli.setVisible(false);
+        venNoFun.setVisible(false);
     }
 
     private void btnVPAbrirActionPerformed(java.awt.event.ActionEvent evt) {
@@ -633,12 +662,11 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnNoFuncionalActionPerformed(java.awt.event.ActionEvent evt) {
-        venNoFun.show();
-        venEli.hide();
-        venOrg.hide();
-        venEdu.hide();
-        venEsp.hide();
-        venIni.hide();
+        venNoFun.setVisible(true);
+        venEli.setVisible(false);
+        venOrg.setVisible(false);
+        venEdu.setVisible(false);
+        venEsp.setVisible(false);
     }
 
     private void btnVPNoFuncionalActionPerformed(java.awt.event.ActionEvent evt) {
@@ -689,10 +717,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnVPOrganizacion;
     private javax.swing.JButton btnVPVersionar;
     private javax.swing.JToolBar herramientasReman;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
@@ -704,6 +728,9 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JMenuBar menuReman;
+    private javax.swing.JMenuItem mnArchivo_Abrir;
+    private javax.swing.JMenuItem mnArchivo_Nuevo;
+    private javax.swing.JMenuItem mnArchivo_Salir;
     private javax.swing.JMenu mnVPArchivo;
     private javax.swing.JMenu mnVPAyuda;
     private javax.swing.JMenu mnVPEditar;

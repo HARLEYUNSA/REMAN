@@ -17,8 +17,8 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public class ToolsInterface {
 
-    public static void llenarJComboBox(JComboBox ComboBox, ArrayList<String> arr) {
-        ComboBox.removeAllItems();
+    public static void addItems2JComboBox(JComboBox ComboBox, ArrayList<String> arr) {
+        //ComboBox.removeAllItems();
         for (String arr1 : arr) {
             ComboBox.addItem(arr1);
         }
@@ -217,5 +217,22 @@ public class ToolsInterface {
             }
         }
 
+    }
+    
+    public static boolean verificarVersion(String version){
+        int lenght = version.length();
+        if(lenght == 0){
+            return false;
+        }
+        if(!Character.isDigit(version.charAt(0))){
+            return false;
+        }
+        
+        for (int i = 1; i < lenght; i++) {
+            if(!Character.isDigit(version.charAt(i)) && !Character.isAlphabetic(version.charAt(i)) && version.charAt(i) != '.'){
+                return false;
+            }
+        }
+        return true;
     }
 }

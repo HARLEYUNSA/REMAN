@@ -26,7 +26,7 @@ public class VFuente extends JDialog {
         flagIsOk = false;
 
         try {
-            ToolsInterface.llenarJComboBox(cmbFOrganizacion, org);
+            ToolsInterface.addItems2JComboBox(cmbFOrganizacion, org);
             txtFCodigo.setText(sysReman.getNextSth());
         } catch (Exception e) {
         }

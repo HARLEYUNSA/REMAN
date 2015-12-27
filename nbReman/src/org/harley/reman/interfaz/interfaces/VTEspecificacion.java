@@ -31,7 +31,7 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
                 treeEsp.setSelectionPath(dirTree);
                 if (dirTree != null) {
                     switch (dirTree.getLastPathComponent().toString()) {
-                        case "Documento de Espesificación":
+                        case "Documento de Especificación":
                             break;
                         case "Espesificación":
                             menuDocEsp.show(e.getComponent(), e.getX(), e.getY() + 10);
