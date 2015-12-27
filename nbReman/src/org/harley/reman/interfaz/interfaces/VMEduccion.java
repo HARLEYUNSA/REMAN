@@ -42,6 +42,7 @@ public class VMEduccion extends JDialog {
             txtEDVersion.setText(myEdu.getEduVer());
             txtEDDescripcion.setText(myEdu.getEduDes());
             txtEDObservaciones.setText(myEdu.getEduObs());
+            txtEDObjetivo.setText(myEdu.getEduObj());
 
             //cargar y sleccionar el actor de la educcion
             ToolsInterface.addItems2JComboBox(cmbEDEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
@@ -74,7 +75,6 @@ public class VMEduccion extends JDialog {
 
             //cargar historial
             ToolsInterface.putJTableHistorico(JTversion, sysReman.getHist(Sistema.LIB_EDU, eduCod));
-            System.out.println(sysReman.getHist(0, eduCod).size());
             flagLoadOk = true;
         } catch (Exception e) {
         }
