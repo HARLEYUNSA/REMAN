@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
 
 /**
@@ -155,8 +156,9 @@ public class VTElicitacion extends javax.swing.JInternalFrame {
         //RESTAURAR
     }//GEN-LAST:event_menuEliItem3ActionPerformed
 
-    public void actualizar(JTree tree){
-        treeEli.setModel(tree.getModel());
+    public void actualizarJTree(){
+        JTree model = ToolsInterface.generateJTreeBook("Documento de Elicitación", "Elicitación", sysReman.getDirPrincipal() + "\\src\\eli");
+        treeEli.setModel(model.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

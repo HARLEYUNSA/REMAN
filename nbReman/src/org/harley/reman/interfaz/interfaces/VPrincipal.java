@@ -61,13 +61,13 @@ public class VPrincipal extends javax.swing.JFrame {
         btnVPElicitacion.setToolTipText("Agregar Elicitacion");
         btnVPEspecialista.setToolTipText("Agregar Especialista");
         btnVPEspecificiacion.setToolTipText("Agregar Especificacion");
-        btnVPExportar.setToolTipText("Exportar Documento");
+        btnVPExportar.setToolTipText("Exportar Libro");
         btnVPFuente.setToolTipText("Agregar Fuente");
-        btnVPImportar.setToolTipText("Importar Documento");
+        btnVPImportar.setToolTipText("Importar Libro");
         btnVPNoFuncional.setToolTipText("Agregar No Funcional");
         btnVPNuevo.setToolTipText("Nuevo Proyecto");
         btnVPOrganizacion.setToolTipText("Agregar Organizacion");
-        btnVPVersionar.setToolTipText("Versionar Documento");
+        btnVPVersionar.setToolTipText("Versionar Libro");
     }
 
     /**
@@ -535,14 +535,14 @@ public class VPrincipal extends javax.swing.JFrame {
         }
     }
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
-        VProyecto ventanaProyecto = new VProyecto(this, sysReman);
-        ventanaProyecto.setVisible(true);
-    }
-
     private void btnVPVersionarActionPerformed(java.awt.event.ActionEvent evt) {
-        VVersionar ventanaVersionar = new VVersionar();
-        ventanaVersionar.setVisible(true);
+        //VERSIONAR UN LIBRO
+        VVersionar VLib = new VVersionar(this, sysReman);
+        if(VLib.getLoadIsCorrect()){
+            VLib.setVisible(true);
+        }else{
+            ToolsInterface.msjError(this,"Error al cargar los actores especialistas!");
+        }
     }
 
     private void btnVPEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {
@@ -554,7 +554,7 @@ public class VPrincipal extends javax.swing.JFrame {
             ToolsInterface.msjError(this,"Error al cargar las Organizaciones!");
         }
         if(VEsp.createSuccessful()){
-            venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            venOrg.actualizarJTree();
         }
     }
 
@@ -563,7 +563,7 @@ public class VPrincipal extends javax.swing.JFrame {
         VOrganizacion VOrg = new VOrganizacion(this, sysReman);
         VOrg.setVisible(true);
         if(VOrg.createSuccessful()){
-            venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            venOrg.actualizarJTree();
         }
     }
 
@@ -576,7 +576,7 @@ public class VPrincipal extends javax.swing.JFrame {
             ToolsInterface.msjError(this, "Error al cargar las Organizaciones!");
         }
         if(VFue.createSuccessful()){
-            venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            venOrg.actualizarJTree();
         }
     }
 
@@ -589,7 +589,7 @@ public class VPrincipal extends javax.swing.JFrame {
             ToolsInterface.msjError(this, "Error al cargar los actores del proyecto!");
         }
         if (VEdu.createSuccessful()) {
-            venEdu.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\edu"));
+            venEdu.actualizarJTree();
         } 
     }
 
@@ -603,8 +603,7 @@ public class VPrincipal extends javax.swing.JFrame {
         ventanaEs.setVisible(true);
     }
 
-    private void btnOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {
-        
+    private void btnOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {     
         venOrg.setVisible(true);
         venEdu.setVisible(false);
         venEsp.setVisible(false);
@@ -649,14 +648,6 @@ public class VPrincipal extends javax.swing.JFrame {
         }
     }
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {
-        this.btnVPAbrirActionPerformed(evt);
-    }
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {
-        System.exit(0);
-    }
-
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {
         this.btnVPVersionarActionPerformed(evt);
     }
@@ -675,21 +666,22 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPImportarActionPerformed(java.awt.event.ActionEvent evt) {
-        VRestaura vrestaura = new VRestaura();
-        vrestaura.setVisible(true);
+        //RESTAURAR UN LIBRO
+        VRestaurar VLib = new VRestaurar(this, sysReman);
+        VLib.setVisible(true);
     }
 
     private void btnVPExportarActionPerformed(java.awt.event.ActionEvent evt) {
-        VExportar vexporta = new VExportar();
-        vexporta.setVisible(true);
+        VExportar VExp = new VExportar(this, sysReman);
+        VExp.setVisible(true);
     }
 
     private void actualizarJTrees() {
-        venEdu.actualizar(ToolsInterface.generateJTreeBook("Documento de Educción", "Educción", sysReman.getDirPrincipal() + "\\src\\edu"));
-        venEli.actualizar(ToolsInterface.generateJTreeBook("Documento de Elicitación", "Elicitación", sysReman.getDirPrincipal() + "\\src\\eli"));
-        venEsp.actualizar(ToolsInterface.generateJTreeBook("Documento de Espesificación", "Espesificación", sysReman.getDirPrincipal() + "\\src\\esp"));
-        venNoFun.actualizar(ToolsInterface.generateJTreeBook("Documento de Req no Funcional", "Req no Funcional", sysReman.getDirPrincipal() + "\\src\\rnf"));
-        venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+        venEdu.actualizarJTree();
+        venEli.actualizarJTree();
+        venEsp.actualizarJTree();
+        venNoFun.actualizarJTree();
+        venOrg.actualizarJTree();
     }
 
 

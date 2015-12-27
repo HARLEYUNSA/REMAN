@@ -1,5 +1,6 @@
 package org.harley.reman.interfaz.utilitario;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
@@ -7,9 +8,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import org.harley.reman.sistema.Historico;
 
 /**
  *
@@ -18,7 +22,7 @@ import javax.swing.tree.DefaultTreeModel;
 public class ToolsInterface {
 
     public static void addItems2JComboBox(JComboBox ComboBox, ArrayList<String> arr) {
-        //ComboBox.removeAllItems();
+        ComboBox.removeAllItems();
         for (String arr1 : arr) {
             ComboBox.addItem(arr1);
         }
@@ -234,5 +238,85 @@ public class ToolsInterface {
             }
         }
         return true;
+    }
+    
+    private static void cleanJTable(JTable table, String[] columns){
+        table.getTableHeader().setReorderingAllowed(false) ;
+        table.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {},columns){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+    }
+    
+    private static void cleanJTable(JTable table, ArrayList<String> columns){
+        int size = columns.size();
+        String[] values = new String[size];
+        for(int i =0;i< size;i++){
+            values[i] = columns.get(i);
+        }
+        table.getTableHeader().setReorderingAllowed(false) ;
+        table.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {},values){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+    }
+    
+    private static void cleanJTable(JTable table){
+        table.getTableHeader().setReorderingAllowed(false) ;
+        table.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {},new String [] {}){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+    }
+    
+    /**
+     * el numero de columns debe coincidir con el numero de atributos del Objeto
+     * @param table     tabla contenedora
+     * @param dates     datos a ingresar
+     * @param columns   columnas
+     */
+    public static void putJTable(JTable table, ArrayList<Object[]> dates, String[] columns){
+        cleanJTable(table, columns);
+        DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
+        for(Object[] row : dates){
+            DTtable.addRow(row); 
+        }
+    }
+     
+    /**
+     * El numero de atributos del Objeto debe coincidir con el numero de columnas de la tabla
+     * @param table     tabla contenedora
+     * @param dates     datos a ingresar
+     */
+    public static void putJTable(JTable table, ArrayList<Object[]> dates){
+        cleanJTable(table);
+        DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
+        for(Object[] row : dates){
+            DTtable.addRow(row); 
+        }
+    }
+    
+    /**
+     * El numero de atributos del Objeto debe coincidir con el numero de columnas de la tabla
+     * @param table     tabla contenedora
+     * @param dates     datos a ingresar
+     */
+    public static void putJTableHistorico(JTable table, ArrayList<Historico> dates){
+        cleanJTable(table,new String[]{"Version","Fecha","Autor","Razon"});
+        DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
+        Object[] obj = new Object[4];
+        for(Historico row : dates){
+            obj[0] = row.getVersion();
+            obj[1] = row.getFecha();
+            obj[2] = row.getAutor();
+            obj[3] = row.getRazon(); 
+            DTtable.addColumn(obj);
+        }
     }
 }

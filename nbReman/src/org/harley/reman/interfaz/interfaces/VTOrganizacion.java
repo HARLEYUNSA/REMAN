@@ -231,7 +231,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         VOrganizacion VOrg = new VOrganizacion(padre, sysReman);
         VOrg.setVisible(true);
         if (VOrg.createSuccessful()) {
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
         }
     }//GEN-LAST:event_menuDocOrgItem1ActionPerformed
 
@@ -253,7 +253,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         if (resp == 0) {
             path = dirTree.getLastPathComponent().toString();
             sysReman.eliminarOrganizacion(path);
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
             ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente la Organizacion " + path);
         }
 
@@ -268,7 +268,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             ToolsInterface.msjError(padre, "Error al cargar las Organizaciones!");
         }
         if (VEsp.createSuccessful()) {
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
         }
     }//GEN-LAST:event_menuDocPytItem1ActionPerformed
 
@@ -290,7 +290,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         if (resp == 0) {
             path = dirTree.getLastPathComponent().toString();
             sysReman.eliminarProyectTeam(path);
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
             ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente el Especialista " + path);
         }
     }//GEN-LAST:event_menuPytItem2ActionPerformed
@@ -304,7 +304,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             ToolsInterface.msjError(padre, "Error al cargar las Organizaciones!");
         }
         if (VFue.createSuccessful()) {
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
         }
     }//GEN-LAST:event_menuDocSthItem1ActionPerformed
 
@@ -315,7 +315,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         if (resp == 0) {
             path = dirTree.getLastPathComponent().toString();
             sysReman.eliminarStakeholder(path);
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
             ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente la Fuente " + path);
         }
     }//GEN-LAST:event_menuSthItem2ActionPerformed
@@ -369,8 +369,9 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_menuDocActItem1ActionPerformed
 
-    public void actualizar(JTree tree) {
-        treeOrgMain.setModel(tree.getModel());
+    public void actualizarJTree() {
+        JTree model = ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org");
+        treeOrgMain.setModel(model.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

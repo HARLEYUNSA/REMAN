@@ -1,20 +1,31 @@
-
 package org.harley.reman.interfaz.interfaces;
 
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
  * @author Joel Mendoza
  */
-public class VExportar extends javax.swing.JFrame {
+public class VExportar extends JDialog {
 
-    /**
-     * Creates new form VExportar
-     */
-    public VExportar() {
+    Sistema sysReman;
+    String direccion;
+    String nombre;
+
+    public VExportar(JFrame padre, Sistema sysReman) {
+        super(padre, true);
         initComponents();
+        this.setLocationRelativeTo(null);
+
+        this.sysReman = sysReman;
+        direccion = "";
+        nombre = "";
+
     }
 
     /**
@@ -30,11 +41,8 @@ public class VExportar extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         txtENombre = new javax.swing.JTextField();
         cmbELibro = new javax.swing.JComboBox();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
         btnECancelar = new javax.swing.JButton();
         btnEExportar = new javax.swing.JButton();
         btnEFileChooser = new javax.swing.JButton();
@@ -42,20 +50,19 @@ public class VExportar extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Exportar");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Nombre del Documento");
 
-        jLabel2.setText("Exportar Libro");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("Exportar");
 
-        jLabel3.setText("Extensión");
+        txtENombre.setEditable(false);
+        txtENombre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        cmbELibro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbELibro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cmbELibro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Libro Educción", "Libro Elicitación", "Libro Especificación", "Libro Req no Funcional", "Libro Organización", "Libro Actores" }));
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Word");
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("PDF");
-
+        btnECancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnECancelar.setText("Cancelar");
         btnECancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,6 +70,7 @@ public class VExportar extends javax.swing.JFrame {
             }
         });
 
+        btnEExportar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnEExportar.setText("Exportar");
         btnEExportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +78,7 @@ public class VExportar extends javax.swing.JFrame {
             }
         });
 
+        btnEFileChooser.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnEFileChooser.setText("...");
         btnEFileChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,32 +91,27 @@ public class VExportar extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton1)
+                    .addComponent(jLabel1))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtENombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 30, Short.MAX_VALUE)
+                        .addComponent(btnECancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(txtENombre)
+                        .addGap(18, 18, 18)
                         .addComponent(btnEFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbELibro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(34, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEExportar)
-                .addGap(34, 34, 34)
-                .addComponent(btnECancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                    .addComponent(cmbELibro, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(79, 79, 79))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtENombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -116,47 +120,48 @@ public class VExportar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cmbELibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jRadioButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton2)
-                .addGap(43, 43, 43)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnECancelar)
                     .addComponent(btnEExportar))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEExportarActionPerformed
-        // TODO add your handling code here:
-        
+        if (direccion.equals("") || nombre.equals("")) {
+            ToolsInterface.msjError(this, "Seleccione un ruta para exportar el libro");
+        } else {
+            if (!sysReman.exportarLibro(cmbELibro.getSelectedIndex(), direccion, nombre)) {
+                ToolsInterface.msjError(this, "Error al cargar los datos del libro, reviselos antes de continuar la operacion!");
+            } else {
+                this.dispose();
+            }
+        }
+
+
     }//GEN-LAST:event_btnEExportarActionPerformed
 
     private void btnECancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnECancelarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnECancelarActionPerformed
 
     private void btnEFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEFileChooserActionPerformed
-        // TODO add your handling code here:
-        FileNameExtensionFilter filtro=new FileNameExtensionFilter("Archivos pdf & doc","pdf","doc","docx");
-        ExportarFile.setFileFilter(filtro);
-        
-        int a = ExportarFile.showDialog(VExportar.this,"Exportar");
-        if(a==JFileChooser.APPROVE_OPTION){
-            String carpeta = ExportarFile.getSelectedFile().getParent();
-            String nombre = ExportarFile.getSelectedFile().getName();
-            String direccion = ExportarFile.getSelectedFile().getAbsolutePath();
-            System.out.println("carpeta: "+carpeta + " archivo "+ nombre);
-            txtENombre.setText(direccion);
+        int opt = ExportarFile.showSaveDialog(this);
+
+        if (opt == JFileChooser.APPROVE_OPTION) {
+            direccion = ExportarFile.getSelectedFile().getParent().trim();
+            nombre = ExportarFile.getSelectedFile().getName().trim();
+            nombre = ToolsInterface.addExtensionPdf(nombre);
+            if (nombre.equals("error")) {
+                ToolsInterface.msjError(this, "Error con el nombre del archivo, intentelo nuevamente!");
+            } else {
+                txtENombre.setText(direccion + "\\" + nombre + ".pdf");
+            }
         }
     }//GEN-LAST:event_btnEFileChooserActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -168,9 +173,6 @@ public class VExportar extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbELibro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField txtENombre;
     // End of variables declaration//GEN-END:variables
 }
