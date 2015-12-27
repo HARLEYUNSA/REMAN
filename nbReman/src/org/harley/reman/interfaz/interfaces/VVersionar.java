@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Historico;
 import org.harley.reman.sistema.Sistema;
+import org.harley.reman.sistema.ToolsSystem;
 
 public class VVersionar extends JDialog {
 
@@ -34,11 +35,11 @@ public class VVersionar extends JDialog {
         } catch (Exception e) {
             flagLoadOk = false;
         }
-        
+
         try {
             ToolsInterface.putJTableHistorico(JTVersion, libEdu);
         } catch (Exception e) {
-            ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
+            //ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
         }
 
     }
@@ -70,7 +71,7 @@ public class VVersionar extends JDialog {
         cmbVAutor = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtRzcam = new javax.swing.JTextArea();
         dtEDFecha = new datechooser.beans.DateChooserCombo();
         btnVGuardar = new javax.swing.JButton();
         btnVCancelar = new javax.swing.JButton();
@@ -102,9 +103,9 @@ public class VVersionar extends JDialog {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Razon");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtRzcam.setColumns(20);
+        txtRzcam.setRows(5);
+        jScrollPane1.setViewportView(txtRzcam);
 
         dtEDFecha.setEnabled(false);
 
@@ -280,8 +281,80 @@ public class VVersionar extends JDialog {
     }//GEN-LAST:event_btnVCancelarActionPerformed
 
     private void btnVGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVGuardarActionPerformed
-        System.out.println("versiona");
+        String version = txtVVersion.getText().trim();
+        String fecha = dtEDFecha.getText().trim();
+        String autor = (String) cmbVAutor.getSelectedItem();
+        String rzcam = txtRzcam.getText();
+        int select = cmblib.getSelectedIndex();
+        String lastVersion = "0.1";
+        try {
+            switch (select) {
+                case Sistema.LIB_EDU:
+                    lastVersion = libEdu.get(libEdu.size() - 1).getVersion();
+                    break;
+                case Sistema.LIB_ELI:
+                    lastVersion = libEli.get(libEli.size() - 1).getVersion();
+                    break;
+                case Sistema.LIB_ESP:
+                    lastVersion = libEsp.get(libEsp.size() - 1).getVersion();
+                    break;
+                case Sistema.LIB_RNF:
+                    lastVersion = libRnf.get(libRnf.size() - 1).getVersion();
+                    break;
+            }
+        } catch (Exception e) {
+        }
+
+        if (ToolsInterface.verificarVersion(version)) {
+            if (ToolsSystem.CompararVersiones(version, lastVersion)) {
+                sysReman.versionarLibro(select, version, fecha, rzcam, autor);
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "Se versiono correctamente");
+                actualizarJTable(select);
+            } else {
+                ToolsInterface.msjError(this, "Utilice una version superior a la ultima desarrollada!");
+            }
+        } else {
+            ToolsInterface.msjError(this, "Escriba correctamente la version!");
+        }
+
+
     }//GEN-LAST:event_btnVGuardarActionPerformed
+
+    private void actualizarJTable(int select) {
+        switch (select) {
+            case Sistema.LIB_EDU:
+                libEdu = sysReman.getHistLibEdu();
+                try {
+                    ToolsInterface.putJTableHistorico(JTVersion, libEdu);
+                } catch (Exception e) {
+                }
+
+                break;
+            case Sistema.LIB_ELI:
+                libEli = sysReman.getHistLibEli();
+                try {
+                    ToolsInterface.putJTableHistorico(JTVersion, libEli);
+                } catch (Exception e) {
+                }
+
+                break;
+            case Sistema.LIB_ESP:
+                libEsp = sysReman.getHistLibEsp();
+                try {
+                    ToolsInterface.putJTableHistorico(JTVersion, libEsp);
+                } catch (Exception e) {
+                }
+
+                break;
+            case Sistema.LIB_RNF:
+                libRnf = sysReman.getHistLibRnf();
+                try {
+                    ToolsInterface.putJTableHistorico(JTVersion, libRnf);
+                } catch (Exception e) {
+                }
+                break;
+        }
+    }
 
     private void cmblibActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmblibActionPerformed
         switch (cmblib.getSelectedIndex()) {
@@ -289,28 +362,28 @@ public class VVersionar extends JDialog {
                 try {
                     ToolsInterface.putJTableHistorico(JTVersion, libEdu);
                 } catch (Exception e) {
-                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
+                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
                 }
                 break;
             case ELI:
                 try {
                     ToolsInterface.putJTableHistorico(JTVersion, libEli);
                 } catch (Exception e) {
-                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de elicitacion.");
+                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de elicitacion.");
                 }
                 break;
             case ESP:
                 try {
                     ToolsInterface.putJTableHistorico(JTVersion, libEsp);
                 } catch (Exception e) {
-                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de especificacion de req.");
+                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de especificacion de req.");
                 }
                 break;
             case RNF:
                 try {
                     ToolsInterface.putJTableHistorico(JTVersion, libRnf);
                 } catch (Exception e) {
-                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de req no funcionales.");
+                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de req no funcionales.");
                 }
                 break;
         }
@@ -339,7 +412,7 @@ public class VVersionar extends JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea txtRzcam;
     private javax.swing.JTextField txtVVersion;
     // End of variables declaration//GEN-END:variables
 }
