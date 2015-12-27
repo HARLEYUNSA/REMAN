@@ -10,7 +10,7 @@ import org.harley.reman.sistema.Sistema;
  *
  * @author Joel Mendoza
  */
-public class VEduccion extends JDialog {
+public class VCEduccion extends JDialog {
 
     Sistema sysReman;
     ArrayList<ArrayList<String>> datesEsp;
@@ -18,7 +18,7 @@ public class VEduccion extends JDialog {
     boolean flagLoadOk;
     boolean flagNewOk;
 
-    public VEduccion(JFrame padre, Sistema sysReman) {
+    public VCEduccion(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);

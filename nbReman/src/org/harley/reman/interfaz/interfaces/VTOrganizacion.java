@@ -228,7 +228,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
 
     private void menuDocOrgItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocOrgItem1ActionPerformed
         //NUEVA ORGANIZACION
-        VOrganizacion VOrg = new VOrganizacion(padre, sysReman);
+        VCOrganizacion VOrg = new VCOrganizacion(padre, sysReman);
         VOrg.setVisible(true);
         if (VOrg.createSuccessful()) {
             actualizarJTree();
@@ -261,7 +261,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
 
     private void menuDocPytItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocPytItem1ActionPerformed
         //CREAR ESPECIALISTA
-        VEspecialista VEsp = new VEspecialista(padre, sysReman);
+        VCEspecialista VEsp = new VCEspecialista(padre, sysReman);
         if (VEsp.getLoadIsCorrect()) {
             VEsp.setVisible(true);
         } else {
@@ -297,7 +297,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
 
     private void menuDocSthItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocSthItem1ActionPerformed
         //CREAR FUENTE
-        VFuente VFue = new VFuente(padre, sysReman);
+        VCFuente VFue = new VCFuente(padre, sysReman);
         if (VFue.getLoadIsCorrect()) {
             VFue.setVisible(true);
         } else {

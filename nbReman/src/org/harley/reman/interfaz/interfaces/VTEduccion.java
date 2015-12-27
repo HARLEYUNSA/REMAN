@@ -140,7 +140,7 @@ public class VTEduccion extends javax.swing.JInternalFrame {
 
     private void menuDocEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEduItem1ActionPerformed
         //NUEVA EDUCCION
-        VEduccion VEdu = new VEduccion(padre, sysReman);
+        VCEduccion VEdu = new VCEduccion(padre, sysReman);
         if (VEdu.getLoadIsCorrect()) {
             VEdu.setVisible(true);
         } else {

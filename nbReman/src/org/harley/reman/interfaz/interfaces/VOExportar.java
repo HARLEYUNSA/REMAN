@@ -11,13 +11,13 @@ import org.harley.reman.sistema.Sistema;
  *
  * @author Joel Mendoza
  */
-public class VExportar extends JDialog {
+public class VOExportar extends JDialog {
 
     Sistema sysReman;
     String direccion;
     String nombre;
 
-    public VExportar(JFrame padre, Sistema sysReman) {
+    public VOExportar(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -95,11 +95,11 @@ public class VExportar extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
-                .addGap(35, 35, 35)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 30, Short.MAX_VALUE)
+                        .addGap(18, 39, Short.MAX_VALUE)
                         .addComponent(btnECancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(txtENombre)

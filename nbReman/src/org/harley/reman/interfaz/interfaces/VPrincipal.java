@@ -31,7 +31,7 @@ public class VPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
         //agregando pantalla de inicio(ayuda)
-        VDocumento nuevo = new VDocumento();
+        VODocumento nuevo = new VODocumento();
         DeskPanel1.add(nuevo);
         try {
             nuevo.setMaximum(true);
@@ -537,7 +537,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void btnVPVersionarActionPerformed(java.awt.event.ActionEvent evt) {
         //VERSIONAR UN LIBRO
-        VVersionar VLib = new VVersionar(this, sysReman);
+        VOLVersionar VLib = new VOLVersionar(this, sysReman);
         if(VLib.getLoadIsCorrect()){
             VLib.setVisible(true);
         }else{
@@ -547,7 +547,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void btnVPEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {
         //CREAR ESPECIALISTA
-        VEspecialista VEsp = new VEspecialista(this, sysReman);
+        VCEspecialista VEsp = new VCEspecialista(this, sysReman);
         if(VEsp.getLoadIsCorrect()){
             VEsp.setVisible(true);
         }else{
@@ -560,7 +560,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void btnVPOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {
         //NUEVA ORGANIZACION
-        VOrganizacion VOrg = new VOrganizacion(this, sysReman);
+        VCOrganizacion VOrg = new VCOrganizacion(this, sysReman);
         VOrg.setVisible(true);
         if(VOrg.createSuccessful()){
             venOrg.actualizarJTree();
@@ -569,7 +569,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void btnVPFuenteActionPerformed(java.awt.event.ActionEvent evt) {
         //CREAR FUENTE
-        VFuente VFue = new VFuente(this, sysReman);
+        VCFuente VFue = new VCFuente(this, sysReman);
         if(VFue.getLoadIsCorrect()){
             VFue.setVisible(true);
         }else{
@@ -582,7 +582,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void btnVPEduccionActionPerformed(java.awt.event.ActionEvent evt) {
         //NUEVA EDUCCION
-        VEduccion VEdu = new VEduccion(this, sysReman);
+        VCEduccion VEdu = new VCEduccion(this, sysReman);
         if (VEdu.getLoadIsCorrect()) {
             VEdu.setVisible(true);
         } else {
@@ -594,12 +594,12 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPElicitacionActionPerformed(java.awt.event.ActionEvent evt) {
-        VElicitacion ventanaEl = new VElicitacion();
+        VCElicitacion ventanaEl = new VCElicitacion();
         ventanaEl.setVisible(true);
     }
 
     private void btnVPEspecificiacionActionPerformed(java.awt.event.ActionEvent evt) {
-        VEspecificacion ventanaEs = new VEspecificacion();
+        VCEspecificacion ventanaEs = new VCEspecificacion();
         ventanaEs.setVisible(true);
     }
 
@@ -661,18 +661,18 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPNoFuncionalActionPerformed(java.awt.event.ActionEvent evt) {
-        VNoFuncional ventanaNF = new VNoFuncional();
+        VCNoFuncional ventanaNF = new VCNoFuncional();
         ventanaNF.setVisible(true);
     }
 
     private void btnVPImportarActionPerformed(java.awt.event.ActionEvent evt) {
         //RESTAURAR UN LIBRO
-        VRestaurar VLib = new VRestaurar(this, sysReman);
+        VOLRestaurar VLib = new VOLRestaurar(this, sysReman);
         VLib.setVisible(true);
     }
 
     private void btnVPExportarActionPerformed(java.awt.event.ActionEvent evt) {
-        VExportar VExp = new VExportar(this, sysReman);
+        VOExportar VExp = new VOExportar(this, sysReman);
         VExp.setVisible(true);
     }
 

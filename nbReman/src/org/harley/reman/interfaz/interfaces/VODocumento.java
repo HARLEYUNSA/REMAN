@@ -7,12 +7,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author joel_mendoza
  */
-public class VDocumento extends javax.swing.JInternalFrame {
+public class VODocumento extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Documento
      */
-    public VDocumento() {
+    public VODocumento() {
         initComponents();
     }
 

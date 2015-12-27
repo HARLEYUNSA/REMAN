@@ -8,7 +8,7 @@ import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Historico;
 import org.harley.reman.sistema.Sistema;
 
-public class VRestaurar extends JDialog {
+public class VOLRestaurar extends JDialog {
 
     Sistema sysReman;
     ArrayList<Historico> libEdu;
@@ -17,7 +17,7 @@ public class VRestaurar extends JDialog {
     ArrayList<Historico> libRnf;
     boolean flagOk;
 
-    public VRestaurar(JFrame padre, Sistema sysReman) {
+    public VOLRestaurar(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);

@@ -8,7 +8,7 @@ import org.harley.reman.sistema.Historico;
 import org.harley.reman.sistema.Sistema;
 import org.harley.reman.sistema.ToolsSystem;
 
-public class VVersionar extends JDialog {
+public class VOLVersionar extends JDialog {
 
     Sistema sysReman;
     ArrayList<Historico> libEdu;
@@ -18,7 +18,7 @@ public class VVersionar extends JDialog {
     boolean flagLoadOk;
     boolean flagOk;
 
-    public VVersionar(JFrame padre, Sistema sysReman) {
+    public VOLVersionar(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
