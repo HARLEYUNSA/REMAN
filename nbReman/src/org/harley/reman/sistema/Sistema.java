@@ -1812,6 +1812,18 @@ public class Sistema {
         return ToolsSystem.IncrementarCodigo(Organizacion.getCodigo());
     }
     
+    public String getNextEli() {
+        return ToolsSystem.IncrementarCodigo(Educcion.getCodigo());
+    }
+    
+    public String getNextEsp() {
+        return ToolsSystem.IncrementarCodigo(Elicitacion.getCodigo());
+    }
+    
+    public String getNextRnf() {
+        return ToolsSystem.IncrementarCodigo(RequisitoNF.getCodigo());
+    }
+    
     /**
      *
      * Devolver el conjunto de históricos del elemento seleccionado
@@ -1885,6 +1897,30 @@ public class Sistema {
         }
     }
 
+    public boolean versionarReqNoFuncional(String verVer, String verFec,
+            String verEsp, String verRazCam, String rnfCod, String rnfNom,
+            String rnfVer, String rnfTip, String rnfObj, String rnfFec,
+            String rnfFueNom, String rnfFueCar, String rnfFueTip,
+            String rnfEspNom, String rnfEspEsp, String rnfEspExp,
+            String rnfEspCar, String rnfDep, String rnfDes, String rnfObs) {
+        try {
+            RequisitosNF verRnfs = manVerRnf.leerXML(rnfCod);
+            String ultVer = verRnfs.getLast().getRnfNombre().getCodigo();
+            if (ToolsSystem.CompararVersiones(ultVer, verVer)) {
+                RequisitoNF rnf = new RequisitoNF(rnfCod, rnfNom, rnfVer, rnfTip,
+                    rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
+                    rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs);
+                verRnfs.modRnf(rnf);
+                verRnfs.verRnf(verVer, verFec, verEsp, verRazCam);
+                manVerRnf.escribirXML(rnfCod, verRnfs);
+                return true;
+            }
+            return false;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+    
     //Facilitadores de acceso
     public static final int ESP_CODIGO = 0;
     public static final int ESP_NOMBRE = 1;
