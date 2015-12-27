@@ -8,27 +8,51 @@ import org.harley.reman.sistema.Historico;
 import org.harley.reman.sistema.Sistema;
 import org.harley.reman.sistema.ToolsSystem;
 
-public class VOLVersionar extends JDialog {
+public class VEVersionarEdu extends JDialog {
 
     Sistema sysReman;
-    ArrayList<Historico> libEdu;
-    ArrayList<Historico> libEli;
-    ArrayList<Historico> libEsp;
-    ArrayList<Historico> libRnf;
-    boolean flagLoadOk;
+    ArrayList<Historico> historic;
     boolean flagOk;
+    boolean flagLoadOk;
+    String eduCod;
+    String eduNom;
+    String eduVer;
+    String eduTip;
+    String eduObj;
+    String eduFec;
+    String eduFueNom;
+    String eduFueCar;
+    String eduFueTip;
+    String eduEspNom;
+    String eduEspEsp;
+    String eduEspExp;
+    String eduEspCar;
+    String eduDes;
+    String eduObs;
 
-    public VOLVersionar(JFrame padre, Sistema sysReman) {
+    public VEVersionarEdu(JFrame padre, Sistema sysReman, String eduCod, String eduNom, String eduVer, String eduTip, String eduObj, String eduFec, String eduFueNom, String eduFueCar, String eduFueTip, String eduEspNom, String eduEspEsp, String eduEspExp, String eduEspCar, String eduDes, String eduObs){
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-
+        this.eduCod = eduCod;
+        this.eduNom = eduNom;
+        this.eduVer = eduVer;
+        this.eduTip = eduTip;
+        this.eduObj = eduObj;
+        this.eduFec = eduFec;
+        this.eduFueNom = eduFueNom;
+        this.eduFueCar = eduFueCar;
+        this.eduFueTip = eduFueTip;
+        this.eduEspNom = eduEspNom;
+        this.eduEspEsp = eduEspEsp;
+        this.eduEspExp = eduEspExp;
+        this.eduEspCar = eduEspCar;
+        this.eduDes = eduDes;
+        this.eduObs = eduObs; 
+        
         try {
-            libEdu = sysReman.getHistLibEdu();
-            libEli = sysReman.getHistLibEli();
-            libEsp = sysReman.getHistLibEsp();
-            libRnf = sysReman.getHistLibRnf();
+            historic = sysReman.getHist(Sistema.LIB_EDU, eduCod);
             ToolsInterface.addItems2JComboBox(cmbVAutor, sysReman.getEspecialistaNombres());
             flagLoadOk = true;
         } catch (Exception e) {
@@ -36,11 +60,10 @@ public class VOLVersionar extends JDialog {
         }
 
         try {
-            ToolsInterface.putJTableHistorico(JTVersion, libEdu);
+            ToolsInterface.putJTableHistorico(JTVersion, historic);
         } catch (Exception e) {
             //ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
         }
-
     }
 
     public boolean getLoadIsCorrect() {
@@ -76,8 +99,7 @@ public class VOLVersionar extends JDialog {
         btnVCancelar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTVersion = new javax.swing.JTable();
-        cmblib = new javax.swing.JComboBox();
-        jLabel5 = new javax.swing.JLabel();
+        txtTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Versionar");
@@ -205,17 +227,6 @@ public class VOLVersionar extends JDialog {
         });
         jScrollPane2.setViewportView(JTVersion);
 
-        cmblib.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmblib.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Libro Educción", "Libro Elicitación", "Libro Especificación", "Libro Req no Funcional" }));
-        cmblib.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmblibActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Libro a Versionar");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -229,31 +240,28 @@ public class VOLVersionar extends JDialog {
                         .addComponent(btnVGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addComponent(btnVCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5)
-                    .addComponent(jLayeredPane3)
-                    .addComponent(cmblib, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLayeredPane3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(cmblib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnVGuardar)
-                            .addComponent(btnVCancelar))))
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVCancelar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnVGuardar, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos", jPanel1);
+
+        txtTitle.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtTitle.setText("title");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -261,13 +269,19 @@ public class VOLVersionar extends JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtTitle)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(txtTitle)
+                .addGap(12, 12, 12)
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
@@ -284,31 +298,18 @@ public class VOLVersionar extends JDialog {
         String fecha = dtEDFecha.getText().trim();
         String autor = (String) cmbVAutor.getSelectedItem();
         String rzcam = txtRzcam.getText();
-        int select = cmblib.getSelectedIndex();
+
         String lastVersion = "0.1";
         try {
-            switch (select) {
-                case Sistema.LIB_EDU:
-                    lastVersion = libEdu.get(libEdu.size() - 1).getVersion();
-                    break;
-                case Sistema.LIB_ELI:
-                    lastVersion = libEli.get(libEli.size() - 1).getVersion();
-                    break;
-                case Sistema.LIB_ESP:
-                    lastVersion = libEsp.get(libEsp.size() - 1).getVersion();
-                    break;
-                case Sistema.LIB_RNF:
-                    lastVersion = libRnf.get(libRnf.size() - 1).getVersion();
-                    break;
-            }
+            lastVersion = historic.get(historic.size() - 1).getVersion();
         } catch (Exception e) {
         }
 
         if (ToolsInterface.verificarVersion(version)) {
             if (ToolsSystem.CompararVersiones(version, lastVersion)) {
-                sysReman.versionarLibro(select, version, fecha, rzcam, autor);
-                ToolsInterface.msjInfo(this, "Operacion Exitosa", "Se versiono correctamente");
-                actualizarJTable(select);
+                versionar(version, fecha, autor, rzcam);
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "La educcion se versiono correctamente");
+                this.dispose();
             } else {
                 ToolsInterface.msjError(this, "Utilice una version superior a la ultima desarrollada!");
             }
@@ -319,92 +320,30 @@ public class VOLVersionar extends JDialog {
 
     }//GEN-LAST:event_btnVGuardarActionPerformed
 
-    private void actualizarJTable(int select) {
-        switch (select) {
-            case Sistema.LIB_EDU:
-                libEdu = sysReman.getHistLibEdu();
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libEdu);
-                } catch (Exception e) {
-                }
-
-                break;
-            case Sistema.LIB_ELI:
-                libEli = sysReman.getHistLibEli();
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libEli);
-                } catch (Exception e) {
-                }
-
-                break;
-            case Sistema.LIB_ESP:
-                libEsp = sysReman.getHistLibEsp();
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libEsp);
-                } catch (Exception e) {
-                }
-
-                break;
-            case Sistema.LIB_RNF:
-                libRnf = sysReman.getHistLibRnf();
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libRnf);
-                } catch (Exception e) {
-                }
-                break;
+    private void actualizarJTable() {
+        try {
+            historic = sysReman.getHist(Sistema.LIB_EDU, eduCod);
+            ToolsInterface.putJTableHistorico(JTVersion, historic);
+        } catch (Exception e) {
         }
     }
 
-    private void cmblibActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmblibActionPerformed
-        switch (cmblib.getSelectedIndex()) {
-            case EDU:
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libEdu);
-                } catch (Exception e) {
-                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
-                }
-                break;
-            case ELI:
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libEli);
-                } catch (Exception e) {
-                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de elicitacion.");
-                }
-                break;
-            case ESP:
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libEsp);
-                } catch (Exception e) {
-                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de especificacion de req.");
-                }
-                break;
-            case RNF:
-                try {
-                    ToolsInterface.putJTableHistorico(JTVersion, libRnf);
-                } catch (Exception e) {
-                    //ToolsInterface.msjError(this, "- No se encontro historicos de libros de req no funcionales.");
-                }
-                break;
-        }
-    }//GEN-LAST:event_cmblibActionPerformed
-
-    public static final int EDU = 0;
-    public static final int ELI = 1;
-    public static final int ESP = 2;
-    public static final int RNF = 3;
-
+    private void versionar(String verVer, String verFec, String verEsp, String verRazCam) {
+        sysReman.versionarEduccion(verVer, verFec, verEsp, verRazCam, eduCod, 
+                eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, 
+                eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes,
+                eduObs);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable JTVersion;
     private javax.swing.JButton btnVCancelar;
     private javax.swing.JButton btnVGuardar;
     private javax.swing.JComboBox cmbVAutor;
-    private javax.swing.JComboBox cmblib;
     private datechooser.beans.DateChooserCombo dtEDFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLayeredPane jLayeredPane3;
     private javax.swing.JPanel jPanel1;
@@ -412,6 +351,7 @@ public class VOLVersionar extends JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea txtRzcam;
+    private javax.swing.JLabel txtTitle;
     private javax.swing.JTextField txtVVersion;
     // End of variables declaration//GEN-END:variables
 }

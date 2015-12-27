@@ -20,12 +20,14 @@ public class VMEduccion extends JDialog {
     ArrayList<ArrayList<String>> datesFue;
     boolean flagLoadOk;
     boolean flagSetOk;
+    JFrame padre;
 
     public VMEduccion(JFrame padre, Sistema sysReman, String codEdu) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
+        this.padre = padre;
         flagSetOk = false;
         datesEsp = this.sysReman.getEspecialistas();
         datesFue = this.sysReman.getFuentes();
@@ -71,7 +73,7 @@ public class VMEduccion extends JDialog {
             txtEDFTipo.setText(myEdu.getEduFueTip());
 
             //cargar historial
-            System.out.println(sysReman.getHist(0,codEdu).size());
+            System.out.println(sysReman.getHist(0, codEdu).size());
             flagLoadOk = true;
         } catch (Exception e) {
         }
@@ -141,7 +143,7 @@ public class VMEduccion extends JDialog {
         jTable3 = new javax.swing.JTable();
         btnVEDCancelar = new javax.swing.JButton();
         btnVEDGuardar = new javax.swing.JButton();
-        btnVEDGuardar1 = new javax.swing.JButton();
+        btnVEDVersionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Educción");
@@ -591,11 +593,11 @@ public class VMEduccion extends JDialog {
             }
         });
 
-        btnVEDGuardar1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnVEDGuardar1.setText("Versionar");
-        btnVEDGuardar1.addActionListener(new java.awt.event.ActionListener() {
+        btnVEDVersionar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnVEDVersionar.setText("Versionar");
+        btnVEDVersionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVEDGuardar1ActionPerformed(evt);
+                btnVEDVersionarActionPerformed(evt);
             }
         });
 
@@ -607,7 +609,7 @@ public class VMEduccion extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(162, 162, 162)
-                        .addComponent(btnVEDGuardar1)
+                        .addComponent(btnVEDVersionar)
                         .addGap(18, 18, 18)
                         .addComponent(btnVEDGuardar)
                         .addGap(18, 18, 18)
@@ -626,7 +628,7 @@ public class VMEduccion extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVEDCancelar)
                     .addComponent(btnVEDGuardar)
-                    .addComponent(btnVEDGuardar1))
+                    .addComponent(btnVEDVersionar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -688,14 +690,38 @@ public class VMEduccion extends JDialog {
 
     }//GEN-LAST:event_cmbEDFuenteActionPerformed
 
-    private void btnVEDGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDGuardar1ActionPerformed
+    private void btnVEDVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDVersionarActionPerformed
+        String eduCod = txtEDCodigo.getText();
+        String eduEspCar = txtEDCargoE.getText();
+        String eduFueCar = txtEDCargoF.getText();
+        String eduDes = txtEDDescripcion.getText();
+        String eduEspEsp = txtEDEspecialidad.getText();
+        String eduEspExp = txtEDExperiencia.getText();
+        String eduNom = txtEDNombre.getText().trim();
+        String eduObj = txtEDObjetivo.getText();
+        String eduObs = txtEDObservaciones.getText();
+        String eduTip = txtEDTipo.getText().trim();
+        String eduFueTip = txtEDTipoF.getText();
+        String eduVer = txtEDVersion.getText().trim();
+        String eduEspNom = (String) cmbEDEspecialista.getSelectedItem();
+        String eduFueNom = (String) cmbEDFuente.getSelectedItem();
+        String eduFec = dtEDFecha.getText();
+        VEVersionarEdu VEdu = new VEVersionarEdu(padre, sysReman, eduCod,
+                eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar,
+                eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes,
+                eduObs);
         
-    }//GEN-LAST:event_btnVEDGuardar1ActionPerformed
+        if(VEdu.getLoadIsCorrect()){
+            VEdu.setVisible(true);
+        }else{
+            ToolsInterface.msjError(padre, "Error al cargar Especialistas y/o datos de Educcion");
+        }
+    }//GEN-LAST:event_btnVEDVersionarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVEDCancelar;
     private javax.swing.JButton btnVEDGuardar;
-    private javax.swing.JButton btnVEDGuardar1;
+    private javax.swing.JButton btnVEDVersionar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmbEDEspecialista;
     private javax.swing.JComboBox cmbEDFuente;

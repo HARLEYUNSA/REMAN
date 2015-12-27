@@ -191,7 +191,7 @@ public class VOERestaurar extends JDialog {
                         break;
 
                     case Sistema.LIB_RNF:
-                        //sysReman.restaurarVersionReqNoFuncional(version, codEle);
+                        sysReman.restaurarVersionRequisitoNF(version, codEle);
                         break; 
                 }
                 ToolsInterface.msjInfo(this, "Operacion Exitosa", "Se recupero la version: " + version);

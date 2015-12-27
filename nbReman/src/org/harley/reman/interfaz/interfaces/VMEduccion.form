@@ -33,7 +33,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="162" max="-2" attributes="0"/>
-                      <Component id="btnVEDGuardar1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnVEDVersionar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnVEDGuardar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -57,7 +57,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnVEDCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnVEDGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnVEDGuardar1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVEDVersionar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -805,7 +805,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVEDGuardarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnVEDGuardar1">
+    <Component class="javax.swing.JButton" name="btnVEDVersionar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="12" style="1"/>
@@ -813,7 +813,7 @@
         <Property name="text" type="java.lang.String" value="Versionar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVEDGuardar1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVEDVersionarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
