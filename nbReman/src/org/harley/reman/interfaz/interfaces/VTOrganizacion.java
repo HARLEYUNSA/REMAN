@@ -6,10 +6,13 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.TreePath;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
@@ -341,8 +344,11 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             nombre = ExportarFile.getSelectedFile().getName();
             nombre = ToolsInterface.addExtensionPdf(nombre);
             if(!nombre.equals("error")){
-                if(!sysReman.exportarLibro(Sistema.LIB_ORG,direccion, nombre)){
-                    ToolsInterface.msjError(padre, "Error al cargar las Organizaciones, reviselos antes de continuar la operacion!");
+                try {
+                    sysReman.exportarLibroOrg(direccion, nombre);
+                    //ToolsInterface.msjInfo(padre, "Operacion Exitosa", "Se exporto correctamente.");
+                } catch (Exception ex) {
+                    Logger.getLogger(VTOrganizacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
                 ToolsInterface.msjError(padre, "Error con el nombre del archivo, intentelo nuevamente!");
@@ -360,8 +366,11 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             nombre = ExportarFile.getSelectedFile().getName();
             nombre = ToolsInterface.addExtensionPdf(nombre);
             if(!nombre.equals("error")){
-                if(!sysReman.exportarLibro(Sistema.LIB_ACT,direccion, nombre)){
-                    ToolsInterface.msjError(padre, "Error al cargar los Actores, reviselos antes de continuar la operacion!");
+                try {
+                    sysReman.exportarLibroAct(direccion, nombre);
+                    //ToolsInterface.msjInfo(padre, "Operacion Exitosa", "Se exporto correctamente.");
+                } catch (Exception ex) {
+                    Logger.getLogger(VTOrganizacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
                 ToolsInterface.msjError(padre, "Error con el nombre del archivo, intentelo nuevamente!");
