@@ -594,8 +594,8 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPElicitacionActionPerformed(java.awt.event.ActionEvent evt) {
-        VCElicitacion ventanaEl = new VCElicitacion();
-        ventanaEl.setVisible(true);
+        //VCElicitacion ventanaEl = new VCElicitacion();
+        //ventanaEl.setVisible(true);
     }
 
     private void btnVPEspecificiacionActionPerformed(java.awt.event.ActionEvent evt) {

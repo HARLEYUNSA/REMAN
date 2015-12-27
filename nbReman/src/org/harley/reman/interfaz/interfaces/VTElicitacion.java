@@ -139,7 +139,16 @@ public class VTElicitacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuDocEliItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEliItem1ActionPerformed
-        //NUEVA EDUCCION
+        //NUEVA ELICITACION
+        VCElicitacion VEli = new VCElicitacion(padre, sysReman);
+        if (VEli.getLoadIsCorrect()) {
+            VEli.setVisible(true);
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar los actores del proyecto!");
+        }
+        if (VEli.createSuccessful()) {
+            actualizarJTree();
+        }    
         
     }//GEN-LAST:event_menuDocEliItem1ActionPerformed
 
