@@ -536,6 +536,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPVersionarActionPerformed(java.awt.event.ActionEvent evt) {
+        //VERSIONAR UN LIBRO
         VVersionar VLib = new VVersionar(this, sysReman);
         if(VLib.getLoadIsCorrect()){
             VLib.setVisible(true);
@@ -665,8 +666,9 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPImportarActionPerformed(java.awt.event.ActionEvent evt) {
-        VRestaura vrestaura = new VRestaura();
-        vrestaura.setVisible(true);
+        //RESTAURAR UN LIBRO
+        VRestaurar VLib = new VRestaurar(this, sysReman);
+        VLib.setVisible(true);
     }
 
     private void btnVPExportarActionPerformed(java.awt.event.ActionEvent evt) {

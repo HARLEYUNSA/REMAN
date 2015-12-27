@@ -7,10 +7,6 @@ import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Historico;
 import org.harley.reman.sistema.Sistema;
 
-/**
- *
- * @author JOel Mendoza
- */
 public class VVersionar extends JDialog {
 
     Sistema sysReman;
@@ -20,58 +16,33 @@ public class VVersionar extends JDialog {
     ArrayList<Historico> libRnf;
     boolean flagLoadOk;
     boolean flagOk;
-    boolean msjError;
-    String error;
 
     public VVersionar(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        msjError = false;
-        error = "";
+
+        libEdu = sysReman.getHistLibEdu();
+        libEli = sysReman.getHistLibEli();
+        libEsp = sysReman.getHistLibEsp();
+        libRnf = sysReman.getHistLibRnf();
 
         try {
-            libEdu = sysReman.getHistLibEdu();
-        } catch (Exception e) {
-            msjError = true;
-            error += "- No se encontro historicos de libros de educcion.\n";
-        }
-
-        try {
-            libEli = sysReman.getHistLibEli();
-        } catch (Exception e) {
-            msjError = true;
-            error += "- No se encontro historicos de libros de elicitacion.\n";
-        }
-
-        try {
-            libEsp = sysReman.getHistLibEsp();
-        } catch (Exception e) {
-            msjError = true;
-            error += "- No se encontro historicos de libros de especificacion de req.\n";
-        }
-
-        try {
-            libRnf = sysReman.getHistLibRnf();
-        } catch (Exception e) {
-            msjError = true;
-            error += "- No se encontro historicos de libros de req no funcionales.\n";
-        }
-
-        try {
-            ToolsInterface.putJTableHistorico(JTVersion, libEdu);
             ToolsInterface.addItems2JComboBox(cmbVAutor, sysReman.getEspecialistaNombres());
-            if(msjError){
-                ToolsInterface.msjError(this, error);
-            }
             flagLoadOk = true;
         } catch (Exception e) {
             flagLoadOk = false;
         }
+        
+        try {
+            ToolsInterface.putJTableHistorico(JTVersion, libEdu);
+        } catch (Exception e) {
+            ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
+        }
 
     }
-    
+
     public boolean getLoadIsCorrect() {
         return flagLoadOk && cmbVAutor.getItemCount() != 0;
     }
@@ -315,16 +286,32 @@ public class VVersionar extends JDialog {
     private void cmblibActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmblibActionPerformed
         switch (cmblib.getSelectedIndex()) {
             case EDU:
-                ToolsInterface.putJTableHistorico(JTVersion, libEdu);
+                try {
+                    ToolsInterface.putJTableHistorico(JTVersion, libEdu);
+                } catch (Exception e) {
+                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
+                }
                 break;
             case ELI:
-                ToolsInterface.putJTableHistorico(JTVersion, libEli);
+                try {
+                    ToolsInterface.putJTableHistorico(JTVersion, libEli);
+                } catch (Exception e) {
+                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de elicitacion.");
+                }
                 break;
             case ESP:
-                ToolsInterface.putJTableHistorico(JTVersion, libEsp);
+                try {
+                    ToolsInterface.putJTableHistorico(JTVersion, libEsp);
+                } catch (Exception e) {
+                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de especificacion de req.");
+                }
                 break;
             case RNF:
-                ToolsInterface.putJTableHistorico(JTVersion, libRnf);
+                try {
+                    ToolsInterface.putJTableHistorico(JTVersion, libRnf);
+                } catch (Exception e) {
+                    ToolsInterface.msjError(this, "- No se encontro historicos de libros de req no funcionales.");
+                }
                 break;
         }
     }//GEN-LAST:event_cmblibActionPerformed
@@ -332,7 +319,7 @@ public class VVersionar extends JDialog {
     public static final int EDU = 0;
     public static final int ELI = 1;
     public static final int ESP = 2;
-    public static final int RNF = 4;
+    public static final int RNF = 3;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
