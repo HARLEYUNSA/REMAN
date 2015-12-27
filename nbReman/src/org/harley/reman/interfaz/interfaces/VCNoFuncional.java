@@ -17,19 +17,18 @@ public class VCNoFuncional extends JDialog {
     ArrayList<ArrayList<String>> datesFue;
     boolean flagLoadOk;
     boolean flagNewOk;
-    
+
     public VCNoFuncional(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
         flagNewOk = false;
-        
+
         datesEsp = this.sysReman.getEspecialistas();
         datesFue = this.sysReman.getFuentes();
-
         try {
-            txtNFCodigo.setText(sysReman.getNextEdu());
+            txtNFCodigo.setText(sysReman.getNextRnf());
 
             ToolsInterface.addItems2JComboBox(cmbNFEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
             txtNFEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(0));
@@ -41,6 +40,8 @@ public class VCNoFuncional extends JDialog {
             txtNFTipofuente.setText(datesFue.get(Sistema.FUE_TIPO).get(0));
             flagLoadOk = true;
         } catch (Exception e) {
+            flagLoadOk = false;
+            System.out.println("gg");
         }
     }
 
@@ -77,7 +78,7 @@ public class VCNoFuncional extends JDialog {
         jLabel15 = new javax.swing.JLabel();
         txtNFNumero = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        dtNFFecha = new datechooser.beans.DateChooserCombo();
+        dtFecha = new datechooser.beans.DateChooserCombo();
         jPanel2 = new javax.swing.JPanel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jLabel6 = new javax.swing.JLabel();
@@ -145,6 +146,8 @@ public class VCNoFuncional extends JDialog {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Tipo");
 
+        txtNFCodigo.setEditable(false);
+
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("Nombre");
 
@@ -201,6 +204,8 @@ public class VCNoFuncional extends JDialog {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Fecha");
 
+        dtFecha.setEnabled(false);
+
         javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
         jLayeredPane4.setLayout(jLayeredPane4Layout);
         jLayeredPane4Layout.setHorizontalGroup(
@@ -213,15 +218,15 @@ public class VCNoFuncional extends JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
-                .addComponent(dtNFFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(78, Short.MAX_VALUE))
         );
         jLayeredPane4Layout.setVerticalGroup(
             jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dtNFFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel15)
                         .addComponent(txtNFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,7 +236,7 @@ public class VCNoFuncional extends JDialog {
         jLayeredPane4.setLayer(jLabel15, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane4.setLayer(txtNFNumero, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane4.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(dtNFFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(dtFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -266,7 +271,6 @@ public class VCNoFuncional extends JDialog {
         jLabel6.setText("Cargo");
 
         cmbNFFuente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbNFFuente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbNFFuente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbNFFuenteActionPerformed(evt);
@@ -283,7 +287,6 @@ public class VCNoFuncional extends JDialog {
         jLabel3.setText("Experiencia");
 
         cmbNFEspecialista.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbNFEspecialista.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbNFEspecialista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbNFEspecialistaActionPerformed(evt);
@@ -330,14 +333,14 @@ public class VCNoFuncional extends JDialog {
                     .addComponent(jLabel7))
                 .addGap(53, 53, 53)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbNFEspecialista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNFEspecialidad)
-                    .addComponent(txtNFExperiencia)
-                    .addComponent(cmbNFFuente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNFCargo)
-                    .addComponent(txtNFCargofuente)
-                    .addComponent(txtNFTipofuente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(114, Short.MAX_VALUE))
+                    .addComponent(cmbNFEspecialista, javax.swing.GroupLayout.Alignment.TRAILING, 0, 197, Short.MAX_VALUE)
+                    .addComponent(txtNFEspecialidad, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNFExperiencia, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNFCargo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cmbNFFuente, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNFCargofuente, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNFTipofuente, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jLayeredPane2Layout.setVerticalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,27 +349,27 @@ public class VCNoFuncional extends JDialog {
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cmbNFEspecialista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNFEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtNFExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtNFExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtNFCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cmbNFFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtNFCargofuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtNFTipofuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -394,7 +397,7 @@ public class VCNoFuncional extends JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -585,6 +588,7 @@ public class VCNoFuncional extends JDialog {
 
         jTabbedPane1.addTab("Historial", jPanel6);
 
+        btnNFGuardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnNFGuardar.setText("Guardar");
         btnNFGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -592,6 +596,7 @@ public class VCNoFuncional extends JDialog {
             }
         });
 
+        btnNFCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnNFCancelar.setText("Cancelar");
         btnNFCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -606,23 +611,23 @@ public class VCNoFuncional extends JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnNFGuardar)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(btnNFCancelar)
-                .addGap(53, 53, 53))
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNFGuardar)
-                    .addComponent(btnNFCancelar))
+                    .addComponent(btnNFCancelar)
+                    .addComponent(btnNFGuardar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -634,12 +639,12 @@ public class VCNoFuncional extends JDialog {
     }//GEN-LAST:event_btnNFCancelarActionPerformed
 
     private void btnNFGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNFGuardarActionPerformed
-        boolean error = false;    
+        boolean error = false;
         String rnfNom = txtNFNombre.getText();
         String rnfVer = txtNFNumero.getText();
         String rnfTip = txtNFTipo.getText();
         String rnfObj = jTextArea1.getText();
-        String rnfFec = dtNFFecha.getText();
+        String rnfFec = dtFecha.getText();
         String rnfFueNom = (String) cmbNFFuente.getSelectedItem();
         String rnfFueCar = txtNFCargofuente.getText();
         String rnfFueTip = txtNFTipofuente.getText();
@@ -651,13 +656,12 @@ public class VCNoFuncional extends JDialog {
         String rnfDes = jTextArea2.getText();
         String rnfObs = jTextArea3.getText();
 
-
         if (ToolsInterface.validaRequisitoNF(rnfNom, rnfVer, rnfTip,
-                    rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
-                    rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs) && 
-                ToolsInterface.isAlphabetic(rnfNom) && 
-                ToolsInterface.verificarVersion(rnfVer)) {
-            if (sysReman.crearReqNoFuncional(rnfNom, rnfVer, rnfTip, rnfObj, 
+                rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
+                rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs)
+                && ToolsInterface.isAlphabetic(rnfNom)
+                && ToolsInterface.verificarVersion(rnfVer)) {
+            if (sysReman.crearReqNoFuncional(rnfNom, rnfVer, rnfTip, rnfObj,
                     rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
                     rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs)) {
                 flagNewOk = true;
@@ -690,7 +694,7 @@ public class VCNoFuncional extends JDialog {
     private javax.swing.JButton btnNFGuardar;
     private javax.swing.JComboBox cmbNFEspecialista;
     private javax.swing.JComboBox cmbNFFuente;
-    private datechooser.beans.DateChooserCombo dtNFFecha;
+    private datechooser.beans.DateChooserCombo dtFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
