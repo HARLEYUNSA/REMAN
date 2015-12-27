@@ -147,15 +147,19 @@ public class VTEduccion extends javax.swing.JInternalFrame {
             ToolsInterface.msjError(padre, "Error al cargar los actores del proyecto!");
         }
         if (VEdu.createSuccessful()) {
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\edu"));
+            actualizar(ToolsInterface.generateJTreeBook("Documento de Educción", "Educción", sysReman.getDirPrincipal() + "\\src\\edu"));
         }       
     }//GEN-LAST:event_menuDocEduItem1ActionPerformed
 
     private void menuEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem1ActionPerformed
         //MODIFICAR EDUCCION
         String path = dirTree.getLastPathComponent().toString();
-        //System.out.println(dirTree.getLastPathComponent().toString());
-        new VMEduccion(sysReman, path).setVisible(true);
+        VMEduccion VEdu = new VMEduccion(padre, sysReman, path);
+        if (VEdu.getLoadIsCorrect()) {
+            VEdu.setVisible(true);
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar los datos de la Organizacion!");
+        }
 
     }//GEN-LAST:event_menuEduItem1ActionPerformed
 

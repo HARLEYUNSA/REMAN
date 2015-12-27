@@ -23,19 +23,20 @@ public class VEduccion extends JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-
+        flagNewOk = false;
+        
         datesEsp = this.sysReman.getEspecialistas();
         datesFue = this.sysReman.getFuentes();
 
         try {
             txtEDCodigo.setText(sysReman.getNextEdu());
 
-            ToolsInterface.llenarJComboBox(cmbEDEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
+            ToolsInterface.addItems2JComboBox(cmbEDEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
             txtEDEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(0));
             txtEDExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(0));
             txtEDCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(0));
 
-            ToolsInterface.llenarJComboBox(cmbEDFuente, datesFue.get(Sistema.FUE_NOMBRE));
+            ToolsInterface.addItems2JComboBox(cmbEDFuente, datesFue.get(Sistema.FUE_NOMBRE));
             txtEDCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(0));
             txtEDFTipo.setText(datesFue.get(Sistema.FUE_TIPO).get(0));
             flagLoadOk = true;
@@ -322,6 +323,18 @@ public class VEduccion extends JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Fuente");
 
+        cmbEDEspecialista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEDEspecialistaActionPerformed(evt);
+            }
+        });
+
+        cmbEDFuente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEDFuenteActionPerformed(evt);
+            }
+        });
+
         txtEDEspecialidad.setEditable(false);
 
         txtEDExperiencia.setEditable(false);
@@ -602,6 +615,7 @@ public class VEduccion extends JDialog {
 
         if (!error) {
             if (sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs)) {
+                flagNewOk = true;
                 ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Educcion \""
                         + eduNom + "\" fue creada satisfactoriamente.");
                 this.dispose();
@@ -612,6 +626,20 @@ public class VEduccion extends JDialog {
             ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
         }
     }//GEN-LAST:event_btnVEDGuardarActionPerformed
+
+    private void cmbEDEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEDEspecialistaActionPerformed
+        int index = cmbEDEspecialista.getSelectedIndex();
+        txtEDEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(index));
+        txtEDExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(index));
+        txtEDCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(index));
+    }//GEN-LAST:event_cmbEDEspecialistaActionPerformed
+
+    private void cmbEDFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEDFuenteActionPerformed
+        int index = cmbEDFuente.getSelectedIndex();
+        txtEDCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(index));
+        txtEDFTipo.setText(datesFue.get(Sistema.FUE_TIPO).get(index));
+
+    }//GEN-LAST:event_cmbEDFuenteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVEDCancelar;

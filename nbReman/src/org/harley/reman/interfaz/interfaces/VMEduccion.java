@@ -1,32 +1,88 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.harley.reman.interfaz.interfaces;
 
 import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Educcion;
 import org.harley.reman.sistema.Sistema;
+import org.harley.reman.sistema.ToolsSystem;
 
 /**
  *
- * @author dj-abx
+ * @author Joel Mendoza
  */
-public class VMEduccion extends javax.swing.JFrame {
+public class VMEduccion extends JDialog {
 
-    ArrayList<String> fuentes;
-    ArrayList<String> especialistas;
-    VVersionalElem verElemento;
-    Sistema sysReman;
     Educcion myEdu;
+    Sistema sysReman;
+    ArrayList<ArrayList<String>> datesEsp;
+    ArrayList<ArrayList<String>> datesFue;
+    boolean flagLoadOk;
+    boolean flagSetOk;
 
-    public VMEduccion(Sistema sysReman, String nameXML) {
+    public VMEduccion(JFrame padre, Sistema sysReman, String codEdu) {
+        super(padre, true);
         initComponents();
-        fuentes = new ArrayList<>();
-        especialistas = new ArrayList<>();
+        this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        myEdu = sysReman.recuperarEduccion(nameXML);
+        flagSetOk = false;
+        datesEsp = this.sysReman.getEspecialistas();
+        datesFue = this.sysReman.getFuentes();
+
+        try {
+            //cargar de educcion
+            myEdu = sysReman.recuperarEduccion(codEdu);
+
+            txtEDCodigo.setText(codEdu);
+            txtEDNombre.setText(myEdu.getEduNombre().getNombre());
+            txtEDTipo.setText(myEdu.getEduTip());
+            txtEDVersion.setText(myEdu.getEduVer());
+            txtEDDescripcion.setText(myEdu.getEduDes());
+            txtEDObservaciones.setText(myEdu.getEduObs());
+
+            //cargar y sleccionar el actor de la educcion
+            ToolsInterface.addItems2JComboBox(cmbEDEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
+            ToolsInterface.addItems2JComboBox(cmbEDFuente, datesFue.get(Sistema.FUE_NOMBRE));
+            String temp;
+
+            int sizeEsp = cmbEDEspecialista.getItemCount();
+            for (int i = 0; i < sizeEsp; i++) {
+                temp = (String) cmbEDEspecialista.getSelectedItem();
+                if (temp.equals(myEdu.getEduEspNom())) {
+                    cmbEDEspecialista.setSelectedIndex(i);
+                }
+            }
+
+            int sizeFue = cmbEDFuente.getItemCount();
+            for (int i = 0; i < sizeFue; i++) {
+                temp = (String) cmbEDFuente.getSelectedItem();
+                if (temp.equals(myEdu.getEduFueNom())) {
+                    cmbEDFuente.setSelectedIndex(i);
+                }
+            }
+
+            //carga de los datos de los actores
+            txtEDEspecialidad.setText(myEdu.getEduEspEsp());
+            txtEDExperiencia.setText(myEdu.getEduEspExp());
+            txtEDCargoE.setText(myEdu.getEduEspCar());
+
+            txtEDCargoF.setText(myEdu.getEduFueCar());
+            txtEDFTipo.setText(myEdu.getEduFueTip());
+
+            //cargar historial
+            System.out.println(sysReman.getHistEdu(codEdu).size());
+            flagLoadOk = true;
+        } catch (Exception e) {
+        }
+    }
+
+    public boolean getLoadIsCorrect() {
+        return flagLoadOk && cmbEDEspecialista.getItemCount() != 0 && cmbEDFuente.getItemCount() != 0;
+    }
+
+    public boolean createSuccessful() {
+        return flagSetOk;
     }
 
     /**
@@ -43,49 +99,48 @@ public class VMEduccion extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jLabel10 = new javax.swing.JLabel();
-        txtMEDCodigo = new javax.swing.JTextField();
+        txtEDCodigo = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        txtMEDNombre = new javax.swing.JTextField();
+        txtEDNombre = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        txtMEDTipo = new javax.swing.JTextField();
+        txtEDTipo = new javax.swing.JTextField();
         jLayeredPane4 = new javax.swing.JLayeredPane();
         jLabel15 = new javax.swing.JLabel();
-        txtMEDVersion = new javax.swing.JTextField();
+        txtEDVersion = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtMEDFecha = new javax.swing.JTextField();
+        dtEDFecha = new datechooser.beans.DateChooserCombo();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jScrollPane4 = new javax.swing.JScrollPane();
-        txtMEDObjetivo = new javax.swing.JTextArea();
+        txtEDObjetivo = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jLayeredPane5 = new javax.swing.JLayeredPane();
         jScrollPane5 = new javax.swing.JScrollPane();
-        txtMEDDescripcion = new javax.swing.JTextArea();
+        txtEDDescripcion = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jLayeredPane8 = new javax.swing.JLayeredPane();
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        txtMEDCargoE3 = new javax.swing.JTextField();
+        txtEDCargoE = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        cmbMEDEspecialista = new javax.swing.JComboBox();
-        cmbMEDFuente = new javax.swing.JComboBox();
-        txtMEDEspecialidad = new javax.swing.JTextField();
-        txtMEDExperiencia = new javax.swing.JTextField();
-        txtMEDCargoF3 = new javax.swing.JTextField();
-        txtMEDFTipo3 = new javax.swing.JTextField();
-        jLabel27 = new javax.swing.JLabel();
-        txtEDTipoF3 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
+        cmbEDEspecialista = new javax.swing.JComboBox();
+        cmbEDFuente = new javax.swing.JComboBox();
+        txtEDEspecialidad = new javax.swing.JTextField();
+        txtEDExperiencia = new javax.swing.JTextField();
+        txtEDCargoF = new javax.swing.JTextField();
+        txtEDFTipo = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtEDTipoF = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLayeredPane10 = new javax.swing.JLayeredPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        txtMEDObservaciones = new javax.swing.JTextArea();
+        txtEDObservaciones = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         btnVEDCancelar = new javax.swing.JButton();
         btnVEDGuardar = new javax.swing.JButton();
-        btnVEDVersionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Educción");
@@ -97,7 +152,7 @@ public class VMEduccion extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Tipo");
 
-        txtMEDCodigo.setEditable(false);
+        txtEDCodigo.setEditable(false);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("Nombre");
@@ -117,9 +172,9 @@ public class VMEduccion extends javax.swing.JFrame {
                     .addComponent(jLabel11))
                 .addGap(34, 34, 34)
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtMEDCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                    .addComponent(txtMEDNombre)
-                    .addComponent(txtMEDTipo))
+                    .addComponent(txtEDCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addComponent(txtEDNombre)
+                    .addComponent(txtEDTipo))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jLayeredPane3Layout.setVerticalGroup(
@@ -128,23 +183,23 @@ public class VMEduccion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(txtMEDCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEDCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txtMEDNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEDNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(txtMEDTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEDTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
         );
         jLayeredPane3.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(txtMEDCodigo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(txtEDCodigo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(txtMEDNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(txtEDNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(txtMEDTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(txtEDTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPane4.setBorder(javax.swing.BorderFactory.createTitledBorder("Versión"));
         jLayeredPane4.setToolTipText("");
@@ -152,12 +207,10 @@ public class VMEduccion extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setText("Nº");
 
-        txtMEDVersion.setEditable(false);
-
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Fecha");
 
-        txtMEDFecha.setEditable(false);
+        dtEDFecha.setEnabled(false);
 
         javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
         jLayeredPane4.setLayout(jLayeredPane4Layout);
@@ -167,35 +220,36 @@ public class VMEduccion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtMEDVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtEDVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addGap(28, 28, 28)
-                .addComponent(txtMEDFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(dtEDFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         jLayeredPane4Layout.setVerticalGroup(
             jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(txtMEDVersion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtMEDFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dtEDFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15)
+                        .addComponent(txtEDVersion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane4.setLayer(jLabel15, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(txtMEDVersion, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(txtEDVersion, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane4.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(txtMEDFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(dtEDFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Objetivo"));
 
-        txtMEDObjetivo.setColumns(20);
-        txtMEDObjetivo.setRows(3);
-        txtMEDObjetivo.setTabSize(4);
-        jScrollPane4.setViewportView(txtMEDObjetivo);
+        txtEDObjetivo.setColumns(20);
+        txtEDObjetivo.setRows(3);
+        txtEDObjetivo.setTabSize(4);
+        jScrollPane4.setViewportView(txtEDObjetivo);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -209,8 +263,7 @@ public class VMEduccion extends javax.swing.JFrame {
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jLayeredPane1.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -248,9 +301,9 @@ public class VMEduccion extends javax.swing.JFrame {
         jLayeredPane5.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripción de la Educción"));
         jLayeredPane5.setToolTipText("");
 
-        txtMEDDescripcion.setColumns(20);
-        txtMEDDescripcion.setRows(5);
-        jScrollPane5.setViewportView(txtMEDDescripcion);
+        txtEDDescripcion.setColumns(20);
+        txtEDDescripcion.setRows(5);
+        jScrollPane5.setViewportView(txtEDDescripcion);
 
         javax.swing.GroupLayout jLayeredPane5Layout = new javax.swing.GroupLayout(jLayeredPane5);
         jLayeredPane5.setLayout(jLayeredPane5Layout);
@@ -298,30 +351,42 @@ public class VMEduccion extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel16.setText("Especialista");
 
-        txtMEDCargoE3.setEditable(false);
+        txtEDCargoE.setEditable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Fuente");
 
-        txtMEDEspecialidad.setEditable(false);
+        cmbEDEspecialista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEDEspecialistaActionPerformed(evt);
+            }
+        });
 
-        txtMEDExperiencia.setEditable(false);
+        cmbEDFuente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEDFuenteActionPerformed(evt);
+            }
+        });
 
-        txtMEDCargoF3.setEditable(false);
+        txtEDEspecialidad.setEditable(false);
 
-        txtMEDFTipo3.setEditable(false);
+        txtEDExperiencia.setEditable(false);
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel27.setText("Cargo");
+        txtEDCargoF.setEditable(false);
 
-        txtEDTipoF3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtEDTipoF3.setText("Tipo");
+        txtEDFTipo.setEditable(false);
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel28.setText("Especialidad");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("Cargo");
 
-        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel29.setText("Experiencia");
+        txtEDTipoF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtEDTipoF.setText("Tipo");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setText("Especialidad");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setText("Experiencia");
 
         javax.swing.GroupLayout jLayeredPane8Layout = new javax.swing.GroupLayout(jLayeredPane8);
         jLayeredPane8.setLayout(jLayeredPane8Layout);
@@ -333,19 +398,19 @@ public class VMEduccion extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(jLabel1)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel27)
-                    .addComponent(txtEDTipoF3)
-                    .addComponent(jLabel28)
-                    .addComponent(jLabel29))
+                    .addComponent(jLabel2)
+                    .addComponent(txtEDTipoF)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
                 .addGap(44, 44, 44)
                 .addGroup(jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtMEDCargoE3)
-                    .addComponent(cmbMEDFuente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbMEDEspecialista, 0, 185, Short.MAX_VALUE)
-                    .addComponent(txtMEDEspecialidad)
-                    .addComponent(txtMEDExperiencia)
-                    .addComponent(txtMEDCargoF3)
-                    .addComponent(txtMEDFTipo3))
+                    .addComponent(txtEDCargoE)
+                    .addComponent(cmbEDFuente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbEDEspecialista, 0, 185, Short.MAX_VALUE)
+                    .addComponent(txtEDEspecialidad)
+                    .addComponent(txtEDExperiencia)
+                    .addComponent(txtEDCargoF)
+                    .addComponent(txtEDFTipo))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
         jLayeredPane8Layout.setVerticalGroup(
@@ -354,47 +419,47 @@ public class VMEduccion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(cmbMEDEspecialista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbEDEspecialista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMEDEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel28))
+                    .addComponent(txtEDEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMEDExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel29))
+                    .addComponent(txtEDExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
-                    .addComponent(txtMEDCargoE3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEDCargoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbMEDFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbEDFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMEDCargoF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel27))
+                    .addComponent(txtEDCargoF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMEDFTipo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEDTipoF3))
+                    .addComponent(txtEDFTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEDTipoF))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jLayeredPane8.setLayer(jLabel14, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane8.setLayer(jLabel16, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane8.setLayer(txtMEDCargoE3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane8.setLayer(txtEDCargoE, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane8.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane8.setLayer(cmbMEDEspecialista, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane8.setLayer(cmbMEDFuente, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane8.setLayer(txtMEDEspecialidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane8.setLayer(txtMEDExperiencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane8.setLayer(txtMEDCargoF3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane8.setLayer(txtMEDFTipo3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane8.setLayer(jLabel27, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane8.setLayer(txtEDTipoF3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane8.setLayer(jLabel28, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane8.setLayer(jLabel29, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane8.setLayer(cmbEDEspecialista, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane8.setLayer(cmbEDFuente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane8.setLayer(txtEDEspecialidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane8.setLayer(txtEDExperiencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane8.setLayer(txtEDCargoF, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane8.setLayer(txtEDFTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane8.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane8.setLayer(txtEDTipoF, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane8.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane8.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -408,18 +473,18 @@ public class VMEduccion extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(jLayeredPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Descripción", jPanel3);
 
         jLayeredPane10.setBorder(javax.swing.BorderFactory.createTitledBorder("Observaciones"));
 
-        txtMEDObservaciones.setColumns(20);
-        txtMEDObservaciones.setRows(5);
-        jScrollPane3.setViewportView(txtMEDObservaciones);
+        txtEDObservaciones.setColumns(20);
+        txtEDObservaciones.setRows(5);
+        jScrollPane3.setViewportView(txtEDObservaciones);
 
         javax.swing.GroupLayout jLayeredPane10Layout = new javax.swing.GroupLayout(jLayeredPane10);
         jLayeredPane10.setLayout(jLayeredPane10Layout);
@@ -523,14 +588,6 @@ public class VMEduccion extends javax.swing.JFrame {
             }
         });
 
-        btnVEDVersionar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnVEDVersionar.setText("Versionar");
-        btnVEDVersionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVEDVersionarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -538,16 +595,14 @@ public class VMEduccion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(btnVEDVersionar)
-                        .addGap(18, 18, 18)
+                        .addGap(250, 250, 250)
                         .addComponent(btnVEDGuardar)
-                        .addGap(18, 18, 18)
+                        .addGap(29, 29, 29)
                         .addComponent(btnVEDCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -555,10 +610,9 @@ public class VMEduccion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVEDCancelar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVEDGuardar)
-                    .addComponent(btnVEDVersionar))
+                    .addComponent(btnVEDCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -566,70 +620,71 @@ public class VMEduccion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVEDCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDCancelarActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnVEDCancelarActionPerformed
 
-    private void btnVEDVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDVersionarActionPerformed
-        // TODO add your handling code here:
-        verElemento = new VVersionalElem();
-        verElemento.setVisible(true);
-
-    }//GEN-LAST:event_btnVEDVersionarActionPerformed
-
     private void btnVEDGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVEDGuardarActionPerformed
-        String eduEspCar = txtMEDCargoE3.getText();
-        String eduFueCar = txtMEDCargoF3.getText();
-        String eduCod = txtMEDCodigo.getText();
-        String eduDes = txtMEDDescripcion.getText();
-        String eduEspEsp = txtMEDEspecialidad.getText();
-        String eduEspExp = txtMEDExperiencia.getText();
-        String eduFueTip = txtMEDFTipo3.getText();
-        String eduNom = txtMEDNombre.getText();
-        String eduVer = txtMEDVersion.getText();
-        String eduObj = txtMEDObjetivo.getText();
-        String eduObs = txtMEDObservaciones.getText();
-        String eduTip = txtMEDTipo.getText();
-        String eduFec = txtMEDFecha.getText();
-        String eduEspNom = (String) cmbMEDEspecialista.getSelectedItem();
-        String eduFueNom = (String) cmbMEDFuente.getSelectedItem();
+        boolean error = false;
+        String eduCod = txtEDCodigo.getText();
+        String eduEspCar = txtEDCargoE.getText();
+        String eduFueCar = txtEDCargoF.getText();
+        String eduDes = txtEDDescripcion.getText();
+        String eduEspEsp = txtEDEspecialidad.getText();
+        String eduEspExp = txtEDExperiencia.getText();
+        String eduNom = txtEDNombre.getText().trim();
+        String eduObj = txtEDObjetivo.getText();
+        String eduObs = txtEDObservaciones.getText();
+        String eduTip = txtEDTipo.getText().trim();
+        String eduFueTip = txtEDTipoF.getText();
+        String eduVer = txtEDVersion.getText().trim();
+        String eduEspNom = (String) cmbEDEspecialista.getSelectedItem();
+        String eduFueNom = (String) cmbEDFuente.getSelectedItem();
+        String eduFec = dtEDFecha.getText();
 
-        /*/modificarEduccion(eduCod,eduNom,eduVer,eduTip,eduObj,eduFec,eduFueNom,
-         eduFueCar,eduFueTip,eduEspNom,eduEspEsp,eduEspExp
-         eduEspCar,eduDes,eduObs);*/
+        if (eduNom.equals("") || !ToolsInterface.isAlphabetic(eduNom)
+                || !ToolsInterface.verificarVersion(eduVer)) {
+            error = true;
+        }
+        if (!ToolsSystem.CompararVersiones(eduVer, myEdu.getEduVer())) {
+            ToolsInterface.msjError(this, "La version debe ser mayor a la anterior!");
+            return;
+        }
+
+        if (!error) {
+            if (sysReman.modificarEduccion(eduCod, eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs)) {
+                flagSetOk = true;
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Educcion \""
+                        + eduNom + "\" fue modificada satisfactoriamente.");
+                this.dispose();
+            } else {
+                ToolsInterface.msjError(this, "Error al crear la Educcion");
+            }
+        } else {
+            ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
+        }
     }//GEN-LAST:event_btnVEDGuardarActionPerformed
 
-    private void cargarEduccion() {
-        txtEDTipoF3.setText(myEdu.getEduFueTip());
-        txtMEDCargoE3.setText(myEdu.getEduEspCar());
-        txtMEDCargoF3.setText(myEdu.getEduFueCar());
-        //txtMEDCodigo.setText(myEdu.getEduCod());
-        txtMEDDescripcion.setText(myEdu.getEduDes());
-        txtMEDEspecialidad.setText(myEdu.getEduEspEsp());
-        txtMEDExperiencia.setText(myEdu.getEduEspExp());
-        txtMEDFTipo3.setText(myEdu.getEduFueTip());
-        //txtMEDNombre.setText(myEdu.getEduNom());
-        txtMEDVersion.setText(myEdu.getEduVer());
-        txtMEDObjetivo.setText(myEdu.getEduObj());
-        txtMEDObservaciones.setText(myEdu.getEduObs());
-        txtMEDTipo.setText(myEdu.getEduTip());
-        txtMEDFecha.setText(myEdu.getEduFec());
-       // cmbMEDEspecialista.setSelectedIndex(myEdu.getEduEspNom());
-        //cmbMEDFuente.setSelectedIndex(myEdu.getEduFueNom());
-/**
-        String fecha = "05/12/2008";
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date fechaDate = formato.parse(fecha);
-        jdcFecha.setDate(fechaDate);
-*/
-    }
+    private void cmbEDEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEDEspecialistaActionPerformed
+        int index = cmbEDEspecialista.getSelectedIndex();
+        txtEDEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(index));
+        txtEDExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(index));
+        txtEDCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(index));
+    }//GEN-LAST:event_cmbEDEspecialistaActionPerformed
+
+    private void cmbEDFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEDFuenteActionPerformed
+        int index = cmbEDFuente.getSelectedIndex();
+        txtEDCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(index));
+        txtEDFTipo.setText(datesFue.get(Sistema.FUE_TIPO).get(index));
+
+    }//GEN-LAST:event_cmbEDFuenteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVEDCancelar;
     private javax.swing.JButton btnVEDGuardar;
-    private javax.swing.JButton btnVEDVersionar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox cmbMEDEspecialista;
-    private javax.swing.JComboBox cmbMEDFuente;
+    private javax.swing.JComboBox cmbEDEspecialista;
+    private javax.swing.JComboBox cmbEDFuente;
+    private datechooser.beans.DateChooserCombo dtEDFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -637,9 +692,9 @@ public class VMEduccion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane10;
@@ -658,19 +713,18 @@ public class VMEduccion extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable3;
-    private javax.swing.JLabel txtEDTipoF3;
-    private javax.swing.JTextField txtMEDCargoE3;
-    private javax.swing.JTextField txtMEDCargoF3;
-    private javax.swing.JTextField txtMEDCodigo;
-    private javax.swing.JTextArea txtMEDDescripcion;
-    private javax.swing.JTextField txtMEDEspecialidad;
-    private javax.swing.JTextField txtMEDExperiencia;
-    private javax.swing.JTextField txtMEDFTipo3;
-    private javax.swing.JTextField txtMEDFecha;
-    private javax.swing.JTextField txtMEDNombre;
-    private javax.swing.JTextArea txtMEDObjetivo;
-    private javax.swing.JTextArea txtMEDObservaciones;
-    private javax.swing.JTextField txtMEDTipo;
-    private javax.swing.JTextField txtMEDVersion;
+    private javax.swing.JTextField txtEDCargoE;
+    private javax.swing.JTextField txtEDCargoF;
+    private javax.swing.JTextField txtEDCodigo;
+    private javax.swing.JTextArea txtEDDescripcion;
+    private javax.swing.JTextField txtEDEspecialidad;
+    private javax.swing.JTextField txtEDExperiencia;
+    private javax.swing.JTextField txtEDFTipo;
+    private javax.swing.JTextField txtEDNombre;
+    private javax.swing.JTextArea txtEDObjetivo;
+    private javax.swing.JTextArea txtEDObservaciones;
+    private javax.swing.JTextField txtEDTipo;
+    private javax.swing.JLabel txtEDTipoF;
+    private javax.swing.JTextField txtEDVersion;
     // End of variables declaration//GEN-END:variables
 }

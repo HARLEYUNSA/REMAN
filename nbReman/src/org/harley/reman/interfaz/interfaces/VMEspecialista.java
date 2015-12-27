@@ -29,7 +29,7 @@ public class VMEspecialista extends JDialog {
             myPyt = sysReman.getProyectTeam(codPyt);
             txtFCodigo.setText(codPyt);
             txtFNombre.setText(myPyt.getPytNombre().getNombre());
-            ToolsInterface.llenarJComboBox(cmbFOrganizacion, sysReman.getOrgNombres());
+            ToolsInterface.addItems2JComboBox(cmbFOrganizacion, sysReman.getOrgNombres());
             txtFEspecialidad.setText(myPyt.getPytEsp());
             txtFExperiencia.setText(myPyt.getPytExp());
             txtFCargo.setText(myPyt.getPytCar());
