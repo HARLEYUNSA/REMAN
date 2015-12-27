@@ -1822,7 +1822,7 @@ public class Sistema {
      * @param codigo Código del elemento
      * @return Un ArrayList de String que contiene los datos de los históricos
      */
-    public ArrayList<ArrayList<String>> getHist(int libTip, String codigo) {
+    public ArrayList<Historico> getHist(int libTip, String codigo) {
         ArrayList<Historico> his = null;
         switch (libTip) {
             case LIB_EDU:
@@ -1838,7 +1838,7 @@ public class Sistema {
                 his = manVerRnf.leerXML(codigo).getHistoricos();
                 break;
         }
-        return ToolsSystem.getHist(his);
+        return his;
     }
     
     /**
