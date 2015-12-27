@@ -324,11 +324,11 @@ public class Sistema {
      * Recuperar los datos de una educción
      *
      * @param eduCod Código de la educción
-     * @return Un objeto ArrayList que contiene los datos de la educción
+     * @return Un objeto Educcion que contiene métodos accesores y mutadores
      */
-    public ArrayList<String> recuperarEduccion(String codigo) {
-        Educciones edu = manVerEdu.leerXML(codigo);
-        return edu.obtenerEdu(); //edu.getActual()
+    public Educcion recuperarEduccion(String eduCod) {
+        Educciones verEdu = manVerEdu.leerXML(eduCod);
+        return verEdu.getActual();
     }
 
     /**
@@ -434,6 +434,33 @@ public class Sistema {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    /**
+     *
+     * Devolver el conjunto de históricos del elemento del libro seleccionado
+     *
+     * @param libTip Tipo de libro
+     * @param codigo Código del libro
+     * @return Un ArrayList que contiene un conjunto de objetos Historico con
+     * métodos accesores y mutadores
+     */
+    public ArrayList<Historico> getHist(int libTip, String codigo) {
+        switch (libTip) {
+            case 0:
+                Educciones edu = manVerEdu.leerXML(codigo);
+                return edu.getHistoricos();
+            case 1:
+                Elicitaciones eli = manVerEli.leerXML(codigo);
+                return eli.getHistoricos();
+            case 2:
+                Especificaciones esp = manVerEsp.leerXML(codigo);
+                return esp.getHistoricos();
+            case 3:
+                RequisitosNF rnq = manVerRnf.leerXML(codigo);
+                return rnq.getHistoricos();
+        }
+        return null;
     }
 
     /**
@@ -589,11 +616,11 @@ public class Sistema {
      *
      * @param codigo Código de la educción
      */
-    private Educcion getLastEdu(String codigo) {
+    public Educcion getLastEdu(String codigo) {
         Educciones edu = manVerEdu.leerXML(codigo);
         return edu.getLast();
     }
-    
+
     /**
      * Versionar un libro
      *
@@ -693,7 +720,7 @@ public class Sistema {
      * @param libNom Nombre del libro
      *
      */
-    private Caratula crearCaratula(String libNom) {
+    public Caratula crearCaratula(String libNom) {
         Caratula car = new Caratula(libNom, propiedades.getProperty("proNom"),
                 propiedades.getProperty("empDes"),
                 propiedades.getProperty("empCli"),
@@ -746,7 +773,7 @@ public class Sistema {
                     return true;
                 case LIB_ACT:
                     exportarLibroAct(destino, nombre);
-                    break;
+                    return true;
             }
         } catch (Exception ex) {
             return false;
@@ -781,7 +808,7 @@ public class Sistema {
      * @param codEli Código de la elicitación
      * @return Elicitación recuperada
      */
-    private Elicitacion getLastEli(String codEli) {
+    public Elicitacion getLastEli(String codEli) {
         Elicitaciones eli = manVerEli.leerXML(codEli);
         return eli.getLast();
     }
@@ -1783,25 +1810,25 @@ public class Sistema {
     public String getNextOrg() {
         return ToolsSystem.IncrementarCodigo(Organizacion.getCodigo());
     }
-    
-    public ArrayList<ArrayList<String>> getHistEdu(String cod) {
+
+    public ArrayList<Historico> getHistEdu(String cod) {
         Educciones libH = manVerEdu.leerXML(cod);
-        return libH.getHist();
+        return libH.getHistoricos();
     }
-    
-    public ArrayList<ArrayList<String>> getHistEli(String cod) {
+
+    public ArrayList<Historico> getHistEli(String cod) {
         Elicitaciones libH = manVerEli.leerXML(cod);
-        return libH.getHist();
+        return libH.getHistoricos();
     }
-    
-    public ArrayList<ArrayList<String>> getHistEsp(String cod) {
+
+    public ArrayList<Historico> getHistEsp(String cod) {
         Especificaciones libH = manVerEsp.leerXML(cod);
-        return libH.getHist();
+        return libH.getHistoricos();
     }
-    
-    public ArrayList<ArrayList<String>> getHistRnf(String cod) {
+
+    public ArrayList<Historico> getHistRnf(String cod) {
         RequisitosNF libH = manVerRnf.leerXML(cod);
-        return libH.getHist();
+        return libH.getHistoricos();
     }
 
     //Facilitadores de acceso

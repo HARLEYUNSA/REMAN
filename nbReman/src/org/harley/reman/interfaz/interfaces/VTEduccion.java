@@ -141,17 +141,14 @@ public class VTEduccion extends javax.swing.JInternalFrame {
     private void menuDocEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEduItem1ActionPerformed
         //NUEVA EDUCCION
         VEduccion VEdu = new VEduccion(padre, sysReman);
-        if (VEdu.getIsCorrect()) {
+        if (VEdu.getLoadIsCorrect()) {
             VEdu.setVisible(true);
         } else {
             ToolsInterface.msjError(padre, "Error al cargar los actores del proyecto!");
         }
-<<<<<<< HEAD
         if (VEdu.createSuccessful()) {
             actualizar(ToolsInterface.generateJTreeBook("Documento de Educción", "Educción", sysReman.getDirPrincipal() + "\\src\\edu"));
         }       
-=======
->>>>>>> refs/remotes/HARLEYUNSA/master
     }//GEN-LAST:event_menuDocEduItem1ActionPerformed
 
     private void menuEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem1ActionPerformed
@@ -173,7 +170,6 @@ public class VTEduccion extends javax.swing.JInternalFrame {
             String nameXML = dirTree.getLastPathComponent().toString();
             sysReman.eliminarEduccion(nameXML);
         }
-
     }//GEN-LAST:event_menuEduItem2ActionPerformed
 
     private void menuEduItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem3ActionPerformed
