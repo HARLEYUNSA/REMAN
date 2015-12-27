@@ -205,6 +205,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbELEspecialistaActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmbELFuente">
                   <Properties>
@@ -212,6 +215,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbELFuenteActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtELEspecialidad">
                   <Properties>
@@ -285,7 +291,7 @@
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="txtELArea" min="-2" pref="275" max="-2" attributes="0"/>
+                      <Component id="txtDependencias" min="-2" pref="275" max="-2" attributes="0"/>
                       <EmptySpace pref="48" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -296,7 +302,7 @@
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtELArea" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDependencias" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="243" max="32767" attributes="0"/>
                   </Group>
@@ -309,7 +315,7 @@
                 <Property name="text" type="java.lang.String" value="Area Relacionada"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtELArea">
+            <Component class="javax.swing.JTextField" name="txtDependencias">
             </Component>
           </SubComponents>
         </Container>

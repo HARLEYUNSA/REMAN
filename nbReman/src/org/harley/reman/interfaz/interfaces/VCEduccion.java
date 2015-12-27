@@ -24,7 +24,7 @@ public class VCEduccion extends JDialog {
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
         flagNewOk = false;
-        
+
         datesEsp = this.sysReman.getEspecialistas();
         datesFue = this.sysReman.getFuentes();
 
@@ -607,10 +607,8 @@ public class VCEduccion extends JDialog {
         String eduFueNom = (String) cmbEDFuente.getSelectedItem();
         String eduFec = dtEDFecha.getText();
 
-
-
-        if (ToolsInterface.validaEduccion(eduEspCar, eduFueCar, eduDes, eduEspEsp, eduEspExp, eduNom, eduObj, eduObs, eduTip, eduFueTip, eduVer, eduEspNom, eduFueNom, eduFec) && 
-                ToolsInterface.isAlphabetic(eduNom) && ToolsInterface.verificarVersion(eduVer)) {
+        if (ToolsInterface.validaEduccion(eduEspCar, eduFueCar, eduDes, eduEspEsp, eduEspExp, eduNom, eduObj, eduObs, eduTip, eduFueTip, eduVer, eduEspNom, eduFueNom, eduFec)
+                && ToolsInterface.verificarVersion(eduVer)) {
             if (sysReman.crearEduccion(eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar, eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes, eduObs)) {
                 flagNewOk = true;
                 ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Educcion \""
