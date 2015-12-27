@@ -1813,11 +1813,11 @@ public class Sistema {
     }
     
     public String getNextEli() {
-        return ToolsSystem.IncrementarCodigo(Educcion.getCodigo());
+        return ToolsSystem.IncrementarCodigo(Elicitacion.getCodigo());
     }
     
     public String getNextEsp() {
-        return ToolsSystem.IncrementarCodigo(Elicitacion.getCodigo());
+        return ToolsSystem.IncrementarCodigo(Especificacion.getCodigo());
     }
     
     public String getNextRnf() {
