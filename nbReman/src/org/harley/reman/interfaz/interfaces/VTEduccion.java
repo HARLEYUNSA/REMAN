@@ -140,7 +140,7 @@ public class VTEduccion extends javax.swing.JInternalFrame {
 
     private void menuDocEduItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEduItem1ActionPerformed
         //NUEVA EDUCCION
-        VEduccion VEdu = new VEduccion(padre, sysReman);
+        VCEduccion VEdu = new VCEduccion(padre, sysReman);
         if (VEdu.getLoadIsCorrect()) {
             VEdu.setVisible(true);
         } else {
@@ -176,8 +176,14 @@ public class VTEduccion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_menuEduItem2ActionPerformed
 
     private void menuEduItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem3ActionPerformed
-        //RESTAURAR
-        
+        //RESTAURAR EDUCCION
+        String path = dirTree.getLastPathComponent().toString();
+        VOERestaurar vRes = new VOERestaurar(padre, sysReman, path, Sistema.LIB_EDU);
+        if(vRes.getLoadIsCorrect()){
+            vRes.setVisible(true);
+        }else{
+            ToolsInterface.msjError(padre, "Error al cargar las versiones de la educcion!");
+        }
     }//GEN-LAST:event_menuEduItem3ActionPerformed
 
     public void actualizarJTree() {

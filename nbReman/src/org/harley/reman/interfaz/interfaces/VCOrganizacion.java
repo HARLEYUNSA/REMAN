@@ -9,12 +9,12 @@ import org.harley.reman.sistema.Sistema;
  *
  * @author Joel Mendoza
  */
-public class VOrganizacion extends JDialog {
+public class VCOrganizacion extends JDialog {
 
     Sistema sysReman;
     boolean flagNewOk;
 
-    public VOrganizacion(JFrame padre, Sistema sysReman) {
+    public VCOrganizacion(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);

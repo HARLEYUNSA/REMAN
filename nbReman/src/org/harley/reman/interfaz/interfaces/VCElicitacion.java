@@ -11,12 +11,12 @@ import org.harley.reman.interfaz.utilitario.ToolsInterface;
  *
  * @author User
  */
-public class VMElicitacion extends javax.swing.JFrame {
+public class VCElicitacion extends javax.swing.JFrame {
 
     /**
      * Creates new form VELicitacion
      */
-    public VMElicitacion() {
+    public VCElicitacion() {
         initComponents();
     }
 
@@ -90,14 +90,11 @@ public class VMElicitacion extends javax.swing.JFrame {
         jTable3 = new javax.swing.JTable();
         btnELCancelar = new javax.swing.JButton();
         btnELGuardar = new javax.swing.JButton();
-        btnELVersionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Elicitación");
 
         jLayeredPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Versión"));
-
-        txtELVersion.setEditable(false);
 
         jLabel5.setText("Fecha");
 
@@ -114,8 +111,8 @@ public class VMElicitacion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(txtELVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                .addComponent(txtELVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(dtELFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,6 +139,8 @@ public class VMElicitacion extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Requisitos Educcionados");
+
+        txtELCodigo.setEditable(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Nombre Elicitación");
@@ -363,8 +362,8 @@ public class VMElicitacion extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(jLabel10)
                 .addGap(35, 35, 35)
-                .addComponent(txtELArea, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtELArea, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,9 +488,9 @@ public class VMElicitacion extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTable1.getColumnModel().getColumn(0).setMinWidth(60);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
         }
 
         javax.swing.GroupLayout jLayeredPane6Layout = new javax.swing.GroupLayout(jLayeredPane6);
@@ -525,9 +524,9 @@ public class VMElicitacion extends javax.swing.JFrame {
         ));
         jScrollPane6.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jTable2.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTable2.getColumnModel().getColumn(0).setMinWidth(60);
+            jTable2.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jTable2.getColumnModel().getColumn(0).setMaxWidth(60);
         }
 
         javax.swing.GroupLayout jLayeredPane7Layout = new javax.swing.GroupLayout(jLayeredPane7);
@@ -632,6 +631,17 @@ public class VMElicitacion extends javax.swing.JFrame {
             }
         });
         jScrollPane8.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(0).setMinWidth(60);
+            jTable3.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jTable3.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTable3.getColumnModel().getColumn(1).setMinWidth(80);
+            jTable3.getColumnModel().getColumn(1).setPreferredWidth(80);
+            jTable3.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTable3.getColumnModel().getColumn(2).setMinWidth(140);
+            jTable3.getColumnModel().getColumn(2).setPreferredWidth(140);
+            jTable3.getColumnModel().getColumn(2).setMaxWidth(140);
+        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -668,30 +678,20 @@ public class VMElicitacion extends javax.swing.JFrame {
             }
         });
 
-        btnELVersionar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnELVersionar.setText("Versionar");
-        btnELVersionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnELVersionarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnELGuardar)
+                .addGap(52, 52, 52)
+                .addComponent(btnELCancelar)
+                .addGap(32, 32, 32))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnELVersionar)
-                .addGap(18, 18, 18)
-                .addComponent(btnELGuardar)
-                .addGap(18, 18, 18)
-                .addComponent(btnELCancelar)
-                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -701,8 +701,7 @@ public class VMElicitacion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnELGuardar)
-                    .addComponent(btnELCancelar)
-                    .addComponent(btnELVersionar))
+                    .addComponent(btnELCancelar))
                 .addContainerGap())
         );
 
@@ -720,14 +719,8 @@ public class VMElicitacion extends javax.swing.JFrame {
         //agregaE.setVisible(true);
     }//GEN-LAST:event_btnELAddEduActionPerformed
 
-    private void btnELVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELVersionarActionPerformed
-        // TODO add your handling code here:
-        VOEVersionar verElemento = new VOEVersionar();
-        verElemento.setVisible(true);
-    }//GEN-LAST:event_btnELVersionarActionPerformed
-
     private void btnELGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELGuardarActionPerformed
-        
+        // TODO add your handling code here:
         String eliAre = txtELArea.getText();
         String eliCarEsp = txtELCargoE.getText();
         String eliCarFue = txtELCargoF.getText();
@@ -747,20 +740,24 @@ public class VMElicitacion extends javax.swing.JFrame {
         
         if(ToolsInterface.validaElicitacion(eliAre, eliCarEsp, eliCarFue, eliCod, eliDes, eliEspEsp, eliEspExp, eliNom, eliObs, eliPosCon, eliPreCon, eliTipfue, eliVer, eliEspNom, eliFueNom, eliFec)){
             
+            
+            
         } else {
             ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
         }
-        
-       
+/*       (eliAre, eliCarEsp, eliCarFue, eliCod, eliDes, eliEspEsp, eliEspExp, eliNom,
+            eliObs, eliPosCon, eliPreCon, eliTipfue, eliVer, eliEspNom, eliFueNom,
+            eliFec)*/
+    
     }//GEN-LAST:event_btnELGuardarActionPerformed
 
- 
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnELAddEdu;
     private javax.swing.JButton btnELCancelar;
     private javax.swing.JButton btnELGuardar;
-    private javax.swing.JButton btnELVersionar;
     private javax.swing.JComboBox cmbELEspecialista;
     private javax.swing.JComboBox cmbELFuente;
     private datechooser.beans.DateChooserCombo dtELFecha;

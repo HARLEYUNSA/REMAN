@@ -10,13 +10,13 @@ import org.harley.reman.sistema.Sistema;
  *
  * @author Joel Mendoza
  */
-public class VFuente extends JDialog {
+public class VCFuente extends JDialog {
 
     Sistema sysReman;
     ArrayList<String> org;
     boolean flagIsOk;
 
-    public VFuente(JFrame padre, Sistema sysReman) {
+    public VCFuente(JFrame padre, Sistema sysReman) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
