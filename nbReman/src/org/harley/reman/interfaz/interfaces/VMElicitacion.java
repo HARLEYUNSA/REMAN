@@ -722,8 +722,7 @@ public class VMElicitacion extends javax.swing.JFrame {
 
     private void btnELVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELVersionarActionPerformed
         // TODO add your handling code here:
-        VOEVersionar verElemento = new VOEVersionar();
-        verElemento.setVisible(true);
+
     }//GEN-LAST:event_btnELVersionarActionPerformed
 
     private void btnELGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELGuardarActionPerformed
