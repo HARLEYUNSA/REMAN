@@ -24,17 +24,41 @@ public class VCElicitacion extends JDialog {
     boolean flagNewOk;
 
     public VCElicitacion(JFrame padre, Sistema sysReman) {
+        super(padre, true);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.sysReman = sysReman;
+
+        flagNewOk = false;
+
+        datesEsp = this.sysReman.getEspecialistas();
+        datesFue = this.sysReman.getFuentes();
+
+        try {
+            txtELCodigo.setText(sysReman.getNextEli());
+
+            ToolsInterface.addItems2JComboBox(cmbELEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
+            txtELEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(0));
+            txtELExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(0));
+            txtELCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(0));
+
+            ToolsInterface.addItems2JComboBox(cmbELFuente, datesFue.get(Sistema.FUE_NOMBRE));
+            txtELCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(0));
+            txtELTipoF.setText(datesFue.get(Sistema.FUE_TIPO).get(0));
+            flagLoadOk = true;
+        } catch (Exception e) {
+            flagLoadOk = false;
+        }
     }
 
     public boolean getLoadIsCorrect() {
-        return flagLoadOk ;//&& cmbEDEspecialista.getItemCount() != 0 && cmbEDFuente.getItemCount() != 0;
+        return flagLoadOk && cmbELEspecialista.getItemCount() != 0 && cmbELFuente.getItemCount() != 0;
     }
 
     public boolean createSuccessful() {
         return flagNewOk;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,7 +87,7 @@ public class VCElicitacion extends JDialog {
         jLabel15 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        txtELArea = new javax.swing.JTextField();
+        txtDependencias = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -122,6 +146,18 @@ public class VCElicitacion extends JDialog {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("Fuente");
+
+        cmbELEspecialista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbELEspecialistaActionPerformed(evt);
+            }
+        });
+
+        cmbELFuente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbELFuenteActionPerformed(evt);
+            }
+        });
 
         txtELEspecialidad.setEditable(false);
 
@@ -245,7 +281,7 @@ public class VCElicitacion extends JDialog {
                 .addGap(37, 37, 37)
                 .addComponent(jLabel10)
                 .addGap(35, 35, 35)
-                .addComponent(txtELArea, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDependencias, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -254,7 +290,7 @@ public class VCElicitacion extends JDialog {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(txtELArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDependencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(243, Short.MAX_VALUE))
         );
 
@@ -744,31 +780,42 @@ public class VCElicitacion extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnELCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELCancelarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnELCancelarActionPerformed
 
     private void btnELGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELGuardarActionPerformed
         // TODO add your handling code here:
-        String eliAre = txtELArea.getText();
-        String eliCarEsp = txtELCargoE.getText();
-        String eliCarFue = txtELCargoF.getText();
+        String eliDep = txtDependencias.getText();
+        String eliEspCar = txtELCargoE.getText();
+        String eliFueCar = txtELCargoF.getText();
         String eliCod = txtELCodigo.getText();
         String eliDes = txtELDescripcion.getText();
         String eliEspEsp = txtELEspecialidad.getText();
         String eliEspExp = txtELExperiencia.getText();
         String eliNom = txtELNombre.getText();
         String eliObs = txtELObservaciones.getText();
-        String eliPosCon = txtELPostCondicion.getText();
-        String eliPreCon = txtELPreCondicion.getText();
-        String eliTipfue = txtELTipoF.getText();
+        String eliPos = txtELPostCondicion.getText();
+        String eliPre = txtELPreCondicion.getText();
+        String eliFueTip = txtELTipoF.getText();
         String eliVer = txtELVersion.getText();
         String eliEspNom = (String) cmbELEspecialista.getSelectedItem();
         String eliFueNom = (String) cmbELFuente.getSelectedItem();
         String eliFec = dtELFecha.getText();
 
-        if (ToolsInterface.validaElicitacion(eliAre, eliCarEsp, eliCarFue, eliCod, eliDes, eliEspEsp, eliEspExp, eliNom, eliObs, eliPosCon, eliPreCon, eliTipfue, eliVer, eliEspNom, eliFueNom, eliFec)) {
-
+        if (ToolsInterface.validaElicitacion(eliDep, eliEspCar, eliFueCar,
+                eliCod, eliDes, eliEspEsp, eliEspExp, eliNom, eliObs, eliPos,
+                eliPre, eliFueTip, eliVer, eliEspNom, eliFueNom, eliFec)
+                && ToolsInterface.verificarVersion(eliVer)) {
+            if (sysReman.crearElicitacion(eliNom, eliCod, eliVer, eliFec, eliFueNom, 
+                    eliFueCar, eliFueTip, eliEspNom, eliEspEsp, eliEspExp, eliEspCar, 
+                    eliDep, eliDes, eliPre, null, eliPos, null, eliObs)) {
+                flagNewOk = true;
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Elicitacion \""
+                        + eliNom + "\" fue creada satisfactoriamente.");
+                this.dispose();
+            } else {
+                ToolsInterface.msjError(this, "Error al crear la Elicitacion");
+            }
         } else {
             ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
         }
@@ -777,6 +824,21 @@ public class VCElicitacion extends JDialog {
          eliFec)*/
 
     }//GEN-LAST:event_btnELGuardarActionPerformed
+
+    private void cmbELEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbELEspecialistaActionPerformed
+        //ESPECIALISTA
+        int index = cmbELEspecialista.getSelectedIndex();
+        txtELEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(index));
+        txtELExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(index));
+        txtELCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(index));
+    }//GEN-LAST:event_cmbELEspecialistaActionPerformed
+
+    private void cmbELFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbELFuenteActionPerformed
+        //FUENTE
+        int index = cmbELFuente.getSelectedIndex();
+        txtELCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(index));
+        txtEDTipoF.setText(datesFue.get(Sistema.FUE_TIPO).get(index));
+    }//GEN-LAST:event_cmbELFuenteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -827,8 +889,8 @@ public class VCElicitacion extends JDialog {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
+    private javax.swing.JTextField txtDependencias;
     private javax.swing.JLabel txtEDTipoF;
-    private javax.swing.JTextField txtELArea;
     private javax.swing.JTextField txtELCargoE;
     private javax.swing.JTextField txtELCargoF;
     private javax.swing.JTextField txtELCodigo;

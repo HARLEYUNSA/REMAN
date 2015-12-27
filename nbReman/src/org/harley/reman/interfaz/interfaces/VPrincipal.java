@@ -594,8 +594,16 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPElicitacionActionPerformed(java.awt.event.ActionEvent evt) {
-        //VCElicitacion ventanaEl = new VCElicitacion();
-        //ventanaEl.setVisible(true);
+        //NUEVA ELICITACION
+        VCElicitacion VEli = new VCElicitacion(this, sysReman);
+        if (VEli.getLoadIsCorrect()) {
+            VEli.setVisible(true);
+        } else {
+            ToolsInterface.msjError(this, "Error al cargar los datos del proyecto!");
+        }
+        if (VEli.createSuccessful()) {
+            venEli.actualizarJTree();
+        }
     }
 
     private void btnVPEspecificiacionActionPerformed(java.awt.event.ActionEvent evt) {
