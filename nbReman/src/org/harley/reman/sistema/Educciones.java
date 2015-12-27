@@ -96,11 +96,7 @@ public class Educciones {
        Educcion last = versiones.get(versiones.size()-1);
        return last;
     }
-    
-    public ArrayList<String> obtenerEdu(){
-        return actual.obtenerEdu();
-    } 
-    
+
     public ArrayList<ArrayList<String>> getHist(){
         ArrayList<ArrayList<String>> datos = new ArrayList<>();
         ArrayList<String> version = new ArrayList<>();

@@ -324,11 +324,11 @@ public class Sistema {
      * Recuperar los datos de una educción
      *
      * @param eduCod Código de la educción
-     * @return Un objeto ArrayList que contiene los datos de la educción
+     * @return Un objeto Educcion que metodos accesores y mutadores
      */
-    public ArrayList<String> recuperarEduccion(String codigo) {
+    public Educcion recuperarEduccion(String codigo) {
         Educciones edu = manVerEdu.leerXML(codigo);
-        return edu.obtenerEdu(); //edu.getActual()
+        return edu.getActual();
     }
 
     /**

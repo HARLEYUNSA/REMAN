@@ -229,24 +229,4 @@ public class Educcion {
     public void setEduObs(String eduObs) {
         this.eduObs = eduObs;
     }
-    
-    public ArrayList<String> obtenerEdu(){
-        ArrayList<String> datos = new ArrayList<>();
-        datos.add(eduNombre.getCodigo());
-        datos.add(eduNombre.getNombre());
-        datos.add(eduVer);
-        datos.add(eduTip);
-        datos.add(eduObj);
-        datos.add(eduFec);
-        datos.add(eduFueNom);
-        datos.add(eduFueCar);
-        datos.add(eduFueTip);
-        datos.add(eduEspNom);
-        datos.add(eduEspEsp);
-        datos.add(eduEspExp);      
-        datos.add(eduEspCar);
-        datos.add(eduDes);
-        datos.add(eduObs);
-        return datos;
-    }
 }
