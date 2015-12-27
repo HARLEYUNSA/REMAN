@@ -22,7 +22,7 @@ public class VMEduccion extends JDialog {
     boolean flagSetOk;
     JFrame padre;
 
-    public VMEduccion(JFrame padre, Sistema sysReman, String codEdu) {
+    public VMEduccion(JFrame padre, Sistema sysReman, String eduCod) {
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -34,9 +34,9 @@ public class VMEduccion extends JDialog {
 
         try {
             //cargar de educcion
-            myEdu = sysReman.recuperarEduccion(codEdu);
+            myEdu = sysReman.recuperarEduccion(eduCod);
 
-            txtEDCodigo.setText(codEdu);
+            txtEDCodigo.setText(eduCod);
             txtEDNombre.setText(myEdu.getEduNombre().getNombre());
             txtEDTipo.setText(myEdu.getEduTip());
             txtEDVersion.setText(myEdu.getEduVer());
@@ -73,7 +73,8 @@ public class VMEduccion extends JDialog {
             txtEDFTipo.setText(myEdu.getEduFueTip());
 
             //cargar historial
-            System.out.println(sysReman.getHist(0, codEdu).size());
+            ToolsInterface.putJTableHistorico(JTversion, sysReman.getHist(Sistema.LIB_EDU, eduCod));
+            System.out.println(sysReman.getHist(0, eduCod).size());
             flagLoadOk = true;
         } catch (Exception e) {
         }
@@ -140,7 +141,7 @@ public class VMEduccion extends JDialog {
         txtEDObservaciones = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        JTversion = new javax.swing.JTable();
         btnVEDCancelar = new javax.swing.JButton();
         btnVEDGuardar = new javax.swing.JButton();
         btnVEDVersionar = new javax.swing.JButton();
@@ -528,8 +529,8 @@ public class VMEduccion extends JDialog {
 
         jTabbedPane1.addTab("Notas", jPanel4);
 
-        jTable3.setAutoCreateRowSorter(true);
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        JTversion.setAutoCreateRowSorter(true);
+        JTversion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null}
             },
@@ -545,17 +546,17 @@ public class VMEduccion extends JDialog {
                 return types [columnIndex];
             }
         });
-        jScrollPane8.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setMinWidth(60);
-            jTable3.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jTable3.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTable3.getColumnModel().getColumn(1).setMinWidth(80);
-            jTable3.getColumnModel().getColumn(1).setPreferredWidth(80);
-            jTable3.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTable3.getColumnModel().getColumn(2).setMinWidth(140);
-            jTable3.getColumnModel().getColumn(2).setPreferredWidth(140);
-            jTable3.getColumnModel().getColumn(2).setMaxWidth(140);
+        jScrollPane8.setViewportView(JTversion);
+        if (JTversion.getColumnModel().getColumnCount() > 0) {
+            JTversion.getColumnModel().getColumn(0).setMinWidth(60);
+            JTversion.getColumnModel().getColumn(0).setPreferredWidth(60);
+            JTversion.getColumnModel().getColumn(0).setMaxWidth(60);
+            JTversion.getColumnModel().getColumn(1).setMinWidth(80);
+            JTversion.getColumnModel().getColumn(1).setPreferredWidth(80);
+            JTversion.getColumnModel().getColumn(1).setMaxWidth(80);
+            JTversion.getColumnModel().getColumn(2).setMinWidth(140);
+            JTversion.getColumnModel().getColumn(2).setPreferredWidth(140);
+            JTversion.getColumnModel().getColumn(2).setMaxWidth(140);
         }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -716,9 +717,13 @@ public class VMEduccion extends JDialog {
         }else{
             ToolsInterface.msjError(padre, "Error al cargar Especialistas y/o datos de Educcion");
         }
+        if(VEdu.versionSuccessful()){
+            this.dispose();
+        }
     }//GEN-LAST:event_btnVEDVersionarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable JTversion;
     private javax.swing.JButton btnVEDCancelar;
     private javax.swing.JButton btnVEDGuardar;
     private javax.swing.JButton btnVEDVersionar;
@@ -753,7 +758,6 @@ public class VMEduccion extends JDialog {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextField txtEDCargoE;
     private javax.swing.JTextField txtEDCargoF;
     private javax.swing.JTextField txtEDCodigo;

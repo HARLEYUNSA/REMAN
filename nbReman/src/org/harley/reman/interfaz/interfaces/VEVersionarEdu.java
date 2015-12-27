@@ -95,7 +95,7 @@ public class VEVersionarEdu extends JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtRzcam = new javax.swing.JTextArea();
         dtEDFecha = new datechooser.beans.DateChooserCombo();
-        btnVGuardar = new javax.swing.JButton();
+        btnVVersionar = new javax.swing.JButton();
         btnVCancelar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTVersion = new javax.swing.JTable();
@@ -183,11 +183,11 @@ public class VEVersionarEdu extends JDialog {
         jLayeredPane3.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(dtEDFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        btnVGuardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnVGuardar.setText("Versionar");
-        btnVGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnVVersionar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnVVersionar.setText("Versionar");
+        btnVVersionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVGuardarActionPerformed(evt);
+                btnVVersionarActionPerformed(evt);
             }
         });
 
@@ -237,7 +237,7 @@ public class VEVersionarEdu extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnVGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnVVersionar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addComponent(btnVCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLayeredPane3))
@@ -254,7 +254,7 @@ public class VEVersionarEdu extends JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnVCancelar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnVGuardar, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(btnVVersionar, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -293,7 +293,7 @@ public class VEVersionarEdu extends JDialog {
         this.dispose();
     }//GEN-LAST:event_btnVCancelarActionPerformed
 
-    private void btnVGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVGuardarActionPerformed
+    private void btnVVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVVersionarActionPerformed
         String version = txtVVersion.getText().trim();
         String fecha = dtEDFecha.getText().trim();
         String autor = (String) cmbVAutor.getSelectedItem();
@@ -309,6 +309,7 @@ public class VEVersionarEdu extends JDialog {
             if (ToolsSystem.CompararVersiones(version, lastVersion)) {
                 versionar(version, fecha, autor, rzcam);
                 ToolsInterface.msjInfo(this, "Operacion Exitosa", "La educcion se versiono correctamente");
+                flagOk = true;
                 this.dispose();
             } else {
                 ToolsInterface.msjError(this, "Utilice una version superior a la ultima desarrollada!");
@@ -318,7 +319,7 @@ public class VEVersionarEdu extends JDialog {
         }
 
 
-    }//GEN-LAST:event_btnVGuardarActionPerformed
+    }//GEN-LAST:event_btnVVersionarActionPerformed
 
     private void actualizarJTable() {
         try {
@@ -338,7 +339,7 @@ public class VEVersionarEdu extends JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable JTVersion;
     private javax.swing.JButton btnVCancelar;
-    private javax.swing.JButton btnVGuardar;
+    private javax.swing.JButton btnVVersionar;
     private javax.swing.JComboBox cmbVAutor;
     private datechooser.beans.DateChooserCombo dtEDFecha;
     private javax.swing.JLabel jLabel1;
