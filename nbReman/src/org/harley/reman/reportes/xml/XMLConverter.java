@@ -7,9 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.DirectoryNotEmptyException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +18,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import static org.apache.commons.io.IOUtils.closeQuietly;
 
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.FOUserAgent;
@@ -59,27 +55,33 @@ public class XMLConverter {
      */
     public void convertXML2FO(File xsl, File xml, File fo){
 
-        TransformerFactory factory = TransformerFactory.newInstance();
-        Transformer transformer; 
+        FileOutputStream fileFo = null;
         try {
-            transformer = factory.newTransformer(new StreamSource(xsl));
+            TransformerFactory factory = TransformerFactory.newInstance();
+            Transformer transformer;
             
+            transformer = factory.newTransformer(new StreamSource(xsl));
             
             // Setup input stream
             Source src = new StreamSource(xml);
 
             // Resulting SAX events (the generated FO) must be piped through to FOP
-            FileOutputStream st = new FileOutputStream(fo);
-            Result res = new StreamResult(st);
+            fileFo = new FileOutputStream(fo);
+            Result res = new StreamResult(fileFo);
 
             // Start XSLT transformation and FOP processing
             transformer.transform(src, res);
-            st.close();
-        } catch (Exception e) {
-            e.printStackTrace(System.err);
+            
+        } catch (Exception ex) {
+            
         }
         finally{
+            try {
+                fileFo.close();
+            } catch (IOException ex) {
+            }
             xml.delete();
+            
         }
     }
     
@@ -91,7 +93,7 @@ public class XMLConverter {
     public void convertFO2PDF(File fo, File pdf){
 
         OutputStream out = null;
-        
+
         try {
             FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
             out = new FileOutputStream(pdf);
@@ -126,7 +128,7 @@ public class XMLConverter {
             System.out.println("Generated " + foResults.getPageCount() + " pages in total.");
 */
         } catch (FileNotFoundException | FOPException | TransformerException e) {
-            e.printStackTrace(System.err);
+            
         } finally {
             fo.delete();
             try {
@@ -134,6 +136,16 @@ public class XMLConverter {
             } catch (IOException ex) {
             }
         }
+    }
+    
+
+    public void convert(String archivoXML){
+        //Setup input and output files
+        File xmlFile = new File(database, archivoXML +".xml");
+        File xslFile = new File(plantillas, "plantilla.xsl");
+        File foFile = new File(database, archivoXML +".fo");
+        File pdfFile = new File(salida, archivoXML +".pdf");
+        convertXML2PDF(xmlFile, xslFile, foFile, pdfFile);
     }
     
     /**
@@ -161,14 +173,18 @@ public class XMLConverter {
      * @param pdf Archivo PDF destino
      */
     public void convertXML2PDF(File xml, File xsl, File fo, File pdf){
+        
+        try{
+            //Convert from XML and XLS to FOP
+            convertXML2FO(xsl, xml, fo);
 
-        //Convert from XML and XLS to FOP
-        convertXML2FO(xsl, xml, fo);
+            //Convert from FOP to PDF
+            convertFO2PDF(fo, pdf);
 
-        //Convert from FOP to PDF
-        convertFO2PDF(fo, pdf);
-
-        abrirPDF(pdf);
+            abrirPDF(pdf);
+        }
+        catch (Exception ex) {
+        }
     }
     
     /**
@@ -182,4 +198,17 @@ public class XMLConverter {
             Logger.getLogger(XMLConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    /**
+     * Elimina el archivo FO intermedio
+     * @param fo Archivo FO creado
+     * @param xml Arcguvi XML creado
+     */
+    public void clean(File fo, File xml){
+        if (fo.exists())
+            fo.delete();
+        if (xml.exists())
+            xml.delete();
+    }
+    
 }

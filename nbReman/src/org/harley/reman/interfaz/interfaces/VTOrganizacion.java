@@ -6,13 +6,10 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.awt.event.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.TreePath;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
@@ -234,7 +231,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         VOrganizacion VOrg = new VOrganizacion(padre, sysReman);
         VOrg.setVisible(true);
         if (VOrg.createSuccessful()) {
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
         }
     }//GEN-LAST:event_menuDocOrgItem1ActionPerformed
 
@@ -256,7 +253,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         if (resp == 0) {
             path = dirTree.getLastPathComponent().toString();
             sysReman.eliminarOrganizacion(path);
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
             ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente la Organizacion " + path);
         }
 
@@ -271,7 +268,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             ToolsInterface.msjError(padre, "Error al cargar las Organizaciones!");
         }
         if (VEsp.createSuccessful()) {
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
         }
     }//GEN-LAST:event_menuDocPytItem1ActionPerformed
 
@@ -293,7 +290,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         if (resp == 0) {
             path = dirTree.getLastPathComponent().toString();
             sysReman.eliminarProyectTeam(path);
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
             ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente el Especialista " + path);
         }
     }//GEN-LAST:event_menuPytItem2ActionPerformed
@@ -307,7 +304,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             ToolsInterface.msjError(padre, "Error al cargar las Organizaciones!");
         }
         if (VFue.createSuccessful()) {
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
         }
     }//GEN-LAST:event_menuDocSthItem1ActionPerformed
 
@@ -318,7 +315,7 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         if (resp == 0) {
             path = dirTree.getLastPathComponent().toString();
             sysReman.eliminarStakeholder(path);
-            actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            actualizarJTree();
             ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente la Fuente " + path);
         }
     }//GEN-LAST:event_menuSthItem2ActionPerformed
@@ -344,11 +341,8 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             nombre = ExportarFile.getSelectedFile().getName();
             nombre = ToolsInterface.addExtensionPdf(nombre);
             if(!nombre.equals("error")){
-                try {
-                    sysReman.exportarLibroOrg(direccion, nombre);
-                    //ToolsInterface.msjInfo(padre, "Operacion Exitosa", "Se exporto correctamente.");
-                } catch (Exception ex) {
-                    Logger.getLogger(VTOrganizacion.class.getName()).log(Level.SEVERE, null, ex);
+                if(!sysReman.exportarLibro(Sistema.LIB_ORG,direccion, nombre)){
+                    ToolsInterface.msjError(padre, "Error al cargar las Organizaciones, reviselos antes de continuar la operacion!");
                 }
             }else{
                 ToolsInterface.msjError(padre, "Error con el nombre del archivo, intentelo nuevamente!");
@@ -366,11 +360,8 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
             nombre = ExportarFile.getSelectedFile().getName();
             nombre = ToolsInterface.addExtensionPdf(nombre);
             if(!nombre.equals("error")){
-                try {
-                    sysReman.exportarLibroAct(direccion, nombre);
-                    //ToolsInterface.msjInfo(padre, "Operacion Exitosa", "Se exporto correctamente.");
-                } catch (Exception ex) {
-                    Logger.getLogger(VTOrganizacion.class.getName()).log(Level.SEVERE, null, ex);
+                if(!sysReman.exportarLibro(Sistema.LIB_ACT,direccion, nombre)){
+                    ToolsInterface.msjError(padre, "Error al cargar los Actores, reviselos antes de continuar la operacion!");
                 }
             }else{
                 ToolsInterface.msjError(padre, "Error con el nombre del archivo, intentelo nuevamente!");
@@ -378,8 +369,9 @@ public class VTOrganizacion extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_menuDocActItem1ActionPerformed
 
-    public void actualizar(JTree tree) {
-        treeOrgMain.setModel(tree.getModel());
+    public void actualizarJTree() {
+        JTree model = ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org");
+        treeOrgMain.setModel(model.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

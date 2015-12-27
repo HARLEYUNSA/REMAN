@@ -337,7 +337,7 @@
                               <Component id="txtESEspecialidad" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtESExperiencia" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtESCargoF" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtESTipo" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtESTipoF" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="95" max="32767" attributes="0"/>
                       </Group>
@@ -378,7 +378,7 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtESTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtESTipoF" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtEDTipoF" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="44" max="32767" attributes="0"/>
@@ -445,7 +445,7 @@
                     <Property name="editable" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtESTipo">
+                <Component class="javax.swing.JTextField" name="txtESTipoF">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                   </Properties>
@@ -605,7 +605,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea1">
+                    <Component class="javax.swing.JTextArea" name="txtESDescripcion">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
@@ -652,7 +652,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea2">
+                    <Component class="javax.swing.JTextArea" name="txtESPreCondicion">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="2"/>
@@ -699,7 +699,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea3">
+                    <Component class="javax.swing.JTextArea" name="txtESPostCondicion">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="2"/>
@@ -953,7 +953,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea4">
+                    <Component class="javax.swing.JTextArea" name="txtESObservaciones">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="3"/>
@@ -1055,6 +1055,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnESGuardarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnESCancelar">
       <Properties>

@@ -59,4 +59,8 @@ public class LibroHistorico {
         addHistorico(his);
     }
     
+    public String getLastVersion(){
+        return historicos.get(historicos.size()).getVersion();
+    }
+    
 }
