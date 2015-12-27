@@ -96,4 +96,23 @@ public class Elicitaciones {
        Elicitacion last = versiones.get(versiones.size()-1);
        return last;
     }
+    
+    public ArrayList<ArrayList<String>> getHist(){
+        ArrayList<ArrayList<String>> datos = new ArrayList<>();
+        ArrayList<String> version = new ArrayList<>();
+        ArrayList<String> fecha = new ArrayList<>();
+        ArrayList<String> razon = new ArrayList<>();
+        ArrayList<String> autor = new ArrayList<>();
+        for(Historico h : historicos){
+            version.add(h.getVersion());
+            fecha.add(h.getFecha());
+            razon.add(h.getRazon());
+            autor.add(h.getAutor());            
+        }
+        datos.add(version);
+        datos.add(fecha);
+        datos.add(razon);
+        datos.add(autor);
+        return datos;
+    } 
 }
