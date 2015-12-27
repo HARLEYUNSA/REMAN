@@ -669,6 +669,7 @@ public class VPrincipal extends javax.swing.JFrame {
         //RESTAURAR UN LIBRO
         VOLRestaurar VLib = new VOLRestaurar(this, sysReman);
         VLib.setVisible(true);
+  
     }
 
     private void btnVPExportarActionPerformed(java.awt.event.ActionEvent evt) {

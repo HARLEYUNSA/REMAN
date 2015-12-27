@@ -16,6 +16,7 @@ public class VOLRestaurar extends JDialog {
     ArrayList<Historico> libEsp;
     ArrayList<Historico> libRnf;
     boolean flagOk;
+    boolean flagLoadOk;
 
     public VOLRestaurar(JFrame padre, Sistema sysReman) {
         super(padre, true);
@@ -23,17 +24,21 @@ public class VOLRestaurar extends JDialog {
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
 
-        libEdu = sysReman.getHistLibEdu();
-        libEli = sysReman.getHistLibEli();
-        libEsp = sysReman.getHistLibEsp();
-        libRnf = sysReman.getHistLibRnf();
-
         try {
+            libEdu = sysReman.getHistLibEdu();
+            libEli = sysReman.getHistLibEli();
+            libEsp = sysReman.getHistLibEsp();
+            libRnf = sysReman.getHistLibRnf();
             ToolsInterface.putJTableHistorico(JTVersion, libEdu);
+            flagLoadOk = true;
         } catch (Exception e) {
+            flagLoadOk = false;
             //ToolsInterface.msjError(this, "- No se encontro historicos de libros de educcion.");
         }
 
+    }
+    public boolean getLoadIsCorrect() {
+        return flagLoadOk;
     }
 
     public boolean versionSuccessful() {

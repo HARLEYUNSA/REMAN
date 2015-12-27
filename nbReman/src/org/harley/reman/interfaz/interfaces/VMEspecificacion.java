@@ -714,8 +714,6 @@ public class VMEspecificacion extends javax.swing.JFrame {
 
     private void btnESVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESVersionarActionPerformed
 
-        VOEVersionar verElemento = new VOEVersionar();
-        verElemento.setVisible(true);
     }//GEN-LAST:event_btnESVersionarActionPerformed
 
     private void btnESGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESGuardarActionPerformed

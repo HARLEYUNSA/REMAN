@@ -402,7 +402,7 @@ public class Sistema {
                         eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes,
                         eduObs);
                 verEdu.modEdu(edu);
-                verEdu.verEdu(verVer, verFec, verEsp, verRazCam);
+                verEdu.verEdu(verVer, verFec, verRazCam, verEsp);
                 manVerEdu.escribirXML(eduCod, verEdu);
                 return true;
             }
