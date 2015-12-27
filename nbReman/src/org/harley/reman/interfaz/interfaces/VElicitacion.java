@@ -5,6 +5,8 @@
  */
 package org.harley.reman.interfaz.interfaces;
 
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
+
 /**
  *
  * @author User
@@ -736,7 +738,14 @@ public class VElicitacion extends javax.swing.JFrame {
         String eliFueNom = (String)cmbELFuente.getSelectedItem();
         String eliFec = dtELFecha.getText();
         
-/*        (eliAre, eliCarEsp, eliCarFue, eliCod, eliDes, eliEspEsp, eliEspExp, eliNom,
+        if(ToolsInterface.validaElicitacion(eliAre, eliCarEsp, eliCarFue, eliCod, eliDes, eliEspEsp, eliEspExp, eliNom, eliObs, eliPosCon, eliPreCon, eliTipfue, eliVer, eliEspNom, eliFueNom, eliFec)){
+            
+            
+            
+        } else {
+            ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
+        }
+/*       (eliAre, eliCarEsp, eliCarFue, eliCod, eliDes, eliEspEsp, eliEspExp, eliNom,
             eliObs, eliPosCon, eliPreCon, eliTipfue, eliVer, eliEspNom, eliFueNom,
             eliFec)*/
     

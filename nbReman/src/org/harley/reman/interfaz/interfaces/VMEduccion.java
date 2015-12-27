@@ -71,7 +71,7 @@ public class VMEduccion extends JDialog {
             txtEDFTipo.setText(myEdu.getEduFueTip());
 
             //cargar historial
-            System.out.println(sysReman.getHistEdu(codEdu).size());
+            System.out.println(sysReman.getHist(0,codEdu).size());
             flagLoadOk = true;
         } catch (Exception e) {
         }

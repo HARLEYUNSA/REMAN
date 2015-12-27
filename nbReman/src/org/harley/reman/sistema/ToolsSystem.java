@@ -2,6 +2,7 @@ package org.harley.reman.sistema;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ToolsSystem {
@@ -82,5 +83,24 @@ public class ToolsSystem {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar cal = Calendar.getInstance();
         return dateFormat.format(cal.getTime());
+    }
+    
+    public static ArrayList<ArrayList<String>> getHist(ArrayList<Historico> historicos){
+        ArrayList<ArrayList<String>> datos = new ArrayList<>();
+        ArrayList<String> version = new ArrayList<>();
+        ArrayList<String> fecha = new ArrayList<>();
+        ArrayList<String> razon = new ArrayList<>();
+        ArrayList<String> autor = new ArrayList<>();
+        for(Historico h : historicos){
+            version.add(h.getVersion());
+            fecha.add(h.getFecha());
+            razon.add(h.getRazon());
+            autor.add(h.getAutor());            
+        }
+        datos.add(version);
+        datos.add(fecha);
+        datos.add(razon);
+        datos.add(autor);
+        return datos;
     }
 }

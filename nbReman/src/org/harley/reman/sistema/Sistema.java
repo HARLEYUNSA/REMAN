@@ -192,11 +192,6 @@ public class Sistema {
         return dirPrincipal;
     }
 
-    /**
-     *
-     * @param proUbi Ubicación del proyecto
-     * @throws IOException
-     */
     public void iniciarHistoricos() {
         LibroHistorico libH = new LibroHistorico();
         manHisEdu.escribirXML("eduhis", libH);
@@ -436,34 +431,7 @@ public class Sistema {
         }
     }
 
-    /**
-     *
-     * Devolver el conjunto de históricos del elemento del libro seleccionado
-     *
-     * @param libTip Tipo de libro
-     * @param codigo Código del libro
-     * @return Un ArrayList que contiene un conjunto de objetos Historico con
-     * métodos accesores y mutadores
-     */
-    public ArrayList<Historico> getHist(int libTip, String codigo) {
-        switch (libTip) {
-            case 0:
-                Educciones edu = manVerEdu.leerXML(codigo);
-                return edu.getHistoricos();
-            case 1:
-                Elicitaciones eli = manVerEli.leerXML(codigo);
-                return eli.getHistoricos();
-            case 2:
-                Especificaciones esp = manVerEsp.leerXML(codigo);
-                return esp.getHistoricos();
-            case 3:
-                RequisitosNF rnq = manVerRnf.leerXML(codigo);
-                return rnq.getHistoricos();
-        }
-        return null;
-    }
-
-    /**
+        /**
      *
      * Restaurar una educción
      *
@@ -519,13 +487,11 @@ public class Sistema {
             entrada = new FileInputStream(input);
             propiedades.load(entrada);
         } catch (IOException ex) {
-            ex.printStackTrace();
         } finally {
             if (entrada != null) {
                 try {
                     entrada.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
         }
@@ -544,13 +510,11 @@ public class Sistema {
             salida = new FileOutputStream(output);
             propiedades.store(salida, null);
         } catch (IOException io) {
-            io.printStackTrace();
         } finally {
             if (salida != null) {
                 try {
                     salida.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
         }
@@ -596,6 +560,7 @@ public class Sistema {
      *
      * @param destino Destino del pdf
      * @param nombre Nombre del libro
+     * @throws java.lang.Exception Al no encontrar archivos para exportar
      */
     public void exportarLibroEdu(String destino, String nombre) throws Exception {
         LibroEduccion lib = new LibroEduccion();
@@ -615,6 +580,7 @@ public class Sistema {
      * Obtener la educción actual
      *
      * @param codigo Código de la educción
+     * @return Objeto Educcion con métodos accesores y mutadores
      */
     public Educcion getLastEdu(String codigo) {
         Educciones edu = manVerEdu.leerXML(codigo);
@@ -633,16 +599,16 @@ public class Sistema {
     public void versionarLibro(int libTip, String version, String fecha,
             String razon, String autor) {
         switch (libTip) {
-            case 0:
+            case LIB_EDU:
                 verLibroEdu(version, fecha, razon, autor);
                 break;
-            case 1:
+            case LIB_ELI:
                 verLibroEli(version, fecha, razon, autor);
                 break;
-            case 2:
+            case LIB_ESP:
                 verLibroEsp(version, fecha, razon, autor);
                 break;
-            case 3:
+            case LIB_RNF:
                 verLibroRnf(version, fecha, razon, autor);
                 break;
         }
@@ -656,16 +622,16 @@ public class Sistema {
      */
     public void restaurarLibro(int libTip, String version) {
         switch (libTip) {
-            case 0:
+            case LIB_EDU:
                 resLibroEdu(version);
                 break;
-            case 1:
+            case LIB_ELI:
                 resLibroEli(version);
                 break;
-            case 2:
+            case LIB_ESP:
                 resLibroEsp(version);
                 break;
-            case 3:
+            case LIB_RNF:
                 resLibroRnf(version);
                 break;
         }
@@ -718,6 +684,7 @@ public class Sistema {
      * Crear carátula para los libros
      *
      * @param libNom Nombre del libro
+     * @return Objeto Caratula con los datos del proyecto
      *
      */
     public Caratula crearCaratula(String libNom) {
@@ -752,6 +719,7 @@ public class Sistema {
      * @param libTip Tipo de libro
      * @param destino Destino del pdf
      * @param nombre Nombre del libro
+     * @return Un booleano que indica si la función se realizó correctamente
      */
     public boolean exportarLibro(int libTip, String destino, String nombre) {
         try {
@@ -786,6 +754,7 @@ public class Sistema {
      *
      * @param destino Destino del pdf
      * @param nombre Nombre del libro
+     * @throws java.lang.Exception Al no encontrar archivos para exportar
      */
     public void exportarLibroEli(String destino, String nombre) throws Exception {
         LibroElicitacion lib = new LibroElicitacion();
@@ -1253,6 +1222,7 @@ public class Sistema {
      *
      * @param destino Destino del pdf
      * @param nombre Nombre del libro
+     * @throws java.lang.Exception Al no encontrar archivos para exportar
      */
     public void exportarLibroEsp(String destino, String nombre) throws Exception {
         LibroEspecificacion lib = new LibroEspecificacion();
@@ -1299,8 +1269,8 @@ public class Sistema {
         } catch (IOException ex) {
         }
         manLibEli.copiarDirectorios(
-                new File(dirPrincipal + "//verlib//esp//esp" + version),
-                new File(dirPrincipal + "//src//esp")
+            new File(dirPrincipal + "//verlib//esp//esp" + version),
+            new File(dirPrincipal + "//src//esp")
         );
     }
 
@@ -1309,6 +1279,13 @@ public class Sistema {
         return libH.getHistoricos();
     }
 
+    /**
+     * Exportar el libro de requisitos no funcionales
+     *
+     * @param destino Destino del pdf
+     * @param nombre Nombre del libro
+     * @throws java.lang.Exception Al no encontrar archivos para exportar
+     */
     public void exportarLibroRnf(String destino, String nombre) throws Exception {
         LibroRequisitoNF lib = new LibroRequisitoNF();
         File[] ficheros = new File(dirPrincipal + "//src//rnf").listFiles();
@@ -1324,6 +1301,12 @@ public class Sistema {
         manLibRnf.exportarPDF("libRnf", destino, nombre);
     }
 
+    /**
+     * Crear el libro de requisitos no funcionales
+     *
+     * @param nombre Nombre del libro
+     * @param lib Objeto LibroRequisitoNF a guardar
+     */
     public void createLibRnf(String nombre, LibroRequisitoNF lib) {
         manLibRnf.escribirXML(nombre, lib);
     }
@@ -1460,6 +1443,13 @@ public class Sistema {
         }
     }
 
+    /**
+     * Exportar el libro de organización
+     *
+     * @param destino Destino del pdf
+     * @param nombre Nombre del libro
+     * @throws java.lang.Exception Al no encontrar archivos para exportar
+     */
     public void exportarLibroOrg(String destino, String nombre) throws Exception {
         LibroOrganizacion lib = new LibroOrganizacion();
         File[] ficheros = new File(dirPrincipal + "//src//org//org").listFiles();
@@ -1480,6 +1470,12 @@ public class Sistema {
         return org;
     }
 
+    /**
+     * Crear el libro de organización
+     *
+     * @param nombre Nombre del libro
+     * @param lib Objeto LibroOrganizacion a guardar
+     */
     public void createLibOrg(String nombre, LibroOrganizacion lib) {
         manLibOrg.escribirXML(nombre, lib);
     }
@@ -1568,6 +1564,13 @@ public class Sistema {
         }
     }
 
+    /**
+     * Exportar el libro de actores
+     *
+     * @param destino Destino del pdf
+     * @param nombre Nombre del libro
+     * @throws java.lang.Exception Al no encontrar archivos para exportar
+     */
     public void exportarLibroAct(String destino, String nombre) throws Exception {
         LibroActor lib = new LibroActor();
         File[] stakes = new File(dirPrincipal + "//src//org//sth").listFiles();
@@ -1810,25 +1813,59 @@ public class Sistema {
     public String getNextOrg() {
         return ToolsSystem.IncrementarCodigo(Organizacion.getCodigo());
     }
-
-    public ArrayList<Historico> getHistEdu(String cod) {
-        Educciones libH = manVerEdu.leerXML(cod);
-        return libH.getHistoricos();
+    
+    /**
+     *
+     * Devolver el conjunto de históricos del elemento seleccionado
+     *
+     * @param libTip Tipo de libro
+     * @param codigo Código del elemento
+     * @return Un ArrayList de String que contiene los datos de los históricos
+     */
+    public ArrayList<ArrayList<String>> getHist(int libTip, String codigo) {
+        ArrayList<Historico> his = null;
+        switch (libTip) {
+            case LIB_EDU:
+                his = manVerEdu.leerXML(codigo).getHistoricos();
+                break;
+            case LIB_ELI:
+                his = manVerEli.leerXML(codigo).getHistoricos();
+                break;
+            case LIB_ESP:
+                his = manVerEsp.leerXML(codigo).getHistoricos();
+                break;
+            case LIB_RNF:
+                his = manVerRnf.leerXML(codigo).getHistoricos();
+                break;
+        }
+        return ToolsSystem.getHist(his);
     }
-
-    public ArrayList<Historico> getHistEli(String cod) {
-        Elicitaciones libH = manVerEli.leerXML(cod);
-        return libH.getHistoricos();
-    }
-
-    public ArrayList<Historico> getHistEsp(String cod) {
-        Especificaciones libH = manVerEsp.leerXML(cod);
-        return libH.getHistoricos();
-    }
-
-    public ArrayList<Historico> getHistRnf(String cod) {
-        RequisitosNF libH = manVerRnf.leerXML(cod);
-        return libH.getHistoricos();
+    
+    /**
+     *
+     * Devolver el conjunto de históricos del libro seleccionado
+     *
+     * @param libTip Tipo de libro
+     * @param codigo Código del libro
+     * @return Un ArrayList de String que contiene los datos de los históricos
+     */
+    public ArrayList<ArrayList<String>> getHistLib(int libTip, String codigo) {
+        ArrayList<Historico> his = null;
+        switch (libTip) {
+            case LIB_EDU:
+                his = manHisEdu.leerXML(codigo).getHistoricos();
+                break;
+            case LIB_ELI:
+                his = manHisEli.leerXML(codigo).getHistoricos();
+                break;
+            case LIB_ESP:
+                his = manHisEsp.leerXML(codigo).getHistoricos();
+                break;
+            case LIB_RNF:
+                his = manHisRnf.leerXML(codigo).getHistoricos();
+                break;
+        }
+        return ToolsSystem.getHist(his);
     }
 
     //Facilitadores de acceso

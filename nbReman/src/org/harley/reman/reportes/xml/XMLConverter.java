@@ -55,22 +55,33 @@ public class XMLConverter {
      */
     public void convertXML2FO(File xsl, File xml, File fo){
 
-        TransformerFactory factory = TransformerFactory.newInstance();
-        Transformer transformer; 
+        FileOutputStream fileFo = null;
         try {
+            TransformerFactory factory = TransformerFactory.newInstance();
+            Transformer transformer;
+            
             transformer = factory.newTransformer(new StreamSource(xsl));
             
             // Setup input stream
             Source src = new StreamSource(xml);
 
             // Resulting SAX events (the generated FO) must be piped through to FOP
-            Result res = new StreamResult(new FileOutputStream(fo));
+            fileFo = new FileOutputStream(fo);
+            Result res = new StreamResult(fileFo);
 
             // Start XSLT transformation and FOP processing
             transformer.transform(src, res);
-        } catch (FileNotFoundException | TransformerException e) {
-            e.printStackTrace(System.err);
-            System.exit(-1);
+            
+        } catch (Exception ex) {
+            
+        }
+        finally{
+            try {
+                fileFo.close();
+            } catch (IOException ex) {
+            }
+            xml.delete();
+            
         }
     }
     
@@ -117,13 +128,12 @@ public class XMLConverter {
             System.out.println("Generated " + foResults.getPageCount() + " pages in total.");
 */
         } catch (FileNotFoundException | FOPException | TransformerException e) {
-            e.printStackTrace(System.err);
-            System.exit(-1);
+            
         } finally {
+            fo.delete();
             try {
                 out.close();
             } catch (IOException ex) {
-                Logger.getLogger(XMLConverter.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -174,10 +184,6 @@ public class XMLConverter {
             abrirPDF(pdf);
         }
         catch (Exception ex) {
-        }
-        finally {
-            //Delete temporal directory
-            clean(fo, xml);
         }
     }
     

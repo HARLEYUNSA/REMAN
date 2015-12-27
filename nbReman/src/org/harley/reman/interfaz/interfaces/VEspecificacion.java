@@ -5,6 +5,8 @@
  */
 package org.harley.reman.interfaz.interfaces;
 
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
+
 /**
  *
  * @author User
@@ -54,7 +56,7 @@ public class VEspecificacion extends javax.swing.JFrame {
         txtESEspecialidad = new javax.swing.JTextField();
         txtESExperiencia = new javax.swing.JTextField();
         txtESCargoF = new javax.swing.JTextField();
-        txtESTipo = new javax.swing.JTextField();
+        txtESTipoF = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtEDTipoF = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -65,13 +67,13 @@ public class VEspecificacion extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLayeredPane5 = new javax.swing.JLayeredPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtESDescripcion = new javax.swing.JTextArea();
         jLayeredPane6 = new javax.swing.JLayeredPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txtESPreCondicion = new javax.swing.JTextArea();
         jLayeredPane7 = new javax.swing.JLayeredPane();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        txtESPostCondicion = new javax.swing.JTextArea();
         jPanel7 = new javax.swing.JPanel();
         jLayeredPane8 = new javax.swing.JLayeredPane();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -82,7 +84,7 @@ public class VEspecificacion extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jLayeredPane10 = new javax.swing.JLayeredPane();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        txtESObservaciones = new javax.swing.JTextArea();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
@@ -244,7 +246,7 @@ public class VEspecificacion extends javax.swing.JFrame {
 
         txtESCargoF.setEditable(false);
 
-        txtESTipo.setEditable(false);
+        txtESTipoF.setEditable(false);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Cargo");
@@ -280,7 +282,7 @@ public class VEspecificacion extends javax.swing.JFrame {
                     .addComponent(txtESEspecialidad)
                     .addComponent(txtESExperiencia)
                     .addComponent(txtESCargoF)
-                    .addComponent(txtESTipo))
+                    .addComponent(txtESTipoF))
                 .addContainerGap(95, Short.MAX_VALUE))
         );
         jLayeredPane11Layout.setVerticalGroup(
@@ -312,7 +314,7 @@ public class VEspecificacion extends javax.swing.JFrame {
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtESTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtESTipoF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEDTipoF))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
@@ -325,7 +327,7 @@ public class VEspecificacion extends javax.swing.JFrame {
         jLayeredPane11.setLayer(txtESEspecialidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane11.setLayer(txtESExperiencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane11.setLayer(txtESCargoF, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane11.setLayer(txtESTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane11.setLayer(txtESTipoF, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane11.setLayer(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane11.setLayer(txtEDTipoF, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane11.setLayer(jLabel13, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -377,9 +379,9 @@ public class VEspecificacion extends javax.swing.JFrame {
 
         jLayeredPane5.setBorder(javax.swing.BorderFactory.createTitledBorder("Descipción de Elicitación"));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(3);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtESDescripcion.setColumns(20);
+        txtESDescripcion.setRows(3);
+        jScrollPane2.setViewportView(txtESDescripcion);
 
         javax.swing.GroupLayout jLayeredPane5Layout = new javax.swing.GroupLayout(jLayeredPane5);
         jLayeredPane5.setLayout(jLayeredPane5Layout);
@@ -401,9 +403,9 @@ public class VEspecificacion extends javax.swing.JFrame {
 
         jLayeredPane6.setBorder(javax.swing.BorderFactory.createTitledBorder("Pre-Condiciones"));
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(2);
-        jScrollPane3.setViewportView(jTextArea2);
+        txtESPreCondicion.setColumns(20);
+        txtESPreCondicion.setRows(2);
+        jScrollPane3.setViewportView(txtESPreCondicion);
 
         javax.swing.GroupLayout jLayeredPane6Layout = new javax.swing.GroupLayout(jLayeredPane6);
         jLayeredPane6.setLayout(jLayeredPane6Layout);
@@ -425,9 +427,9 @@ public class VEspecificacion extends javax.swing.JFrame {
 
         jLayeredPane7.setBorder(javax.swing.BorderFactory.createTitledBorder("Post-Condiciones"));
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(2);
-        jScrollPane4.setViewportView(jTextArea3);
+        txtESPostCondicion.setColumns(20);
+        txtESPostCondicion.setRows(2);
+        jScrollPane4.setViewportView(txtESPostCondicion);
 
         javax.swing.GroupLayout jLayeredPane7Layout = new javax.swing.GroupLayout(jLayeredPane7);
         jLayeredPane7.setLayout(jLayeredPane7Layout);
@@ -570,9 +572,9 @@ public class VEspecificacion extends javax.swing.JFrame {
 
         jLayeredPane10.setBorder(javax.swing.BorderFactory.createTitledBorder("Observaciones"));
 
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(3);
-        jScrollPane7.setViewportView(jTextArea4);
+        txtESObservaciones.setColumns(20);
+        txtESObservaciones.setRows(3);
+        jScrollPane7.setViewportView(txtESObservaciones);
 
         javax.swing.GroupLayout jLayeredPane10Layout = new javax.swing.GroupLayout(jLayeredPane10);
         jLayeredPane10.setLayout(jLayeredPane10Layout);
@@ -662,6 +664,11 @@ public class VEspecificacion extends javax.swing.JFrame {
 
         btnESGuardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnESGuardar.setText("Guardar");
+        btnESGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnESGuardarActionPerformed(evt);
+            }
+        });
 
         btnESCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnESCancelar.setText("Cancelar");
@@ -712,6 +719,32 @@ public class VEspecificacion extends javax.swing.JFrame {
         agregaE.setVisible(true);
     }//GEN-LAST:event_btnESAddEliActionPerformed
 
+    private void btnESGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESGuardarActionPerformed
+        String espAre = txtESArea.getText();
+        String espCarEsp = txtESCargoE.getText();
+        String espCarFue = txtESCargoF.getText();
+        String espCod = txtESCodigo.getText();
+        String espDes = txtESDescripcion.getText();
+        String espEspEsp = txtESEspecialidad.getText();
+        String espEspExp = txtESExperiencia.getText();
+        String espNom = txtESNombre.getText();
+        String espObs = txtESObservaciones.getText();
+        String espPosCon = txtESPostCondicion.getText();
+        String espPreCon = txtESPreCondicion.getText();
+        String espTipfue = txtESTipoF.getText();
+        String espVer = txtESVersion.getText();
+        String espEspNom = (String)cmbESEspecialista.getSelectedItem();
+        String espFueNom = (String)cmbESFuente.getSelectedItem();
+        String espFec = dtESFecha.getText();
+        
+        if(ToolsInterface.validaEspecificacion(espAre, espCarEsp, espCarFue, espCod, espDes, espEspEsp, espEspExp, espNom, espObs, espPosCon, espPreCon, espTipfue, espVer, espEspNom, espFueNom, espFec)){
+            
+        } else {
+            ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
+        }
+        
+    }//GEN-LAST:event_btnESGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnESAddEli;
@@ -761,19 +794,19 @@ public class VEspecificacion extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextArea jTextArea4;
     private javax.swing.JLabel txtEDTipoF;
     private javax.swing.JTextField txtESArea;
     private javax.swing.JTextField txtESCargoE;
     private javax.swing.JTextField txtESCargoF;
     private javax.swing.JTextField txtESCodigo;
+    private javax.swing.JTextArea txtESDescripcion;
     private javax.swing.JTextField txtESEspecialidad;
     private javax.swing.JTextField txtESExperiencia;
     private javax.swing.JTextField txtESNombre;
-    private javax.swing.JTextField txtESTipo;
+    private javax.swing.JTextArea txtESObservaciones;
+    private javax.swing.JTextArea txtESPostCondicion;
+    private javax.swing.JTextArea txtESPreCondicion;
+    private javax.swing.JTextField txtESTipoF;
     private javax.swing.JTextField txtESVersion;
     // End of variables declaration//GEN-END:variables
 }
