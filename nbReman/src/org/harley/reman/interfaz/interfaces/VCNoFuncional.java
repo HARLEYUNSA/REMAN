@@ -1,16 +1,55 @@
 package org.harley.reman.interfaz.interfaces;
 
+import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
+import org.harley.reman.sistema.Sistema;
+
 /**
  *
  * @author Joel Mendoza
  */
-public class VCNoFuncional extends javax.swing.JFrame {
+public class VCNoFuncional extends JDialog {
 
-    /**
-     * Creates new form VNoFuncional
-     */
-    public VCNoFuncional() {
+    Sistema sysReman;
+    ArrayList<ArrayList<String>> datesEsp;
+    ArrayList<ArrayList<String>> datesFue;
+    boolean flagLoadOk;
+    boolean flagNewOk;
+    
+    public VCNoFuncional(JFrame padre, Sistema sysReman) {
+        super(padre, true);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.sysReman = sysReman;
+        flagNewOk = false;
+        
+        datesEsp = this.sysReman.getEspecialistas();
+        datesFue = this.sysReman.getFuentes();
+
+        try {
+            txtNFCodigo.setText(sysReman.getNextEdu());
+
+            ToolsInterface.addItems2JComboBox(cmbNFEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
+            txtNFEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(0));
+            txtNFExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(0));
+            txtNFCargo.setText(datesEsp.get(Sistema.ESP_CARGO).get(0));
+
+            ToolsInterface.addItems2JComboBox(cmbNFFuente, datesFue.get(Sistema.FUE_NOMBRE));
+            txtNFCargofuente.setText(datesFue.get(Sistema.FUE_CARGO).get(0));
+            txtNFTipofuente.setText(datesFue.get(Sistema.FUE_TIPO).get(0));
+            flagLoadOk = true;
+        } catch (Exception e) {
+        }
+    }
+
+    public boolean getLoadIsCorrect() {
+        return flagLoadOk && cmbNFEspecialista.getItemCount() != 0 && cmbNFFuente.getItemCount() != 0;
+    }
+
+    public boolean createSuccessful() {
+        return flagNewOk;
     }
 
     /**
@@ -228,6 +267,11 @@ public class VCNoFuncional extends javax.swing.JFrame {
 
         cmbNFFuente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbNFFuente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbNFFuente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNFFuenteActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Tipo");
@@ -240,6 +284,11 @@ public class VCNoFuncional extends javax.swing.JFrame {
 
         cmbNFEspecialista.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbNFEspecialista.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbNFEspecialista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNFEspecialistaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Especialidad");
@@ -537,6 +586,11 @@ public class VCNoFuncional extends javax.swing.JFrame {
         jTabbedPane1.addTab("Historial", jPanel6);
 
         btnNFGuardar.setText("Guardar");
+        btnNFGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNFGuardarActionPerformed(evt);
+            }
+        });
 
         btnNFCancelar.setText("Cancelar");
         btnNFCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -576,8 +630,60 @@ public class VCNoFuncional extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNFCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNFCancelarActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnNFCancelarActionPerformed
+
+    private void btnNFGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNFGuardarActionPerformed
+        boolean error = false;    
+        String rnfNom = txtNFNombre.getText();
+        String rnfVer = txtNFNumero.getText();
+        String rnfTip = txtNFTipo.getText();
+        String rnfObj = jTextArea1.getText();
+        String rnfFec = dtNFFecha.getText();
+        String rnfFueNom = (String) cmbNFFuente.getSelectedItem();
+        String rnfFueCar = txtNFCargofuente.getText();
+        String rnfFueTip = txtNFTipofuente.getText();
+        String rnfEspNom = (String) cmbNFEspecialista.getSelectedItem();
+        String rnfEspEsp = txtNFEspecialidad.getText();
+        String rnfEspExp = txtNFExperiencia.getText();
+        String rnfEspCar = txtNFCargo.getText();
+        String rnfDep = txtNFDependencia.getText();
+        String rnfDes = jTextArea2.getText();
+        String rnfObs = jTextArea3.getText();
+
+
+        if (ToolsInterface.validaRequisitoNF(rnfNom, rnfVer, rnfTip,
+                    rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
+                    rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs) && 
+                ToolsInterface.isAlphabetic(rnfNom) && 
+                ToolsInterface.verificarVersion(rnfVer)) {
+            if (sysReman.crearReqNoFuncional(rnfNom, rnfVer, rnfTip, rnfObj, 
+                    rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
+                    rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs)) {
+                flagNewOk = true;
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "El requisito "
+                        + "no funcional \""
+                        + rnfNom + "\" fue creado satisfactoriamente.");
+                this.dispose();
+            } else {
+                ToolsInterface.msjError(this, "Error al crear el Requisito No funcional");
+            }
+        } else {
+            ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
+        }
+    }//GEN-LAST:event_btnNFGuardarActionPerformed
+
+    private void cmbNFEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNFEspecialistaActionPerformed
+        int index = cmbNFEspecialista.getSelectedIndex();
+        txtNFEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(index));
+        txtNFExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(index));
+        txtNFCargo.setText(datesEsp.get(Sistema.ESP_CARGO).get(index));    }//GEN-LAST:event_cmbNFEspecialistaActionPerformed
+
+    private void cmbNFFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNFFuenteActionPerformed
+        int index = cmbNFFuente.getSelectedIndex();
+        txtNFCargofuente.setText(datesFue.get(Sistema.FUE_CARGO).get(index));
+        txtNFTipofuente.setText(datesFue.get(Sistema.FUE_TIPO).get(index));
+    }//GEN-LAST:event_cmbNFFuenteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNFCancelar;

@@ -218,6 +218,26 @@ public class ToolsInterface {
   
         return flag;
     }    
+    
+    public static boolean validaRequisitoNF(String rnfNom, String rnfVer, 
+            String rnfTip, String rnfObj, String rnfFec, String rnfFueNom,
+            String rnfFueCar, String rnfFueTip, String rnfEspNom, 
+            String rnfEspEsp, String rnfEspExp, String rnfEspCar, String rnfDep,
+            String rnfDes, String rnfObs){
+        
+        boolean flag = true;
+        
+        if(rnfNom.equals("") || rnfVer.equals("") || rnfTip.equals("") ||
+                rnfObj.equals("") || rnfFec.equals("") || rnfFueNom.equals("") ||
+                rnfFueCar.equals("") || rnfFueTip.equals("") || rnfEspNom.equals("") 
+                || rnfEspEsp.equals("") || rnfEspExp.equals("") || rnfEspCar.equals("") ||
+                rnfDep.equals("") || rnfDes.equals("") || rnfObs.equals("")){
+            flag = false;
+        }
+  
+        return flag;
+    } 
+    
     /**
      * Devuelve si encuentra la expresion regular en el texto indicado
      *
