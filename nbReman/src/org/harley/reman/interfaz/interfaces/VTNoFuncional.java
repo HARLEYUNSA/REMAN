@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
 
 /**
@@ -154,8 +155,9 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
         //RESTAURAR
     }//GEN-LAST:event_menuRnfItem3ActionPerformed
 
-    public void actualizar(JTree tree){
-        treeRnf.setModel(tree.getModel());
+    public void actualizarJTree(){
+        JTree model = ToolsInterface.generateJTreeBook("Documento de Req no Funcional", "Req no Funcional", sysReman.getDirPrincipal() + "\\src\\rnf");
+        treeRnf.setModel(model.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
 import org.harley.reman.sistema.Sistema;
 
 /**
@@ -155,8 +156,9 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
         //RESTAURAR
     }//GEN-LAST:event_menuEspItem3ActionPerformed
 
-    public void actualizar(JTree tree){
-        treeEsp.setModel(tree.getModel());
+    public void actualizarJTree(){
+        JTree model = ToolsInterface.generateJTreeBook("Documento de Espesificación", "Espesificación", sysReman.getDirPrincipal() + "\\src\\esp");
+        treeEsp.setModel(model.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

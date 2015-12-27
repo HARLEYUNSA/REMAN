@@ -554,7 +554,7 @@ public class VPrincipal extends javax.swing.JFrame {
             ToolsInterface.msjError(this,"Error al cargar las Organizaciones!");
         }
         if(VEsp.createSuccessful()){
-            venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            venOrg.actualizarJTree();
         }
     }
 
@@ -563,7 +563,7 @@ public class VPrincipal extends javax.swing.JFrame {
         VOrganizacion VOrg = new VOrganizacion(this, sysReman);
         VOrg.setVisible(true);
         if(VOrg.createSuccessful()){
-            venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            venOrg.actualizarJTree();
         }
     }
 
@@ -576,7 +576,7 @@ public class VPrincipal extends javax.swing.JFrame {
             ToolsInterface.msjError(this, "Error al cargar las Organizaciones!");
         }
         if(VFue.createSuccessful()){
-            venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+            venOrg.actualizarJTree();
         }
     }
 
@@ -589,7 +589,7 @@ public class VPrincipal extends javax.swing.JFrame {
             ToolsInterface.msjError(this, "Error al cargar los actores del proyecto!");
         }
         if (VEdu.createSuccessful()) {
-            venEdu.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\edu"));
+            venEdu.actualizarJTree();
         } 
     }
 
@@ -685,11 +685,11 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void actualizarJTrees() {
-        venEdu.actualizar(ToolsInterface.generateJTreeBook("Documento de Educción", "Educción", sysReman.getDirPrincipal() + "\\src\\edu"));
-        venEli.actualizar(ToolsInterface.generateJTreeBook("Documento de Elicitación", "Elicitación", sysReman.getDirPrincipal() + "\\src\\eli"));
-        venEsp.actualizar(ToolsInterface.generateJTreeBook("Documento de Espesificación", "Espesificación", sysReman.getDirPrincipal() + "\\src\\esp"));
-        venNoFun.actualizar(ToolsInterface.generateJTreeBook("Documento de Req no Funcional", "Req no Funcional", sysReman.getDirPrincipal() + "\\src\\rnf"));
-        venOrg.actualizar(ToolsInterface.generateJTreeOrg(sysReman.getDirPrincipal() + "\\src\\org"));
+        venEdu.actualizarJTree();
+        venEli.actualizarJTree();
+        venEsp.actualizarJTree();
+        venNoFun.actualizarJTree();
+        venOrg.actualizarJTree();
     }
 
 

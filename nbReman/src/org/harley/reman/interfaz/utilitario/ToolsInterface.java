@@ -18,7 +18,7 @@ import javax.swing.tree.DefaultTreeModel;
 public class ToolsInterface {
 
     public static void addItems2JComboBox(JComboBox ComboBox, ArrayList<String> arr) {
-        //ComboBox.removeAllItems();
+        ComboBox.removeAllItems();
         for (String arr1 : arr) {
             ComboBox.addItem(arr1);
         }

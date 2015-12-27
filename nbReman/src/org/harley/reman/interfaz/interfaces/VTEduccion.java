@@ -147,7 +147,7 @@ public class VTEduccion extends javax.swing.JInternalFrame {
             ToolsInterface.msjError(padre, "Error al cargar los actores del proyecto!");
         }
         if (VEdu.createSuccessful()) {
-            actualizar(ToolsInterface.generateJTreeBook("Documento de Educción", "Educción", sysReman.getDirPrincipal() + "\\src\\edu"));
+            actualizarJTree();
         }       
     }//GEN-LAST:event_menuDocEduItem1ActionPerformed
 
@@ -158,26 +158,30 @@ public class VTEduccion extends javax.swing.JInternalFrame {
         if (VEdu.getLoadIsCorrect()) {
             VEdu.setVisible(true);
         } else {
-            ToolsInterface.msjError(padre, "Error al cargar los datos de la Organizacion!");
+            ToolsInterface.msjError(padre, "Error al cargar los datos de los actores!");
         }
 
     }//GEN-LAST:event_menuEduItem1ActionPerformed
 
     private void menuEduItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem2ActionPerformed
-        //ELIMINAR
+        //ELIMINAR EDUCCION
+        String path;
         int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
         if (resp == 1) {
-            String nameXML = dirTree.getLastPathComponent().toString();
-            sysReman.eliminarEduccion(nameXML);
-        }
+            path = dirTree.getLastPathComponent().toString();
+            sysReman.eliminarEduccion(path);
+            actualizarJTree();
+            ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente la Educcion: " + path);
+        }     
     }//GEN-LAST:event_menuEduItem2ActionPerformed
 
     private void menuEduItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem3ActionPerformed
         //RESTAURAR
     }//GEN-LAST:event_menuEduItem3ActionPerformed
 
-    public void actualizar(JTree tree) {
-        treeEdu.setModel(tree.getModel());
+    public void actualizarJTree() {
+        JTree Tmodel = ToolsInterface.generateJTreeBook("Documento de Educción", "Educción", sysReman.getDirPrincipal() + "\\src\\edu");
+        treeEdu.setModel(Tmodel.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
