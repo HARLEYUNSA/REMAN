@@ -1,17 +1,83 @@
-
 package org.harley.reman.interfaz.interfaces;
+
+import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
+import org.harley.reman.sistema.Historico;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
  * @author JOel Mendoza
  */
-public class VVersionar extends javax.swing.JFrame {
+public class VVersionar extends JDialog {
 
-    /**
-     * Creates new form VVersionar
-     */
-    public VVersionar() {
+    Sistema sysReman;
+    ArrayList<Historico> libEdu;
+    ArrayList<Historico> libEli;
+    ArrayList<Historico> libEsp;
+    ArrayList<Historico> libRnf;
+    boolean flagLoadOk;
+    boolean flagOk;
+    boolean msjError;
+    String error;
+
+    public VVersionar(JFrame padre, Sistema sysReman) {
+        super(padre, true);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.sysReman = sysReman;
+        msjError = false;
+        error = "";
+
+        try {
+            libEdu = sysReman.getHistLibEdu();
+        } catch (Exception e) {
+            msjError = true;
+            error += "- No se encontro historicos de libros de educcion.\n";
+        }
+
+        try {
+            libEli = sysReman.getHistLibEli();
+        } catch (Exception e) {
+            msjError = true;
+            error += "- No se encontro historicos de libros de elicitacion.\n";
+        }
+
+        try {
+            libEsp = sysReman.getHistLibEsp();
+        } catch (Exception e) {
+            msjError = true;
+            error += "- No se encontro historicos de libros de especificacion de req.\n";
+        }
+
+        try {
+            libRnf = sysReman.getHistLibRnf();
+        } catch (Exception e) {
+            msjError = true;
+            error += "- No se encontro historicos de libros de req no funcionales.\n";
+        }
+
+        try {
+            ToolsInterface.putJTableHistorico(JTVersion, libEdu);
+            ToolsInterface.addItems2JComboBox(cmbVAutor, sysReman.getEspecialistaNombres());
+            if(msjError){
+                ToolsInterface.msjError(this, error);
+            }
+            flagLoadOk = true;
+        } catch (Exception e) {
+            flagLoadOk = false;
+        }
+
+    }
+    
+    public boolean getLoadIsCorrect() {
+        return flagLoadOk && cmbVAutor.getItemCount() != 0;
+    }
+
+    public boolean versionSuccessful() {
+        return flagOk;
     }
 
     /**
@@ -28,17 +94,19 @@ public class VVersionar extends javax.swing.JFrame {
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtVVersion = new javax.swing.JTextField();
-        txtVFecha = new javax.swing.JTextField();
-        cmbVLibro = new javax.swing.JComboBox();
         cmbVAutor = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        dtEDFecha = new datechooser.beans.DateChooserCombo();
         btnVGuardar = new javax.swing.JButton();
         btnVCancelar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        JTVersion = new javax.swing.JTable();
+        cmblib = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Versionar");
@@ -53,19 +121,10 @@ public class VVersionar extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Fecha");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Libro");
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Autor");
 
         txtVVersion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
-        txtVFecha.setEditable(false);
-        txtVFecha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
-        cmbVLibro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbVLibro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Educción", "Elicitación", "Especificación" }));
 
         cmbVAutor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -76,6 +135,8 @@ public class VVersionar extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+        dtEDFecha.setEnabled(false);
+
         javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
         jLayeredPane3.setLayout(jLayeredPane3Layout);
         jLayeredPane3Layout.setHorizontalGroup(
@@ -84,19 +145,18 @@ public class VVersionar extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbVLibro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtVFecha)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtVVersion)
                     .addComponent(cmbVAutor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(dtEDFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jLayeredPane3Layout.setVerticalGroup(
             jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,36 +166,37 @@ public class VVersionar extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtVVersion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(txtVFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cmbVLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dtEDFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cmbVAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jLayeredPane3Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 99, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         jLayeredPane3.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(txtVVersion, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(txtVFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(cmbVLibro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(cmbVAutor, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(dtEDFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         btnVGuardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnVGuardar.setText("Guardar");
+        btnVGuardar.setText("Versionar");
+        btnVGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVGuardarActionPerformed(evt);
+            }
+        });
 
         btnVCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnVCancelar.setText("Cancelar");
@@ -145,31 +206,80 @@ public class VVersionar extends javax.swing.JFrame {
             }
         });
 
+        JTVersion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        JTVersion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Versión", "Fecha", "Autor", "Razon"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(JTVersion);
+
+        cmblib.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cmblib.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Libro Educción", "Libro Elicitación", "Libro Especificación", "Libro Req no Funcional" }));
+        cmblib.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmblibActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setText("Libro a Versionar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVGuardar)
-                .addGap(28, 28, 28)
-                .addComponent(btnVCancelar)
-                .addGap(30, 30, 30))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnVGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addComponent(btnVCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5)
+                    .addComponent(jLayeredPane3)
+                    .addComponent(cmblib, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVGuardar)
-                    .addComponent(btnVCancelar))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addComponent(cmblib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnVGuardar)
+                            .addComponent(btnVCancelar))))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Datos", jPanel1);
@@ -185,7 +295,7 @@ public class VVersionar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
@@ -195,27 +305,54 @@ public class VVersionar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVCancelarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnVCancelarActionPerformed
+
+    private void btnVGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVGuardarActionPerformed
+        System.out.println("versiona");
+    }//GEN-LAST:event_btnVGuardarActionPerformed
+
+    private void cmblibActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmblibActionPerformed
+        switch (cmblib.getSelectedIndex()) {
+            case EDU:
+                ToolsInterface.putJTableHistorico(JTVersion, libEdu);
+                break;
+            case ELI:
+                ToolsInterface.putJTableHistorico(JTVersion, libEli);
+                break;
+            case ESP:
+                ToolsInterface.putJTableHistorico(JTVersion, libEsp);
+                break;
+            case RNF:
+                ToolsInterface.putJTableHistorico(JTVersion, libRnf);
+                break;
+        }
+    }//GEN-LAST:event_cmblibActionPerformed
+
+    public static final int EDU = 0;
+    public static final int ELI = 1;
+    public static final int ESP = 2;
+    public static final int RNF = 4;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable JTVersion;
     private javax.swing.JButton btnVCancelar;
     private javax.swing.JButton btnVGuardar;
     private javax.swing.JComboBox cmbVAutor;
-    private javax.swing.JComboBox cmbVLibro;
+    private javax.swing.JComboBox cmblib;
+    private datechooser.beans.DateChooserCombo dtEDFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLayeredPane jLayeredPane3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField txtVFecha;
     private javax.swing.JTextField txtVVersion;
     // End of variables declaration//GEN-END:variables
 }

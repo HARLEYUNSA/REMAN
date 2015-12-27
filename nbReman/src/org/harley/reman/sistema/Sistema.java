@@ -1305,7 +1305,7 @@ public class Sistema {
     }
 
     public ArrayList<Historico> getHistLibEsp() {
-        LibroHistorico libH = manHisEsp.leerXML("elihis");
+        LibroHistorico libH = manHisEsp.leerXML("esphis");
         return libH.getHistoricos();
     }
 

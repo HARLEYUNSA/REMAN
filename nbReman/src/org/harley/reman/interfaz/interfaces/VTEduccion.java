@@ -167,7 +167,7 @@ public class VTEduccion extends javax.swing.JInternalFrame {
         //ELIMINAR EDUCCION
         String path;
         int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
-        if (resp == 1) {
+        if (resp == 0) {
             path = dirTree.getLastPathComponent().toString();
             sysReman.eliminarEduccion(path);
             actualizarJTree();
@@ -177,6 +177,7 @@ public class VTEduccion extends javax.swing.JInternalFrame {
 
     private void menuEduItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEduItem3ActionPerformed
         //RESTAURAR
+        
     }//GEN-LAST:event_menuEduItem3ActionPerformed
 
     public void actualizarJTree() {
