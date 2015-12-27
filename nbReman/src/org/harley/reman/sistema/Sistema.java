@@ -105,8 +105,6 @@ public class Sistema {
 
     /**
      * Crea un archivo q almacena la ubicacion del ultimo proyecto utilizado
-     *
-     * @param dir directorio del ultimo proyecto
      */
     public void crearStateReman() {
         OutputStream salida = null;
@@ -431,7 +429,7 @@ public class Sistema {
         }
     }
 
-        /**
+    /**
      *
      * Restaurar una educción
      *
@@ -1866,6 +1864,25 @@ public class Sistema {
                 break;
         }
         return ToolsSystem.getHist(his);
+    }
+    
+    /**
+     *
+     * Restaurar un requisito no funcional
+     * 
+     * @param verCod Código de la versión
+     * @param rnfCod Código del requisito no funcional
+     * @return Un booleano que indica si la función se realizó correctamente
+     */
+    public boolean restaurarVersionRequisitoNF(String verCod, String rnfCod) {
+        try {
+            RequisitosNF verRnf = manVerRnf.leerXML(rnfCod);
+            RequisitoNF rnf = verRnf.getVer(verCod);
+            modificarRequisitoNF(rnf);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     //Facilitadores de acceso
