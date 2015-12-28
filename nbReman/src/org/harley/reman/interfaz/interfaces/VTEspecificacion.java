@@ -6,6 +6,7 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.awt.event.*;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
@@ -72,21 +73,30 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
 
         menuDocEsp = new javax.swing.JPopupMenu();
         menuDocEspItem1 = new javax.swing.JMenuItem();
+        menuDocEspItem2 = new javax.swing.JMenuItem();
         menuEsp = new javax.swing.JPopupMenu();
         menuEspItem1 = new javax.swing.JMenuItem();
         menuEspItem2 = new javax.swing.JMenuItem();
         menuEspItem3 = new javax.swing.JMenuItem();
+        ExportarFile = new javax.swing.JFileChooser();
         scrollTree = new javax.swing.JScrollPane();
         treeEsp = new javax.swing.JTree();
 
-        menuDocEspItem1.setText("Crear Espesificación");
-        menuDocEspItem1.setActionCommand("Crear Espesificación");
+        menuDocEspItem1.setText("Crear Especificación");
         menuDocEspItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuDocEspItem1ActionPerformed(evt);
             }
         });
         menuDocEsp.add(menuDocEspItem1);
+
+        menuDocEspItem2.setText("Exportar a pdf");
+        menuDocEspItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDocEspItem2ActionPerformed(evt);
+            }
+        });
+        menuDocEsp.add(menuDocEspItem2);
 
         menuEspItem1.setText("Modificar");
         menuEspItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -111,6 +121,9 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
             }
         });
         menuEsp.add(menuEspItem3);
+
+        ExportarFile.setDialogType(javax.swing.JFileChooser.CUSTOM_DIALOG);
+        ExportarFile.setDialogTitle("Seleccione");
 
         setMaximizable(true);
         setResizable(true);
@@ -156,14 +169,35 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
         //RESTAURAR
     }//GEN-LAST:event_menuEspItem3ActionPerformed
 
+    private void menuDocEspItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEspItem2ActionPerformed
+        //EXPORTAR ESPECIFICACION
+        int opt = ExportarFile.showSaveDialog(this);
+        String direccion;
+        String nombre;
+        if (opt == JFileChooser.APPROVE_OPTION) {
+            direccion = ExportarFile.getSelectedFile().getParent();
+            nombre = ExportarFile.getSelectedFile().getName();
+            nombre = ToolsInterface.addExtensionPdf(nombre);
+            if(!nombre.equals("error")){
+                if(!sysReman.exportarLibro(Sistema.LIB_ESP,direccion, nombre)){
+                    ToolsInterface.msjError(padre, "Error al cargar los datos, reviselos antes de continuar la operacion!");
+                }
+            }else{
+                ToolsInterface.msjError(padre, "Error con el nombre del archivo, intentelo nuevamente!");
+            }   
+        }
+    }//GEN-LAST:event_menuDocEspItem2ActionPerformed
+
     public void actualizarJTree(){
         JTree model = ToolsInterface.generateJTreeBook("Documento de Espesificación", "Espesificación", sysReman.getDirPrincipal() + "\\src\\esp");
         treeEsp.setModel(model.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFileChooser ExportarFile;
     private javax.swing.JPopupMenu menuDocEsp;
     private javax.swing.JMenuItem menuDocEspItem1;
+    private javax.swing.JMenuItem menuDocEspItem2;
     private javax.swing.JPopupMenu menuEsp;
     private javax.swing.JMenuItem menuEspItem1;
     private javax.swing.JMenuItem menuEspItem2;

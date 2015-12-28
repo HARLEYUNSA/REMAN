@@ -16,6 +16,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDocEliItem1ActionPerformed"/>
           </Events>
         </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuDocEliItem2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Exportar a pdf"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDocEliItem2ActionPerformed"/>
+          </Events>
+        </MenuItem>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPopupMenu" name="menuEli">
@@ -50,6 +58,12 @@
         </MenuItem>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JFileChooser" name="ExportarFile">
+      <Properties>
+        <Property name="dialogType" type="int" value="2"/>
+        <Property name="dialogTitle" type="java.lang.String" value="Seleccione"/>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="maximizable" type="boolean" value="true"/>

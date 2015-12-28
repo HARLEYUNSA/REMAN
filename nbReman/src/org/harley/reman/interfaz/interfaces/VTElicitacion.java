@@ -6,6 +6,7 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.awt.event.*;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
@@ -72,10 +73,12 @@ public class VTElicitacion extends javax.swing.JInternalFrame {
 
         menuDocEli = new javax.swing.JPopupMenu();
         menuDocEliItem1 = new javax.swing.JMenuItem();
+        menuDocEliItem2 = new javax.swing.JMenuItem();
         menuEli = new javax.swing.JPopupMenu();
         menuEliItem1 = new javax.swing.JMenuItem();
         menuEliItem2 = new javax.swing.JMenuItem();
         menuEliItem3 = new javax.swing.JMenuItem();
+        ExportarFile = new javax.swing.JFileChooser();
         scrollTree = new javax.swing.JScrollPane();
         treeEli = new javax.swing.JTree();
 
@@ -86,6 +89,14 @@ public class VTElicitacion extends javax.swing.JInternalFrame {
             }
         });
         menuDocEli.add(menuDocEliItem1);
+
+        menuDocEliItem2.setText("Exportar a pdf");
+        menuDocEliItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDocEliItem2ActionPerformed(evt);
+            }
+        });
+        menuDocEli.add(menuDocEliItem2);
 
         menuEliItem1.setText("Modificar");
         menuEliItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -110,6 +121,9 @@ public class VTElicitacion extends javax.swing.JInternalFrame {
             }
         });
         menuEli.add(menuEliItem3);
+
+        ExportarFile.setDialogType(javax.swing.JFileChooser.CUSTOM_DIALOG);
+        ExportarFile.setDialogTitle("Seleccione");
 
         setMaximizable(true);
         setResizable(true);
@@ -186,14 +200,35 @@ public class VTElicitacion extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_menuEliItem3ActionPerformed
 
+    private void menuDocEliItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEliItem2ActionPerformed
+        //EXPORTAR ELICITACION
+        int opt = ExportarFile.showSaveDialog(this);
+        String direccion;
+        String nombre;
+        if (opt == JFileChooser.APPROVE_OPTION) {
+            direccion = ExportarFile.getSelectedFile().getParent();
+            nombre = ExportarFile.getSelectedFile().getName();
+            nombre = ToolsInterface.addExtensionPdf(nombre);
+            if(!nombre.equals("error")){
+                if(!sysReman.exportarLibro(Sistema.LIB_ELI,direccion, nombre)){
+                    ToolsInterface.msjError(padre, "Error al cargar los datos, reviselos antes de continuar la operacion!");
+                }
+            }else{
+                ToolsInterface.msjError(padre, "Error con el nombre del archivo, intentelo nuevamente!");
+            }   
+        }
+    }//GEN-LAST:event_menuDocEliItem2ActionPerformed
+
     public void actualizarJTree(){
         JTree model = ToolsInterface.generateJTreeBook("Documento de Elicitación", "Elicitación", sysReman.getDirPrincipal() + "\\src\\eli");
         treeEli.setModel(model.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFileChooser ExportarFile;
     private javax.swing.JPopupMenu menuDocEli;
     private javax.swing.JMenuItem menuDocEliItem1;
+    private javax.swing.JMenuItem menuDocEliItem2;
     private javax.swing.JPopupMenu menuEli;
     private javax.swing.JMenuItem menuEliItem1;
     private javax.swing.JMenuItem menuEliItem2;

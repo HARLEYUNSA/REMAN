@@ -10,10 +10,18 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="menuDocEspItem1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Crear Espesificaci&#xf3;n"/>
+            <Property name="text" type="java.lang.String" value="Crear Especificaci&#xf3;n"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDocEspItem1ActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuDocEspItem2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Exportar a pdf"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDocEspItem2ActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>
@@ -50,6 +58,12 @@
         </MenuItem>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JFileChooser" name="ExportarFile">
+      <Properties>
+        <Property name="dialogType" type="int" value="2"/>
+        <Property name="dialogTitle" type="java.lang.String" value="Seleccione"/>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="maximizable" type="boolean" value="true"/>
