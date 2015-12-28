@@ -449,15 +449,13 @@ public class ToolsInterface {
     }
     
     public static void putJTablePasos(JTable table, ArrayList<Paso> pasos){
-        cleanJTable(table,new String[]{"Pasos","Descripción"});
+        cleanJTableEditable(table,new String[]{"Pasos","Descripción"});
         DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
         Object[] obj = new Object[2];
         for(Paso elemento : pasos){
-            System.out.println(elemento.getPasNum());
-            System.out.println(elemento.getPasDes());
             obj[0] = elemento.getPasNum();
             obj[1] = elemento.getPasDes();
-            //DTtable.addRow(obj);
+            DTtable.addRow(obj);
         }
     }
     

@@ -6,6 +6,7 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.awt.event.*;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
@@ -72,10 +73,12 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
 
         menuDocRnf = new javax.swing.JPopupMenu();
         menuDocRnfItem1 = new javax.swing.JMenuItem();
+        menuDocRnfItem2 = new javax.swing.JMenuItem();
         menuRnf = new javax.swing.JPopupMenu();
         menuRnfItem1 = new javax.swing.JMenuItem();
         menuRnfItem2 = new javax.swing.JMenuItem();
         menuRnfItem3 = new javax.swing.JMenuItem();
+        ExportarFile = new javax.swing.JFileChooser();
         scrollTree = new javax.swing.JScrollPane();
         treeRnf = new javax.swing.JTree();
 
@@ -86,6 +89,14 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
             }
         });
         menuDocRnf.add(menuDocRnfItem1);
+
+        menuDocRnfItem2.setText("Exportar a pdf");
+        menuDocRnfItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDocRnfItem2ActionPerformed(evt);
+            }
+        });
+        menuDocRnf.add(menuDocRnfItem2);
 
         menuRnfItem1.setText("Modificar");
         menuRnfItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -110,6 +121,9 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
             }
         });
         menuRnf.add(menuRnfItem3);
+
+        ExportarFile.setDialogType(javax.swing.JFileChooser.CUSTOM_DIALOG);
+        ExportarFile.setDialogTitle("Seleccione");
 
         setMaximizable(true);
         setResizable(true);
@@ -185,14 +199,35 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_menuRnfItem3ActionPerformed
 
+    private void menuDocRnfItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocRnfItem2ActionPerformed
+        //EXPORTAR NO FUNCIONAL
+        int opt = ExportarFile.showSaveDialog(this);
+        String direccion;
+        String nombre;
+        if (opt == JFileChooser.APPROVE_OPTION) {
+            direccion = ExportarFile.getSelectedFile().getParent();
+            nombre = ExportarFile.getSelectedFile().getName();
+            nombre = ToolsInterface.addExtensionPdf(nombre);
+            if(!nombre.equals("error")){
+                if(!sysReman.exportarLibro(Sistema.LIB_RNF,direccion, nombre)){
+                    ToolsInterface.msjError(padre, "Error al cargar los datos, reviselos antes de continuar la operacion!");
+                }
+            }else{
+                ToolsInterface.msjError(padre, "Error con el nombre del archivo, intentelo nuevamente!");
+            }   
+        }
+    }//GEN-LAST:event_menuDocRnfItem2ActionPerformed
+
     public void actualizarJTree(){
         JTree model = ToolsInterface.generateJTreeBook("Documento de Req no Funcional", "Req no Funcional", sysReman.getDirPrincipal() + "\\src\\rnf");
         treeRnf.setModel(model.getModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFileChooser ExportarFile;
     private javax.swing.JPopupMenu menuDocRnf;
     private javax.swing.JMenuItem menuDocRnfItem1;
+    private javax.swing.JMenuItem menuDocRnfItem2;
     private javax.swing.JPopupMenu menuRnf;
     private javax.swing.JMenuItem menuRnfItem1;
     private javax.swing.JMenuItem menuRnfItem2;
