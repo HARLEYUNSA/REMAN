@@ -1921,6 +1921,26 @@ public class Sistema {
         }
     }
     
+    public ArrayList<String> getEduccionesCodigo(){
+        ArrayList<String> rpt = new ArrayList<>();
+        String temp;
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\edu").listFiles();
+            for (File fichero : ficheros) {
+                temp = fichero.getName();
+                if (!ToolsInterface.checkExpReg("EDU[0-9][0-9][0-9][0-9].xml", temp)) {
+                    continue;
+                }
+                rpt.add(temp.substring(0,temp.length()-4));   
+            }
+        } catch (Exception e) {
+        }
+        return rpt;
+    }
+    
+    
+    
     //Facilitadores de acceso
     public static final int ESP_CODIGO = 0;
     public static final int ESP_NOMBRE = 1;
