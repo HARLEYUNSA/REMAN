@@ -9,62 +9,65 @@ import org.harley.reman.sistema.Paso;
 import org.harley.reman.sistema.Sistema;
 import org.harley.reman.sistema.ToolsSystem;
 
-public class VEVersionarEsp extends JDialog {
+public class VEVersionarEli extends JDialog {
 
     Sistema sysReman;
     ArrayList<Historico> historic;
     boolean flagOk;
     boolean flagLoadOk;
-    String espCod;
-    String espNom;
-    String espEliCod;
-    String espVer;
-    String espFec;
-    String espFueNom;
-    String espFueCar;
-    String espFueTip;
-    String espEspNom;
-    String espEspEsp;
-    String espEspExp;
-    String espEspCar;
-    String espDep;
-    String espDes;
-    String espPre;
-    String espPos;
-    ArrayList<Paso> espExc;
-    String espObs;;
+    String eliCod;
+    String eliNom;
+    String eliEduCod;
+    String eliVer;
+    String eliFec;
+    String eliFueNom;
+    String eliFueCar;
+    String eliFueTip;
+    String eliEspNom;
+    String eliEspEsp;
+    String eliEspExp;
+    String eliEspCar;
+    String eliDep;
+    String eliDes;
+    String eliPre;
+    ArrayList<Paso> eliSec;
+    String eliPos;
+    ArrayList<Paso> eliExc;
+    String eliObs;
 
-    public VEVersionarEsp(JFrame padre, Sistema sysReman, String espCod, String espNom, String espEliCod, 
-            String espVer, String espFec, String espFueNom, String espFueCar, 
-            String espFueTip, String espEspNom, String espEspEsp, 
-            String espEspExp, String espEspCar, String espDep, String espDes,
-            String espPre, String espPos, ArrayList<Paso> espExc, 
-            String espObs){ 
+    public VEVersionarEli(JFrame padre, Sistema sysReman, String eliCod, 
+            String eliNom, String eliEduCod, String eliVer, String eliFec, 
+            String eliFueNom, String eliFueCar, String eliFueTip, 
+            String eliEspNom, String eliEspEsp, String eliEspExp, 
+            String eliEspCar, String eliDep, String eliDes, 
+            String eliPre, ArrayList<Paso> eliSec, String eliPos, 
+            ArrayList<Paso> eliExc, String eliObs){ 
         super(padre, true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.sysReman = sysReman;
-        this.espCod = espCod;
-        this.espNom = espNom;
-        this.espEliCod = espEliCod;
-        this.espVer = espVer;
-        this.espFec = espFec;
-        this.espFueNom = espFueNom;
-        this.espFueCar = espFueCar;
-        this.espFueTip = espFueTip;
-        this.espEspNom = espEspNom;
-        this.espEspEsp = espEspEsp;
-        this.espEspExp = espEspExp;
-        this.espEspCar = espEspCar;
-        this.espDep = espDep;
-        this.espDes = espDes;
-        this.espPre = espPre;
-        this.espPos = espPos;
-        this.espExc = espExc;
-        this.espObs = espObs;
+        this.eliCod = eliCod;
+        this.eliNom = eliNom;
+        this.eliEduCod = eliEduCod;
+        this.eliVer = eliVer;
+        this.eliFec = eliFec;
+        this.eliFueNom = eliFueNom;
+        this.eliFueCar = eliFueCar;
+        this.eliFueTip = eliFueTip;
+        this.eliEspNom = eliEspNom;
+        this.eliEspEsp = eliEspEsp;
+        this.eliEspExp = eliEspExp;
+        this.eliEspCar = eliEspCar;
+        this.eliDep = eliDep;
+        this.eliDes = eliDes;
+        this.eliPre = eliPre;
+        this.eliSec = eliSec;
+        this.eliPos = eliPos;
+        this.eliExc = eliExc;
+        this.eliObs = eliObs;
         
         try {
-            historic = sysReman.getHist(Sistema.LIB_ESP, espCod);
+            historic = sysReman.getHist(Sistema.LIB_ELI, eliCod);
             ToolsInterface.addItems2JComboBox(cmbVAutor, sysReman.getEspecialistaNombres());
             flagLoadOk = true;
         } catch (Exception e) {
@@ -320,7 +323,7 @@ public class VEVersionarEsp extends JDialog {
         if (ToolsInterface.verificarVersion(version)) {
             if (ToolsSystem.CompararVersiones(version, lastVersion)) {
                 versionar(version, fecha, autor, rzcam);
-                ToolsInterface.msjInfo(this, "Operacion Exitosa", "La especificacion se versiono correctamente");
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "La elicitacion se versiono correctamente");
                 flagOk = true;
                 this.dispose();
             } else {
@@ -335,17 +338,17 @@ public class VEVersionarEsp extends JDialog {
 
     private void actualizarJTable() {
         try {
-            historic = sysReman.getHist(Sistema.LIB_ESP, espCod);
+            historic = sysReman.getHist(Sistema.LIB_ELI, eliCod);
             ToolsInterface.putJTableHistorico(JTVersion, historic);
         } catch (Exception e) {
         }
     }
 
     private void versionar(String verVer, String verFec, String verEsp, String verRazCam) {
-        sysReman.versionarEduccion(verVer, verFec, verEsp, verRazCam, espCod, 
-                espNom, espVer, espFueTip, espObs, espFec, espFueNom, espFueCar,
-                espFueTip, espEspNom, espEspEsp, espEspExp, espEspCar, espDes,
-                espObs);
+        sysReman.versionarEspecificacion(verVer, verFec, verEsp, verRazCam,
+                eliCod, eliNom, eliCod, eliVer, eliFec, eliFueNom, eliFueCar, 
+                eliFueTip, eliEspNom, eliEspEsp, eliEspExp, eliEspCar, eliDep,
+                eliDes, eliPre, eliPos, eliExc, eliObs);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

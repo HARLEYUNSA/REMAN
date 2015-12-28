@@ -32,12 +32,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
         //agregando pantalla de inicio(ayuda)
         VODocumento nuevo = new VODocumento();
-        DeskPanelMostrar.add(nuevo);
-        
-        VVEduccion ViewEdu = new VVEduccion(this, sysReman);
-        DeskPanelMostrar.add(ViewEdu);
-        
-        
+        DeskPanel1.add(nuevo);
         try {
             nuevo.setMaximum(true);
         } catch (PropertyVetoException ex) {
@@ -52,11 +47,11 @@ public class VPrincipal extends javax.swing.JFrame {
         venNoFun = new VTNoFuncional(this,this.sysReman);
         venOrg = new VTOrganizacion(this,this.sysReman);
 
-        DeskPanelLibs.add(venEli);
-        DeskPanelLibs.add(venEdu);
-        DeskPanelLibs.add(venOrg);
-        DeskPanelLibs.add(venEsp);
-        DeskPanelLibs.add(venNoFun);
+        DeskPanel2.add(venEli);
+        DeskPanel2.add(venEdu);
+        DeskPanel2.add(venOrg);
+        DeskPanel2.add(venEsp);
+        DeskPanel2.add(venNoFun);
         actualizarJTrees();
 
         //ayudas graficas
@@ -112,8 +107,8 @@ public class VPrincipal extends javax.swing.JFrame {
         btnElicitacion = new javax.swing.JButton();
         btnEspecificacion = new javax.swing.JButton();
         btnNoFuncional = new javax.swing.JButton();
-        DeskPanelMostrar = new javax.swing.JDesktopPane();
-        DeskPanelLibs = new javax.swing.JDesktopPane();
+        DeskPanel1 = new javax.swing.JDesktopPane();
+        DeskPanel2 = new javax.swing.JDesktopPane();
         menuReman = new javax.swing.JMenuBar();
         mnVPArchivo = new javax.swing.JMenu();
         mnArchivo_Nuevo = new javax.swing.JMenuItem();
@@ -382,29 +377,29 @@ public class VPrincipal extends javax.swing.JFrame {
         });
         LibrosReman.add(btnNoFuncional);
 
-        DeskPanelMostrar.setBackground(new java.awt.Color(119, 148, 171));
+        DeskPanel1.setBackground(new java.awt.Color(119, 148, 171));
 
-        javax.swing.GroupLayout DeskPanelMostrarLayout = new javax.swing.GroupLayout(DeskPanelMostrar);
-        DeskPanelMostrar.setLayout(DeskPanelMostrarLayout);
-        DeskPanelMostrarLayout.setHorizontalGroup(
-            DeskPanelMostrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout DeskPanel1Layout = new javax.swing.GroupLayout(DeskPanel1);
+        DeskPanel1.setLayout(DeskPanel1Layout);
+        DeskPanel1Layout.setHorizontalGroup(
+            DeskPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 493, Short.MAX_VALUE)
         );
-        DeskPanelMostrarLayout.setVerticalGroup(
-            DeskPanelMostrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        DeskPanel1Layout.setVerticalGroup(
+            DeskPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        DeskPanelLibs.setBackground(new java.awt.Color(119, 148, 171));
+        DeskPanel2.setBackground(new java.awt.Color(119, 148, 171));
 
-        javax.swing.GroupLayout DeskPanelLibsLayout = new javax.swing.GroupLayout(DeskPanelLibs);
-        DeskPanelLibs.setLayout(DeskPanelLibsLayout);
-        DeskPanelLibsLayout.setHorizontalGroup(
-            DeskPanelLibsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout DeskPanel2Layout = new javax.swing.GroupLayout(DeskPanel2);
+        DeskPanel2.setLayout(DeskPanel2Layout);
+        DeskPanel2Layout.setHorizontalGroup(
+            DeskPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 254, Short.MAX_VALUE)
         );
-        DeskPanelLibsLayout.setVerticalGroup(
-            DeskPanelLibsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        DeskPanel2Layout.setVerticalGroup(
+            DeskPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 436, Short.MAX_VALUE)
         );
 
@@ -481,10 +476,10 @@ public class VPrincipal extends javax.swing.JFrame {
                     .addComponent(herramientasReman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DeskPanelLibs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DeskPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(LibrosReman, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DeskPanelMostrar)))
+                        .addComponent(DeskPanel1)))
                 .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
@@ -496,8 +491,8 @@ public class VPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(LibrosReman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DeskPanelLibs))
-                    .addComponent(DeskPanelMostrar))
+                        .addComponent(DeskPanel2))
+                    .addComponent(DeskPanel1))
                 .addContainerGap())
         );
 
@@ -717,8 +712,8 @@ public class VPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane DeskPanelLibs;
-    private javax.swing.JDesktopPane DeskPanelMostrar;
+    private javax.swing.JDesktopPane DeskPanel1;
+    private javax.swing.JDesktopPane DeskPanel2;
     private javax.swing.JFileChooser ExportarFile;
     private javax.swing.JToolBar LibrosReman;
     private javax.swing.JButton btnEduccion;
