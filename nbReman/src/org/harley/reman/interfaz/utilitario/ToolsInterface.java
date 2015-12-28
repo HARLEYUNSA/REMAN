@@ -434,25 +434,18 @@ public class ToolsInterface {
 
     public static ArrayList<Paso> getPasos(JTable table) {
         ArrayList<Paso> pasos = new ArrayList<>();
-        int colums = table.getColumnCount();
         int filas = table.getRowCount();
-        if (colums != 2 || filas <= 0) {
-            return pasos;
-        }
+        System.out.println("filas: "+filas);
         String pasNum;
         String pasDes;
         for (int i = 0; i < filas; i++) {
-            if (table.getValueAt(i, 0) == null || table.getValueAt(i, 1) == null) {
-                continue;
+            if (table.getValueAt(i, 0) != null && table.getValueAt(i, 1) != null) {
+                pasNum = (String) table.getValueAt(i, 0);
+                pasDes = (String) table.getValueAt(i, 1);
+                Paso temp = new Paso(pasNum, pasDes);
+                System.out.println("num: " + pasNum + " , des: " + pasDes);
+                pasos.add(temp);
             }
-            pasNum = table.getValueAt(i, 0).toString().trim();
-            pasDes = table.getValueAt(i, 1).toString().trim();
-
-            if (pasDes.equals("") || pasNum.equals("")) {
-                continue;
-            }
-            Paso temp = new Paso(pasNum, pasDes);
-            pasos.add(temp);
         }
         return pasos;
     }
@@ -462,12 +455,12 @@ public class ToolsInterface {
         DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
         Object[] obj = new Object[2];
         Paso elemento;
-        for (int i = 0;i < pasos.size() ;i++) {
+        for (int i = 0; i < pasos.size(); i++) {
             elemento = pasos.get(i);
             obj[0] = elemento.getPasNum();
             obj[1] = elemento.getPasDes();
-            DTtable.setValueAt(obj[0],i,0);
-            DTtable.setValueAt(obj[1],i,1);
+            DTtable.setValueAt(obj[0], i, 0);
+            DTtable.setValueAt(obj[1], i, 1);
         }
     }
 

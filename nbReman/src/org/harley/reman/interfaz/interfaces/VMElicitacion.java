@@ -89,6 +89,7 @@ public class VMElicitacion extends JDialog {
 
         ToolsInterface.putJTablePasos(JTExc, myEli.getEliExc().getPaso());
         ToolsInterface.putJTablePasos(JTSec, myEli.getEliSec().getPaso());
+        
         txtELObservaciones.setText(myEli.getEliObs());
 
         //cargar historial
@@ -183,7 +184,7 @@ public class VMElicitacion extends JDialog {
         JTVEr = new javax.swing.JTable();
         btnELCancelar = new javax.swing.JButton();
         btnELGuardar = new javax.swing.JButton();
-        btnELGuardar1 = new javax.swing.JButton();
+        btnVersionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Elicitación");
@@ -814,11 +815,11 @@ public class VMElicitacion extends JDialog {
             }
         });
 
-        btnELGuardar1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnELGuardar1.setText("Versionar");
-        btnELGuardar1.addActionListener(new java.awt.event.ActionListener() {
+        btnVersionar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnVersionar.setText("Versionar");
+        btnVersionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnELGuardar1ActionPerformed(evt);
+                btnVersionarActionPerformed(evt);
             }
         });
 
@@ -832,7 +833,7 @@ public class VMElicitacion extends JDialog {
                     .addComponent(jTabbedPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnELGuardar1)
+                        .addComponent(btnVersionar)
                         .addGap(18, 18, 18)
                         .addComponent(btnELGuardar)
                         .addGap(18, 18, 18)
@@ -849,7 +850,7 @@ public class VMElicitacion extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnELCancelar)
                     .addComponent(btnELGuardar)
-                    .addComponent(btnELGuardar1))
+                    .addComponent(btnVersionar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -861,7 +862,7 @@ public class VMElicitacion extends JDialog {
     }//GEN-LAST:event_btnELCancelarActionPerformed
 
     private void btnELGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELGuardarActionPerformed
-        // TODO add your handling code here:
+        boolean error = false;
         String eliDep = txtDependencias.getText();
         String eliEspCar = txtELCargoE.getText();
         String eliFueCar = txtELCargoF.getText();
@@ -885,6 +886,10 @@ public class VMElicitacion extends JDialog {
         ArrayList<Paso> eliSec = ToolsInterface.getPasos(JTSec);
         ArrayList<Paso> eliExc = ToolsInterface.getPasos(JTExc);
 
+        if (eliNom.equals("") || !ToolsInterface.verificarVersion(eliVer)) {
+            error = true;
+        }
+        /**
         if (ToolsInterface.validaElicitacion(eliDep, eliEspCar, eliFueCar,
                 eliEduCod, eliDes, eliEspEsp, eliEspExp, eliNom, eliObs, eliPos,
                 eliPre, eliFueTip, eliVer, eliEspNom, eliFueNom, eliFec)
@@ -902,9 +907,7 @@ public class VMElicitacion extends JDialog {
         } else {
             ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
         }
-        /*       (eliAre, eliCarEsp, eliCarFue, eliCod, eliDes, eliEspEsp, eliEspExp, eliNom,
-         eliObs, eliPosCon, eliPreCon, eliTipfue, eliVer, eliEspNom, eliFueNom,
-         eliFec)*/
+        */
 
     }//GEN-LAST:event_btnELGuardarActionPerformed
 
@@ -930,9 +933,9 @@ public class VMElicitacion extends JDialog {
         }
     }//GEN-LAST:event_JLisEduMouseClicked
 
-    private void btnELGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELGuardar1ActionPerformed
+    private void btnVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVersionarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnELGuardar1ActionPerformed
+    }//GEN-LAST:event_btnVersionarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -942,7 +945,7 @@ public class VMElicitacion extends JDialog {
     private javax.swing.JTable JTVEr;
     private javax.swing.JButton btnELCancelar;
     private javax.swing.JButton btnELGuardar;
-    private javax.swing.JButton btnELGuardar1;
+    private javax.swing.JButton btnVersionar;
     private javax.swing.JComboBox cmbELEspecialista;
     private javax.swing.JComboBox cmbELFuente;
     private datechooser.beans.DateChooserCombo dtELFecha;
