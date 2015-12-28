@@ -1,21 +1,91 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.harley.reman.interfaz.interfaces;
+
+import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import org.harley.reman.interfaz.utilitario.ToolsInterface;
+import org.harley.reman.sistema.RequisitoNF;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
- * @author User
+ * @author Joel Mendoza
  */
-public class VMNoFuncional extends javax.swing.JFrame {
+public class VMNoFuncional extends JDialog {
 
-    /**
-     * Creates new form VNoFuncional
-     */
-    public VMNoFuncional() {
+    RequisitoNF myRnf;
+    Sistema sysReman;
+    ArrayList<ArrayList<String>> datesEsp;
+    ArrayList<ArrayList<String>> datesFue;
+    boolean flagLoadOk;
+    boolean flagSetOk;
+    JFrame padre;
+
+    public VMNoFuncional(JFrame padre, Sistema sysReman, String rnfCod) {
+        super(padre, true);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.sysReman = sysReman;
+        this.padre = padre;
+        flagSetOk = false;
+        datesEsp = this.sysReman.getEspecialistas();
+        datesFue = this.sysReman.getFuentes();
+        
+        try {
+            myRnf = sysReman.recuperarRequisitoNF(rnfCod);
+            
+            txtNFCodigo.setText(myRnf.getRnfNombre().getCodigo());
+            txtNFNombre.setText(myRnf.getRnfNombre().getNombre());
+            txtNFNumero.setText(myRnf.getRnfVer());
+            txtNFTipo.setText(myRnf.getRnfTip());
+            jTextArea1.setText(myRnf.getRnfObj());
+            dtFecha.setText(myRnf.getRnfFec());
+            txtNFDependencia.setText(myRnf.getRnfDep());
+            jTextArea2.setText(myRnf.getRnfDes());
+            jTextArea3.setText(myRnf.getRnfObs());
+         
+        //cargar y sleccionar el actor del requisito no funcional
+            ToolsInterface.addItems2JComboBox(cmbNFEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
+            ToolsInterface.addItems2JComboBox(cmbNFFuente, datesFue.get(Sistema.FUE_NOMBRE));
+            String temp;
+
+            int sizeEsp = cmbNFEspecialista.getItemCount();
+            for (int i = 0; i < sizeEsp; i++) {
+                temp = (String) cmbNFEspecialista.getSelectedItem();
+                if (temp.equals(myRnf.getRnfEspNom())) {
+                    cmbNFEspecialista.setSelectedIndex(i);
+                }
+            }
+
+            int sizeFue = cmbNFFuente.getItemCount();
+            for (int i = 0; i < sizeFue; i++) {
+                temp = (String) cmbNFFuente.getSelectedItem();
+                if (temp.equals(myRnf.getRnfFueNom())) {
+                    cmbNFFuente.setSelectedIndex(i);
+                }
+            }
+
+            //carga de los datos de los actores
+            txtNFEspecialidad.setText(myRnf.getRnfEspEsp());
+            txtNFExperiencia.setText(myRnf.getRnfEspExp());
+            txtNFCargo.setText(myRnf.getRnfEspCar());
+
+            txtNFCargofuente.setText(myRnf.getRnfFueCar());
+            txtNFTipofuente.setText(myRnf.getRnfFueTip());
+
+            //cargar historial
+            ToolsInterface.putJTableHistorico(jTable3, sysReman.getHist(Sistema.LIB_RNF, rnfCod));
+            flagLoadOk = true;
+        } catch (Exception e) {
+        }
+    }
+
+    public boolean getLoadIsCorrect() {
+        return flagLoadOk && cmbNFEspecialista.getItemCount() != 0 && cmbNFFuente.getItemCount() != 0;
+    }
+
+    public boolean createSuccessful() {
+        return flagSetOk;
     }
 
     /**
@@ -43,7 +113,7 @@ public class VMNoFuncional extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         txtNFNumero = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        NFFecha = new datechooser.beans.DateChooserCombo();
+        dtFecha = new datechooser.beans.DateChooserCombo();
         jPanel2 = new javax.swing.JPanel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jLabel6 = new javax.swing.JLabel();
@@ -112,6 +182,8 @@ public class VMNoFuncional extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Tipo");
 
+        txtNFCodigo.setEditable(false);
+
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("Nombre");
 
@@ -168,490 +240,547 @@ public class VMNoFuncional extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Fecha");
 
-        NFFecha.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
-            new datechooser.view.appearance.ViewAppearance("custom",
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    true,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 255),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(128, 128, 128),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(255, 0, 0),
-                    false,
-                    false,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                (datechooser.view.BackRenderer)null,
-                false,
-                true)));
+        dtFecha.setEnabled(false);
 
-    javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
-    jLayeredPane4.setLayout(jLayeredPane4Layout);
-    jLayeredPane4Layout.setHorizontalGroup(
-        jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jLayeredPane4Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLabel15)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(txtNFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(jLabel9)
-            .addGap(18, 18, 18)
-            .addComponent(NFFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(78, Short.MAX_VALUE))
-    );
-    jLayeredPane4Layout.setVerticalGroup(
-        jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jLayeredPane4Layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(NFFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(txtNFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
-    jLayeredPane4.setLayer(jLabel15, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane4.setLayer(txtNFNumero, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane4.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane4.setLayer(NFFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
+        jLayeredPane4.setLayout(jLayeredPane4Layout);
+        jLayeredPane4Layout.setHorizontalGroup(
+            jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(dtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+        jLayeredPane4Layout.setVerticalGroup(
+            jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15)
+                        .addComponent(txtNFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jLayeredPane4.setLayer(jLabel15, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(txtNFNumero, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(dtFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-    jPanel1.setLayout(jPanel1Layout);
-    jPanel1Layout.setHorizontalGroup(
-        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel1Layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLayeredPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLayeredPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap())
-    );
-    jPanel1Layout.setVerticalGroup(
-        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel1Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(6, 6, 6)
-            .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap())
-    );
+                .addContainerGap())
+        );
 
-    jTabbedPane1.addTab("General", jPanel1);
+        jTabbedPane1.addTab("General", jPanel1);
 
-    jLayeredPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Actores"));
+        jLayeredPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Actores"));
 
-    jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    jLabel6.setText("Cargo");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setText("Cargo");
 
-    cmbNFFuente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    cmbNFFuente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbNFFuente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cmbNFFuente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNFFuenteActionPerformed(evt);
+            }
+        });
 
-    jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    jLabel7.setText("Tipo");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setText("Tipo");
 
-    jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    jLabel5.setText("Fuente");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setText("Fuente");
 
-    jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    jLabel3.setText("Experiencia");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setText("Experiencia");
 
-    cmbNFEspecialista.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    cmbNFEspecialista.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbNFEspecialista.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cmbNFEspecialista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNFEspecialistaActionPerformed(evt);
+            }
+        });
 
-    jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    jLabel2.setText("Especialidad");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("Especialidad");
 
-    jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    jLabel1.setText("Especialista");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("Especialista");
 
-    txtNFEspecialidad.setEditable(false);
-    txtNFEspecialidad.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNFEspecialidad.setEditable(false);
+        txtNFEspecialidad.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-    txtNFTipofuente.setEditable(false);
-    txtNFTipofuente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNFTipofuente.setEditable(false);
+        txtNFTipofuente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-    txtNFCargofuente.setEditable(false);
-    txtNFCargofuente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNFCargofuente.setEditable(false);
+        txtNFCargofuente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-    txtNFCargo.setEditable(false);
-    txtNFCargo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNFCargo.setEditable(false);
+        txtNFCargo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-    jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    jLabel4.setText("Cargo");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setText("Cargo");
 
-    txtNFExperiencia.setEditable(false);
-    txtNFExperiencia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNFExperiencia.setEditable(false);
+        txtNFExperiencia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-    javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
-    jLayeredPane2.setLayout(jLayeredPane2Layout);
-    jLayeredPane2Layout.setHorizontalGroup(
-        jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jLayeredPane2Layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel1)
-                .addComponent(jLabel2)
-                .addComponent(jLabel3)
-                .addComponent(jLabel4)
-                .addComponent(jLabel5)
-                .addComponent(jLabel6)
-                .addComponent(jLabel7))
-            .addGap(53, 53, 53)
-            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(cmbNFEspecialista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtNFEspecialidad)
-                .addComponent(txtNFExperiencia)
-                .addComponent(cmbNFFuente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtNFCargo)
-                .addComponent(txtNFCargofuente)
-                .addComponent(txtNFTipofuente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(114, Short.MAX_VALUE))
-    );
-    jLayeredPane2Layout.setVerticalGroup(
-        jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jLayeredPane2Layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel1)
-                .addComponent(cmbNFEspecialista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
-            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel2)
-                .addComponent(txtNFEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
-            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel3)
-                .addComponent(txtNFExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
-            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel4)
-                .addComponent(txtNFCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
-            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel5)
-                .addComponent(cmbNFFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
-            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel6)
-                .addComponent(txtNFCargofuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
-            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel7)
-                .addComponent(txtNFTipofuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap())
-    );
-    jLayeredPane2.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(cmbNFFuente, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(cmbNFEspecialista, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(txtNFEspecialidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(txtNFTipofuente, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(txtNFCargofuente, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(txtNFCargo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane2.setLayer(txtNFExperiencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
+        jLayeredPane2.setLayout(jLayeredPane2Layout);
+        jLayeredPane2Layout.setHorizontalGroup(
+            jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(53, 53, 53)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbNFEspecialista, javax.swing.GroupLayout.Alignment.TRAILING, 0, 197, Short.MAX_VALUE)
+                    .addComponent(txtNFEspecialidad, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNFExperiencia, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNFCargo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cmbNFFuente, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNFCargofuente, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNFTipofuente, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(70, Short.MAX_VALUE))
+        );
+        jLayeredPane2Layout.setVerticalGroup(
+            jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cmbNFEspecialista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNFEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNFExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtNFCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbNFFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtNFCargofuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtNFTipofuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jLayeredPane2.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(cmbNFFuente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(cmbNFEspecialista, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(txtNFEspecialidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(txtNFTipofuente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(txtNFCargofuente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(txtNFCargo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(txtNFExperiencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-    jPanel2.setLayout(jPanel2Layout);
-    jPanel2Layout.setHorizontalGroup(
-        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel2Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
-    jPanel2Layout.setVerticalGroup(
-        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel2Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-    jTabbedPane1.addTab("Actor", jPanel2);
+        jTabbedPane1.addTab("Actor", jPanel2);
 
-    jLayeredPane5.setBorder(javax.swing.BorderFactory.createTitledBorder("Dependencia"));
+        jLayeredPane5.setBorder(javax.swing.BorderFactory.createTitledBorder("Dependencia"));
 
-    txtNFDependencia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNFDependencia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-    jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    jLabel8.setText("Area Relacionada");
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setText("Area Relacionada");
 
-    javax.swing.GroupLayout jLayeredPane5Layout = new javax.swing.GroupLayout(jLayeredPane5);
-    jLayeredPane5.setLayout(jLayeredPane5Layout);
-    jLayeredPane5Layout.setHorizontalGroup(
-        jLayeredPane5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jLayeredPane5Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLabel8)
-            .addGap(55, 55, 55)
-            .addComponent(txtNFDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(29, Short.MAX_VALUE))
-    );
-    jLayeredPane5Layout.setVerticalGroup(
-        jLayeredPane5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jLayeredPane5Layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(jLayeredPane5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        javax.swing.GroupLayout jLayeredPane5Layout = new javax.swing.GroupLayout(jLayeredPane5);
+        jLayeredPane5.setLayout(jLayeredPane5Layout);
+        jLayeredPane5Layout.setHorizontalGroup(
+            jLayeredPane5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel8)
-                .addComponent(txtNFDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap())
-    );
-    jLayeredPane5.setLayer(txtNFDependencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    jLayeredPane5.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+                .addGap(55, 55, 55)
+                .addComponent(txtNFDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+        jLayeredPane5Layout.setVerticalGroup(
+            jLayeredPane5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jLayeredPane5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtNFDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jLayeredPane5.setLayer(txtNFDependencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane5.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-    javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-    jPanel3.setLayout(jPanel3Layout);
-    jPanel3Layout.setHorizontalGroup(
-        jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel3Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
-    jPanel3Layout.setVerticalGroup(
-        jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel3Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(246, Short.MAX_VALUE))
-    );
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(246, Short.MAX_VALUE))
+        );
 
-    jTabbedPane1.addTab("Dependencias", jPanel3);
+        jTabbedPane1.addTab("Dependencias", jPanel3);
 
-    jLayeredPane6.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripción de RNF"));
+        jLayeredPane6.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripción de RNF"));
 
-    jTextArea2.setColumns(20);
-    jTextArea2.setRows(5);
-    jScrollPane1.setViewportView(jTextArea2);
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane1.setViewportView(jTextArea2);
 
-    javax.swing.GroupLayout jLayeredPane6Layout = new javax.swing.GroupLayout(jLayeredPane6);
-    jLayeredPane6.setLayout(jLayeredPane6Layout);
-    jLayeredPane6Layout.setHorizontalGroup(
-        jLayeredPane6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jLayeredPane6Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-            .addContainerGap())
-    );
-    jLayeredPane6Layout.setVerticalGroup(
-        jLayeredPane6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jLayeredPane6Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-            .addContainerGap())
-    );
-    jLayeredPane6.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        javax.swing.GroupLayout jLayeredPane6Layout = new javax.swing.GroupLayout(jLayeredPane6);
+        jLayeredPane6.setLayout(jLayeredPane6Layout);
+        jLayeredPane6Layout.setHorizontalGroup(
+            jLayeredPane6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jLayeredPane6Layout.setVerticalGroup(
+            jLayeredPane6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jLayeredPane6.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-    javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-    jPanel4.setLayout(jPanel4Layout);
-    jPanel4Layout.setHorizontalGroup(
-        jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel4Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLayeredPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(26, Short.MAX_VALUE))
-    );
-    jPanel4Layout.setVerticalGroup(
-        jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel4Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLayeredPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(28, Short.MAX_VALUE))
-    );
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
 
-    jTabbedPane1.addTab("Detalle", jPanel4);
+        jTabbedPane1.addTab("Detalle", jPanel4);
 
-    jLayeredPane7.setBorder(javax.swing.BorderFactory.createTitledBorder("Notas"));
+        jLayeredPane7.setBorder(javax.swing.BorderFactory.createTitledBorder("Notas"));
 
-    jTextArea3.setColumns(20);
-    jTextArea3.setRows(5);
-    jScrollPane2.setViewportView(jTextArea3);
+        jTextArea3.setColumns(20);
+        jTextArea3.setRows(5);
+        jScrollPane2.setViewportView(jTextArea3);
 
-    javax.swing.GroupLayout jLayeredPane7Layout = new javax.swing.GroupLayout(jLayeredPane7);
-    jLayeredPane7.setLayout(jLayeredPane7Layout);
-    jLayeredPane7Layout.setHorizontalGroup(
-        jLayeredPane7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jLayeredPane7Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-            .addContainerGap())
-    );
-    jLayeredPane7Layout.setVerticalGroup(
-        jLayeredPane7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jLayeredPane7Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-            .addContainerGap())
-    );
-    jLayeredPane7.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        javax.swing.GroupLayout jLayeredPane7Layout = new javax.swing.GroupLayout(jLayeredPane7);
+        jLayeredPane7.setLayout(jLayeredPane7Layout);
+        jLayeredPane7Layout.setHorizontalGroup(
+            jLayeredPane7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jLayeredPane7Layout.setVerticalGroup(
+            jLayeredPane7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jLayeredPane7.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-    javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-    jPanel5.setLayout(jPanel5Layout);
-    jPanel5Layout.setHorizontalGroup(
-        jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLayeredPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(26, Short.MAX_VALUE))
-    );
-    jPanel5Layout.setVerticalGroup(
-        jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLayeredPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(28, Short.MAX_VALUE))
-    );
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
 
-    jTabbedPane1.addTab("Notas", jPanel5);
+        jTabbedPane1.addTab("Notas", jPanel5);
 
-    jTable3.setAutoCreateRowSorter(true);
-    jTable3.setModel(new javax.swing.table.DefaultTableModel(
-        new Object [][] {
-            {null, null, null, null}
-        },
-        new String [] {
-            "Versión", "Fecha", "Especialista", "Razon de Cambio"
+        jTable3.setAutoCreateRowSorter(true);
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null}
+            },
+            new String [] {
+                "Versión", "Fecha", "Especialista", "Razon de Cambio"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane8.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(0).setResizable(false);
+            jTable3.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable3.getColumnModel().getColumn(1).setResizable(false);
+            jTable3.getColumnModel().getColumn(1).setPreferredWidth(40);
         }
-    ) {
-        Class[] types = new Class [] {
-            java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
-        };
 
-        public Class getColumnClass(int columnIndex) {
-            return types [columnIndex];
-        }
-    });
-    jScrollPane8.setViewportView(jTable3);
-    if (jTable3.getColumnModel().getColumnCount() > 0) {
-        jTable3.getColumnModel().getColumn(0).setResizable(false);
-        jTable3.getColumnModel().getColumn(0).setPreferredWidth(20);
-        jTable3.getColumnModel().getColumn(1).setResizable(false);
-        jTable3.getColumnModel().getColumn(1).setPreferredWidth(40);
-    }
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
 
-    javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-    jPanel6.setLayout(jPanel6Layout);
-    jPanel6Layout.setHorizontalGroup(
-        jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel6Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(23, Short.MAX_VALUE))
-    );
-    jPanel6Layout.setVerticalGroup(
-        jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel6Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(80, Short.MAX_VALUE))
-    );
+        jTabbedPane1.addTab("Historial", jPanel6);
 
-    jTabbedPane1.addTab("Historial", jPanel6);
+        btnNFGuardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnNFGuardar.setText("Guardar");
+        btnNFGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNFGuardarActionPerformed(evt);
+            }
+        });
 
-    btnNFGuardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-    btnNFGuardar.setText("Guardar");
+        btnNFCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnNFCancelar.setText("Cancelar");
+        btnNFCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNFCancelarActionPerformed(evt);
+            }
+        });
 
-    btnNFCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-    btnNFCancelar.setText("Cancelar");
-    btnNFCancelar.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btnNFCancelarActionPerformed(evt);
-        }
-    });
+        btnNFVersionar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnNFVersionar.setText("Versionar");
+        btnNFVersionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNFVersionarActionPerformed(evt);
+            }
+        });
 
-    btnNFVersionar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-    btnNFVersionar.setText("Versionar");
-    btnNFVersionar.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btnNFVersionarActionPerformed(evt);
-        }
-    });
-
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(20, Short.MAX_VALUE))
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnNFVersionar)
-            .addGap(18, 18, 18)
-            .addComponent(btnNFGuardar)
-            .addGap(18, 18, 18)
-            .addComponent(btnNFCancelar)
-            .addGap(42, 42, 42))
-    );
-    layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnNFVersionar)
+                .addGap(18, 18, 18)
                 .addComponent(btnNFGuardar)
+                .addGap(18, 18, 18)
                 .addComponent(btnNFCancelar)
-                .addComponent(btnNFVersionar))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
+                .addGap(41, 41, 41))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNFCancelar)
+                    .addComponent(btnNFGuardar)
+                    .addComponent(btnNFVersionar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-    pack();
+        btnNFVersionar.getAccessibleContext().setAccessibleName("Versionar");
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNFCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNFCancelarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnNFCancelarActionPerformed
 
+    private void btnNFGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNFGuardarActionPerformed
+        boolean error = false;
+        String rnfCod = txtNFCodigo.getText();
+        String rnfNom = txtNFNombre.getText();
+        String rnfVer = txtNFNumero.getText();
+        String rnfTip = txtNFTipo.getText();
+        String rnfObj = jTextArea1.getText();
+        String rnfFec = dtFecha.getText();
+        String rnfFueNom = (String) cmbNFFuente.getSelectedItem();
+        String rnfFueCar = txtNFCargofuente.getText();
+        String rnfFueTip = txtNFTipofuente.getText();
+        String rnfEspNom = (String) cmbNFEspecialista.getSelectedItem();
+        String rnfEspEsp = txtNFEspecialidad.getText();
+        String rnfEspExp = txtNFExperiencia.getText();
+        String rnfEspCar = txtNFCargo.getText();
+        String rnfDep = txtNFDependencia.getText();
+        String rnfDes = jTextArea2.getText();
+        String rnfObs = jTextArea3.getText();
+
+       if (rnfNom.equals("") || !ToolsInterface.isAlphabetic(rnfNom)
+                || !ToolsInterface.verificarVersion(rnfVer)) {
+            error = true;
+        }
+
+        if (!error) {
+            if (sysReman.modificarReqNoFuncional(rnfCod, rnfNom, rnfVer, rnfTip,
+                    rnfObj, rnfFec, rnfFueNom, rnfFueCar, rnfFueTip, rnfEspNom,
+                    rnfEspEsp, rnfEspExp, rnfEspCar, rnfDep, rnfDes, rnfObs)) {
+                flagSetOk = true;
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "El requisito"
+                        + "no funcional \""
+                        + rnfNom + "\" fue modificado satisfactoriamente.");
+                this.dispose();
+            } else {
+                ToolsInterface.msjError(this, "Error al crear el requisito no "
+                        + "funcional");
+            }
+        } else {
+            ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
+        }
+    }//GEN-LAST:event_btnNFGuardarActionPerformed
+
+    private void cmbNFEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNFEspecialistaActionPerformed
+        int index = cmbNFEspecialista.getSelectedIndex();
+        txtNFEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(index));
+        txtNFExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(index));
+        txtNFCargo.setText(datesEsp.get(Sistema.ESP_CARGO).get(index));    }//GEN-LAST:event_cmbNFEspecialistaActionPerformed
+
+    private void cmbNFFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNFFuenteActionPerformed
+        int index = cmbNFFuente.getSelectedIndex();
+        txtNFCargofuente.setText(datesFue.get(Sistema.FUE_CARGO).get(index));
+        txtNFTipofuente.setText(datesFue.get(Sistema.FUE_TIPO).get(index));
+    }//GEN-LAST:event_cmbNFFuenteActionPerformed
+
     private void btnNFVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNFVersionarActionPerformed
-        // TODO add your handling code here:
+        String rnfCod = txtNFCodigo.getText();
+        String rnfNom = txtNFNombre.getText().trim();
+        String rnfVer = txtNFNumero.getText().trim();
+        String rnfTip = txtNFTipo.getText().trim();
+        String rnfObj = jTextArea1.getText();
+        String rnfFec = dtFecha.getText();
+        String rnfFueNom = (String) cmbNFFuente.getSelectedItem();
+        String rnfFueCar = txtNFCargofuente.getText();
+        String rnfFueTip = txtNFTipofuente.getText();
+        String rnfEspNom = (String) cmbNFEspecialista.getSelectedItem();
+        String rnfEspEsp = txtNFEspecialidad.getText();
+        String rnfEspExp = txtNFExperiencia.getText();
+        String rnfEspCar = txtNFCargo.getText();
+        String rnfDep = txtNFDependencia.getText();
+        String rnfDes = jTextArea2.getText();
+        String rnfObs = jTextArea3.getText();
+        VEVersionarRnf VRnf = new VEVersionarRnf(padre, sysReman, rnfCod, 
+                rnfNom, rnfVer, rnfTip, rnfObj, rnfFec, rnfFueNom, rnfFueCar,
+                rnfFueTip, rnfEspNom, rnfEspEsp, rnfEspExp, rnfEspCar,
+                rnfDep, rnfDes, rnfObs);
+        
+        if(VRnf.getLoadIsCorrect()){
+            VRnf.setVisible(true);
+        }else{
+            ToolsInterface.msjError(padre, "Error al cargar Especialistas y/o"
+                    + " datos de Requisito no funcional");
+        }
+        if(VRnf.versionSuccessful()){
+            this.dispose();
+        }
     }//GEN-LAST:event_btnNFVersionarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private datechooser.beans.DateChooserCombo NFFecha;
     private javax.swing.JButton btnNFCancelar;
     private javax.swing.JButton btnNFGuardar;
     private javax.swing.JButton btnNFVersionar;
     private javax.swing.JComboBox cmbNFEspecialista;
     private javax.swing.JComboBox cmbNFFuente;
+    private datechooser.beans.DateChooserCombo dtFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

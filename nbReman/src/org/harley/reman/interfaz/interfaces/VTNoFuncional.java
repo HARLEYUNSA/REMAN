@@ -153,15 +153,36 @@ public class VTNoFuncional extends javax.swing.JInternalFrame {
 
     private void menuRnfItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRnfItem1ActionPerformed
         //MODIFICAR REQ NO FUNCIONAL
+        String path = dirTree.getLastPathComponent().toString();
+        VMNoFuncional VRnf = new VMNoFuncional(padre, sysReman, path);
+        if (VRnf.getLoadIsCorrect()) {
+            VRnf.setVisible(true);
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar los datos de los actores!");
+        }
     }//GEN-LAST:event_menuRnfItem1ActionPerformed
 
     private void menuRnfItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRnfItem2ActionPerformed
         //ELIMINAR REQ NO FUNCIONAL
-        int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
+        String path;
+        int resp = JOptionPane.showConfirmDialog(null, "Eliminar Requisito no funcioanl", "Alerta!", JOptionPane.YES_NO_OPTION);
+        if (resp == 0) {
+            path = dirTree.getLastPathComponent().toString();
+            sysReman.eliminarRequisitoNF(path);
+            actualizarJTree();
+            ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente el requisito no funcional: " + path);
+        }     
     }//GEN-LAST:event_menuRnfItem2ActionPerformed
 
     private void menuRnfItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRnfItem3ActionPerformed
         //RESTAURAR REQ NO FUNCIONAL
+        String path = dirTree.getLastPathComponent().toString();
+        VOERestaurar vRes = new VOERestaurar(padre, sysReman, path, Sistema.LIB_RNF);
+        if(vRes.getLoadIsCorrect()){
+            vRes.setVisible(true);
+        }else{
+            ToolsInterface.msjError(padre, "Error al cargar las versiones del requisito no funcional!");
+        }
     }//GEN-LAST:event_menuRnfItem3ActionPerformed
 
     public void actualizarJTree(){
