@@ -157,91 +157,92 @@ public class ToolsInterface {
 
     public static boolean validaProyecto(String proNom, String prdNom, String empDes,
             String empCli, String proLid, String fecIni, String fecFin,
-            String proUbi){
-        boolean error=true;
+            String proUbi) {
+        boolean error = true;
         if (empCli.equals("") || empDes.equals("") || proNom.equals("")
-                || prdNom.equals("") || proUbi.equals("") || proLid.equals("") 
+                || prdNom.equals("") || proUbi.equals("") || proLid.equals("")
                 || fecIni.equals("") || fecFin.equals("")) {
             error = false;
         }
         return error;
     }
-    public static boolean validaEduccion(String eduEspCar, String eduFueCar, 
-            String eduDes, String eduEspEsp, String eduEspExp, String eduNom, 
+
+    public static boolean validaEduccion(String eduEspCar, String eduFueCar,
+            String eduDes, String eduEspEsp, String eduEspExp, String eduNom,
             String eduObj, String eduObs, String eduTip, String eduFueTip,
-            String eduVer, String eduEspNom, String eduFueNom, String eduFec){
+            String eduVer, String eduEspNom, String eduFueNom, String eduFec) {
         boolean flag = true;
-        
-        if(eduEspCar.equals("") || eduFueCar.equals("") || eduDes.equals("") ||
-            eduEspEsp.equals("") || eduEspExp.equals("") || eduNom.equals("") ||
-             eduObj.equals("") ||  eduObs.equals("") ||  eduTip.equals("") ||  
-                eduFueTip.equals("") || eduVer.equals("") ||  eduEspNom.equals("")
-                ||  eduFueNom.equals("") ||  eduFec.equals("")){
+
+        if (eduEspCar.equals("") || eduFueCar.equals("") || eduDes.equals("")
+                || eduEspEsp.equals("") || eduEspExp.equals("") || eduNom.equals("")
+                || eduObj.equals("") || eduObs.equals("") || eduTip.equals("")
+                || eduFueTip.equals("") || eduVer.equals("") || eduEspNom.equals("")
+                || eduFueNom.equals("") || eduFec.equals("")) {
             flag = false;
         }
-        
+
         return flag;
     }
-    
-    public static boolean validaElicitacion(String eliAre, String eliCarEsp, 
-        String eliCarFue, String eliCod, String eliDes, String eliEspEsp,
-        String eliEspExp, String eliNom, String eliObs, String eliPosCon,
-        String eliPreCon, String eliTipfue, String eliVer, String eliEspNom,
-        String eliFueNom, String eliFec){
-        
+
+    public static boolean validaElicitacion(String eliAre, String eliCarEsp,
+            String eliCarFue, String eliCod, String eliDes, String eliEspEsp,
+            String eliEspExp, String eliNom, String eliObs, String eliPosCon,
+            String eliPreCon, String eliTipfue, String eliVer, String eliEspNom,
+            String eliFueNom, String eliFec) {
+
         boolean flag = true;
-        
-        if(eliAre.equals("") || eliCarEsp.equals("") || eliCarFue.equals("") ||
-                eliCod.equals("") || eliDes.equals("") || eliEspEsp.equals("") ||
-                eliEspExp.equals("") || eliNom.equals("") || eliObs.equals("") 
-                || eliPosCon.equals("") || eliPreCon.equals("") || eliTipfue.equals("") ||
-                eliVer.equals("") || eliEspNom.equals("") || eliFueNom.equals("") ||
-                eliFec.equals("")){
+
+        if (eliAre.equals("") || eliCarEsp.equals("") || eliCarFue.equals("")
+                || eliCod.equals("") || eliDes.equals("") || eliEspEsp.equals("")
+                || eliEspExp.equals("") || eliNom.equals("") || eliObs.equals("")
+                || eliPosCon.equals("") || eliPreCon.equals("") || eliTipfue.equals("")
+                || eliVer.equals("") || eliEspNom.equals("") || eliFueNom.equals("")
+                || eliFec.equals("")) {
             flag = false;
         }
-  
+
         return flag;
     }
-    
-    public static boolean validaEspecificacion(String espAre, String espCarEsp, 
-        String espCarFue, String espCod, String espDes, String espEspEsp,
-        String espEspExp, String espNom, String espObs, String espPosCon,
-        String espPreCon, String espTipfue, String espVer, String espEspNom,
-        String espFueNom, String espFec){
-        
+
+    public static boolean validaEspecificacion(String espAre, String espCarEsp,
+            String espCarFue, String espCod, String espDes, String espEspEsp,
+            String espEspExp, String espNom, String espObs, String espPosCon,
+            String espPreCon, String espTipfue, String espVer, String espEspNom,
+            String espFueNom, String espFec) {
+
         boolean flag = true;
-        
-        if(espAre.equals("") || espCarEsp.equals("") || espCarFue.equals("") ||
-                espCod.equals("") || espDes.equals("") || espEspEsp.equals("") ||
-                espEspExp.equals("") || espNom.equals("") || espObs.equals("") 
-                || espPosCon.equals("") || espPreCon.equals("") || espTipfue.equals("") ||
-                espVer.equals("") || espEspNom.equals("") || espFueNom.equals("") ||
-                espFec.equals("")){
+
+        if (espAre.equals("") || espCarEsp.equals("") || espCarFue.equals("")
+                || espCod.equals("") || espDes.equals("") || espEspEsp.equals("")
+                || espEspExp.equals("") || espNom.equals("") || espObs.equals("")
+                || espPosCon.equals("") || espPreCon.equals("") || espTipfue.equals("")
+                || espVer.equals("") || espEspNom.equals("") || espFueNom.equals("")
+                || espFec.equals("")) {
             flag = false;
         }
-  
+
         return flag;
-    }    
-    
-    public static boolean validaRequisitoNF(String rnfNom, String rnfVer, 
+    }
+
+    public static boolean validaRequisitoNF(String rnfNom, String rnfVer,
             String rnfTip, String rnfObj, String rnfFec, String rnfFueNom,
-            String rnfFueCar, String rnfFueTip, String rnfEspNom, 
+            String rnfFueCar, String rnfFueTip, String rnfEspNom,
             String rnfEspEsp, String rnfEspExp, String rnfEspCar, String rnfDep,
-            String rnfDes, String rnfObs){
-        
+            String rnfDes, String rnfObs) {
+
         boolean flag = true;
-        
-        if(rnfNom.equals("") || rnfVer.equals("") || rnfTip.equals("") ||
-                rnfObj.equals("") || rnfFec.equals("") || rnfFueNom.equals("") ||
-                rnfFueCar.equals("") || rnfFueTip.equals("") || rnfEspNom.equals("") 
-                || rnfEspEsp.equals("") || rnfEspExp.equals("") || rnfEspCar.equals("") ||
-                rnfDep.equals("") || rnfDes.equals("") || rnfObs.equals("")){
+
+        if (rnfNom.equals("") || rnfVer.equals("") || rnfTip.equals("")
+                || rnfObj.equals("") || rnfFec.equals("") || rnfFueNom.equals("")
+                || rnfFueCar.equals("") || rnfFueTip.equals("") || rnfEspNom.equals("")
+                || rnfEspEsp.equals("") || rnfEspExp.equals("") || rnfEspCar.equals("")
+                || rnfDep.equals("") || rnfDes.equals("") || rnfObs.equals("")) {
             flag = false;
         }
-  
+
         return flag;
-    } 
-    
+    }
+
     /**
      * Devuelve si encuentra la expresion regular en el texto indicado
      *
@@ -303,181 +304,192 @@ public class ToolsInterface {
                 return "error";
             } else {
                 //la extension es correcta
-                if (nameFile.charAt(point + 1) == 'p' &&  nameFile.charAt(point + 2) == 'd' && nameFile.charAt(point + 3) == 'f'){
-                    return nameFile.substring(0,point);
-                }
-                else{
+                if (nameFile.charAt(point + 1) == 'p' && nameFile.charAt(point + 2) == 'd' && nameFile.charAt(point + 3) == 'f') {
+                    return nameFile.substring(0, point);
+                } else {
                     return "error";
                 }
             }
         }
 
     }
-    
-    public static boolean verificarVersion(String version){
+
+    public static boolean verificarVersion(String version) {
         int lenght = version.length();
-        if(lenght == 0){
+        if (lenght == 0) {
             return false;
         }
-        if(!Character.isDigit(version.charAt(0))){
+        if (!Character.isDigit(version.charAt(0))) {
             return false;
         }
-        
+
         for (int i = 1; i < lenght; i++) {
-            if(!Character.isDigit(version.charAt(i)) && !Character.isAlphabetic(version.charAt(i)) && version.charAt(i) != '.'){
+            if (!Character.isDigit(version.charAt(i)) && !Character.isAlphabetic(version.charAt(i)) && version.charAt(i) != '.') {
                 return false;
             }
         }
         return true;
     }
-    
-    private static void cleanJTable(JTable table, String[] columns){
-        table.getTableHeader().setReorderingAllowed(false) ;
-        table.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {},columns){
+
+    private static void cleanJTable(JTable table, String[] columns) {
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{}, columns) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         });
     }
-    
-    private static void cleanJTableEditable(JTable table, String[] columns){
-        table.getTableHeader().setReorderingAllowed(false) ;
-        table.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {},columns){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return true;
-            }
-        });
+
+    private static void cleanJTableEditable(JTable table, String[] columns) {
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{{null, null}, {null, null}, {null, null},
+                {null, null}, {null, null}, {null, null}, {null, null},
+                {null, null}, {null, null}, {null, null}, {null, null},
+                {null, null}, {null, null}, {null, null}, {null, null},
+                {null, null}, {null, null}, {null, null}, {null, null},
+                {null, null}}, columns) {
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return true;
+                    }
+                });
     }
-    
-    
-    
-    private static void cleanJTable(JTable table, ArrayList<String> columns){
+
+    private static void cleanJTable(JTable table, ArrayList<String> columns) {
         int size = columns.size();
         String[] values = new String[size];
-        for(int i =0;i< size;i++){
+        for (int i = 0; i < size; i++) {
             values[i] = columns.get(i);
         }
-        table.getTableHeader().setReorderingAllowed(false) ;
-        table.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {},values){
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{}, values) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         });
     }
-    
-    private static void cleanJTable(JTable table){
-        table.getTableHeader().setReorderingAllowed(false) ;
-        table.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {},new String [] {}){
+
+    private static void cleanJTable(JTable table) {
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{}, new String[]{}) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         });
     }
-    
+
     /**
      * el numero de columns debe coincidir con el numero de atributos del Objeto
-     * @param table     tabla contenedora
-     * @param dates     datos a ingresar
-     * @param columns   columnas
+     *
+     * @param table tabla contenedora
+     * @param dates datos a ingresar
+     * @param columns columnas
      */
-    public static void putJTable(JTable table, ArrayList<Object[]> dates, String[] columns){
+    public static void putJTable(JTable table, ArrayList<Object[]> dates, String[] columns) {
         cleanJTable(table, columns);
         DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
-        for(Object[] row : dates){
-            DTtable.addRow(row); 
+        for (Object[] row : dates) {
+            DTtable.addRow(row);
         }
     }
-     
+
     /**
-     * El numero de atributos del Objeto debe coincidir con el numero de columnas de la tabla
-     * @param table     tabla contenedora
-     * @param dates     datos a ingresar
+     * El numero de atributos del Objeto debe coincidir con el numero de
+     * columnas de la tabla
+     *
+     * @param table tabla contenedora
+     * @param dates datos a ingresar
      */
-    public static void putJTable(JTable table, ArrayList<Object[]> dates){
+    public static void putJTable(JTable table, ArrayList<Object[]> dates) {
         cleanJTable(table);
         DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
-        for(Object[] row : dates){
-            DTtable.addRow(row); 
+        for (Object[] row : dates) {
+            DTtable.addRow(row);
         }
     }
-    
+
     /**
-     * El numero de atributos del Objeto debe coincidir con el numero de columnas de la tabla
-     * @param table     tabla contenedora
-     * @param dates     datos a ingresar
+     * El numero de atributos del Objeto debe coincidir con el numero de
+     * columnas de la tabla
+     *
+     * @param table tabla contenedora
+     * @param dates datos a ingresar
      */
-    public static void putJTableHistorico(JTable table, ArrayList<Historico> dates){
-        cleanJTable(table,new String[]{"Version","Fecha","Autor","Razon"});
+    public static void putJTableHistorico(JTable table, ArrayList<Historico> dates) {
+        cleanJTable(table, new String[]{"Version", "Fecha", "Autor", "Razon"});
         DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
         Object[] obj = new Object[4];
-        for(Historico row : dates){
+        for (Historico row : dates) {
             obj[0] = row.getVersion();
             obj[1] = row.getFecha();
             obj[2] = row.getAutor();
-            obj[3] = row.getRazon(); 
+            obj[3] = row.getRazon();
             DTtable.addRow(obj);
         }
     }
-    
-    public static ArrayList<Paso> getPasos(JTable table){
+
+    public static ArrayList<Paso> getPasos(JTable table) {
         ArrayList<Paso> pasos = new ArrayList<>();
         int colums = table.getColumnCount();
         int filas = table.getRowCount();
-        if(colums != 2 || filas <= 0 ){
+        if (colums != 2 || filas <= 0) {
             return pasos;
         }
         String pasNum;
         String pasDes;
-        for(int i =0;i < filas;i++){
-            if( table.getValueAt(i, 0) == null || table.getValueAt(i, 1) == null){
+        for (int i = 0; i < filas; i++) {
+            if (table.getValueAt(i, 0) == null || table.getValueAt(i, 1) == null) {
                 continue;
             }
             pasNum = table.getValueAt(i, 0).toString().trim();
             pasDes = table.getValueAt(i, 1).toString().trim();
- 
-            if(pasDes.equals("") || pasNum.equals("")){
+
+            if (pasDes.equals("") || pasNum.equals("")) {
                 continue;
             }
-            Paso temp = new Paso(pasNum,pasDes);
+            Paso temp = new Paso(pasNum, pasDes);
             pasos.add(temp);
         }
         return pasos;
     }
-    
-    public static void putJTablePasos(JTable table, ArrayList<Paso> pasos){
-        cleanJTableEditable(table,new String[]{"Pasos","Descripción"});
+
+    public static void putJTablePasos(JTable table, ArrayList<Paso> pasos) {
+        cleanJTableEditable(table, new String[]{"Pasos", "Descripción"});
         DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
         Object[] obj = new Object[2];
-        for(Paso elemento : pasos){
+        Paso elemento;
+        for (int i = 0;i < pasos.size() ;i++) {
+            elemento = pasos.get(i);
             obj[0] = elemento.getPasNum();
             obj[1] = elemento.getPasDes();
-            DTtable.addRow(obj);
+            DTtable.setValueAt(obj[0],i,0);
+            DTtable.setValueAt(obj[1],i,1);
         }
     }
-    
-    public static ArrayList<String> jList2Array (JList list){
+
+    public static ArrayList<String> jList2Array(JList list) {
         ArrayList<String> temp = new ArrayList<>();
-        for(int i=0;i < list.getModel().getSize();i++){
+        for (int i = 0; i < list.getModel().getSize(); i++) {
             temp.add(String.valueOf(list.getModel().getElementAt(i)));
         }
         return temp;
     }
-    
-    public static DefaultListModel modelList(ArrayList<String> list){
+
+    public static DefaultListModel modelList(ArrayList<String> list) {
         DefaultListModel<String> model = new DefaultListModel<>();
         for (String list1 : list) {
             model.addElement(list1);
         }
         return model;
     }
-    
-    public static void putJList(JList lista, ArrayList<String> datos){
+
+    public static void putJList(JList lista, ArrayList<String> datos) {
         DefaultListModel model = modelList(datos);
         lista.setModel(model);
     }
-    
+
 }
