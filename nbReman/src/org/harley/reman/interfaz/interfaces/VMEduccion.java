@@ -660,8 +660,7 @@ public class VMEduccion extends JDialog {
         String eduFueNom = (String) cmbEDFuente.getSelectedItem();
         String eduFec = dtEDFecha.getText();
 
-        if (eduNom.equals("") || !ToolsInterface.isAlphabetic(eduNom)
-                || !ToolsInterface.verificarVersion(eduVer)) {
+        if (eduNom.equals("") || !ToolsInterface.verificarVersion(eduVer)) {
             error = true;
         }
 

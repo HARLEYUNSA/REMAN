@@ -35,7 +35,7 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
                     switch (dirTree.getLastPathComponent().toString()) {
                         case "Documento de Especificación":
                             break;
-                        case "Espesificación":
+                        case "Especificación":
                             menuDocEsp.show(e.getComponent(), e.getX(), e.getY() + 10);
                             break;
                         default:
@@ -153,21 +153,47 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuDocEspItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEspItem1ActionPerformed
-        //NUEVA EDUCCION
-    }//GEN-LAST:event_menuDocEspItem1ActionPerformed
+        //NUEVA ESPECIFICACION
+        VCEspecificacion VEsp = new VCEspecificacion(padre, sysReman);
+        if (VEsp.getLoadIsCorrect()) {
+            VEsp.setVisible(true);
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar los actores del proyecto!");
+        }
+        if (VEsp.createSuccessful()) {
+            actualizarJTree();
+        }     }//GEN-LAST:event_menuDocEspItem1ActionPerformed
 
     private void menuEspItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEspItem1ActionPerformed
-        //MODIFICAR EDUCCION
-    }//GEN-LAST:event_menuEspItem1ActionPerformed
+        //MODIFICAR ESPECIFICACION
+        String path = dirTree.getLastPathComponent().toString();
+        VMEspecificacion VEsp = new VMEspecificacion(padre, sysReman, path);
+        if (VEsp.getLoadIsCorrect()) {
+            VEsp.setVisible(true);
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar los datos de los actores!");
+        }    }//GEN-LAST:event_menuEspItem1ActionPerformed
 
     private void menuEspItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEspItem2ActionPerformed
-        //ELIMINAR
-        int resp = JOptionPane.showConfirmDialog(null, "Eliminar Educción", "Alerta!", JOptionPane.YES_NO_OPTION);
-    }//GEN-LAST:event_menuEspItem2ActionPerformed
+        //ELIMINAR ESPECIFICACION
+        String path;
+        int resp = JOptionPane.showConfirmDialog(null, "Eliminar Especificacion", "Alerta!", JOptionPane.YES_NO_OPTION);
+        if (resp == 0) {
+            path = dirTree.getLastPathComponent().toString();
+            sysReman.eliminarEspecificacion(path);
+            actualizarJTree();
+            ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente la Especificacion: " + path);
+        }     }//GEN-LAST:event_menuEspItem2ActionPerformed
 
     private void menuEspItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEspItem3ActionPerformed
-        //RESTAURAR
-    }//GEN-LAST:event_menuEspItem3ActionPerformed
+        //RESTAURAR ESPECIFICACION
+        String path = dirTree.getLastPathComponent().toString();
+        VOERestaurar vRes = new VOERestaurar(padre, sysReman, path, Sistema.LIB_ESP);
+        if(vRes.getLoadIsCorrect()){
+            vRes.setVisible(true);
+        }else{
+            ToolsInterface.msjError(padre, "Error al cargar las versiones de la especificacion!");
+        }    }//GEN-LAST:event_menuEspItem3ActionPerformed
 
     private void menuDocEspItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDocEspItem2ActionPerformed
         //EXPORTAR ESPECIFICACION
@@ -189,7 +215,7 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_menuDocEspItem2ActionPerformed
 
     public void actualizarJTree(){
-        JTree model = ToolsInterface.generateJTreeBook("Documento de Espesificación", "Espesificación", sysReman.getDirPrincipal() + "\\src\\esp");
+        JTree model = ToolsInterface.generateJTreeBook("Documento de Especificación", "Especificación", sysReman.getDirPrincipal() + "\\src\\esp");
         treeEsp.setModel(model.getModel());
     }
 

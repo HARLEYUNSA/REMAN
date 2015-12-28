@@ -562,7 +562,15 @@ public class VCElicitacion extends JDialog {
             new String [] {
                 "Pasos", "Descripción"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane5.setViewportView(JTSec);
         if (JTSec.getColumnModel().getColumnCount() > 0) {
             JTSec.getColumnModel().getColumn(0).setMinWidth(60);
@@ -614,7 +622,15 @@ public class VCElicitacion extends JDialog {
             new String [] {
                 "Pasos", "Descripción"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane6.setViewportView(JTExc);
         if (JTExc.getColumnModel().getColumnCount() > 0) {
             JTExc.getColumnModel().getColumn(0).setMinWidth(60);
@@ -804,7 +820,6 @@ public class VCElicitacion extends JDialog {
     }//GEN-LAST:event_btnELCancelarActionPerformed
 
     private void btnELGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELGuardarActionPerformed
-        // TODO add your handling code here:
         String eliDep = txtDependencias.getText();
         String eliEspCar = txtELCargoE.getText();
         String eliFueCar = txtELCargoF.getText();
