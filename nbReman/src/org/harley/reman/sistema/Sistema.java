@@ -1951,6 +1951,23 @@ public class Sistema {
         return rpt;
     }
     
+    public ArrayList<String> getElicitacionessCodigo(){
+        ArrayList<String> rpt = new ArrayList<>();
+        String temp;
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\eli").listFiles();
+            for (File fichero : ficheros) {
+                temp = fichero.getName();
+                if (!ToolsInterface.checkExpReg("ELI[0-9][0-9][0-9][0-9].xml", temp)) {
+                    continue;
+                }
+                rpt.add(temp.substring(0,temp.length()-4));   
+            }
+        } catch (Exception e) {
+        }
+        return rpt;
+    }
     
     
     //Facilitadores de acceso
