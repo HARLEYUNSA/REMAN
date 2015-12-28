@@ -934,8 +934,41 @@ public class VMElicitacion extends JDialog {
     }//GEN-LAST:event_JLisEduMouseClicked
 
     private void btnVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVersionarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVersionarActionPerformed
+        String eliDep = txtDependencias.getText();
+        String eliEspCar = txtELCargoE.getText();
+        String eliFueCar = txtELCargoF.getText();
+        String eliCod = txtELCodigo.getText();
+        String eliDes = txtELDescripcion.getText();
+        String eliEspEsp = txtELEspecialidad.getText();
+        String eliEspExp = txtELExperiencia.getText();
+        String eliNom = txtELNombre.getText();
+        String eliObs = txtELObservaciones.getText();
+        String eliPos = txtELPostCondicion.getText();
+        String eliPre = txtELPreCondicion.getText();
+        String eliFueTip = txtELTipoF.getText();
+        String eliVer = txtELVersion.getText();
+        String eliEspNom = (String) cmbELEspecialista.getSelectedItem();
+        String eliFueNom = (String) cmbELFuente.getSelectedItem();
+        String eliFec = dtELFecha.getText();
+
+        String eliEduCod = txteduNom.getText();
+
+        //secuencias
+        ArrayList<Paso> eliSec = ToolsInterface.getPasos(JTSec);
+        ArrayList<Paso> eliExc = ToolsInterface.getPasos(JTExc);
+
+        VEVersionarEli VEli = new VEVersionarEli(padre, sysReman,eliCod, eliNom, 
+                eliEduCod, eliVer, eliFec, eliFueNom, eliFueCar, eliFueTip,
+                eliEspNom, eliEspEsp, eliEspExp, eliEspCar, eliDep, eliDes, 
+                eliPre, eliSec, eliPos, eliExc, eliObs);
+        if(VEli.getLoadIsCorrect()){
+            VEli.setVisible(true);
+        }else{
+            ToolsInterface.msjError(padre, "Error al cargar Especialistas y/o datos de Elicitacion");
+        }
+        if(VEli.versionSuccessful()){
+            this.dispose();
+        }    }//GEN-LAST:event_btnVersionarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

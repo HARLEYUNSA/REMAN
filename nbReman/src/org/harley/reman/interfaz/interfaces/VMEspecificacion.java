@@ -826,7 +826,7 @@ public class VMEspecificacion extends JDialog {
         if(VEsp.getLoadIsCorrect()){
             VEsp.setVisible(true);
         }else{
-            ToolsInterface.msjError(padre, "Error al cargar Especialistas y/o datos de Educcion");
+            ToolsInterface.msjError(padre, "Error al cargar Especialistas y/o datos de Especificacion");
         }
         if(VEsp.versionSuccessful()){
             this.dispose();
