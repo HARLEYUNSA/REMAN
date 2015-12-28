@@ -5,19 +5,67 @@
  */
 package org.harley.reman.interfaz.interfaces;
 
+import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
+import org.harley.reman.sistema.Paso;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
  * @author User
  */
-public class VCEspecificacion extends javax.swing.JFrame {
+public class VCEspecificacion extends JDialog {
 
+    Sistema sysReman;
+    ArrayList<String> eli;
+    ArrayList<ArrayList<String>> datesEsp;
+    ArrayList<ArrayList<String>> datesFue;
+    boolean flagLoadOk;
+    boolean flagNewOk;
+    String eliCod;
     /**
      * Creates new form VEspecificacion
      */
-    public VCEspecificacion() {
+    public VCEspecificacion(JFrame padre, Sistema sysReman) {
+        super(padre, true);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.sysReman = sysReman;
+
+        flagNewOk = false;
+        datesEsp = this.sysReman.getEspecialistas();
+        datesFue = this.sysReman.getFuentes();
+        
+         try {
+            //carga de educciones
+            eli = sysReman.getElicitacionesCodigo();
+            ToolsInterface.putJList(jList1, eli);
+            eliCod = eli.get(0);
+            txtESCodigo.setText(sysReman.getNextEsp());
+            
+            ToolsInterface.addItems2JComboBox(cmbESEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
+            txtESEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(0));
+            txtESExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(0));
+            txtESCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(0));
+
+            ToolsInterface.addItems2JComboBox(cmbESFuente, datesFue.get(Sistema.FUE_NOMBRE));
+            txtESCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(0));
+            txtESTipoF.setText(datesFue.get(Sistema.FUE_TIPO).get(0));
+            flagLoadOk = true;
+        } catch (Exception e) {
+            flagLoadOk = false;
+        }
+    }
+    
+    public boolean getLoadIsCorrect() {
+        return flagLoadOk && cmbESEspecialista.getItemCount() != 0 && 
+                cmbESFuente.getItemCount() != 0;
+    }
+
+    public boolean createSuccessful() {
+        return flagNewOk;
     }
 
     /**
@@ -75,9 +123,6 @@ public class VCEspecificacion extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txtESPostCondicion = new javax.swing.JTextArea();
         jPanel7 = new javax.swing.JPanel();
-        jLayeredPane8 = new javax.swing.JLayeredPane();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLayeredPane9 = new javax.swing.JLayeredPane();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -148,6 +193,11 @@ public class VCEspecificacion extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Código");
 
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         btnESAddEli.setFont(new java.awt.Font("Arial Black", 1, 11)); // NOI18N
@@ -239,6 +289,18 @@ public class VCEspecificacion extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("Fuente");
+
+        cmbESEspecialista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbESEspecialistaActionPerformed(evt);
+            }
+        });
+
+        cmbESFuente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbESFuenteActionPerformed(evt);
+            }
+        });
 
         txtESEspecialidad.setEditable(false);
 
@@ -475,53 +537,44 @@ public class VCEspecificacion extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("Detalle", jPanel6);
 
-        jLayeredPane8.setBorder(javax.swing.BorderFactory.createTitledBorder("Secuencia"));
-
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null}
-            },
-            new String [] {
-                "Pasos", "Descripción"
-            }
-        ));
-        jScrollPane5.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(60);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
-        }
-
-        javax.swing.GroupLayout jLayeredPane8Layout = new javax.swing.GroupLayout(jLayeredPane8);
-        jLayeredPane8.setLayout(jLayeredPane8Layout);
-        jLayeredPane8Layout.setHorizontalGroup(
-            jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jLayeredPane8Layout.setVerticalGroup(
-            jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jLayeredPane8.setLayer(jScrollPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         jLayeredPane9.setBorder(javax.swing.BorderFactory.createTitledBorder("Excepción"));
 
         jTable2.setAutoCreateRowSorter(true);
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
                 {null, null}
             },
             new String [] {
                 "Pasos", "Descripción"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane6.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
             jTable2.getColumnModel().getColumn(0).setMinWidth(60);
@@ -535,7 +588,7 @@ public class VCEspecificacion extends javax.swing.JFrame {
             jLayeredPane9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jLayeredPane9Layout.setVerticalGroup(
@@ -553,19 +606,15 @@ public class VCEspecificacion extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLayeredPane8)
-                    .addComponent(jLayeredPane9))
+                .addComponent(jLayeredPane9)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLayeredPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(21, 21, 21)
                 .addComponent(jLayeredPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Secuencia", jPanel7);
@@ -709,8 +758,7 @@ public class VCEspecificacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnESCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESCancelarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnESCancelarActionPerformed
 
     private void btnESAddEliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESAddEliActionPerformed
@@ -737,13 +785,51 @@ public class VCEspecificacion extends javax.swing.JFrame {
         String espFueNom = (String)cmbESFuente.getSelectedItem();
         String espFec = dtESFecha.getText();
         
-        if(ToolsInterface.validaEspecificacion(espAre, espCarEsp, espCarFue, espCod, espDes, espEspEsp, espEspExp, espNom, espObs, espPosCon, espPreCon, espTipfue, espVer, espEspNom, espFueNom, espFec)){
-            
+        //secuencias
+        ArrayList<Paso> espExc = ToolsInterface.getPasos(jTable2);
+
+        if (ToolsInterface.validaEspecificacion(espAre, espCarEsp, espCarFue, 
+                espCod, espDes, espEspEsp, espEspExp, espNom, espObs, espPosCon,
+                espPreCon, espTipfue, espVer, espEspNom, espFueNom, espFec)
+                && ToolsInterface.verificarVersion(espVer)) {
+            if (sysReman.crearEspecificacion(espNom, eliCod, espVer,
+                    espFec, espFueNom, espCarFue, espTipfue, espEspNom,
+                    espEspEsp, espEspExp, espCarEsp, espAre, espDes,
+                    espPreCon, espPosCon, espExc, espObs)) {
+                flagNewOk = true;
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Especificacion \""
+                        + espNom + "\" fue creada satisfactoriamente.");
+                this.dispose();
+            } else {
+                ToolsInterface.msjError(this, "Error al crear la Especificacion");
+            }
         } else {
             ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
         }
         
     }//GEN-LAST:event_btnESGuardarActionPerformed
+
+    private void cmbESEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbESEspecialistaActionPerformed
+        //ESPECIALISTA
+        int index = cmbESEspecialista.getSelectedIndex();
+        txtESEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(index));
+        txtESExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(index));
+        txtESCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(index));
+    }//GEN-LAST:event_cmbESEspecialistaActionPerformed
+
+    private void cmbESFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbESFuenteActionPerformed
+        //FUENTE
+        int index = cmbESFuente.getSelectedIndex();
+        txtESCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(index));
+        txtEDTipoF.setText(datesFue.get(Sistema.FUE_TIPO).get(index));
+    }//GEN-LAST:event_cmbESFuenteActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        int selection = jList1.getSelectedIndex();
+        if (selection!=-1) {
+            eliCod = eli.get(selection);
+        }
+    }//GEN-LAST:event_jList1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -772,7 +858,6 @@ public class VCEspecificacion extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane5;
     private javax.swing.JLayeredPane jLayeredPane6;
     private javax.swing.JLayeredPane jLayeredPane7;
-    private javax.swing.JLayeredPane jLayeredPane8;
     private javax.swing.JLayeredPane jLayeredPane9;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel3;
@@ -786,12 +871,10 @@ public class VCEspecificacion extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JLabel txtEDTipoF;

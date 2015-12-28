@@ -36,9 +36,8 @@ public class Secuencia {
         return paso;
     }
     
-    @XmlElement
     public void setPaso(ArrayList<Paso> paso) {
         this.paso = paso;
     }
-    
+
 }
