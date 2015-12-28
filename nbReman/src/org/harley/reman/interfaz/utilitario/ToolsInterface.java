@@ -1,6 +1,5 @@
 package org.harley.reman.interfaz.utilitario;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
-import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;

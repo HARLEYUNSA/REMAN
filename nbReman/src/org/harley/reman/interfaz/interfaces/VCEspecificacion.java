@@ -92,7 +92,6 @@ public class VCEspecificacion extends JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         txtESNombre = new javax.swing.JTextField();
-        btnESAddEli = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLayeredPane11 = new javax.swing.JLayeredPane();
         jLabel15 = new javax.swing.JLabel();
@@ -200,13 +199,6 @@ public class VCEspecificacion extends JDialog {
         });
         jScrollPane1.setViewportView(jList1);
 
-        btnESAddEli.setFont(new java.awt.Font("Arial Black", 1, 11)); // NOI18N
-        btnESAddEli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnESAddEliActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
@@ -219,12 +211,11 @@ public class VCEspecificacion extends JDialog {
                     .addComponent(jLabel3))
                 .addGap(44, 44, 44)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtESNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                    .addComponent(txtESCodigo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnESAddEli, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtESNombre)
-                    .addComponent(txtESCodigo, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(28, 28, 28))
         );
         jLayeredPane1Layout.setVerticalGroup(
@@ -241,8 +232,7 @@ public class VCEspecificacion extends JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnESAddEli, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -251,7 +241,6 @@ public class VCEspecificacion extends JDialog {
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtESNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(btnESAddEli, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -761,12 +750,6 @@ public class VCEspecificacion extends JDialog {
         this.dispose();
     }//GEN-LAST:event_btnESCancelarActionPerformed
 
-    private void btnESAddEliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESAddEliActionPerformed
-        // TODO add your handling code here:
-        //VAElicitacion agregaE = new VAElicitacion();
-        //agregaE.setVisible(true);
-    }//GEN-LAST:event_btnESAddEliActionPerformed
-
     private void btnESGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESGuardarActionPerformed
         String espAre = txtESArea.getText();
         String espCarEsp = txtESCargoE.getText();
@@ -833,7 +816,6 @@ public class VCEspecificacion extends JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnESAddEli;
     private javax.swing.JButton btnESCancelar;
     private javax.swing.JButton btnESGuardar;
     private javax.swing.JComboBox cmbESEspecialista;
