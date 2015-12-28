@@ -153,16 +153,37 @@ public class VTElicitacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_menuDocEliItem1ActionPerformed
 
     private void menuEliItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEliItem1ActionPerformed
-        //MODIFICAR EDUCCION
+        //MODIFICAR ELICITACION
+        String path = dirTree.getLastPathComponent().toString();
+        VMElicitacion VEli = new VMElicitacion(padre, sysReman, path);
+        if (VEli.getLoadIsCorrect()) {
+            VEli.setVisible(true);
+        } else {
+            ToolsInterface.msjError(padre, "Error al cargar los datos de los actores!");
+        }
     }//GEN-LAST:event_menuEliItem1ActionPerformed
 
     private void menuEliItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEliItem2ActionPerformed
-        //ELIMINAR
-        int resp = JOptionPane.showConfirmDialog(null, "Eliminar Elicitación", "Alerta!", JOptionPane.YES_NO_OPTION);
+        //ELIMINAR ELICITACION
+        String path;
+        int resp = JOptionPane.showConfirmDialog(null, "Eliminar Elicitacion", "Alerta!", JOptionPane.YES_NO_OPTION);
+        if (resp == 0) {
+            path = dirTree.getLastPathComponent().toString();
+            sysReman.eliminarElicitacion(path);
+            actualizarJTree();
+            ToolsInterface.msjInfo(padre, "Eliminacion Exitosa", "Se elimino correctamente la Elicitacion: " + path);
+        } 
     }//GEN-LAST:event_menuEliItem2ActionPerformed
 
     private void menuEliItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEliItem3ActionPerformed
-        //RESTAURAR
+        //RESTAURAR ELICITACION
+        String path = dirTree.getLastPathComponent().toString();
+        VOERestaurar vRes = new VOERestaurar(padre, sysReman, path, Sistema.LIB_ELI);
+        if(vRes.getLoadIsCorrect()){
+            vRes.setVisible(true);
+        }else{
+            ToolsInterface.msjError(padre, "Error al cargar las versiones de la educcion!");
+        }
     }//GEN-LAST:event_menuEliItem3ActionPerformed
 
     public void actualizarJTree(){

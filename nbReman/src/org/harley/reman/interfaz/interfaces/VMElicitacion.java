@@ -5,19 +5,114 @@
  */
 package org.harley.reman.interfaz.interfaces;
 
+import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
+import org.harley.reman.sistema.Elicitacion;
+import org.harley.reman.sistema.Paso;
+import org.harley.reman.sistema.Sistema;
 
 /**
  *
  * @author User
  */
-public class VMElicitacion extends javax.swing.JFrame {
+public class VMElicitacion extends JDialog {
 
-    /**
-     * Creates new form VELicitacion
-     */
-    public VMElicitacion() {
+    Elicitacion myEli;
+    Sistema sysReman;
+    ArrayList<String> edu;
+    ArrayList<ArrayList<String>> datesEsp;
+    ArrayList<ArrayList<String>> datesFue;
+    boolean flagLoadOk;
+    boolean flagSetOk;
+    JFrame padre;
+
+    public VMElicitacion(JFrame padre, Sistema sysReman, String eliCod) {
+        super(padre, true);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.sysReman = sysReman;
+        this.padre = padre;
+
+        flagSetOk = false;
+
+        datesEsp = this.sysReman.getEspecialistas();
+        datesFue = this.sysReman.getFuentes();
+
+        //try {
+        //cargar elicitacion
+        myEli = sysReman.recuperarElicitacion(eliCod);
+
+        //cargar datos
+        txtELCodigo.setText(eliCod);
+        txtELNombre.setText(myEli.getEliNombre().getNombre());
+        txteduNom.setText(myEli.getEliEduCod());
+        txtELVersion.setText(myEli.getEliVer());
+        dtELFecha.setText(myEli.getEliFec());
+
+        //cargar y sleccionar el actor de la educcion
+        ToolsInterface.addItems2JComboBox(cmbELEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
+        ToolsInterface.addItems2JComboBox(cmbELFuente, datesFue.get(Sistema.FUE_NOMBRE));
+        String temp;
+
+        int sizeEsp = cmbELEspecialista.getItemCount();
+        for (int i = 0; i < sizeEsp; i++) {
+            temp = (String) cmbELEspecialista.getSelectedItem();
+            if (temp.equals(myEli.getEliEspNom())) {
+                cmbELEspecialista.setSelectedIndex(i);
+            }
+        }
+
+        int sizeFue = cmbELFuente.getItemCount();
+        for (int i = 0; i < sizeFue; i++) {
+            temp = (String) cmbELFuente.getSelectedItem();
+            if (temp.equals(myEli.getEliFueNom())) {
+                cmbELFuente.setSelectedIndex(i);
+            }
+        }
+
+        txtELEspecialidad.setText(myEli.getEliEspEsp());
+        txtELExperiencia.setText(myEli.getEliEspExp());
+        txtELCargoE.setText(myEli.getEliEspCar());
+
+        txtELCargoF.setText(myEli.getEliFueCar());
+        txtELTipoF.setText(myEli.getEliFueTip());
+
+        //cargar dependencia
+        txtDependencias.setText(myEli.getEliDep());
+        txtELDescripcion.setText(myEli.getEliDes());
+        txtELPreCondicion.setText(myEli.getEliPre());
+        txtELPostCondicion.setText(myEli.getEliPos());
+
+        ArrayList<Paso> pass = myEli.getEliExc().getPaso();
+        for (int i = 0; i < pass.size(); i++) {
+            System.out.println(pass.get(i).getPasNum());
+        }
+
+        //ToolsInterface.putJTablePasos(JTExc, myEli.getEliExc().getPaso(););
+        //ToolsInterface.putJTablePasos(JTSec, myEli.getEliSec().getPaso());
+        txtELObservaciones.setText(myEli.getEliObs());
+
+        //cargar historial
+        ToolsInterface.putJTableHistorico(JTVEr, sysReman.getHist(Sistema.LIB_ELI, eliCod));
+
+        //carga de educciones
+        edu = sysReman.getEduccionesCodigo();
+        ToolsInterface.putJList(JLisEdu, edu);
+        flagLoadOk = true;
+        //} catch (Exception e) {
+        //    flagLoadOk = false;
+        //}
+    }
+
+    public boolean getLoadIsCorrect() {
+        return flagLoadOk && cmbELEspecialista.getItemCount() != 0
+                && cmbELFuente.getItemCount() != 0 && !edu.isEmpty();
+    }
+
+    public boolean createSuccessful() {
+        return flagSetOk;
     }
 
     /**
@@ -41,10 +136,11 @@ public class VMElicitacion extends javax.swing.JFrame {
         txtELCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
         txtELNombre = new javax.swing.JTextField();
-        btnELAddEdu = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        JLisEdu = new javax.swing.JList();
+        txteduNom = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLayeredPane9 = new javax.swing.JLayeredPane();
         jLabel14 = new javax.swing.JLabel();
@@ -63,7 +159,7 @@ public class VMElicitacion extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        txtELArea = new javax.swing.JTextField();
+        txtDependencias = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -77,20 +173,20 @@ public class VMElicitacion extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLayeredPane6 = new javax.swing.JLayeredPane();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JTSec = new javax.swing.JTable();
         jLayeredPane7 = new javax.swing.JLayeredPane();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        JTExc = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jLayeredPane8 = new javax.swing.JLayeredPane();
         jScrollPane7 = new javax.swing.JScrollPane();
         txtELObservaciones = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        JTVEr = new javax.swing.JTable();
         btnELCancelar = new javax.swing.JButton();
         btnELGuardar = new javax.swing.JButton();
-        btnELVersionar = new javax.swing.JButton();
+        btnELGuardar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Elicitación");
@@ -114,8 +210,8 @@ public class VMElicitacion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(txtELVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                .addComponent(txtELVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(dtELFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,7 +237,9 @@ public class VMElicitacion extends javax.swing.JFrame {
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Elicitación"));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Requisitos Educcionados");
+        jLabel3.setText("Educción");
+
+        txtELCodigo.setEditable(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Nombre Elicitación");
@@ -149,14 +247,15 @@ public class VMElicitacion extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Código");
 
-        jScrollPane1.setViewportView(jList1);
-
-        btnELAddEdu.setFont(new java.awt.Font("Arial Black", 1, 11)); // NOI18N
-        btnELAddEdu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnELAddEduActionPerformed(evt);
+        JLisEdu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JLisEduMouseClicked(evt);
             }
         });
+        jScrollPane9.setViewportView(JLisEdu);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setText("Seleccione la educcion");
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -164,18 +263,17 @@ public class VMElicitacion extends javax.swing.JFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                    .addComponent(txteduNom))
                 .addGap(44, 44, 44)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnELAddEdu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtELNombre)
-                    .addComponent(txtELCodigo, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(txtELCodigo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane9)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))
                 .addGap(28, 28, 28))
         );
         jLayeredPane1Layout.setVerticalGroup(
@@ -185,24 +283,29 @@ public class VMElicitacion extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtELCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtELNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnELAddEdu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addComponent(txteduNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(63, Short.MAX_VALUE))
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
         jLayeredPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtELCodigo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtELNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(btnELAddEdu, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jScrollPane9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txteduNom, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -211,16 +314,16 @@ public class VMElicitacion extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(jLayeredPane1)
+                    .addComponent(jLayeredPane2))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(3, 3, 3)
                 .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -240,6 +343,18 @@ public class VMElicitacion extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("Fuente");
+
+        cmbELEspecialista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbELEspecialistaActionPerformed(evt);
+            }
+        });
+
+        cmbELFuente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbELFuenteActionPerformed(evt);
+            }
+        });
 
         txtELEspecialidad.setEditable(false);
 
@@ -284,7 +399,7 @@ public class VMElicitacion extends javax.swing.JFrame {
                     .addComponent(txtELExperiencia)
                     .addComponent(txtELCargoF)
                     .addComponent(txtELTipoF))
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         jLayeredPane9Layout.setVerticalGroup(
             jLayeredPane9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,7 +432,7 @@ public class VMElicitacion extends javax.swing.JFrame {
                 .addGroup(jLayeredPane9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtELTipoF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEDTipoF))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane9.setLayer(jLabel14, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane9.setLayer(jLabel16, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -339,16 +454,16 @@ public class VMElicitacion extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLayeredPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLayeredPane9)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(jLayeredPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Actor", jPanel2);
@@ -363,8 +478,8 @@ public class VMElicitacion extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(jLabel10)
                 .addGap(35, 35, 35)
-                .addComponent(txtELArea, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtDependencias, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,8 +487,8 @@ public class VMElicitacion extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(txtELArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(295, Short.MAX_VALUE))
+                    .addComponent(txtDependencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(243, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dependencias", jPanel4);
@@ -390,15 +505,12 @@ public class VMElicitacion extends javax.swing.JFrame {
             jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jLayeredPane3Layout.setVerticalGroup(
             jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jLayeredPane3.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -419,10 +531,7 @@ public class VMElicitacion extends javax.swing.JFrame {
         );
         jLayeredPane4Layout.setVerticalGroup(
             jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jLayeredPane4.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -443,10 +552,7 @@ public class VMElicitacion extends javax.swing.JFrame {
         );
         jLayeredPane5Layout.setVerticalGroup(
             jLayeredPane5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jLayeredPane5.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -471,27 +577,46 @@ public class VMElicitacion extends javax.swing.JFrame {
                 .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Detalle", jPanel5);
 
         jLayeredPane6.setBorder(javax.swing.BorderFactory.createTitledBorder("Secuencia"));
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JTSec.setAutoCreateRowSorter(true);
+        JTSec.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
                 {null, null}
             },
             new String [] {
                 "Pasos", "Descripción"
             }
         ));
-        jScrollPane5.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
+        jScrollPane5.setViewportView(JTSec);
+        if (JTSec.getColumnModel().getColumnCount() > 0) {
+            JTSec.getColumnModel().getColumn(0).setMinWidth(60);
+            JTSec.getColumnModel().getColumn(0).setPreferredWidth(60);
+            JTSec.getColumnModel().getColumn(0).setMaxWidth(60);
         }
 
         javax.swing.GroupLayout jLayeredPane6Layout = new javax.swing.GroupLayout(jLayeredPane6);
@@ -500,34 +625,50 @@ public class VMElicitacion extends javax.swing.JFrame {
             jLayeredPane6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jLayeredPane6Layout.setVerticalGroup(
             jLayeredPane6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jLayeredPane6.setLayer(jScrollPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPane7.setBorder(javax.swing.BorderFactory.createTitledBorder("Excepción"));
 
-        jTable2.setAutoCreateRowSorter(true);
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        JTExc.setAutoCreateRowSorter(true);
+        JTExc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
                 {null, null}
             },
             new String [] {
                 "Pasos", "Descripción"
             }
         ));
-        jScrollPane6.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jTable2.getColumnModel().getColumn(0).setMaxWidth(50);
+        jScrollPane6.setViewportView(JTExc);
+        if (JTExc.getColumnModel().getColumnCount() > 0) {
+            JTExc.getColumnModel().getColumn(0).setMinWidth(60);
+            JTExc.getColumnModel().getColumn(0).setPreferredWidth(60);
+            JTExc.getColumnModel().getColumn(0).setMaxWidth(60);
         }
 
         javax.swing.GroupLayout jLayeredPane7Layout = new javax.swing.GroupLayout(jLayeredPane7);
@@ -536,15 +677,12 @@ public class VMElicitacion extends javax.swing.JFrame {
             jLayeredPane7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jLayeredPane7Layout.setVerticalGroup(
             jLayeredPane7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
         );
         jLayeredPane7.setLayer(jScrollPane6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -556,7 +694,7 @@ public class VMElicitacion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLayeredPane6)
-                    .addComponent(jLayeredPane7))
+                    .addComponent(jLayeredPane7, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -583,14 +721,14 @@ public class VMElicitacion extends javax.swing.JFrame {
             jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jLayeredPane8Layout.setVerticalGroup(
             jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jLayeredPane8.setLayer(jScrollPane7, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -607,15 +745,15 @@ public class VMElicitacion extends javax.swing.JFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addComponent(jLayeredPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Notas", jPanel7);
 
-        jTable3.setAutoCreateRowSorter(true);
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        JTVEr.setAutoCreateRowSorter(true);
+        JTVEr.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null}
             },
@@ -631,7 +769,18 @@ public class VMElicitacion extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane8.setViewportView(jTable3);
+        jScrollPane8.setViewportView(JTVEr);
+        if (JTVEr.getColumnModel().getColumnCount() > 0) {
+            JTVEr.getColumnModel().getColumn(0).setMinWidth(60);
+            JTVEr.getColumnModel().getColumn(0).setPreferredWidth(60);
+            JTVEr.getColumnModel().getColumn(0).setMaxWidth(60);
+            JTVEr.getColumnModel().getColumn(1).setMinWidth(80);
+            JTVEr.getColumnModel().getColumn(1).setPreferredWidth(80);
+            JTVEr.getColumnModel().getColumn(1).setMaxWidth(80);
+            JTVEr.getColumnModel().getColumn(2).setMinWidth(140);
+            JTVEr.getColumnModel().getColumn(2).setPreferredWidth(140);
+            JTVEr.getColumnModel().getColumn(2).setMaxWidth(140);
+        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -639,7 +788,7 @@ public class VMElicitacion extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -647,7 +796,7 @@ public class VMElicitacion extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Historial", jPanel3);
@@ -668,11 +817,11 @@ public class VMElicitacion extends javax.swing.JFrame {
             }
         });
 
-        btnELVersionar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnELVersionar.setText("Versionar");
-        btnELVersionar.addActionListener(new java.awt.event.ActionListener() {
+        btnELGuardar1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnELGuardar1.setText("Versionar");
+        btnELGuardar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnELVersionarActionPerformed(evt);
+                btnELGuardar1ActionPerformed(evt);
             }
         });
 
@@ -680,86 +829,123 @@ public class VMElicitacion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnELVersionar)
-                .addGap(18, 18, 18)
-                .addComponent(btnELGuardar)
-                .addGap(18, 18, 18)
-                .addComponent(btnELCancelar)
-                .addGap(32, 32, 32))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTabbedPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnELGuardar1)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnELGuardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnELCancelar)
+                        .addGap(26, 26, 26)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnELGuardar)
                     .addComponent(btnELCancelar)
-                    .addComponent(btnELVersionar))
-                .addContainerGap())
+                    .addComponent(btnELGuardar)
+                    .addComponent(btnELGuardar1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnELCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELCancelarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnELCancelarActionPerformed
 
-    private void btnELAddEduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELAddEduActionPerformed
-        // TODO add your handling code here:
-        //VAEduccion agregaE = new VAEduccion();
-        //agregaE.setVisible(true);
-    }//GEN-LAST:event_btnELAddEduActionPerformed
-
-    private void btnELVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELVersionarActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnELVersionarActionPerformed
-
     private void btnELGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELGuardarActionPerformed
-        
-        String eliAre = txtELArea.getText();
-        String eliCarEsp = txtELCargoE.getText();
-        String eliCarFue = txtELCargoF.getText();
+        // TODO add your handling code here:
+        String eliDep = txtDependencias.getText();
+        String eliEspCar = txtELCargoE.getText();
+        String eliFueCar = txtELCargoF.getText();
         String eliCod = txtELCodigo.getText();
         String eliDes = txtELDescripcion.getText();
         String eliEspEsp = txtELEspecialidad.getText();
         String eliEspExp = txtELExperiencia.getText();
         String eliNom = txtELNombre.getText();
         String eliObs = txtELObservaciones.getText();
-        String eliPosCon = txtELPostCondicion.getText();
-        String eliPreCon = txtELPreCondicion.getText();
-        String eliTipfue = txtELTipoF.getText();
+        String eliPos = txtELPostCondicion.getText();
+        String eliPre = txtELPreCondicion.getText();
+        String eliFueTip = txtELTipoF.getText();
         String eliVer = txtELVersion.getText();
-        String eliEspNom = (String)cmbELEspecialista.getSelectedItem();
-        String eliFueNom = (String)cmbELFuente.getSelectedItem();
+        String eliEspNom = (String) cmbELEspecialista.getSelectedItem();
+        String eliFueNom = (String) cmbELFuente.getSelectedItem();
         String eliFec = dtELFecha.getText();
-        
-        if(ToolsInterface.validaElicitacion(eliAre, eliCarEsp, eliCarFue, eliCod, eliDes, eliEspEsp, eliEspExp, eliNom, eliObs, eliPosCon, eliPreCon, eliTipfue, eliVer, eliEspNom, eliFueNom, eliFec)){
-            
+
+        String eliEduCod = txteduNom.getText();
+
+        //secuencias
+        ArrayList<Paso> eliSec = ToolsInterface.getPasos(JTSec);
+        ArrayList<Paso> eliExc = ToolsInterface.getPasos(JTExc);
+
+        if (ToolsInterface.validaElicitacion(eliDep, eliEspCar, eliFueCar,
+                eliEduCod, eliDes, eliEspEsp, eliEspExp, eliNom, eliObs, eliPos,
+                eliPre, eliFueTip, eliVer, eliEspNom, eliFueNom, eliFec)
+                && ToolsInterface.verificarVersion(eliVer)) {
+            if (sysReman.modificarElicitacion(eliCod, eliNom, eliEduCod, eliVer, eliFec, eliFueNom,
+                    eliFueCar, eliFueTip, eliEspNom, eliEspEsp, eliEspExp, eliEspCar,
+                    eliDep, eliDes, eliPre, eliSec, eliPos, eliExc, eliObs)) {
+                flagSetOk = true;
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "La Elicitacion \""
+                        + eliNom + "\" fue modificada satisfactoriamente.");
+                this.dispose();
+            } else {
+                ToolsInterface.msjError(this, "Error al crear la Elicitacion");
+            }
         } else {
             ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
         }
-        
-       
+        /*       (eliAre, eliCarEsp, eliCarFue, eliCod, eliDes, eliEspEsp, eliEspExp, eliNom,
+         eliObs, eliPosCon, eliPreCon, eliTipfue, eliVer, eliEspNom, eliFueNom,
+         eliFec)*/
+
     }//GEN-LAST:event_btnELGuardarActionPerformed
 
- 
+    private void cmbELEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbELEspecialistaActionPerformed
+        //ESPECIALISTA
+        int index = cmbELEspecialista.getSelectedIndex();
+        txtELEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(index));
+        txtELExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(index));
+        txtELCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(index));
+    }//GEN-LAST:event_cmbELEspecialistaActionPerformed
+
+    private void cmbELFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbELFuenteActionPerformed
+        //FUENTE
+        int index = cmbELFuente.getSelectedIndex();
+        txtELCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(index));
+        txtEDTipoF.setText(datesFue.get(Sistema.FUE_TIPO).get(index));
+    }//GEN-LAST:event_cmbELFuenteActionPerformed
+
+    private void JLisEduMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JLisEduMouseClicked
+        int selection = JLisEdu.getSelectedIndex();
+        if (selection != -1) {
+            txteduNom.setText(edu.get(selection));
+        }
+    }//GEN-LAST:event_JLisEduMouseClicked
+
+    private void btnELGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnELGuardar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnELGuardar1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnELAddEdu;
+    private javax.swing.JList JLisEdu;
+    private javax.swing.JTable JTExc;
+    private javax.swing.JTable JTSec;
+    private javax.swing.JTable JTVEr;
     private javax.swing.JButton btnELCancelar;
     private javax.swing.JButton btnELGuardar;
-    private javax.swing.JButton btnELVersionar;
+    private javax.swing.JButton btnELGuardar1;
     private javax.swing.JComboBox cmbELEspecialista;
     private javax.swing.JComboBox cmbELFuente;
     private datechooser.beans.DateChooserCombo dtELFecha;
@@ -775,6 +961,7 @@ public class VMElicitacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane3;
@@ -784,7 +971,6 @@ public class VMElicitacion extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane7;
     private javax.swing.JLayeredPane jLayeredPane8;
     private javax.swing.JLayeredPane jLayeredPane9;
-    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -792,7 +978,6 @@ public class VMElicitacion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -800,12 +985,10 @@ public class VMElicitacion extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JTextField txtDependencias;
     private javax.swing.JLabel txtEDTipoF;
-    private javax.swing.JTextField txtELArea;
     private javax.swing.JTextField txtELCargoE;
     private javax.swing.JTextField txtELCargoF;
     private javax.swing.JTextField txtELCodigo;
@@ -818,5 +1001,6 @@ public class VMElicitacion extends javax.swing.JFrame {
     private javax.swing.JTextArea txtELPreCondicion;
     private javax.swing.JTextField txtELTipoF;
     private javax.swing.JTextField txtELVersion;
+    private javax.swing.JTextField txteduNom;
     // End of variables declaration//GEN-END:variables
 }

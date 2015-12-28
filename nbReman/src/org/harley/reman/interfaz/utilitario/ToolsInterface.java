@@ -341,6 +341,18 @@ public class ToolsInterface {
         });
     }
     
+    private static void cleanJTableEditable(JTable table, String[] columns){
+        table.getTableHeader().setReorderingAllowed(false) ;
+        table.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {},columns){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return true;
+            }
+        });
+    }
+    
+    
+    
     private static void cleanJTable(JTable table, ArrayList<String> columns){
         int size = columns.size();
         String[] values = new String[size];
@@ -434,6 +446,19 @@ public class ToolsInterface {
             pasos.add(temp);
         }
         return pasos;
+    }
+    
+    public static void putJTablePasos(JTable table, ArrayList<Paso> pasos){
+        cleanJTable(table,new String[]{"Pasos","Descripción"});
+        DefaultTableModel DTtable = (DefaultTableModel) table.getModel();
+        Object[] obj = new Object[2];
+        for(Paso elemento : pasos){
+            System.out.println(elemento.getPasNum());
+            System.out.println(elemento.getPasDes());
+            obj[0] = elemento.getPasNum();
+            obj[1] = elemento.getPasDes();
+            //DTtable.addRow(obj);
+        }
     }
     
     public static ArrayList<String> jList2Array (JList list){
