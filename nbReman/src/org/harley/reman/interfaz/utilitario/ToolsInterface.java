@@ -6,14 +6,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import org.harley.reman.sistema.Historico;
+import org.harley.reman.sistema.Paso;
 
 /**
  *
@@ -406,4 +410,51 @@ public class ToolsInterface {
             DTtable.addRow(obj);
         }
     }
+    
+    public static ArrayList<Paso> getPasos(JTable table){
+        ArrayList<Paso> pasos = new ArrayList<>();
+        int colums = table.getColumnCount();
+        int filas = table.getRowCount();
+        if(colums != 2 || filas <= 0 ){
+            return pasos;
+        }
+        String pasNum;
+        String pasDes;
+        for(int i =0;i < filas;i++){
+            if( table.getValueAt(i, 0) == null || table.getValueAt(i, 1) == null){
+                continue;
+            }
+            pasNum = table.getValueAt(i, 0).toString().trim();
+            pasDes = table.getValueAt(i, 1).toString().trim();
+ 
+            if(pasDes.equals("") || pasNum.equals("")){
+                continue;
+            }
+            Paso temp = new Paso(pasNum,pasDes);
+            pasos.add(temp);
+        }
+        return pasos;
+    }
+    
+    public static ArrayList<String> jList2Array (JList list){
+        ArrayList<String> temp = new ArrayList<>();
+        for(int i=0;i < list.getModel().getSize();i++){
+            temp.add(String.valueOf(list.getModel().getElementAt(i)));
+        }
+        return temp;
+    }
+    
+    public static DefaultListModel modelList(ArrayList<String> list){
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (String list1 : list) {
+            model.addElement(list1);
+        }
+        return model;
+    }
+    
+    public static void putJList(JList lista, ArrayList<String> datos){
+        DefaultListModel model = modelList(datos);
+        lista.setModel(model);
+    }
+    
 }
