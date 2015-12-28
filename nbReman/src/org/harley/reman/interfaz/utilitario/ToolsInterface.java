@@ -1,8 +1,12 @@
 package org.harley.reman.interfaz.utilitario;
 
 import java.awt.Component;
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
@@ -14,6 +18,7 @@ import javax.swing.JTree;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import org.harley.reman.reportes.xml.XMLConverter;
 import org.harley.reman.sistema.Historico;
 import org.harley.reman.sistema.Paso;
 
@@ -481,6 +486,15 @@ public class ToolsInterface {
     public static void putJList(JList lista, ArrayList<String> datos) {
         DefaultListModel model = modelList(datos);
         lista.setModel(model);
+    }
+    
+    public static void abrirPDF(String archivoPDF){
+        try {
+            File file = new File(archivoPDF);
+            Desktop.getDesktop().open(file);
+        } catch (IOException ex) {
+            Logger.getLogger(XMLConverter.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

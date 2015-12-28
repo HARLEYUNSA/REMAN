@@ -311,6 +311,11 @@ public class VPrincipal extends javax.swing.JFrame {
         btnVPAyuda.setFocusable(false);
         btnVPAyuda.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnVPAyuda.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnVPAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVPAyudaActionPerformed(evt);
+            }
+        });
         herramientasReman.add(btnVPAyuda);
 
         LibrosReman.setBackground(new java.awt.Color(203, 210, 228));
@@ -459,9 +464,19 @@ public class VPrincipal extends javax.swing.JFrame {
         mnVPAyuda.setText("Ayuda");
 
         jMenuItem5.setText("Manual Usuario");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         mnVPAyuda.add(jMenuItem5);
 
         jMenuItem6.setText("Acerca de ...");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         mnVPAyuda.add(jMenuItem6);
 
         menuReman.add(mnVPAyuda);
@@ -527,6 +542,21 @@ public class VPrincipal extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_mnArchivo_SalirActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        ToolsInterface.abrirPDF("MANUAL.pdf");
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void btnVPAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVPAyudaActionPerformed
+        ToolsInterface.abrirPDF("MANUAL.pdf");
+    }//GEN-LAST:event_btnVPAyudaActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        //acerca de
+        VOINFO info = new VOINFO(this, true);
+        info.setLocationRelativeTo(null);
+        info.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void btnVPNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         VProyecto VNProyect = new VProyecto(this, sysReman);
