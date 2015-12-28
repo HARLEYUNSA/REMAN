@@ -30,7 +30,7 @@
                   <Component id="jTabbedPane1" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="btnELGuardar1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnVersionar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnELGuardar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -51,7 +51,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnELCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnELGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnELGuardar1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVersionar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -1071,7 +1071,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnELGuardarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnELGuardar1">
+    <Component class="javax.swing.JButton" name="btnVersionar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="12" style="1"/>
@@ -1079,7 +1079,7 @@
         <Property name="text" type="java.lang.String" value="Versionar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnELGuardar1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVersionarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
