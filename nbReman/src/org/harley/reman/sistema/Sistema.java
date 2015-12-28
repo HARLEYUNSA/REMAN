@@ -1921,6 +1921,18 @@ public class Sistema {
         }
     }
     
+    /**
+     *
+     * Recuperar los datos de un requisito no funcional
+     *
+     * @param rnfCod Código del requisito no funcional
+     * @return Un objeto Educcion que contiene métodos accesores y mutadores
+     */
+    public RequisitoNF recuperarRequisitoNF(String rnfCod) {
+        RequisitosNF verRnf = manVerRnf.leerXML(rnfCod);
+        return verRnf.getActual();
+    }
+    
     public ArrayList<String> getEduccionesCodigo(){
         ArrayList<String> rpt = new ArrayList<>();
         String temp;
