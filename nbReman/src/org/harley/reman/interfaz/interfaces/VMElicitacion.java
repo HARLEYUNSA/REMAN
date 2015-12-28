@@ -40,7 +40,7 @@ public class VMElicitacion extends JDialog {
         datesEsp = this.sysReman.getEspecialistas();
         datesFue = this.sysReman.getFuentes();
 
-        //try {
+        try {
         //cargar elicitacion
         myEli = sysReman.recuperarElicitacion(eliCod);
 
@@ -58,17 +58,19 @@ public class VMElicitacion extends JDialog {
 
         int sizeEsp = cmbELEspecialista.getItemCount();
         for (int i = 0; i < sizeEsp; i++) {
-            temp = (String) cmbELEspecialista.getSelectedItem();
+            temp = (String) cmbELEspecialista.getItemAt(i);
             if (temp.equals(myEli.getEliEspNom())) {
                 cmbELEspecialista.setSelectedIndex(i);
+                break;
             }
         }
 
         int sizeFue = cmbELFuente.getItemCount();
         for (int i = 0; i < sizeFue; i++) {
-            temp = (String) cmbELFuente.getSelectedItem();
+            temp = (String) cmbELFuente.getItemAt(i);
             if (temp.equals(myEli.getEliFueNom())) {
                 cmbELFuente.setSelectedIndex(i);
+                break;
             }
         }
 
@@ -85,13 +87,8 @@ public class VMElicitacion extends JDialog {
         txtELPreCondicion.setText(myEli.getEliPre());
         txtELPostCondicion.setText(myEli.getEliPos());
 
-        ArrayList<Paso> pass = myEli.getEliExc().getPaso();
-        for (int i = 0; i < pass.size(); i++) {
-            System.out.println(pass.get(i).getPasNum());
-        }
-
-        //ToolsInterface.putJTablePasos(JTExc, myEli.getEliExc().getPaso(););
-        //ToolsInterface.putJTablePasos(JTSec, myEli.getEliSec().getPaso());
+        ToolsInterface.putJTablePasos(JTExc, myEli.getEliExc().getPaso());
+        ToolsInterface.putJTablePasos(JTSec, myEli.getEliSec().getPaso());
         txtELObservaciones.setText(myEli.getEliObs());
 
         //cargar historial
@@ -101,9 +98,9 @@ public class VMElicitacion extends JDialog {
         edu = sysReman.getEduccionesCodigo();
         ToolsInterface.putJList(JLisEdu, edu);
         flagLoadOk = true;
-        //} catch (Exception e) {
-        //    flagLoadOk = false;
-        //}
+        } catch (Exception e) {
+            flagLoadOk = false;
+        }
     }
 
     public boolean getLoadIsCorrect() {

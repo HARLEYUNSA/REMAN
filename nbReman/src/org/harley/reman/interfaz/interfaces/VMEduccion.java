@@ -51,17 +51,19 @@ public class VMEduccion extends JDialog {
 
             int sizeEsp = cmbEDEspecialista.getItemCount();
             for (int i = 0; i < sizeEsp; i++) {
-                temp = (String) cmbEDEspecialista.getSelectedItem();
+                temp = (String) cmbEDEspecialista.getItemAt(i);
                 if (temp.equals(myEdu.getEduEspNom())) {
                     cmbEDEspecialista.setSelectedIndex(i);
+                    break;
                 }
             }
 
             int sizeFue = cmbEDFuente.getItemCount();
             for (int i = 0; i < sizeFue; i++) {
-                temp = (String) cmbEDFuente.getSelectedItem();
+                temp = (String) cmbEDFuente.getItemAt(i);
                 if (temp.equals(myEdu.getEduFueNom())) {
                     cmbEDFuente.setSelectedIndex(i);
+                    break;
                 }
             }
 
@@ -711,13 +713,13 @@ public class VMEduccion extends JDialog {
                 eduNom, eduVer, eduTip, eduObj, eduFec, eduFueNom, eduFueCar,
                 eduFueTip, eduEspNom, eduEspEsp, eduEspExp, eduEspCar, eduDes,
                 eduObs);
-        
-        if(VEdu.getLoadIsCorrect()){
+
+        if (VEdu.getLoadIsCorrect()) {
             VEdu.setVisible(true);
-        }else{
+        } else {
             ToolsInterface.msjError(padre, "Error al cargar Especialistas y/o datos de Educcion");
         }
-        if(VEdu.versionSuccessful()){
+        if (VEdu.versionSuccessful()) {
             this.dispose();
         }
     }//GEN-LAST:event_btnVEDVersionarActionPerformed
