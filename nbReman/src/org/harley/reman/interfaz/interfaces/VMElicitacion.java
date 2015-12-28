@@ -889,7 +889,7 @@ public class VMElicitacion extends JDialog {
         if (eliNom.equals("") || !ToolsInterface.verificarVersion(eliVer)) {
             error = true;
         }
-        /**
+        
         if (ToolsInterface.validaElicitacion(eliDep, eliEspCar, eliFueCar,
                 eliEduCod, eliDes, eliEspEsp, eliEspExp, eliNom, eliObs, eliPos,
                 eliPre, eliFueTip, eliVer, eliEspNom, eliFueNom, eliFec)
@@ -907,7 +907,7 @@ public class VMElicitacion extends JDialog {
         } else {
             ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
         }
-        */
+        
 
     }//GEN-LAST:event_btnELGuardarActionPerformed
 
