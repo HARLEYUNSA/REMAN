@@ -1,23 +1,99 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.harley.reman.interfaz.interfaces;
 
+import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import org.harley.reman.interfaz.utilitario.ToolsInterface;
-
+import org.harley.reman.sistema.Especificacion;
+import org.harley.reman.sistema.Paso;
+import org.harley.reman.sistema.Sistema;
 /**
  *
  * @author User
  */
-public class VMEspecificacion extends javax.swing.JFrame {
+public class VMEspecificacion extends JDialog {
 
-    /**
-     * Creates new form VEspecificacion
-     */
-    public VMEspecificacion() {
+    Especificacion myEsp;
+    ArrayList<String> eli;
+    String eliCod;
+    Sistema sysReman;
+    ArrayList<ArrayList<String>> datesEsp;
+    ArrayList<ArrayList<String>> datesFue;
+    boolean flagLoadOk;
+    boolean flagSetOk;
+    JFrame padre;
+
+    public VMEspecificacion(JFrame padre, Sistema sysReman, String espCod) {
+        super(padre, true);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.sysReman = sysReman;
+        this.padre = padre;
+        flagSetOk = false;
+        datesEsp = this.sysReman.getEspecialistas();
+        datesFue = this.sysReman.getFuentes();
+
+        try {
+            //cargar de especificacion
+            myEsp = sysReman.recuperarEspecificacion(espCod);
+            eliCod = myEsp.getEspEliCod();
+            txtESCodigo.setText(espCod);
+            txtESNombre.setText(myEsp.getEspNombre().getNombre());
+            txtESVersion.setText(myEsp.getEspVer());
+            txtESDescripcion.setText(myEsp.getEspDes());
+            txtESObservaciones.setText(myEsp.getEspObs());
+            txtESArea.setText(myEsp.getEspDep());
+            txtESPreCondicion.setText(myEsp.getEspPre());
+            txtESPostCondicion.setText(myEsp.getEspPos());
+            
+            //cargar y sleccionar el actor de la especificacion
+            ToolsInterface.addItems2JComboBox(cmbESEspecialista, datesEsp.get(Sistema.ESP_NOMBRE));
+            ToolsInterface.addItems2JComboBox(cmbESFuente, datesFue.get(Sistema.FUE_NOMBRE));
+            String temp;
+
+            int sizeEsp = cmbESEspecialista.getItemCount();
+            for (int i = 0; i < sizeEsp; i++) {
+                temp = (String) cmbESEspecialista.getSelectedItem();
+                if (temp.equals(myEsp.getEspEspNom())) {
+                    cmbESEspecialista.setSelectedIndex(i);
+                }
+            }
+
+            int sizeFue = cmbESFuente.getItemCount();
+            for (int i = 0; i < sizeFue; i++) {
+                temp = (String) cmbESFuente.getSelectedItem();
+                if (temp.equals(myEsp.getEspFueNom())) {
+                    cmbESFuente.setSelectedIndex(i);
+                }
+            }
+
+            //carga de los datos de los actores
+            txtESEspecialidad.setText(myEsp.getEspEspEsp());
+            txtESExperiencia.setText(myEsp.getEspEspExp());
+            txtESCargoE.setText(myEsp.getEspEspCar());
+
+            txtESCargoF.setText(myEsp.getEspFueCar());
+            txtESTipoF.setText(myEsp.getEspFueTip());
+
+            ToolsInterface.putJTablePasos(jTable2, myEsp.getEspExc().getPaso());
+
+            //cargar historial
+            ToolsInterface.putJTableHistorico(jTable3, sysReman.getHist(Sistema.LIB_ESP, espCod));
+           //carga de educciones
+            eli = sysReman.getElicitacionesCodigo();
+            ToolsInterface.putJList(jList1, eli);
+            flagLoadOk = true;
+        } catch (Exception e) {
+            flagLoadOk = false;
+        }
+    }
+    
+    public boolean getLoadIsCorrect() {
+        return flagLoadOk && cmbESEspecialista.getItemCount() != 0 && cmbESFuente.getItemCount() != 0;
+    }
+
+    public boolean createSuccessful() {
+        return flagSetOk;
     }
 
     /**
@@ -532,6 +608,18 @@ public class VMEspecificacion extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("Fuente");
 
+        cmbESEspecialista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbESEspecialistaActionPerformed(evt);
+            }
+        });
+
+        cmbESFuente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbESFuenteActionPerformed(evt);
+            }
+        });
+
         txtESEspecialidad.setEditable(false);
 
         txtESExperiencia.setEditable(false);
@@ -702,8 +790,7 @@ public class VMEspecificacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnESCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESCancelarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnESCancelarActionPerformed
 
     private void btnESAddEliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESAddEliActionPerformed
@@ -713,35 +800,92 @@ public class VMEspecificacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnESAddEliActionPerformed
 
     private void btnESVersionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESVersionarActionPerformed
-
-    }//GEN-LAST:event_btnESVersionarActionPerformed
-
-    private void btnESGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESGuardarActionPerformed
-        
         String espAre = txtESArea.getText();
-        String espCarEsp = txtESCargoE.getText();
-        String espCarFue = txtESCargoF.getText();
+        String espEspCar = txtESCargoE.getText();
+        String espSthCar = txtESCargoF.getText();
         String espCod = txtESCodigo.getText();
         String espDes = txtESDescripcion.getText();
         String espEspEsp = txtESEspecialidad.getText();
         String espEspExp = txtESExperiencia.getText();
         String espNom = txtESNombre.getText();
         String espObs = txtESObservaciones.getText();
-        String espPosCon = txtESPostCondicion.getText();
-        String espPreCon = txtESPreCondicion.getText();
-        String espTipfue = txtESTipoF.getText();
+        String espPos = txtESPostCondicion.getText();
+        String espPre = txtESPreCondicion.getText();
+        String espSthTip = txtESTipoF.getText();
         String espVer = txtESVersion.getText();
         String espEspNom = (String)cmbESEspecialista.getSelectedItem();
-        String espFueNom = (String)cmbESFuente.getSelectedItem();
+        String espSthNom = (String)cmbESFuente.getSelectedItem();
         String espFec = dtESFecha.getText();
+        ArrayList<Paso> eliExc = ToolsInterface.getPasos(jTable2);
+
+        VEVersionarEsp VEsp = new VEVersionarEsp(padre, sysReman, espCod, 
+                espNom, eliCod, espVer, espFec, espSthNom, espSthCar, 
+                espSthTip, espEspNom, espEspEsp, espEspExp, espEspCar,
+                espAre, espDes, espPre, espPos, eliExc, espObs);
         
-        if(ToolsInterface.validaEspecificacion(espAre, espCarEsp, espCarFue, espCod, espDes, espEspEsp, espEspExp, espNom, espObs, espPosCon, espPreCon, espTipfue, espVer, espEspNom, espFueNom, espFec)){
-            
+        if(VEsp.getLoadIsCorrect()){
+            VEsp.setVisible(true);
+        }else{
+            ToolsInterface.msjError(padre, "Error al cargar Especialistas y/o datos de Educcion");
+        }
+        if(VEsp.versionSuccessful()){
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnESVersionarActionPerformed
+
+    private void btnESGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnESGuardarActionPerformed
+        String espAre = txtESArea.getText();
+        String espEspCar = txtESCargoE.getText();
+        String espSthCar = txtESCargoF.getText();
+        String espCod = txtESCodigo.getText();
+        String espDes = txtESDescripcion.getText();
+        String espEspEsp = txtESEspecialidad.getText();
+        String espEspExp = txtESExperiencia.getText();
+        String espNom = txtESNombre.getText();
+        String espObs = txtESObservaciones.getText();
+        String espPos = txtESPostCondicion.getText();
+        String espPre = txtESPreCondicion.getText();
+        String espSthTip = txtESTipoF.getText();
+        String espVer = txtESVersion.getText();
+        String espEspNom = (String)cmbESEspecialista.getSelectedItem();
+        String espSthNom = (String)cmbESFuente.getSelectedItem();
+        String espFec = dtESFecha.getText();
+                
+        ArrayList<Paso> eliExc = ToolsInterface.getPasos(jTable2);
+        
+        if (ToolsInterface.validaEspecificacion(espAre, espEspCar, espSthCar, 
+                espCod, espDes, espEspEsp, espEspExp, espNom, espObs, 
+                espPos, espPre, espSthTip, espVer, espEspNom, espSthNom, espFec)
+                && ToolsInterface.verificarVersion(espVer)) {
+            if (sysReman.modificarEspecificacion(espCod, espNom, espCod, espVer,
+                    espFec, espSthNom, espSthCar, espSthTip, espEspNom, 
+                    espEspEsp, espEspExp, espEspCar, espAre, espDes, 
+                    espPre, espPos, eliExc, espObs)){
+                flagSetOk = true;
+                ToolsInterface.msjInfo(this, "Operacion Exitosa", "La especificacion \""
+                        + espNom + "\" fue modificada satisfactoriamente.");
+                this.dispose();
+            } else {
+                ToolsInterface.msjError(this, "Error al modificar la especificacion");
+            }
         } else {
             ToolsInterface.msjError(this, "Error, Verificar los campos ingresados!");
         }
         
     }//GEN-LAST:event_btnESGuardarActionPerformed
+
+    private void cmbESEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbESEspecialistaActionPerformed
+    int index = cmbESEspecialista.getSelectedIndex();
+        txtESEspecialidad.setText(datesEsp.get(Sistema.ESP_ESPECIALIDAD).get(index));
+        txtESExperiencia.setText(datesEsp.get(Sistema.ESP_EXPERIENCIA).get(index));
+        txtESCargoE.setText(datesEsp.get(Sistema.ESP_CARGO).get(index));
+    }//GEN-LAST:event_cmbESEspecialistaActionPerformed
+
+    private void cmbESFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbESFuenteActionPerformed
+        int index = cmbESFuente.getSelectedIndex();
+        txtESCargoF.setText(datesFue.get(Sistema.FUE_CARGO).get(index));
+        txtESTipoF.setText(datesFue.get(Sistema.FUE_TIPO).get(index));
+    }//GEN-LAST:event_cmbESFuenteActionPerformed
 
 
 

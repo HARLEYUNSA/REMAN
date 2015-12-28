@@ -439,6 +439,7 @@ public class ToolsInterface {
         if (colums != 2 || filas <= 0) {
             return pasos;
         }
+        
         String pasNum;
         String pasDes;
         for (int i = 0; i < filas; i++) {
@@ -447,7 +448,6 @@ public class ToolsInterface {
             }
             pasNum = table.getValueAt(i, 0).toString().trim();
             pasDes = table.getValueAt(i, 1).toString().trim();
-
             if (pasDes.equals("") || pasNum.equals("")) {
                 continue;
             }

@@ -607,8 +607,16 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     private void btnVPEspecificiacionActionPerformed(java.awt.event.ActionEvent evt) {
-        VCEspecificacion ventanaEs = new VCEspecificacion();
-        ventanaEs.setVisible(true);
+        //NUEVA ESPECIFICACION
+        VCEspecificacion VEsp = new VCEspecificacion(this, sysReman);
+        if (VEsp.getLoadIsCorrect()) {
+            VEsp.setVisible(true);
+        } else {
+            ToolsInterface.msjError(this, "Error al cargar los datos del proyecto!");
+        }
+        if (VEsp.createSuccessful()) {
+            venEli.actualizarJTree();
+        }
     }
 
     private void btnOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {     

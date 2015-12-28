@@ -868,7 +868,7 @@ public class Sistema {
             Elicitaciones verEli = new Elicitaciones();
             verEli.newEli(eli);
             manVerEli.escribirXML(eli.getEliNombre().getCodigo(), verEli);
-            propiedades.setProperty("numEdu",
+            propiedades.setProperty("numEli",
                     Integer.toString(Elicitacion.getNumero()));
             guardarPropiedades(dirPrincipal);
             return true;
@@ -1951,6 +1951,25 @@ public class Sistema {
         return rpt;
     }
     
+    public ArrayList<String> getElicitacionesCodigo(){
+        ArrayList<String> rpt = new ArrayList<>();
+        String temp;
+        try {
+            File[] ficheros;
+            ficheros = new File(dirPrincipal + "\\src\\eli").listFiles();
+            for (File fichero : ficheros) {
+                temp = fichero.getName();
+                if (!ToolsInterface.checkExpReg("ELI[0-9][0-9][0-9][0-9].xml", temp)) {
+                    continue;
+                }
+                rpt.add(temp.substring(0,temp.length()-4));   
+            }
+        } catch (Exception e) {
+        }
+        return rpt;
+    }
+    
+    
     
     
     //Facilitadores de acceso
@@ -1977,4 +1996,6 @@ public class Sistema {
     public static final int LIB_RNF = 3;
     public static final int LIB_ORG = 4;
     public static final int LIB_ACT = 5;
+
+    
 }
