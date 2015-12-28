@@ -173,7 +173,7 @@ public class ToolsInterface {
 
         if (eduEspCar.equals("") || eduFueCar.equals("") || eduDes.equals("")
                 || eduEspEsp.equals("") || eduEspExp.equals("") || eduNom.equals("")
-                || eduObj.equals("") || eduObs.equals("") || eduTip.equals("")
+                || eduObj.equals("") || eduTip.equals("")
                 || eduFueTip.equals("") || eduVer.equals("") || eduEspNom.equals("")
                 || eduFueNom.equals("") || eduFec.equals("")) {
             flag = false;
@@ -192,7 +192,7 @@ public class ToolsInterface {
 
         if (eliAre.equals("") || eliCarEsp.equals("") || eliCarFue.equals("")
                 || eliCod.equals("") || eliDes.equals("") || eliEspEsp.equals("")
-                || eliEspExp.equals("") || eliNom.equals("") || eliObs.equals("")
+                || eliEspExp.equals("") || eliNom.equals("") 
                 || eliPosCon.equals("") || eliPreCon.equals("") || eliTipfue.equals("")
                 || eliVer.equals("") || eliEspNom.equals("") || eliFueNom.equals("")
                 || eliFec.equals("")) {
@@ -212,7 +212,7 @@ public class ToolsInterface {
 
         if (espAre.equals("") || espCarEsp.equals("") || espCarFue.equals("")
                 || espCod.equals("") || espDes.equals("") || espEspEsp.equals("")
-                || espEspExp.equals("") || espNom.equals("") || espObs.equals("")
+                || espEspExp.equals("") || espNom.equals("") 
                 || espPosCon.equals("") || espPreCon.equals("") || espTipfue.equals("")
                 || espVer.equals("") || espEspNom.equals("") || espFueNom.equals("")
                 || espFec.equals("")) {
@@ -234,7 +234,7 @@ public class ToolsInterface {
                 || rnfObj.equals("") || rnfFec.equals("") || rnfFueNom.equals("")
                 || rnfFueCar.equals("") || rnfFueTip.equals("") || rnfEspNom.equals("")
                 || rnfEspEsp.equals("") || rnfEspExp.equals("") || rnfEspCar.equals("")
-                || rnfDep.equals("") || rnfDes.equals("") || rnfObs.equals("")) {
+                || rnfDep.equals("") || rnfDes.equals("")) {
             flag = false;
         }
 
