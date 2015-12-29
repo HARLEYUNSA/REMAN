@@ -274,7 +274,7 @@ public class ToolsInterface {
         char letter;
         for (int i = 0; i < number.length(); i++) {
             letter = number.charAt(i);
-            if (!Character.isAlphabetic(letter) && letter != '_' && letter != ' ' && letter != '-') {
+            if (!Character.isAlphabetic(letter) && letter != '_' && letter != ' ' && letter != '-' && letter != '.') {
                 return false;
             }
         }

@@ -272,7 +272,7 @@ public class VCOrganizacion extends JDialog {
 
         if (orgNom.equals("") || orgDir.equals("") || orgTel.equals("")
                 || orgPagWeb.equals("") || orgCorEle.equals("")
-                || !ToolsInterface.isAlphabetic(orgNom) || !ToolsInterface.isNumber(orgTel)) {
+                || ToolsInterface.isNumber(orgTel)) {
             error = true;
         }
         if (!error) {
