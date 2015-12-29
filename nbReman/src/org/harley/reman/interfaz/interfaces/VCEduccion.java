@@ -445,7 +445,7 @@ public class VCEduccion extends JDialog {
                 .addContainerGap(58, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Descripción", jPanel3);
+        jTabbedPane1.addTab("Actor", jPanel3);
 
         jLayeredPane10.setBorder(javax.swing.BorderFactory.createTitledBorder("Observaciones"));
 

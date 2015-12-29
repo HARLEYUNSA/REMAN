@@ -1,9 +1,12 @@
 package org.harley.reman.interfaz.utilitario;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
@@ -12,10 +15,10 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
-import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import org.harley.reman.reportes.xml.XMLConverter;
 import org.harley.reman.sistema.Historico;
 import org.harley.reman.sistema.Paso;
 
@@ -175,7 +178,7 @@ public class ToolsInterface {
 
         if (eduEspCar.equals("") || eduFueCar.equals("") || eduDes.equals("")
                 || eduEspEsp.equals("") || eduEspExp.equals("") || eduNom.equals("")
-                || eduObj.equals("") || eduObs.equals("") || eduTip.equals("")
+                || eduObj.equals("") || eduTip.equals("")
                 || eduFueTip.equals("") || eduVer.equals("") || eduEspNom.equals("")
                 || eduFueNom.equals("") || eduFec.equals("")) {
             flag = false;
@@ -194,7 +197,7 @@ public class ToolsInterface {
 
         if (eliAre.equals("") || eliCarEsp.equals("") || eliCarFue.equals("")
                 || eliCod.equals("") || eliDes.equals("") || eliEspEsp.equals("")
-                || eliEspExp.equals("") || eliNom.equals("") || eliObs.equals("")
+                || eliEspExp.equals("") || eliNom.equals("") 
                 || eliPosCon.equals("") || eliPreCon.equals("") || eliTipfue.equals("")
                 || eliVer.equals("") || eliEspNom.equals("") || eliFueNom.equals("")
                 || eliFec.equals("")) {
@@ -214,7 +217,7 @@ public class ToolsInterface {
 
         if (espAre.equals("") || espCarEsp.equals("") || espCarFue.equals("")
                 || espCod.equals("") || espDes.equals("") || espEspEsp.equals("")
-                || espEspExp.equals("") || espNom.equals("") || espObs.equals("")
+                || espEspExp.equals("") || espNom.equals("") 
                 || espPosCon.equals("") || espPreCon.equals("") || espTipfue.equals("")
                 || espVer.equals("") || espEspNom.equals("") || espFueNom.equals("")
                 || espFec.equals("")) {
@@ -236,7 +239,7 @@ public class ToolsInterface {
                 || rnfObj.equals("") || rnfFec.equals("") || rnfFueNom.equals("")
                 || rnfFueCar.equals("") || rnfFueTip.equals("") || rnfEspNom.equals("")
                 || rnfEspEsp.equals("") || rnfEspExp.equals("") || rnfEspCar.equals("")
-                || rnfDep.equals("") || rnfDes.equals("") || rnfObs.equals("")) {
+                || rnfDep.equals("") || rnfDes.equals("")) {
             flag = false;
         }
 
@@ -271,7 +274,7 @@ public class ToolsInterface {
         char letter;
         for (int i = 0; i < number.length(); i++) {
             letter = number.charAt(i);
-            if (!Character.isAlphabetic(letter) && letter != '_' && letter != ' ' && letter != '-') {
+            if (!Character.isAlphabetic(letter) && letter != '_' && letter != ' ' && letter != '-' && letter != '.') {
                 return false;
             }
         }
@@ -483,6 +486,15 @@ public class ToolsInterface {
     public static void putJList(JList lista, ArrayList<String> datos) {
         DefaultListModel model = modelList(datos);
         lista.setModel(model);
+    }
+    
+    public static void abrirPDF(String archivoPDF){
+        try {
+            File file = new File(archivoPDF);
+            Desktop.getDesktop().open(file);
+        } catch (IOException ex) {
+            Logger.getLogger(XMLConverter.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

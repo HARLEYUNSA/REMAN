@@ -252,6 +252,8 @@ public class VMElicitacion extends JDialog {
         });
         jScrollPane9.setViewportView(JLisEdu);
 
+        txteduNom.setEditable(false);
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Seleccione la educcion");
 

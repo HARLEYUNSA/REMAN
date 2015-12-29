@@ -54,7 +54,7 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
         treeEsp.setModel(tree.getModel());
         treeEsp.addMouseListener(ml);
     }
-    
+
     public VTEspecificacion(JFrame padre, Sistema sysReman) {
         initComponents();
         this.padre = padre;
@@ -189,9 +189,9 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
         //RESTAURAR ESPECIFICACION
         String path = dirTree.getLastPathComponent().toString();
         VOERestaurar vRes = new VOERestaurar(padre, sysReman, path, Sistema.LIB_ESP);
-        if(vRes.getLoadIsCorrect()){
+        if (vRes.getLoadIsCorrect()) {
             vRes.setVisible(true);
-        }else{
+        } else {
             ToolsInterface.msjError(padre, "Error al cargar las versiones de la especificacion!");
         }    }//GEN-LAST:event_menuEspItem3ActionPerformed
 
@@ -204,17 +204,17 @@ public class VTEspecificacion extends javax.swing.JInternalFrame {
             direccion = ExportarFile.getSelectedFile().getParent();
             nombre = ExportarFile.getSelectedFile().getName();
             nombre = ToolsInterface.addExtensionPdf(nombre);
-            if(!nombre.equals("error")){
-                if(!sysReman.exportarLibro(Sistema.LIB_ESP,direccion, nombre)){
+            if (!nombre.equals("error")) {
+                if (!sysReman.exportarLibro(Sistema.LIB_ESP, direccion, nombre)) {
                     ToolsInterface.msjError(padre, "Error al cargar los datos, reviselos antes de continuar la operacion!");
                 }
-            }else{
+            } else {
                 ToolsInterface.msjError(padre, "Error con el nombre del archivo, intentelo nuevamente!");
-            }   
+            }
         }
     }//GEN-LAST:event_menuDocEspItem2ActionPerformed
 
-    public void actualizarJTree(){
+    public void actualizarJTree() {
         JTree model = ToolsInterface.generateJTreeBook("Documento de Especificación", "Especificación", sysReman.getDirPrincipal() + "\\src\\esp");
         treeEsp.setModel(model.getModel());
     }

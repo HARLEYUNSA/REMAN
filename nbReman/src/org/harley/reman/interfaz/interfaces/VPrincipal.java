@@ -1,6 +1,7 @@
 package org.harley.reman.interfaz.interfaces;
 
 import java.beans.PropertyVetoException;
+import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -41,11 +42,11 @@ public class VPrincipal extends javax.swing.JFrame {
 
         //inicializacion de Sistema
         this.sysReman = sysReman;
-        venEdu = new VTEduccion(this,this.sysReman);
-        venEli = new VTElicitacion(this,this.sysReman);
-        venEsp = new VTEspecificacion(this,this.sysReman);
-        venNoFun = new VTNoFuncional(this,this.sysReman);
-        venOrg = new VTOrganizacion(this,this.sysReman);
+        venEdu = new VTEduccion(this, this.sysReman);
+        venEli = new VTElicitacion(this, this.sysReman);
+        venEsp = new VTEspecificacion(this, this.sysReman);
+        venNoFun = new VTNoFuncional(this, this.sysReman);
+        venOrg = new VTOrganizacion(this, this.sysReman);
 
         DeskPanel2.add(venEli);
         DeskPanel2.add(venEdu);
@@ -310,6 +311,11 @@ public class VPrincipal extends javax.swing.JFrame {
         btnVPAyuda.setFocusable(false);
         btnVPAyuda.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnVPAyuda.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnVPAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVPAyudaActionPerformed(evt);
+            }
+        });
         herramientasReman.add(btnVPAyuda);
 
         LibrosReman.setBackground(new java.awt.Color(203, 210, 228));
@@ -458,9 +464,19 @@ public class VPrincipal extends javax.swing.JFrame {
         mnVPAyuda.setText("Ayuda");
 
         jMenuItem5.setText("Manual Usuario");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         mnVPAyuda.add(jMenuItem5);
 
         jMenuItem6.setText("Acerca de ...");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         mnVPAyuda.add(jMenuItem6);
 
         menuReman.add(mnVPAyuda);
@@ -527,6 +543,21 @@ public class VPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnArchivo_SalirActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        ToolsInterface.abrirPDF("MANUAL.pdf");
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void btnVPAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVPAyudaActionPerformed
+        ToolsInterface.abrirPDF("MANUAL.pdf");
+    }//GEN-LAST:event_btnVPAyudaActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        //acerca de
+        VOINFO info = new VOINFO(this, true);
+        info.setLocationRelativeTo(null);
+        info.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     private void btnVPNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         VProyecto VNProyect = new VProyecto(this, sysReman);
         VNProyect.setVisible(true);
@@ -538,22 +569,22 @@ public class VPrincipal extends javax.swing.JFrame {
     private void btnVPVersionarActionPerformed(java.awt.event.ActionEvent evt) {
         //VERSIONAR UN LIBRO
         VOLVersionar VLib = new VOLVersionar(this, sysReman);
-        if(VLib.getLoadIsCorrect()){
+        if (VLib.getLoadIsCorrect()) {
             VLib.setVisible(true);
-        }else{
-            ToolsInterface.msjError(this,"Error al cargar los actores especialistas!");
+        } else {
+            ToolsInterface.msjError(this, "Error al cargar los actores especialistas!");
         }
     }
 
     private void btnVPEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {
         //CREAR ESPECIALISTA
         VCEspecialista VEsp = new VCEspecialista(this, sysReman);
-        if(VEsp.getLoadIsCorrect()){
+        if (VEsp.getLoadIsCorrect()) {
             VEsp.setVisible(true);
-        }else{
-            ToolsInterface.msjError(this,"Error al cargar las Organizaciones!");
+        } else {
+            ToolsInterface.msjError(this, "Error al cargar las Organizaciones!");
         }
-        if(VEsp.createSuccessful()){
+        if (VEsp.createSuccessful()) {
             venOrg.actualizarJTree();
         }
     }
@@ -562,7 +593,7 @@ public class VPrincipal extends javax.swing.JFrame {
         //NUEVA ORGANIZACION
         VCOrganizacion VOrg = new VCOrganizacion(this, sysReman);
         VOrg.setVisible(true);
-        if(VOrg.createSuccessful()){
+        if (VOrg.createSuccessful()) {
             venOrg.actualizarJTree();
         }
     }
@@ -570,12 +601,12 @@ public class VPrincipal extends javax.swing.JFrame {
     private void btnVPFuenteActionPerformed(java.awt.event.ActionEvent evt) {
         //CREAR FUENTE
         VCFuente VFue = new VCFuente(this, sysReman);
-        if(VFue.getLoadIsCorrect()){
+        if (VFue.getLoadIsCorrect()) {
             VFue.setVisible(true);
-        }else{
+        } else {
             ToolsInterface.msjError(this, "Error al cargar las Organizaciones!");
         }
-        if(VFue.createSuccessful()){
+        if (VFue.createSuccessful()) {
             venOrg.actualizarJTree();
         }
     }
@@ -590,7 +621,7 @@ public class VPrincipal extends javax.swing.JFrame {
         }
         if (VEdu.createSuccessful()) {
             venEdu.actualizarJTree();
-        } 
+        }
     }
 
     private void btnVPElicitacionActionPerformed(java.awt.event.ActionEvent evt) {
@@ -619,7 +650,7 @@ public class VPrincipal extends javax.swing.JFrame {
         }
     }
 
-    private void btnOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {     
+    private void btnOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {
         venOrg.setVisible(true);
         venEdu.setVisible(false);
         venEsp.setVisible(false);
@@ -660,6 +691,10 @@ public class VPrincipal extends javax.swing.JFrame {
             direccion = ExportarFile.getSelectedFile().getParent();
             sysReman.setDirPrincipal(direccion);
             sysReman.setStateReman(direccion);
+            File f = new File(direccion);
+            if (f.exists()) {
+                sysReman.ingresarProyecto();
+            }
             actualizarJTrees();
         }
     }
@@ -686,15 +721,15 @@ public class VPrincipal extends javax.swing.JFrame {
         }
         if (ventanaNF.createSuccessful()) {
             venEdu.actualizarJTree();
-        } 
-        
+        }
+
     }
 
     private void btnVPImportarActionPerformed(java.awt.event.ActionEvent evt) {
         //RESTAURAR UN LIBRO
         VOLRestaurar VLib = new VOLRestaurar(this, sysReman);
         VLib.setVisible(true);
-  
+
     }
 
     private void btnVPExportarActionPerformed(java.awt.event.ActionEvent evt) {
